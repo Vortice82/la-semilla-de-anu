@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>La semilla de Anu - Web Oficial</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; text-align: center;">
+
+    <h1>La semilla de Anu: Volumen 1 Anunaki</h1>
+    <p>Una obra de <strong>David Robles Asuncion</strong></p>
+
+    <img src="portada.jpg" alt="Portada La semilla de Anu" style="width: 100%; max-width: 400px; border-radius: 10px; margin-bottom: 20px;">
+
+    <div style="text-align: left; background: #f9f9f9; padding: 20px; border-radius: 8px;">
+        <h2>Sinopsis</h2>
+        <p>Explora los misterios de los Anunaki en este primer volumen...</p>
+    </div>
+
+    <div style="margin: 40px 0;">
+        <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" 
+           target="_blank" 
+           style="background-color: #b38b00; color: white; padding: 18px 35px; text-decoration: none; font-size: 1.3em; font-weight: bold; border-radius: 5px; display: inline-block;">
+           ADQUIRIR EJEMPLAR
+        </a>
+    </div>
+
+    <footer style="margin-top: 50px; color: #666;">
+        <p>&copy; 2025 David Robles Asuncion</p>
+    </footer>
+
+</body>
+</html>
