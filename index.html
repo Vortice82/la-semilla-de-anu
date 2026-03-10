@@ -2,33 +2,55 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La semilla de Anu - Web Oficial</title>
-</head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; text-align: center;">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+            background-color: #1a1a1a; /* Fondo oscuro tipo épico */
+            color: #e0e0e0;
+        }
+        .container {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        h1 { color: #d4a017; margin-bottom: 5px; }
+        .autor { font-style: italic; color: #bbb; margin-bottom: 30px; }
+        
+        /* Estilo de la imagen */
+        .portada {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 8px;
+            border: 3px solid #d4a017;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+        }
 
-    <h1>La semilla de Anu: Volumen 1 Anunaki</h1>
-    <p>Una obra de <strong>David Robles Asuncion</strong></p>
+        .sinopsis {
+            text-align: left;
+            background: #333;
+            padding: 20px;
+            border-left: 5px solid #d4a017;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
 
-    <img src="portada.png" alt="Portada La semilla de Anu" style="width: 100%; max-width: 400px; border-radius: 10px; margin-bottom: 20px;">
-
-    <div style="text-align: left; background: #f9f9f9; padding: 20px; border-radius: 8px;">
-        <h2>Sinopsis</h2>
-        <p>Explora los misterios de los Anunaki en este primer volumen...</p>
-    </div>
-
-    <div style="margin: 40px 0;">
-        <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" 
-           target="_blank" 
-           style="background-color: #b38b00; color: white; padding: 18px 35px; text-decoration: none; font-size: 1.3em; font-weight: bold; border-radius: 5px; display: inline-block;">
-           ADQUIRIR EJEMPLAR
-        </a>
-    </div>
-
-    <footer style="margin-top: 50px; color: #666;">
-        <p>&copy; 2025 David Robles Asuncion</p>
-    </footer>
-
-</body>
-</html>
-
-
+        /* Botón de compra */
+        .btn-compra {
+            display: inline-block;
+            background-color: #d4a017;
+            color: #1a1a1a !important;
+            padding: 18px 40px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 50px;
+            transition:
