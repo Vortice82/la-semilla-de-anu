@@ -11,7 +11,7 @@
     <style>
         :root {
             --background-image-embedded: url('./portada.png');
-            --main-font: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+            --main-font: 'Palatino Linotype','Book Antiqua',Palatino,serif;
             --text-color: #3e2723;
             --accent-color: #d7ccc8;
             --buy-button-bg: #8c7b60;
@@ -22,7 +22,7 @@
             margin: 0;
             padding: 0;
             background-image: var(--background-image-embedded);
-            background-size: contain;       /* Fondo completo en PC */
+            background-size: contain;
             background-repeat: no-repeat;
             background-position: top center;
             background-color: #000;
@@ -30,7 +30,6 @@
 
             font-family: var(--main-font);
             color: var(--text-color);
-
             display: flex;
             justify-content: center;
             min-height: 100vh;
@@ -41,33 +40,9 @@
             max-width: 800px;
             display: flex;
             position: relative;
-            z-index: 2; /* evita superposiciones */
+            z-index: 2;
         }
 
-        /* Decoración izquierda */
         .sidebar-left {
             width: 8%;
             position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            padding-top: 10%;
-            pointer-events: none;
-        }
-
-        .decorations-column {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .decoration-eye {
-            width: 30px;
-            height: 30px;
-            background-color: var(--text-color);
-            border-radius: 50%;
-        }
-
-        .decoration-eye::after {
