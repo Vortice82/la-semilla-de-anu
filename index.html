@@ -3,77 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Semilla de Anu - Volumen I: Anunaki (Sitio Oficial)</title>
+    <title>La Semilla de Anu - Sitio Oficial</title>
     <style>
-        /* --- ESTILOS DE FONDO Y PÁGINA COMPLETA --- */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body, html { 
+            height: 100%; 
+            background-color: #2c221a; /* Fondo marrón oscuro */
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
             overflow: hidden; /* Evita barras de desplazamiento */
-            background-color: #2c221a; /* Fondo oscuro detrás del diseño */
-            font-family: 'Cambria', 'Georgia', serif; /* Tipografía tipo libro antiguo */
-            display: flex;
-            justify-content: center; /* Centra horizontalmente */
-            align-items: center; /* Centra verticalmente */
         }
 
-        /* --- CONTENEDOR PRINCIPAL QUE USA TU DISEÑO COMO FONDO --- */
-        #site_container {
+        .web-container {
             position: relative;
-            height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+            /* Solución para encajar la imagen sin cortes verticalmente */
+            max-height: 100vh; 
             width: auto;
-            aspect-ratio: 928 / 1238; /* Proporción exacta de tu imagen (928x1238px) */
-            background-image: url('portada.png'); /* Usa tu diseño original como fondo */
-            background-size: contain; /* ¡CORRECCIÓN! Asegura que la imagen completa sea visible, sin recortes */
-            background-position: center; /* Centra la imagen */
-            background-repeat: no-repeat; /* Evita que la imagen se repita */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Sombra decorativa */
-        }
-
-        /* --- BARRA LATERAL DE BOTONES INTERACTIVOS (Posicionamiento ajustado) --- */
-        #botones_bar {
-            position: absolute;
-            top: 15%; /* Posiciona la barra verticalmente */
-            right: 20px; /* Margen derecho */
-            width: 200px; /* Ancho de la barra de botones */
+            aspect-ratio: 928 / 1238; /* Proporción de la imagen original */
             display: flex;
-            flex-direction: column;
-            gap: 15px; /* Espaciado entre botones */
-            padding: 20px;
-            background: rgba(232, 220, 196, 0.2); /* Sutil fondo transparente de pergamino */
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            z-index: 10; /* Asegura que esté encima */
+            justify-content: center;
         }
 
-        /* --- ESTILOS DE LOS BOTONES INTERACTIVOS --- */
-        .btn-interactivo {
+        .background-design {
+            height: 100%;
+            width: auto;
+            display: block;
+        }
+
+        /* Capa para posicionar los botones sobre la imagen */
+        .botones-capa {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Estilo para los botones (transparentes con texto centrado) */
+        .btn-invisible {
+            position: absolute;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            gap: 10px;
-            padding: 12px 18px;
-            border-radius: 25px; /* Bordes redondeados modernos */
+            justify-content: center; /* Centra el texto */
             text-decoration: none;
-            color: #e8dcc4; /* Texto color crema claro */
+            color: #d4bc8c; /* Color crema para el texto */
+            font-family: 'Cambria', 'Georgia', serif; /* Fuente estilo antiguo */
             font-weight: bold;
             font-size: 0.9em;
-            text-transform: uppercase;
+            text-transform: uppercase; /* Texto en mayúsculas */
             letter-spacing: 0.5px;
-            transition: all 0.3s ease; /* Efectos suaves */
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
+            /* background: rgba(255, 0, 0, 0.3); */ /* Descomenta esta línea para ver las áreas de clic en rojo */
         }
 
-        /* Icono SVG dentro del botón */
-        .btn-interactivo svg {
-            width: 22px;
-            height: 22px;
-            fill: currentColor;
-            flex-shrink: 0;
-        }
+        /* Posiciones exactas para coincidir con los botones diseñados en la imagen */
+        .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
+        .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
+        .btn-correo    { top: 30.5%; left: 69%; width: 22%; height: 6%; }
+        .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
+        /* Botón de YouTube corregido, misma posición */
+        .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
 
-        /* Efecto al pasar el ratón (Hover) */
-        .btn-
+        /* Ajustes para dispositivos móviles */
+        @media (max-width: 600px) {
+            .web-container { width: 100vw; height: auto; aspect-ratio: 928 / 1238; max-height: none; }
+            .background-design { width: 100%; height: auto; }
+            .btn-invisible { font-size: 0.8em; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="web-container">
+        <img src="portada.png" class="background-design" alt="La Semilla de Anu">
+
+        <div class="botones-capa">
+            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
+            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
+            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo">CONTACTO</a>
+            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank">INSTAGRAM</a>
+            
+            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-youtube" target="_blank">YOUTUBE</a>
+        </div>
+    </div>
+
+</body>
+</html>
