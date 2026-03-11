@@ -7,54 +7,28 @@
     <style>
         body { font-family: 'Segoe UI', sans-serif; background-color: #121212; color: white; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
         .contenedor { width: 100%; max-width: 500px; text-align: center; }
-        
-        /* DISEÑO DE TÍTULO TIPO PIEDRA GRUESA - RECTIFICADO */
-        h1 {
-            color: #dcdcdc; /* Color gris piedra claro */
-            margin-top: 20px;
-            margin-bottom: 5px;
-            font-weight: 900; /* Letra lo más gruesa posible */
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 2.5rem;
-            
-            /* Efecto de contorno grueso y oscuro */
-            -webkit-text-stroke: 1.5px #222;
-            text-stroke: 1.5px #222;
-            
-            /* Múltiples sombras para dar efecto de relieve y profundidad */
-            text-shadow: 
-                2px 2px 0px #222,  /* Sombra de contorno */
-                -1px -1px 0px #fff, /* Brillo ligero superior (biselado) */
-                3px 3px 3px #000,   /* Sombra profunda para relieve 3D */
-                4px 4px 5px rgba(0,0,0,0.5);
-            
-            display: inline-block;
-        }
-
+        h1 { color: #d4a017; margin-top: 20px; }
         .portada-principal { width: 100%; border: 2px solid #d4a017; border-radius: 10px; margin: 20px 0; box-shadow: 0 0 20px rgba(212,160,23,0.4); }
         
         .sinopsis { background: #1e1e1e; padding: 20px; border-radius: 10px; text-align: left; border-left: 4px solid #d4a017; margin-bottom: 30px; }
         
-        /* GALERÍA DE IMÁGENES - SE MANTIENEN ESTÁTICAS */
+        /* Galería de imágenes */
         .galeria { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .galeria img { 
-            width: 100%; 
-            border-radius: 5px; 
-            border: 1px solid #444;
-            /* Eliminados todos los efectos de hover, active y puntero */
-        }
+        .galeria img { width: 100%; border-radius: 5px; cursor: pointer; border: 1px solid #444; transition: 0.3s; }
+        .galeria img:hover { border-color: #d4a017; transform: scale(1.02); }
 
-        .boton { display: block; background: #d4a017; color: black; padding: 18px; text-decoration: none; font-weight: bold; border-radius: 8px; margin: 25px 0; text-transform: uppercase; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: background 0.2s; }
-        .boton:hover { background: #ffc841; }
+        .boton { display: block; background: #d4a017; color: black; padding: 18px; text-decoration: none; font-weight: bold; border-radius: 8px; margin: 25px 0; text-transform: uppercase; font-size: 1.1rem; }
         
         footer { color: #555; margin-top: 40px; font-size: 0.8rem; padding-bottom: 40px; }
+
+        /* Estilo para agrandar la imagen al tocarla */
+        .galeria img:active { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(2); z-index: 1000; border: none; box-shadow: 0 0 100px black; }
     </style>
 </head>
 <body>
     <div class="contenedor">
         <h1>La semilla de Anu</h1>
-        <p style="color:#aaa; margin-top: 0;">Volumen 1: Anunaki<br><strong>David Robles Asuncion</strong></p>
+        <p style="color:#aaa;">Volumen 1: Anunaki<br><strong>David Robles Asuncion</strong></p>
         
         <img src="portada.png" alt="Portada Principal" class="portada-principal">
 
@@ -64,6 +38,7 @@
         </div>
 
         <h3 style="color:#d4a017;">Disponibilidad y Promoción</h3>
+        <p style="font-size: 0.8rem; color: #888;">(Toca las imágenes para verlas mejor)</p>
         <div class="galeria">
             <img src="mapa.jpg" alt="Mapa de ventas">
             <img src="promo.jpg" alt="Promoción libro">
