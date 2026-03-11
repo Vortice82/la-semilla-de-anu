@@ -1,3 +1,9 @@
-<div class="media">
-  <img src="portada.png" alt="Portada del libro La semilla de Anu (Volumen I: Anunaki)" class="portada">
-</div>
+.portada{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:10px;
+  border:2px solid #d4a017;
+  box-shadow:0 0 20px rgba(212,160,23,.3);
+  background:transparent;  /* sin negro de fondo */
+}
