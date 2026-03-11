@@ -8,19 +8,82 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            transition: transform 0.3s, background-color 0.3s;
+            transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: none;
+            cursor: pointer;
         }
 
         .buy-button:hover {
             background-color: #6d5f4a;
             transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
 
-        /* RESPONSIVE */
+        .social-container {
+            margin-top: 50px;
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .social-icon {
+            color: var(--text-color);
+            font-size: 1.8rem;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            color: #8c7b60;
+            transform: translateY(-5px);
+        }
+
         @media (max-width: 600px) {
-            .main-content { padding: 40px 5%; }
-            .main-title { font-size: 1.5rem; }
+            .main-title { font-size: 1.6rem; }
+            .main-content { padding: 40px 8%; }
         }
     </style>
 </head>
+<body>
+
+    <div class="page-container">
+        <aside class="sidebar-left">
+            <div class="decorations-column">
+                <div class="decoration-eye"></div>
+                <div class="decoration-eye"></div>
+                <div class="decoration-eye"></div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="main-title">
+                La Semilla de Anu
+                <div class="sub-title">Vórtice Verde</div>
+            </div>
+
+            <section class="volume-card">
+                <div class="volume-label">
+                    VOLUMEN I <span class="status-badge">Anunaki</span>
+                </div>
+                
+                <div class="tablet-image" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('./portada.png');">
+                    </div>
+
+                <div class="buy-button-container">
+                    <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" target="_blank" class="buy-button">
+                        <i class="fas fa-book-open"></i> ADQUIRIR EN EXLIBRIC
+                    </a>
+                </div>
+            </section>
+
+            <div class="social-container">
+                <a href="#" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
