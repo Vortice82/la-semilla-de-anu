@@ -5,20 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>La semilla de Anu – Volumen I: Anunaki</title>
 
-  <!-- SEO básico -->
   <meta name="description" content="La semilla de Anu (Volumen I: Anunaki) de David Robles Asuncion. Un viaje a través del tiempo y el conocimiento que cambiará tu forma de ver la historia.">
-
-  <!-- Open Graph / Twitter (para compartir con vista previa) -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="La semilla de Anu – Volumen I: Anunaki">
-  <meta property="og:description" content="Descubre los secretos ancestrales de los Anunaki en esta apasionante obra.">
-  <meta property="og:image" content="https://vortice82.github.io/la-semilla-de-anu/portada.png">
-  <meta property="og:url" content="https://vortice82.github.io/la-semilla-de-anu/">
-  <meta property="og:locale" content="es_ES">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="La semilla de Anu – Volumen I: Anunaki">
-  <meta name="twitter:description" content="Descubre los secretos ancestrales de los Anunaki en esta apasionante obra.">
-  <meta name="twitter:image" content="https://vortice82.github.io/la-semilla-de-anu/portada.png">
 
   <style>
     :root{
@@ -60,7 +47,80 @@
     .portada{
       display:block;
       width:100%;
-      height:auto;
+      height:auto;              /* sin altura fija */
       border-radius:10px;
       border:2px solid var(--gold);
       box-shadow:0 0 20px rgba(212,160,23,.3);
+      background:transparent;   /* evita “bloque negro” */
+    }
+    .caja{
+      background:var(--card);
+      padding:16px;
+      border-radius:10px;
+      border-bottom:3px solid var(--gold);
+      text-align:left;
+    }
+    .caja h2{
+      margin:0 0 8px;
+      color:var(--gold);
+      font-size:1.18rem;
+    }
+    .caja p{
+      margin:0;
+      line-height:1.55;
+      font-size:.98rem;
+    }
+    .btn{
+      display:block;
+      margin:26px 0 0;
+      padding:14px 16px;
+      background:var(--gold);
+      color:#000;
+      text-decoration:none;
+      font-weight:700;
+      border-radius:8px;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      transition:transform .06s ease, box-shadow .2s ease, background-color .2s ease;
+    }
+    .btn:hover,.btn:focus-visible{
+      background:#e2b231;
+      box-shadow:0 8px 24px rgba(226,178,49,.35);
+      transform:translateY(-1px);
+      outline:none;
+    }
+    footer{
+      margin-top:28px;
+      color:var(--muted2);
+      font-size:.82rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>La semilla de Anu</h1>
+    <p class="autor">Volumen 1: Anunaki<br>por David Robles Asuncion</p>
+
+    <div class="media">
+      <!-- Debe existir en la MISMA carpeta que index.html -->
+      <img src="portada.png?v=2"
+           alt="Portada del libro La semilla de Anu (Volumen I: Anunaki)"
+           class="portada">
+    </div>
+
+    <section class="caja" aria-labelledby="sinopsis">
+      <h2 id="sinopsis">Sinopsis</h2>
+      <p>
+        Descubre los secretos ancestrales de los Anunaki en esta apasionante obra.
+        Un viaje a través del tiempo y el conocimiento que cambiará tu forma de ver la historia.
+      </p>
+    </section>
+
+    <a class="btn" href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/?utm_source=github-pages&utm_medium=website&utm_campaign=lanzamiento" target="_blank" rel="noopener noreferrer">
+      Comprar ejemplar
+    </a>
+
+    <footer>© 2026 David Robles Asuncion</footer>
+  </div>
+</body>
+</html>
