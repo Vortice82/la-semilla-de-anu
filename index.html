@@ -7,38 +7,33 @@
     <style>
         body { font-family: 'Segoe UI', sans-serif; background-color: #121212; color: white; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
         .contenedor { width: 100%; max-width: 500px; text-align: center; }
-        h1 { color: #d4a017; margin-top: 20px; }
-        .portada-principal { width: 100%; border: 2px solid #d4a017; border-radius: 10px; margin: 20px 0; box-shadow: 0 0 20px rgba(212,160,23,0.4); }
         
-        .sinopsis { background: #1e1e1e; padding: 20px; border-radius: 10px; text-align: left; border-left: 4px solid #d4a017; margin-bottom: 30px; }
-        
-        /* Galería de imágenes */
-        .galeria { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .galeria img { width: 100%; border-radius: 5px; cursor: pointer; border: 1px solid #444; transition: 0.3s; }
-        .galeria img:hover { border-color: #d4a017; transform: scale(1.02); }
+        /* Nuevo diseño chulo para el título: Letras gruesas de piedra */
+        h1 {
+            font-size: 2.8rem; /* Más grande */
+            font-weight: 900; /* Lo más grueso posible */
+            margin-top: 20px;
+            margin-bottom: 5px;
+            text-transform: uppercase; /* Opcional, pero suele quedar mejor con efecto piedra */
+            letter-spacing: 1px;
+            
+            /* Color base gris piedra */
+            color: #b0b0b0; 
 
-        .boton { display: block; background: #d4a017; color: black; padding: 18px; text-decoration: none; font-weight: bold; border-radius: 8px; margin: 25px 0; text-transform: uppercase; font-size: 1.1rem; }
-        
-        footer { color: #555; margin-top: 40px; font-size: 0.8rem; padding-bottom: 40px; }
+            /* Múltiples sombras para efecto 3D, relieve y biselado */
+            text-shadow: 
+                -1px -1px 1px #fff,  /* Brillo superior izquierdo (bisel) */
+                1px 1px 1px #000,     /* Sombra inferior derecha (bisel) */
+                2px 2px 2px #444,     /* Sombra de relieve media */
+                4px 4px 6px #222,     /* Sombra de relieve profunda */
+                -1px 1px 1px #fff,
+                1px -1px 1px #000,
+                
+                /* Contorno oscuro para definición */
+                0 0 5px rgba(0,0,0,0.8);
 
-        /* Estilo para agrandar la imagen al tocarla */
-        .galeria img:active { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(2); z-index: 1000; border: none; box-shadow: 0 0 100px black; }
-    </style>
-</head>
-<body>
-    <div class="contenedor">
-        <h1>La semilla de Anu</h1>
-        <p style="color:#aaa;">Volumen 1: Anunaki<br><strong>David Robles Asuncion</strong></p>
-        
-        <img src="portada.png" alt="Portada Principal" class="portada-principal">
-
-        <div class="sinopsis">
-            <h3 style="color:#d4a017; margin-top:0;">Sinopsis</h3>
-            <p>Descubre los secretos ancestrales de los Anunaki en esta apasionante obra. Un viaje a través del tiempo que cambiará tu forma de ver la historia.</p>
-        </div>
-
-        <h3 style="color:#d4a017;">Disponibilidad y Promoción</h3>
-        <p style="font-size: 0.8rem; color: #888;">(Toca las imágenes para verlas mejor)</p>
-        <div class="galeria">
-            <img src="mapa.jpg" alt="Mapa de ventas">
-            <img src="promo
+            /* Añadimos una textura de piedra sutil de fondo */
+            background-color: #555; /* Color base por si la textura tarda */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%23555555" width="100" height="100"/><filter id="noise" x="0" y="0"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.1"/></svg>');
+            
+            /* Recort
