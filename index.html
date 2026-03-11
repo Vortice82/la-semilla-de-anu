@@ -22,19 +22,20 @@
 
         /* --- ESTILOS GENERALES Y FONDO --- */
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #d2b48c;
-            background-image: var(--background-image-embedded);
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            font-family: var(--main-font);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-        }
+    margin: 0;
+    padding: 0;
+    background-color: #d2b48c;
+    background-image: var(--background-image-embedded);
+
+    /* --- SOLUCIÓN 1: que se vea la imagen completa en PC --- */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top center; 
+    background-color: #000; /* o tu color preferido */
+    
+    background-attachment: fixed;
+    ...
+}
 
         .page-container {
             width: 100%;
@@ -103,4 +104,5 @@
         .main-title .sub-title {
             display: block;
             font-size: 1.4rem;
+
 
