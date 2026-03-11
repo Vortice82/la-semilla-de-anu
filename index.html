@@ -41,20 +41,41 @@
             height: 100%;
         }
 
-        /* Estilo para los botones (transparentes con texto centrado) */
+        /* --- ESTILO ACTUALIZADO PARA DESTACAR LOS BOTONES --- */
         .btn-invisible {
             position: absolute;
             display: flex;
             align-items: center;
             justify-content: center; /* Centra el texto */
             text-decoration: none;
-            color: #d4bc8c; /* Color crema para el texto */
+            
+            /* Color del texto: crema oscuro para contrastar */
+            color: #2c221a; 
             font-family: 'Cambria', 'Georgia', serif; /* Fuente estilo antiguo */
             font-weight: bold;
             font-size: 0.9em;
             text-transform: uppercase; /* Texto en mayúsculas */
             letter-spacing: 0.5px;
-            /* background: rgba(255, 0, 0, 0.3); */ /* Descomenta esta línea para ver las áreas de clic en rojo */
+            
+            /* --- NUEVOS ESTILOS PARA VISIBILIDAD --- */
+            /* Fondo semitransparente color crema para resaltar */
+            background-color: rgba(232, 220, 196, 0.7); 
+            /* Borde sutil color bronce/pergamino oscuro */
+            border: 1px solid #8e7a60; 
+            /* Bordes ligeramente redondeados */
+            border-radius: 4px;
+            /* Sombra suave para dar profundidad */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            /* Transición suave para el efecto hover */
+            transition: all 0.2s ease;
+        }
+
+        /* Efecto al pasar el ratón por encima (Hover) */
+        .btn-invisible:hover {
+            background-color: rgba(232, 220, 196, 0.9); /* Fondo más opaco */
+            border-color: #d4bc8c; /* Borde más claro */
+            transform: scale(1.03); /* Liguero aumento de tamaño */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.4); /* Sombra más pronunciada */
         }
 
         /* Posiciones exactas para coincidir con los botones diseñados en la imagen */
@@ -62,7 +83,6 @@
         .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
         .btn-correo    { top: 30.5%; left: 69%; width: 22%; height: 6%; }
         .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
-        /* Botón de YouTube corregido, misma posición */
         .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
 
         /* Ajustes para dispositivos móviles */
@@ -83,7 +103,6 @@
             <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
             <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo">CONTACTO</a>
             <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank">INSTAGRAM</a>
-            
             <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-youtube" target="_blank">YOUTUBE</a>
         </div>
     </div>
