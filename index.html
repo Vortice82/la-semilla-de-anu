@@ -25,12 +25,13 @@
             width: auto;
             aspect-ratio: 928 / 1238; /* Proporción exacta de tu imagen (928x1238px) */
             background-image: url('portada.png'); /* Usa tu diseño original como fondo */
-            background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
+            background-size: contain; /* ¡CORRECCIÓN! Asegura que la imagen completa sea visible, sin recortes */
             background-position: center; /* Centra la imagen */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Sombra decorativa */
         }
 
-        /* --- BARRA LATERAL DE BOTONES INTERACTIVOS (Ubicación elegida por mí) --- */
+        /* --- BARRA LATERAL DE BOTONES INTERACTIVOS (Posicionamiento ajustado) --- */
         #botones_bar {
             position: absolute;
             top: 15%; /* Posiciona la barra verticalmente */
@@ -75,117 +76,4 @@
         }
 
         /* Efecto al pasar el ratón (Hover) */
-        .btn-interactivo:hover {
-            transform: translateY(-2px) scale(1.03); /* Levanta y agranda un poco */
-            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2);
-            color: #fff; /* Texto blanco puro */
-        }
-
-        /* Efecto de brillo de borde al pasar el ratón */
-        .btn-interactivo::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 25px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .btn-interactivo:hover::after {
-            opacity: 1;
-        }
-
-        /* --- COLORES ESPECÍFICOS DE LOS 5 BOTONES (Replica de tu diseño) --- */
-        
-        /* 1. COMPRAR (Bronce/Verde) */
-        .btn-comprar {
-            background: linear-gradient(to right, #7d5e4a, #a38c6c);
-            border-color: rgba(163, 140, 108, 0.6);
-        }
-
-        /* 2. TIKTOK (Azul) */
-        .btn-tiktok {
-            background: linear-gradient(to right, #4f798e, #2d4c5c);
-            border-color: rgba(45, 76, 92, 0.6);
-        }
-
-        /* 3. CORREO (Gris) */
-        .btn-correo {
-            background: linear-gradient(to right, #7a7a7a, #4a4a4a);
-            border-color: rgba(74, 74, 74, 0.6);
-        }
-
-        /* 4. INSTAGRAM (Púrpura) */
-        .btn-insta {
-            background: linear-gradient(to right, #744365, #431f37);
-            border-color: rgba(67, 31, 55, 0.6);
-        }
-
-        /* 5. YOUTUBE (Rojo) */
-        .btn-youtube {
-            background: linear-gradient(to right, #8f4b4b, #5c2d2d);
-            border-color: rgba(92, 45, 45, 0.6);
-        }
-
-        /* --- AJUSTES PARA MÓVILES (Hacerlo Responsive) --- */
-        @media (max-width: 600px) {
-            #site_container {
-                width: 100vw;
-                height: auto;
-                aspect-ratio: 928 / 1238;
-                background-attachment: fixed; /* Mantiene el fondo quieto al hacer scroll en móvil */
-            }
-            #botones_bar {
-                top: auto;
-                bottom: 30px; /* Coloca los botones en la parte inferior en móvil */
-                right: 30px;
-                left: 30px;
-                width: auto;
-                flex-direction: row; /* Botones en horizontal en móvil */
-                justify-content: center;
-                padding: 15px;
-                background: rgba(44, 34, 26, 0.8); /* Fondo más oscuro en móvil */
-                flex-wrap: wrap; /* Permite que los botones salten de línea si no caben */
-            }
-            .btn-interactivo {
-                padding: 10px;
-                border-radius: 15px;
-                font-size: 0.8em;
-                width: calc(50% - 10px); /* Dos botones por fila en móvil */
-                justify-content: center;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div id="site_container">
-
-        <div id="botones_bar">
-            
-            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-interactivo btn-comprar" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                COMPRAR
-            </a>
-            
-            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-interactivo btn-tiktok" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24"><path d="M12.525.023A1.986 1.986 0 0 0 10.5 2v13.5a1.5 1.5 0 1 1-1.5-1.5 1.487 1.487 0 0 1 .494.084V10.15A5.492 5.492 0 1 0 14.5 15.5V6.732a8.031 8.031 0 0 0 5.161 3.208V5.987a5.5 5.5 0 0 1-5.161-3.21 2.002 2.002 0 0 0-1.975-2.754Z"/></svg>
-                TIKTOK
-            </a>
-            
-            <a href="mailto:vortice_verde@hotmail.com" class="btn-interactivo btn-correo">
-                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                CONTACTO
-            </a>
-            
-            <a href="https://www.instagram.com/vorticeverde82/" class="btn-interactivo btn-insta" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.069-1.646-.069-4.849 0-3.204.012-3.583.069-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.98-6.98.058-1.28.072-1.687.072-4.947s-.014-3.667-.072-4.947c-.2-4.349-2.619-6.778-6.98-6.98C15.667.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                INSTAGRAM
-            </a>
-            
-            <a href="https://www.youtube.com/@DRobles82" class="btn-interactivo btn-youtube" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.
+        .btn-
