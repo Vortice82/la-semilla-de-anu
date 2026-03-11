@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Semilla de Anu - Vórtice Verde</title>
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <style>
-        /* --- VARIABLES Y CONFIGURACIÓN --- */
+        /* VARIABLES */
         :root {
-            /* AQUÍ SE CORRIGE LA IMAGEN DE FONDO */
-           --background-image-embedded: url('./portada.png');
-
-
+            --background-image-embedded: url('./portada.png');
             --main-font: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
             --text-color: #3e2723;
             --accent-color: #d7ccc8;
@@ -20,89 +19,25 @@
             --buy-button-text: #fff;
         }
 
-        /* --- ESTILOS GENERALES Y FONDO --- */
+        /* ESTILO GENERAL */
         body {
-    margin: 0;
-    padding: 0;
-    background-color: #d2b48c;
-    background-image: var(--background-image-embedded);
+            margin: 0;
+            padding: 0;
+            background-image: var(--background-image-embedded);
 
-    /* --- SOLUCIÓN 1: que se vea la imagen completa en PC --- */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: top center; 
-    background-color: #000; /* o tu color preferido */
-    
-    background-attachment: fixed;
-    ...
-}
+            /* SOLUCIÓN DE FONDO COMPLETO EN PC */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: top center;
+            background-color: #000;
+
+            background-attachment: fixed;
+            font-family: var(--main-font);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
         .page-container {
             width: 100%;
-            max-width: 800px;
-            display: flex;
-            position: relative;
-        }
-
-        /* --- BARRA LATERAL IZQUIERDA DECORATIVA --- */
-        .sidebar-left {
-            width: 8%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            padding-top: 10%;
-        }
-        .decorations-column {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-        .decoration-eye {
-            width: 30px;
-            height: 30px;
-            background-color: var(--text-color);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 5px rgba(0,0,0,0.5);
-        }
-        .decoration-eye::after {
-            content: '';
-            width: 10px;
-            height: 10px;
-            background-color: #8c7b60;
-            border-radius: 50%;
-        }
-
-        /* --- CONTENIDO CENTRAL --- */
-        .main-content {
-            width: 100%;
-            padding-left: 10%;
-            padding-right: 12%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 60px;
-            padding-bottom: 100px;
-        }
-
-        .main-title {
-            text-align: center;
-            font-size: 2.2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: rgba(215, 204, 200, 0.9);
-            padding: 10px 30px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-        }
-        .main-title .sub-title {
-            display: block;
-            font-size: 1.4rem;
-
-
