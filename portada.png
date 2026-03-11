@@ -1,1 +1,3 @@
-<img src="portada.png" alt="Portada del libro" class="portada">
+<div class="media">
+  <img src="portada.png" alt="Portada del libro La semilla de Anu (Volumen I: Anunaki)" class="portada">
+</div>
