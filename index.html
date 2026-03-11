@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>La semilla de Anu – Volumen I: Anunaki</title>
 
-  <!-- Meta básica para SEO y compartir -->
-  <meta name="description" content="La semilla de Anu (Volumen I: Anunaki) de David Robles Asuncion. Un viaje a través del tiempo y el conocimiento que cambiará tu forma de ver la historia." />
-  <!-- Si ya conoces tu URL final en GitHub Pages, reemplázala abajo -->
-  <!-- <link rel="canonical" href="https://vortice82.github.io/tu-repo/" /> -->
+  <meta name="description" content="La semilla de Anu (Volumen I: Anunaki) de David Robles Asuncion. Un viaje a través del tiempo y el conocimiento que cambiará tu forma de ver la historia.">
 
   <style>
     :root{
@@ -19,15 +16,15 @@
       --muted:#aaa;
       --muted2:#555;
     }
-    *{box-sizing:border-box}
+    *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+      font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
       background:var(--bg);
       color:var(--text);
       display:flex;
       min-height:100svh;
-      align-items:center;
+      align-items:flex-start;
       justify-content:center;
     }
     .wrapper{
@@ -39,26 +36,22 @@
     header h1{
       color:var(--gold);
       font-size:1.9rem;
-      margin:6px 0 6px;
       line-height:1.2;
+      margin:6px 0 6px;
     }
-    .autor{
-      color:var(--muted);
-      margin:0 0 18px;
-      font-size:1rem;
-    }
-    /* Portada responsiva */
+    .autor{ color:var(--muted); margin:0 0 18px; }
+
     .media{ margin-bottom:18px; }
     .portada{
+      display:block;
       width:100%;
-      height:auto;
-      aspect-ratio: 490 / 735; /* relación aproximada de tu imagen */
-      object-fit: cover;
+      height:auto;           /* sin aspect-ratio para evitar “bloque negro” si no carga */
       border-radius:10px;
       border:2px solid var(--gold);
       box-shadow:0 0 20px rgba(212,160,23,.3);
-      display:block;
+      background:#000;       /* fallback discreto */
     }
+
     .caja{
       background:var(--card);
       padding:16px;
@@ -74,8 +67,9 @@
     .caja p{
       margin:0;
       line-height:1.55;
-      font-size:0.98rem;
+      font-size:.98rem;
     }
+
     .btn{
       display:block;
       margin:26px 0 0;
@@ -87,52 +81,3 @@
       border-radius:8px;
       text-transform:uppercase;
       letter-spacing:.06em;
-      transition:transform .06s ease, box-shadow .2s ease, background-color .2s ease;
-    }
-    .btn:hover,.btn:focus-visible{
-      background:#e2b231;
-      box-shadow:0 8px 24px rgba(226,178,49,.35);
-      transform:translateY(-1px);
-      outline:none;
-    }
-    footer{
-      margin-top:28px;
-      color:var(--muted2);
-      font-size:.82rem;
-    }
-  </style>
-</head>
-<body>
-  <div class="wrapper">
-    <header>
-      <h1>La semilla de Anu</h1>
-      <p class="autor">Volumen 1: Anunaki<br>por David Robles Asuncion</p>
-    </header>
-
-    <main>
-      <div class="media">
-        <!-- IMPORTANTE: el archivo debe llamarse exactamente portada.png y estar junto a index.html -->
-        <img src="portada.png" alt="Portada del libro La semilla de Anu (Volumen I: Anunaki)" class="portada" width="490" height="735">
-      </div>
-
-      <section class="caja" aria-labelledby="sinopsis">
-        <h2 id="sinopsis">Sinopsis</h2>
-        <p>
-          Descubre los secretos ancestrales de los Anunaki en esta apasionante obra.
-          Un viaje a través del tiempo y el conocimiento que cambiará tu forma de ver la historia.
-        </p>
-      </section>
-
-      <a
-        href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/?utm_source=github-pages&utm_medium=website&utm_campaign=lanzamiento"
-        target="_blank" rel="noopener noreferrer" class="btn">
-        Comprar ejemplar
-      </a>
-    </main>
-
-    <footer>
-      © 2026 David Robles Asuncion
-    </footer>
-  </div>
-</body>
-</html>
