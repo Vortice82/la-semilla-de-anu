@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>La semilla de Anu – Volumen I: Anunaki</title>
 
+  <!-- SEO básico -->
   <meta name="description" content="La semilla de Anu (Volumen I: Anunaki) de David Robles Asuncion. Un viaje a través del tiempo y el conocimiento que cambiará tu forma de ver la historia.">
 
+  <!-- Estilos mínimos, claros y seguros -->
   <style>
     :root{
       --gold:#d4a017;
@@ -47,11 +49,11 @@
     .portada{
       display:block;
       width:100%;
-      height:auto;              /* sin altura fija */
+      height:auto;
       border-radius:10px;
       border:2px solid var(--gold);
       box-shadow:0 0 20px rgba(212,160,23,.3);
-      background:transparent;   /* evita “bloque negro” */
+      background:transparent; /* sin bloque negro si tarda */
     }
     .caja{
       background:var(--card);
@@ -81,13 +83,13 @@
       border-radius:8px;
       text-transform:uppercase;
       letter-spacing:.06em;
-      transition:transform .06s ease, box-shadow .2s ease, background-color .2s ease;
     }
     .btn:hover,.btn:focus-visible{
       background:#e2b231;
       box-shadow:0 8px 24px rgba(226,178,49,.35);
       transform:translateY(-1px);
       outline:none;
+      transition:transform .06s ease, box-shadow .2s ease, background-color .2s ease;
     }
     footer{
       margin-top:28px;
@@ -102,25 +104,10 @@
     <p class="autor">Volumen 1: Anunaki<br>por David Robles Asuncion</p>
 
     <div class="media">
-      <!-- Debe existir en la MISMA carpeta que index.html -->
-      <img src="portada.png?v=2"
-           alt="Portada del libro La semilla de Anu (Volumen I: Anunaki)"
-           class="portada">
+      <!-- La imagen debe existir en la MISMA carpeta que este index.html -->
+      <img src="portada.png" alt="Portada del libro La semilla de Anu (Volumen I: Anunaki)" class="portada">
     </div>
 
     <section class="caja" aria-labelledby="sinopsis">
       <h2 id="sinopsis">Sinopsis</h2>
       <p>
-        Descubre los secretos ancestrales de los Anunaki en esta apasionante obra.
-        Un viaje a través del tiempo y el conocimiento que cambiará tu forma de ver la historia.
-      </p>
-    </section>
-
-    <a class="btn" href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/?utm_source=github-pages&utm_medium=website&utm_campaign=lanzamiento" target="_blank" rel="noopener noreferrer">
-      Comprar ejemplar
-    </a>
-
-    <footer>© 2026 David Robles Asuncion</footer>
-  </div>
-</body>
-</html>
