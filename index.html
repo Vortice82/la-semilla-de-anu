@@ -1,151 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Semilla de Anu - Vórtice Verde</title>
-
-    <!-- FONT AWESOME BIEN CARGADO -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <style>
-        :root {
-            --background-image-embedded: url('./portada.png');
-            --main-font: 'Palatino Linotype','Book Antiqua',Palatino,serif;
-            --text-color: #3e2723;
-            --accent-color: #d7ccc8;
-            --buy-button-bg: #8c7b60;
-            --buy-button-text: #fff;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background-image: var(--background-image-embedded);
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: top center;
-            background-color: #000;
-            background-attachment: fixed;
-
-            font-family: var(--main-font);
-            color: var(--text-color);
-
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .page-container {
-            width: 100%;
-            max-width: 800px;
-            display: flex;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* DECORACIÓN IZQUIERDA */
-        .sidebar-left {
-            width: 8%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            padding-top: 10%;
-            pointer-events: none;
-        }
-
-        .decorations-column {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .decoration-eye {
-            width: 30px;
-            height: 30px;
-            background-color: var(--text-color);
-            border-radius: 50%;
-        }
-
-        .decoration-eye::after {
-            content: '';
-            width: 10px;
-            height: 10px;
-            background-color: #8c7b60;
-            border-radius: 50%;
-            display: block;
-            margin: 10px auto 0 auto;
-        }
-
-        /* CONTENIDO CENTRAL */
-        .main-content {
-            width: 100%;
-            padding-left: 10%;
-            padding-right: 12%;
-            padding-top: 60px;
-            padding-bottom: 100px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .main-title {
-            text-align: center;
-            font-size: 2.2rem;
-            text-transform: uppercase;
-            background: rgba(215,204,200,0.9);
-            padding: 10px 30px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-
-        .sub-title {
-            font-size: 1.4rem;
-        }
-
-        .volume-card {
-            width: 100%;
-            max-width: 650px;
-            margin-bottom: 50px;
-            text-align: center;
-        }
-
-        .volume-label {
-            background-color: rgba(215,204,200,0.9);
-            padding: 8px 15px;
-            border-radius: 5px;
+.buy-button {
+            background-color: var(--buy-button-bg);
+            color: var(--buy-button-text);
+            padding: 15px 30px;
+            text-decoration: none;
             font-weight: bold;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .status-badge {
-            color: #795548;
-            font-style: italic;
-            margin-left: 10px;
-        }
-
-        .tablet-image {
-            width: 100%;
-            height: 200px;
-            border-radius: 10px;
-            border: 5px solid #8d6e63;
-            background-size: cover;
-            background-position: center;
-            color: white;
-            font-size: 1.5rem;
-            display: flex;
-            justify-content: center;
+            border-radius: 50px;
+            display: inline-flex;
             align-items: center;
-            pointer-events: none;
+            gap: 10px;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        /* BOTÓN COMPRA */
-        .buy-button-container {
-            margin-top: 20px;
+        .buy-button:hover {
+            background-color: #6d5f4a;
+            transform: scale(1.05);
         }
 
-        .buy-button {
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            .main-content { padding: 40px 5%; }
+            .main-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
