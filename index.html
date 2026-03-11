@@ -3,50 +3,349 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La semilla de Anu - Web Oficial</title>
+    <title>La Semilla de Anu - Vórtice Verde</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #121212; color: white; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
-        .contenedor { width: 100%; max-width: 500px; text-align: center; }
-        h1 { color: #d4a017; margin-top: 20px; }
-        .portada-principal { width: 100%; border: 2px solid #d4a017; border-radius: 10px; margin: 20px 0; box-shadow: 0 0 20px rgba(212,160,23,0.4); }
-        
-        .sinopsis { background: #1e1e1e; padding: 20px; border-radius: 10px; text-align: left; border-left: 4px solid #d4a017; margin-bottom: 30px; }
-        
-        /* Galería de imágenes */
-        .galeria { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .galeria img { width: 100%; border-radius: 5px; cursor: pointer; border: 1px solid #444; transition: 0.3s; }
-        .galeria img:hover { border-color: #d4a017; transform: scale(1.02); }
+        /* --- VARIABLES Y CONFIGURACIÓN --- */
+        :root {
+            /* REEMPLAZA AQUÍ EL NOMBRE DE TU ARCHIVO DE IMAGEN */
+            --background-image: url('vortice-fondo.jpg'); 
+            --main-font: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+            --text-color: #3e2723; /* Marrón oscuro para simular tinta antigua */
+            --accent-color: #d7ccc8; /* Beige claro para fondos de texto */
+            --buy-button-bg: #8c7b60; /* Color del botón de compra */
+            --buy-button-text: #fff;
+        }
 
-        .boton { display: block; background: #d4a017; color: black; padding: 18px; text-decoration: none; font-weight: bold; border-radius: 8px; margin: 25px 0; text-transform: uppercase; font-size: 1.1rem; }
-        
-        footer { color: #555; margin-top: 40px; font-size: 0.8rem; padding-bottom: 40px; }
+        /* --- ESTILOS GENERALES Y FONDO --- */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #d2b48c; /* Fallback color */
+            background-image: var(--background-image);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: var(--main-font);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-        /* Estilo para agrandar la imagen al tocarla */
-        .galeria img:active { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(2); z-index: 1000; border: none; box-shadow: 0 0 100px black; }
+        /* --- CONTENEDOR PRINCIPAL CENTRAL --- */
+        .page-container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            position: relative;
+        }
+
+        /* --- BARRA LATERAL IZQUIERDA (Decorativa) --- */
+        .sidebar-left {
+            width: 8%; /* Ajustado para que la decoración de enredaderas no coma mucho espacio */
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            padding-top: 10%;
+        }
+        /* Esta parte simula la columna de "ojos" y enredaderas de tu imagen */
+        .decorations-column {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        .decoration-eye {
+            width: 30px;
+            height: 30px;
+            background-color: var(--text-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+        .decoration-eye::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: #8c7b60;
+            border-radius: 50%;
+        }
+
+        /* --- CONTENIDO CENTRAL --- */
+        .main-content {
+            width: 100%;
+            padding-left: 10%; /* Espacio para la barra decorativa */
+            padding-right: 12%; /* Espacio para el menú lateral derecho */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 60px;
+            padding-bottom: 100px;
+        }
+
+        /* Títulos */
+        .main-title {
+            text-align: center;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: var(--accent-color);
+            padding: 10px 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+        .main-title .sub-title {
+            display: block;
+            font-size: 1.4rem;
+            text-transform: none;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* --- MENÚ LATERAL DERECHO CON ICONOS --- */
+        .sidebar-right {
+            width: 10%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding-top: 20px;
+        }
+        .nav-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            border: 2px solid var(--text-color);
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 1.8rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+        }
+        .nav-icon:hover {
+            background-color: var(--buy-button-bg);
+            color: var(--buy-button-text);
+            transform: scale(1.1);
+        }
+        /* Iconos oficiales específicos */
+        .fa-youtube { color: #f00 !important; }
+        .nav-icon:hover .fa-youtube { color: #fff !important; }
+        
+        .fa-tiktok { color: #000 !important; }
+        .nav-icon:hover .fa-tiktok { color: #fff !important; }
+
+        .fa-envelope { color: #555 !important; }
+        .nav-icon:hover .fa-envelope { color: #fff !important; }
+
+        /* --- ESTRUCTURA DE VOLÚMENES --- */
+        .volume-card {
+            width: 100%;
+            max-width: 650px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        /* Etiquetas de "Volumen X" */
+        .volume-label-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .volume-label {
+            background-color: var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            margin-left: -20px; /* Un poco de sangría para que parezca que sale de la enredadera */
+        }
+        .status-badge {
+            font-style: italic;
+            color: #795548;
+            font-size: 0.9rem;
+        }
+
+        /* La tablilla de arcilla (Cuneiforme) */
+        .tablet-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+            border: 5px solid #8d6e63; /* Borde de arcilla */
+        }
+
+        /* --- BOTÓN DE COMPRA --- */
+        .buy-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .buy-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--buy-button-bg);
+            color: var(--buy-button-text);
+            text-decoration: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            text-transform: uppercase;
+        }
+        .buy-button:hover {
+            background-color: #6d5d47; /* Tono más oscuro al hover */
+            transform: translateY(-3px);
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.6);
+        }
+
+        /* --- RESPONSIVIDAD BÁSICA (Móviles) --- */
+        @media (max-width: 768px) {
+            .page-container {
+                flex-direction: column;
+                max-width: none;
+                padding-right: 0;
+                padding-left: 0;
+            }
+            .sidebar-left, .decorations-column {
+                display: none; /* Quitamos la decoración enredadera en móvil para dar espacio */
+            }
+            .main-content {
+                width: 90%;
+                margin: 0 auto;
+                padding: 30px 15px 100px;
+            }
+            .sidebar-right {
+                width: 100%;
+                position: fixed;
+                bottom: 0;
+                top: auto;
+                flex-direction: row;
+                justify-content: space-evenly;
+                background-color: rgba(255,255,255,0.8);
+                border-top: 2px solid var(--text-color);
+                padding: 10px;
+                height: auto;
+                z-index: 1000;
+            }
+            .nav-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+            .main-title {
+                font-size: 1.8rem;
+                width: 90%;
+                box-sizing: border-box;
+            }
+            .main-title .sub-title {
+                font-size: 1.2rem;
+            }
+            .volume-label {
+                margin-left: 0;
+            }
+            .status-badge {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: var(--accent-color);
+                padding: 2px 5px;
+                border-radius: 3px;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="contenedor">
-        <h1>La semilla de Anu</h1>
-        <p style="color:#aaa;">Volumen 1: Anunaki<br><strong>David Robles Asuncion</strong></p>
-        
-        <img src="portada.png" alt="Portada Principal" class="portada-principal">
 
-        <div class="sinopsis">
-            <h3 style="color:#d4a017; margin-top:0;">Sinopsis</h3>
-            <p>Descubre los secretos ancestrales de los Anunaki en esta apasionante obra. Un viaje a través del tiempo que cambiará tu forma de ver la historia.</p>
+    <div class="page-container">
+        
+        <div class="sidebar-left">
+            <div class="decorations-column">
+                <div class="decoration-eye"></div>
+                <div class="decoration-eye"></div>
+                <div class="decoration-eye"></div>
+                <div class="decoration-eye"></div>
+                <div class="decoration-eye"></div>
+                <div class="decoration-eye"></div>
+            </div>
         </div>
 
-        <h3 style="color:#d4a017;">Disponibilidad y Promoción</h3>
-        <p style="font-size: 0.8rem; color: #888;">(Toca las imágenes para verlas mejor)</p>
-        <div class="galeria">
-            <img src="mapa.jpg" alt="Mapa de ventas">
-            <img src="promo.jpg" alt="Promoción libro">
+        <div class="main-content">
+            
+            <div class="main-title">
+                LA SEMILLA DE ANU:
+                <span class="sub-title">Volumen I: Anunaki</span>
+            </div>
+
+            <div class="volume-card">
+                <div class="volume-label-container">
+                    <span class="volume-label">Volumen I</span>
+                </div>
+                <img src="https://via.placeholder.com/650x300/c19a6b/ffffff.jpg?text=Cuneiform+Tablet+Sim" alt="Tablilla Cuneiforme Volumen I" class="tablet-image">
+                
+                <div class="buy-button-container">
+                    <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" target="_blank" class="buy-button">
+                        <i class="fas fa-shopping-cart"></i> Comprar Libro Oficial
+                    </a>
+                </div>
+            </div>
+
+            <div class="volume-card">
+                <div class="volume-label-container">
+                    <span class="volume-label">Volumen II</span>
+                    <span class="status-badge">Proximamente</span>
+                </div>
+                <img src="https://via.placeholder.com/650x200/a1887f/ffffff.jpg?text=Cuneiform+Tablet+II" alt="Tablilla Cuneiforme Volumen II" class="tablet-image">
+            </div>
+
+            <div class="volume-card">
+                <div class="volume-label-container">
+                    <span class="volume-label">Volumen III</span>
+                    <span class="status-badge">En proceso</span>
+                </div>
+                <img src="https://via.placeholder.com/650x200/8d6e63/ffffff.jpg?text=Cuneiform+Tablet+III" alt="Tablilla Cuneiforme Volumen III" class="tablet-image">
+            </div>
+
         </div>
 
-        <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="boton">Comprar ejemplar ahora</a>
-        
-        <footer>© 2026 David Robles Asuncion</footer>
+        <nav class="sidebar-right">
+            <a href="#" class="nav-icon" title="Menu"><i class="fas fa-bars"></i></a>
+            <a href="#" class="nav-icon" title="Home"><i class="fas fa-home"></i></a>
+            <a href="#" class="nav-icon" title="Scroll"><i class="fas fa-scroll"></i></a>
+            <a href="#" class="nav-icon" title="Galería"><i class="fas fa-image"></i></a>
+            
+            <hr style="width: 80%; border: 1px solid var(--text-color); margin: 10px 0;">
+            
+            <a href="mailto:vortice_verde@hotmail.com" class="nav-icon" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://www.tiktok.com/@vorticeverde82" target="_blank" class="nav-icon" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.youtube.com/@DRobles82" target="_blank" class="nav-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+        </nav>
+
     </div>
+
 </body>
 </html>
