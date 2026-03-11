@@ -3,73 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La semilla de Anu - David Robles Asuncion</title>
+    <title>La semilla de Anu - Web Oficial</title>
     <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            margin: 0; padding: 0;
-            background-color: #121212;
-            color: #ffffff;
-            display: flex; flex-direction: column; align-items: center;
-        }
-        .wrapper { width: 90%; max-width: 500px; padding: 20px; text-align: center; }
-        h1 { color: #d4a017; font-size: 1.8rem; margin-top: 20px; }
-        .autor { color: #aaa; font-size: 1rem; margin-bottom: 20px; }
-        
-        .portada {
-            width: 100%; height: auto;
-            border-radius: 10px;
-            border: 2px solid #d4a017;
-            box-shadow: 0 0 20px rgba(212, 160, 23, 0.3);
-            margin-bottom: 20px;
-        }
-
-        .caja-texto {
-            background: #1e1e1e;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: left;
-            border-bottom: 3px solid #d4a017;
-        }
-
-        .btn-compra {
-            display: block;
-            background-color: #d4a017;
-            color: #000 !important;
-            padding: 15px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 8px;
-            margin: 30px 0;
-            text-transform: uppercase;
-        }
+        body { font-family: sans-serif; background-color: #121212; color: white; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .contenedor { width: 100%; max-width: 400px; text-align: center; }
+        h1 { color: #d4a017; }
+        .portada { width: 100%; border: 2px solid #d4a017; border-radius: 10px; margin: 20px 0; }
+        .sinopsis { background: #1e1e1e; padding: 15px; border-radius: 10px; text-align: left; border-left: 4px solid #d4a017; }
+        .boton { display: block; background: #d4a017; color: black; padding: 15px; text-decoration: none; font-weight: bold; border-radius: 5px; margin-top: 25px; text-transform: uppercase; }
     </style>
 </head>
 <body>
-
-    <div class="wrapper">
+    <div class="contenedor">
         <h1>La semilla de Anu</h1>
-        <p class="autor">Volumen 1: Anunaki<br>por David Robles Asuncion</p>
+        <p>Volumen 1: Anunaki<br>David Robles Asuncion</p>
+        
+        <img src="portada.png" alt="Portada" class="portada">
 
-        <img src="portada.png" alt="Portada del libro" class="portada">
-
-        <div class="caja-texto">
-            <h2 style="color:#d4a017; margin-top:0; font-size:1.2rem;">Sinopsis</h2>
-            <p style="font-size: 0.95rem; line-height: 1.5;">
-                Descubre los secretos ancestrales de los Anunaki en esta apasionante obra. 
-                Un viaje a través del tiempo y el conocimiento que cambiará tu forma de ver la historia.
-            </p>
+        <div class="sinopsis">
+            <h3 style="color:#d4a017; margin-top:0;">Sinopsis</h3>
+            <p>Explora los misterios de los Anunaki en este primer volumen de la saga.</p>
         </div>
 
-        <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" 
-           target="_blank" class="btn-compra">
-           COMPRAR EJEMPLAR
-        </a>
-
-        <footer style="color:#555; font-size: 0.8rem; margin-bottom: 40px;">
-            © 2026 David Robles Asuncion
-        </footer>
+        <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="boton">Comprar ejemplar</a>
+        
+        <p style="color:#555; margin-top:40px;">© 2026 David Robles Asuncion</p>
     </div>
-
 </body>
 </html>
