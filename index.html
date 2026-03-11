@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-        /* VARIABLES */
         :root {
             --background-image-embedded: url('./portada.png');
             --main-font: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
@@ -19,21 +18,19 @@
             --buy-button-text: #fff;
         }
 
-        /* ESTILO GENERAL */
         body {
             margin: 0;
             padding: 0;
             background-image: var(--background-image-embedded);
-
-            /* SOLUCIÓN DE FONDO COMPLETO EN PC */
-            background-size: contain;
+            background-size: contain;       /* Fondo completo en PC */
             background-repeat: no-repeat;
             background-position: top center;
             background-color: #000;
-
             background-attachment: fixed;
+
             font-family: var(--main-font);
             color: var(--text-color);
+
             display: flex;
             justify-content: center;
             min-height: 100vh;
@@ -41,3 +38,36 @@
 
         .page-container {
             width: 100%;
+            max-width: 800px;
+            display: flex;
+            position: relative;
+            z-index: 2; /* evita superposiciones */
+        }
+
+        /* Decoración izquierda */
+        .sidebar-left {
+            width: 8%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            padding-top: 10%;
+            pointer-events: none;
+        }
+
+        .decorations-column {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .decoration-eye {
+            width: 30px;
+            height: 30px;
+            background-color: var(--text-color);
+            border-radius: 50%;
+        }
+
+        .decoration-eye::after {
