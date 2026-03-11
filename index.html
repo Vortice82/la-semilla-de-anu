@@ -5,29 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La semilla de Anu - Web Oficial</title>
     <style>
-        body { font-family: sans-serif; background-color: #121212; color: white; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .contenedor { width: 100%; max-width: 400px; text-align: center; }
-        h1 { color: #d4a017; }
-        .portada { width: 100%; border: 2px solid #d4a017; border-radius: 10px; margin: 20px 0; }
-        .sinopsis { background: #1e1e1e; padding: 15px; border-radius: 10px; text-align: left; border-left: 4px solid #d4a017; }
-        .boton { display: block; background: #d4a017; color: black; padding: 15px; text-decoration: none; font-weight: bold; border-radius: 5px; margin-top: 25px; text-transform: uppercase; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #121212; color: white; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
+        .contenedor { width: 100%; max-width: 500px; text-align: center; }
+        h1 { color: #d4a017; margin-top: 20px; }
+        .portada-principal { width: 100%; border: 2px solid #d4a017; border-radius: 10px; margin: 20px 0; box-shadow: 0 0 20px rgba(212,160,23,0.4); }
+        
+        .sinopsis { background: #1e1e1e; padding: 20px; border-radius: 10px; text-align: left; border-left: 4px solid #d4a017; margin-bottom: 30px; }
+        
+        /* Galería de imágenes */
+        .galeria { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .galeria img { width: 100%; border-radius: 5px; cursor: pointer; border: 1px solid #444; transition: 0.3s; }
+        .galeria img:hover { border-color: #d4a017; transform: scale(1.02); }
+
+        .boton { display: block; background: #d4a017; color: black; padding: 18px; text-decoration: none; font-weight: bold; border-radius: 8px; margin: 25px 0; text-transform: uppercase; font-size: 1.1rem; }
+        
+        footer { color: #555; margin-top: 40px; font-size: 0.8rem; padding-bottom: 40px; }
+
+        /* Estilo para agrandar la imagen al tocarla */
+        .galeria img:active { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(2); z-index: 1000; border: none; box-shadow: 0 0 100px black; }
     </style>
 </head>
 <body>
     <div class="contenedor">
         <h1>La semilla de Anu</h1>
-        <p>Volumen 1: Anunaki<br>David Robles Asuncion</p>
+        <p style="color:#aaa;">Volumen 1: Anunaki<br><strong>David Robles Asuncion</strong></p>
         
-      <img src="portada.png?v=2" alt="Portada" class="portada">
+        <img src="portada.png" alt="Portada Principal" class="portada-principal">
 
         <div class="sinopsis">
             <h3 style="color:#d4a017; margin-top:0;">Sinopsis</h3>
-            <p>Explora los misterios de los Anunaki en este primer volumen de la saga.</p>
+            <p>Descubre los secretos ancestrales de los Anunaki en esta apasionante obra. Un viaje a través del tiempo que cambiará tu forma de ver la historia.</p>
         </div>
 
-        <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="boton">Comprar ejemplar</a>
-        
-        <p style="color:#555; margin-top:40px;">© 2026 David Robles Asuncion</p>
-    </div>
-</body>
-</html>
+        <h3 style="color:#d4a017;">Disponibilidad y Promoción</h3>
+        <p style="font-size: 0.8rem; color: #888;">(Toca las imágenes para verlas mejor)</p>
+        <div class="galeria">
+            <img src="mapa.jpg" alt="Mapa de ventas">
+            <img src="promo
