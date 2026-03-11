@@ -8,32 +8,70 @@
         body { font-family: 'Segoe UI', sans-serif; background-color: #121212; color: white; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
         .contenedor { width: 100%; max-width: 500px; text-align: center; }
         
-        /* Nuevo diseño chulo para el título: Letras gruesas de piedra */
+        /* DISEÑO DE TÍTULO TIPO PIEDRA GRUESA - RECTIFICADO */
         h1 {
-            font-size: 2.8rem; /* Más grande */
-            font-weight: 900; /* Lo más grueso posible */
+            color: #dcdcdc; /* Color gris piedra claro */
             margin-top: 20px;
             margin-bottom: 5px;
-            text-transform: uppercase; /* Opcional, pero suele quedar mejor con efecto piedra */
-            letter-spacing: 1px;
+            font-weight: 900; /* Letra lo más gruesa posible */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 2.5rem;
             
-            /* Color base gris piedra */
-            color: #b0b0b0; 
-
-            /* Múltiples sombras para efecto 3D, relieve y biselado */
+            /* Efecto de contorno grueso y oscuro */
+            -webkit-text-stroke: 1.5px #222;
+            text-stroke: 1.5px #222;
+            
+            /* Múltiples sombras para dar efecto de relieve y profundidad */
             text-shadow: 
-                -1px -1px 1px #fff,  /* Brillo superior izquierdo (bisel) */
-                1px 1px 1px #000,     /* Sombra inferior derecha (bisel) */
-                2px 2px 2px #444,     /* Sombra de relieve media */
-                4px 4px 6px #222,     /* Sombra de relieve profunda */
-                -1px 1px 1px #fff,
-                1px -1px 1px #000,
-                
-                /* Contorno oscuro para definición */
-                0 0 5px rgba(0,0,0,0.8);
-
-            /* Añadimos una textura de piedra sutil de fondo */
-            background-color: #555; /* Color base por si la textura tarda */
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%23555555" width="100" height="100"/><filter id="noise" x="0" y="0"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.1"/></svg>');
+                2px 2px 0px #222,  /* Sombra de contorno */
+                -1px -1px 0px #fff, /* Brillo ligero superior (biselado) */
+                3px 3px 3px #000,   /* Sombra profunda para relieve 3D */
+                4px 4px 5px rgba(0,0,0,0.5);
             
-            /* Recort
+            display: inline-block;
+        }
+
+        .portada-principal { width: 100%; border: 2px solid #d4a017; border-radius: 10px; margin: 20px 0; box-shadow: 0 0 20px rgba(212,160,23,0.4); }
+        
+        .sinopsis { background: #1e1e1e; padding: 20px; border-radius: 10px; text-align: left; border-left: 4px solid #d4a017; margin-bottom: 30px; }
+        
+        /* GALERÍA DE IMÁGENES - SE MANTIENEN ESTÁTICAS */
+        .galeria { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .galeria img { 
+            width: 100%; 
+            border-radius: 5px; 
+            border: 1px solid #444;
+            /* Eliminados todos los efectos de hover, active y puntero */
+        }
+
+        .boton { display: block; background: #d4a017; color: black; padding: 18px; text-decoration: none; font-weight: bold; border-radius: 8px; margin: 25px 0; text-transform: uppercase; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: background 0.2s; }
+        .boton:hover { background: #ffc841; }
+        
+        footer { color: #555; margin-top: 40px; font-size: 0.8rem; padding-bottom: 40px; }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>La semilla de Anu</h1>
+        <p style="color:#aaa; margin-top: 0;">Volumen 1: Anunaki<br><strong>David Robles Asuncion</strong></p>
+        
+        <img src="portada.png" alt="Portada Principal" class="portada-principal">
+
+        <div class="sinopsis">
+            <h3 style="color:#d4a017; margin-top:0;">Sinopsis</h3>
+            <p>Descubre los secretos ancestrales de los Anunaki en esta apasionante obra. Un viaje a través del tiempo que cambiará tu forma de ver la historia.</p>
+        </div>
+
+        <h3 style="color:#d4a017;">Disponibilidad y Promoción</h3>
+        <div class="galeria">
+            <img src="mapa.jpg" alt="Mapa de ventas">
+            <img src="promo.jpg" alt="Promoción libro">
+        </div>
+
+        <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="boton">Comprar ejemplar ahora</a>
+        
+        <footer>© 2026 David Robles Asuncion</footer>
+    </div>
+</body>
+</html>
