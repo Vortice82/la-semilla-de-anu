@@ -4,69 +4,99 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>La Semilla de Anu - Sitio Oficial</title>
+
   <style>
-    /* Reset y base */
+    /* --------------------------
+       Reset y base
+    ---------------------------*/
     *, *::before, *::after { box-sizing: border-box; }
     html, body { height: 100%; }
     body {
       margin: 0;
-      background: #2c221a;                  /* marrón oscuro */
+      background: #2c221a;                 /* marrón oscuro de fondo */
+      /* Centramos el bloque principal; si el alto no cabe en móvil,
+         permitimos scroll vertical (clave para que "se vea" en móvil). */
       display: grid;
       place-items: center;
-      overflow: hidden;                     /* sin scroll */
+      overflow-x: hidden;                  /* evita scroll lateral accidental */
+      overflow-y: auto;                    /* permite desplazamiento vertical */
       font-family: Cambria, Georgia, "Times New Roman", serif;
+      color: #e8dcc4;
     }
 
-    /* === CONTENEDOR “shrink-to-fit” del tamaño EXACTO de la imagen === */
+    /* --------------------------
+       Contenedor principal
+       - "shrink-to-fit" al tamaño de la imagen
+    ---------------------------*/
     .web-container {
       position: relative;
-      display: inline-block;                /* se ajusta al tamaño del contenido (la imagen) */
-      max-height: 96vh;                     /* cabe en pantalla */
-      /* Sombra y bordes opcionales */
+      display: inline-block;               /* se adapta al contenido (imagen) */
+      max-width: 100%;
+      /* Max-height: usamos 100% para no forzar recorte.
+         El alto real lo gobierna la propia imagen con dvh/vh. */
+      max-height: 100%;
       border-radius: 8px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-      overflow: hidden;
+      overflow: hidden;                    /* recorta solo dentro del marco */
+      background: #1f1812;                 /* tono de reserva al cargar */
     }
 
-    /* La imagen gobierna el tamaño del contenedor */
+    /* --------------------------
+       Imagen de fondo/diseño
+       - Altura relativa a viewport dinámico (móvil)
+       - Mantiene proporción (ancho auto)
+    ---------------------------*/
     .background-design {
       display: block;
-      height: min(96vh, 100vh);             /* nunca supera la altura útil */
-      width: auto;                          /* mantiene proporción exacta */
-      image-rendering: auto;                /* suavizado estándar */
-      /* Si la ves demasiado “suave” en escritorio y tienes @2x, sube el contenedor con más ancho (ver @media abajo) */
+      /* Alto preferente en función del viewport dinámico (móviles modernos).
+         min() evita que supere la ventana disponible */
+      height: min(96dvh, 100dvh);
+      width: auto;
+      max-width: 100%;                     /* si la imagen es muy ancha, limita al contenedor */
+      image-rendering: auto;
+    }
+    /* Fallback si el navegador no soporta dvh */
+    @supports not (height: 100dvh) {
+      .background-design { height: min(96vh, 100vh); }
     }
 
-    /* Capa sobre la imagen, mismo tamaño */
+    /* --------------------------
+       Capa interactiva encima de la imagen
+    ---------------------------*/
     .botones-capa {
       position: absolute;
-      inset: 0;                             /* ocupa exactamente el área de la imagen */
-      pointer-events: none;                 /* sólo clic en los botones */
+      inset: 0;                            /* ocupa exactamente el área de la imagen */
+      pointer-events: none;                /* por defecto no capta eventos */
     }
 
-    /* Botones visibles y accesibles */
+    /* Botones visibles y accesibles (se activan individualmente) */
     .btn-invisible {
       position: absolute;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-decoration: none;
-      pointer-events: auto;
+
+      pointer-events: auto;                /* habilitar clicks */
       user-select: none;
+      text-decoration: none;
 
       text-transform: uppercase;
       letter-spacing: 0.5px;
       font-weight: 700;
-      font-size: clamp(0.72rem, 1.2vw, 1rem);
+      font-size: clamp(0.78rem, 1.2vw, 1rem); /* escala tipográfica fluida */
 
       color: #2c221a;
-      background-color: rgba(232,220,196,0.82);
+      background-color: rgba(232,220,196,0.86);
       border: 2px solid #8e7a60;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.35);
 
-      transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease;
-      padding-inline: 0.4em;
+      transition: transform .18s ease,
+                  box-shadow .18s ease,
+                  background-color .18s ease,
+                  border-color .18s ease;
+      padding-inline: 0.5em;
+      line-height: 1.1;
     }
     .btn-invisible:hover,
     .btn-invisible:focus-visible {
@@ -88,55 +118,106 @@
       display: inline-block;
       width: 100%;
       text-align: center;
-      line-height: 1.1;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       padding-inline: 0.2em;
     }
 
-    /* === POSICIONAMIENTO relativo a la imagen (mismos %) que usabas === */
+    /* --------------------------
+       Posiciones de los botones
+       (porcentajes relativos al área de la imagen)
+    ---------------------------*/
     .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
     .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
     .btn-correo    { top: 30.5%; left: 69%; width: 22%; height: 6%; }
     .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
     .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
 
-    /* Ajustes móviles */
-    @media (max-width: 600px) {
-      .background-design { height: 94vh; }
-      .btn-invisible { font-size: clamp(0.7rem, 3vw, 0.9rem); border-width: 1.5px; }
+    /* --------------------------
+       Ajustes responsivos
+    ---------------------------*/
+    @media (max-width: 900px) {
+      .btn-invisible { font-size: clamp(0.76rem, 2.6vw, 0.95rem); }
     }
 
-    /* Si tienes versión @2x, permite que el contenedor use un poco más de ancho en pantallas grandes */
-    @media (min-width: 1100px) {
-      .background-design { height: 92vh; }  /* margen visual superior en sobremesa */
+    @media (max-width: 600px) {
+      /* Un pelín menos de alto para evitar notch/barras en móviles pequeños */
+      .background-design { height: min(94dvh, 100dvh); }
+      @supports not (height: 100dvh) {
+        .background-design { height: min(94vh, 100vh); }
+      }
+
+      .btn-invisible {
+        font-size: clamp(0.72rem, 3.4vw, 0.9rem);
+        border-width: 1.5px;
+        padding-inline: 0.45em;
+      }
+      /* Si en algún móvil concreto los botones quedan muy cerca del borde,
+         puedes reducir un poco su ancho aquí: */
+      .btn-comprar,
+      .btn-tiktok,
+      .btn-correo,
+      .btn-instagram,
+      .btn-youtube { left: 68.5%; width: 22.5%; }
     }
+
+    /* --------------------------
+       Accesibilidad/estado de enlaces
+    ---------------------------*/
+    .btn-invisible:focus { outline: none; }
+    .btn-invisible:active { transform: translateY(0); }
   </style>
 </head>
-<body>
 
+<body>
   <div class="web-container" role="main" aria-label="Portada La Semilla de Anu">
-    <!-- IMPORTANTÍSIMO: añade tu versión @2x en srcset para más nitidez -->
+    <!-- Sube ambas imágenes a / (o ajusta la ruta). 928w ≈ ancho base; 1856w ≈ @2x para nitidez en retina -->
     <img
       src="portada.png"
       srcset="portada.png 928w, portada@2x.jpg 1856w"
-      sizes="(max-width: 600px) 94vh, 96vh"
-      alt="La Semilla de Anu"
+      sizes="(max-width: 600px) 94dvh, 96dvh"
+      alt="Portada del libro La Semilla de Anu: Volumen I, Anunaki"
       class="background-design"
       decoding="async"
       fetchpriority="high"
     />
 
-    <div class="botones-capa">
-      <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank" rel="noopener noreferrer"><span>COMPRAR</span></a>
-      <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank" rel="noopener noreferrer"><span>TIKTOK</span></a>
-      <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo"><span>CONTACTO</span></a>
-      <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank" rel="noopener noreferrer"><span>INSTAGRAM</span></a>
-      <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-youtube" target="_blank" rel="noopener noreferrer"><span>YOUTUBE</span></a>
+    <div class="botones-capa" aria-hidden="false">
+      <a
+        href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/"
+        class="btn-invisible btn-comprar"
+        target="_blank" rel="noopener noreferrer"
+        aria-label="Comprar La Semilla de Anu en ExLibric"
+      ><span>COMPRAR</span></a>
+
+      <a
+        href="https://www.tiktok.com/@vorticeverde82"
+        class="btn-invisible btn-tiktok"
+        target="_blank" rel="noopener noreferrer"
+        aria-label="Ir al TikTok oficial"
+      ><span>TIKTOK</span></a>
+
+      <a
+        href="mailto:vortice_verde@hotmail.com"
+        class="btn-invisible btn-correo"
+        aria-label="Enviar correo de contacto"
+      ><span>CONTACTO</span></a>
+
+      <a
+        href="https://www.instagram.com/vorticeverde82/"
+        class="btn-invisible btn-instagram"
+        target="_blank" rel="noopener noreferrer"
+        aria-label="Ir al Instagram oficial"
+      ><span>INSTAGRAM</span></a>
+
+      <a
+        href="https://www.youtube.com/@DRobles82"
+        class="btn-invisible btn-youtube"
+        target="_blank" rel="noopener noreferrer"
+        aria-label="Ir al canal de YouTube"
+      ><span>YOUTUBE</span></a>
     </div>
   </div>
-
 </body>
 </html>
-``
