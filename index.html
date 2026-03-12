@@ -14,12 +14,10 @@
     body {
       margin: 0;
       background: #2c221a;                 /* marrón oscuro de fondo */
-      /* Centramos el bloque principal; si el alto no cabe en móvil,
-         permitimos scroll vertical (clave para que "se vea" en móvil). */
       display: grid;
       place-items: center;
       overflow-x: hidden;                  /* evita scroll lateral accidental */
-      overflow-y: auto;                    /* permite desplazamiento vertical */
+      overflow-y: auto;                    /* permite desplazamiento vertical en móvil */
       font-family: Cambria, Georgia, "Times New Roman", serif;
       color: #e8dcc4;
     }
@@ -32,8 +30,6 @@
       position: relative;
       display: inline-block;               /* se adapta al contenido (imagen) */
       max-width: 100%;
-      /* Max-height: usamos 100% para no forzar recorte.
-         El alto real lo gobierna la propia imagen con dvh/vh. */
       max-height: 100%;
       border-radius: 8px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.45);
@@ -48,11 +44,9 @@
     ---------------------------*/
     .background-design {
       display: block;
-      /* Alto preferente en función del viewport dinámico (móviles modernos).
-         min() evita que supere la ventana disponible */
-      height: min(96dvh, 100dvh);
-      width: auto;
-      max-width: 100%;                     /* si la imagen es muy ancha, limita al contenedor */
+      height: min(96dvh, 100dvh);          /* móviles modernos */
+      width: auto;                          /* mantiene la proporción */
+      max-width: 100%;                      /* si la imagen es más ancha que el contenedor */
       image-rendering: auto;
     }
     /* Fallback si el navegador no soporta dvh */
@@ -69,7 +63,7 @@
       pointer-events: none;                /* por defecto no capta eventos */
     }
 
-    /* Botones visibles y accesibles (se activan individualmente) */
+    /* Botones visibles y accesibles */
     .btn-invisible {
       position: absolute;
       display: flex;
@@ -125,8 +119,7 @@
     }
 
     /* --------------------------
-       Posiciones de los botones
-       (porcentajes relativos al área de la imagen)
+       Posiciones de los botones (relativas al área de la imagen)
     ---------------------------*/
     .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
     .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
@@ -135,14 +128,13 @@
     .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
 
     /* --------------------------
-       Ajustes responsivos
+       Ajustes responsivos extra
     ---------------------------*/
     @media (max-width: 900px) {
       .btn-invisible { font-size: clamp(0.76rem, 2.6vw, 0.95rem); }
     }
 
     @media (max-width: 600px) {
-      /* Un pelín menos de alto para evitar notch/barras en móviles pequeños */
       .background-design { height: min(94dvh, 100dvh); }
       @supports not (height: 100dvh) {
         .background-design { height: min(94vh, 100vh); }
@@ -153,8 +145,8 @@
         border-width: 1.5px;
         padding-inline: 0.45em;
       }
-      /* Si en algún móvil concreto los botones quedan muy cerca del borde,
-         puedes reducir un poco su ancho aquí: */
+
+      /* Ajuste fino si quedan muy al borde en móviles estrechos */
       .btn-comprar,
       .btn-tiktok,
       .btn-correo,
@@ -162,61 +154,40 @@
       .btn-youtube { left: 68.5%; width: 22.5%; }
     }
 
-    /* --------------------------
-       Accesibilidad/estado de enlaces
-    ---------------------------*/
-    .btn-invisible:focus { outline: none; }
+    /* Estado activo */
     .btn-invisible:active { transform: translateY(0); }
   </style>
 </head>
 
 <body>
   <div class="web-container" role="main" aria-label="Portada La Semilla de Anu">
-    <!-- Sube ambas imágenes a / (o ajusta la ruta). 928w ≈ ancho base; 1856w ≈ @2x para nitidez en retina -->
+    <!-- Imagen base + @2x para pantallas retina (más nitidez) -->
     <img
       src="portada.png"
       srcset="portada.png 928w, portada@2x.jpg 1856w"
       sizes="(max-width: 600px) 94dvh, 96dvh"
-      alt="Portada del libro La Semilla de Anu: Volumen I, Anunaki"
+      alt="La Semilla de Anu"
       class="background-design"
       decoding="async"
       fetchpriority="high"
     />
 
+    <!-- Capa de botones -->
     <div class="botones-capa" aria-hidden="false">
-      <a
-        href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/"
-        class="btn-invisible btn-comprar"
-        target="_blank" rel="noopener noreferrer"
-        aria-label="Comprar La Semilla de Anu en ExLibric"
-      ><span>COMPRAR</span></a>
+      <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/"
+         class="btn-invisible btn-comprar" target="_blank" rel="noopener noreferrer"><span>COMPRAR</span></a>
 
-      <a
-        href="https://www.tiktok.com/@vorticeverde82"
-        class="btn-invisible btn-tiktok"
-        target="_blank" rel="noopener noreferrer"
-        aria-label="Ir al TikTok oficial"
-      ><span>TIKTOK</span></a>
+      <a href="https://www.tiktok.com/@vorticeverde82"
+         class="btn-invisible btn-tiktok" target="_blank" rel="noopener noreferrer"><span>TIKTOK</span></a>
 
-      <a
-        href="mailto:vortice_verde@hotmail.com"
-        class="btn-invisible btn-correo"
-        aria-label="Enviar correo de contacto"
-      ><span>CONTACTO</span></a>
+      <a href="mailto:vortice_verde@hotmail.com"
+         class="btn-invisible btn-correo"><span>CONTACTO</span></a>
 
-      <a
-        href="https://www.instagram.com/vorticeverde82/"
-        class="btn-invisible btn-instagram"
-        target="_blank" rel="noopener noreferrer"
-        aria-label="Ir al Instagram oficial"
-      ><span>INSTAGRAM</span></a>
+      <a href="https://www.instagram.com/vorticeverde82/"
+         class="btn-invisible btn-instagram" target="_blank" rel="noopener noreferrer"><span>INSTAGRAM</span></a>
 
-      <a
-        href="https://www.youtube.com/@DRobles82"
-        class="btn-invisible btn-youtube"
-        target="_blank" rel="noopener noreferrer"
-        aria-label="Ir al canal de YouTube"
-      ><span>YOUTUBE</span></a>
+      <a href="https://www.youtube.com/@DRobles82"
+         class="btn-invisible btn-youtube" target="_blank" rel="noopener noreferrer"><span>YOUTUBE</span></a>
     </div>
   </div>
 </body>
