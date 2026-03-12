@@ -5,28 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Semilla de Anu - Sitio Oficial</title>
     <style>
-        /* Estilos base */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        /* Reset de estilos básicos */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
         
         body, html { 
-            min-height: 100%; 
-            background-color: #2c221a; 
+            height: 100%; 
+            background-color: #2c221a; /* Fondo marrón oscuro */
             display: flex; 
-            flex-direction: column; 
+            justify-content: center; 
             align-items: center;
-            font-family: 'Cambria', 'Georgia', serif;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Evita que la web baile de lado a lado */
         }
 
-        /* Contenedor de la Portada */
+        /* Contenedor principal */
         .web-container {
             position: relative;
-            max-height: 92vh; 
+            max-height: 95vh; /* Evita que toque el borde superior/inferior en PC */
             width: auto;
-            aspect-ratio: 928 / 1238; 
+            aspect-ratio: 928 / 1238; /* Proporción de tu imagen */
             display: flex;
             justify-content: center;
-            margin-top: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
@@ -36,12 +38,16 @@
             display: block;
         }
 
+        /* Capa para posicionar los botones sobre la imagen */
         .botones-capa {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
-        /* Estilo de los Botones */
+        /* Estilo de los botones */
         .btn-invisible {
             position: absolute;
             display: flex;
@@ -49,9 +55,11 @@
             justify-content: center;
             text-decoration: none;
             color: #2c221a; 
+            font-family: 'Cambria', 'Georgia', serif;
             font-weight: bold;
             font-size: 0.9em;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
             background-color: rgba(232, 220, 196, 0.7); 
             border: 1px solid #8e7a60; 
             border-radius: 4px;
@@ -62,48 +70,41 @@
         .btn-invisible:hover {
             background-color: rgba(232, 220, 196, 0.9);
             transform: scale(1.03);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.4);
         }
 
-        /* Posiciones de los botones */
+        /* Posiciones exactas basadas en tu diseño */
         .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
         .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
         .btn-correo    { top: 30.5%; left: 69%; width: 22%; height: 6%; }
         .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
         .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
 
-        /* --- SECCIÓN DEL MAPA --- */
-        .seccion-mapa {
-            width: 100%;
-            max-width: 800px; /* Tamaño ideal para que el mapa no se pixele */
-            display: flex;
-            justify-content: center;
-            padding: 30px 20px 50px 20px;
-        }
-
-        .img-mapa {
-            width: 100%;
-            height: auto;
-            border: 2px solid #8e7a60;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-        }
-
-        /* --- AJUSTES MÓVIL --- */
+        /* --- AJUSTES PARA MÓVIL (CORRECCIÓN DE RECORTE) --- */
         @media (max-width: 600px) {
-            body { padding: 5px; }
-            
-            .web-container { 
-                width: 88vw; /* Un poco más grande para que se lea bien en móvil */
-                height: auto; 
-                max-height: none; 
-                margin-bottom: 10px;
+            body {
+                padding: 15px; /* Crea el margen para "alejar" la portada */
+                align-items: flex-start; /* Permite que si la pantalla es muy corta, se pueda hacer scroll */
+                padding-top: 30px;
+                overflow-y: auto;
             }
 
-            .background-design { width: 100%; height: auto; }
-            .btn-invisible { font-size: 0.65em; }
+            .web-container { 
+                width: 85vw; /* Reducimos el ancho al 85% para que la imagen se "aleje" */
+                height: auto; 
+                max-height: none; 
+                aspect-ratio: 928 / 1238;
+            }
 
-            .seccion-mapa {
-                padding: 15px 10px 40px 10px;
+            .background-design { 
+                width: 100%; 
+                height: auto; 
+            }
+
+            .btn-invisible { 
+                font-size: 0.6em; /* Texto más pequeño para móvil */
+                letter-spacing: 0px;
+                border-width: 0.5px;
             }
         }
     </style>
@@ -111,8 +112,8 @@
 <body>
 
     <div class="web-container">
-        <img src="portada.jpg" class="background-design" alt="La Semilla de Anu">
-        
+        <img src="portada.png" class="background-design" alt="La Semilla de Anu">
+
         <div class="botones-capa">
             <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
             <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
@@ -120,10 +121,6 @@
             <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank">INSTAGRAM</a>
             <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-youtube" target="_blank">YOUTUBE</a>
         </div>
-    </div>
-
-    <div class="seccion-mapa">
-        <img src="mapa.jpg" class="img-mapa" alt="A la venta en 11 países">
     </div>
 
 </body>
