@@ -4,116 +4,86 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>La Semilla de Anu - Sitio Oficial</title>
-
   <style>
-    /* Reset mínimo */
+    /* Reset y base */
     *, *::before, *::after { box-sizing: border-box; }
     html, body { height: 100%; }
     body {
       margin: 0;
-      background-color: #2c221a; /* Fondo marrón oscuro */
+      background: #2c221a;                  /* marrón oscuro */
       display: grid;
       place-items: center;
-      overflow: hidden; /* sin scroll */
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      overflow: hidden;                     /* sin scroll */
+      font-family: Cambria, Georgia, "Times New Roman", serif;
     }
 
-    /* === CONTENEDOR RESPONSIVE CON RATIO FIJO ===
-       La imagen se renderiza como background para evitar "saltos" de tamaño.
-       El ratio proviene de 928×1238 ≈ 0.7496 (o 928/1238).
-    */
+    /* === CONTENEDOR “shrink-to-fit” del tamaño EXACTO de la imagen === */
     .web-container {
       position: relative;
-      width: min(92vw, 928px);      /* no excede 928px; en móviles ocupa ~92% del ancho */
-      aspect-ratio: 928 / 1238;     /* mantiene proporción exacta */
-      max-height: 96vh;             /* nunca más alto que la ventana */
-      background: #2c221a center/cover no-repeat;
+      display: inline-block;                /* se ajusta al tamaño del contenido (la imagen) */
+      max-height: 96vh;                     /* cabe en pantalla */
+      /* Sombra y bordes opcionales */
       border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
       overflow: hidden;
-      isolation: isolate;           /* apila bien las capas y filtros */
     }
 
-    /* Imagen de fondo (usa tu archivo). Si quieres usar <img>, ver variante más abajo */
-    .web-container {
-      background-image: url("portada.png");
+    /* La imagen gobierna el tamaño del contenedor */
+    .background-design {
+      display: block;
+      height: min(96vh, 100vh);             /* nunca supera la altura útil */
+      width: auto;                          /* mantiene proporción exacta */
+      image-rendering: auto;                /* suavizado estándar */
+      /* Si la ves demasiado “suave” en escritorio y tienes @2x, sube el contenedor con más ancho (ver @media abajo) */
     }
 
-    /* Capa de botones superpuesta a toda el área */
+    /* Capa sobre la imagen, mismo tamaño */
     .botones-capa {
       position: absolute;
-      inset: 0;
-      z-index: 1; /* por encima del fondo */
-      pointer-events: none; /* los clics sólo en los botones */
+      inset: 0;                             /* ocupa exactamente el área de la imagen */
+      pointer-events: none;                 /* sólo clic en los botones */
     }
 
-    /* === BOTONES VISIBLES Y ACCESIBLES === */
+    /* Botones visibles y accesibles */
     .btn-invisible {
       position: absolute;
       display: flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      pointer-events: auto;           /* activamos interacción */
+      pointer-events: auto;
       user-select: none;
 
-      /* Tipografía tipo "pergamino" */
-      font-family: Cambria, Georgia, "Times New Roman", Times, serif;
-      font-weight: 700;
-      letter-spacing: 0.5px;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+      font-size: clamp(0.72rem, 1.2vw, 1rem);
 
-      /* Tamaños y paddings */
-      padding-inline: 0.4em;          /* relleno para que no quede justo al borde */
+      color: #2c221a;
+      background-color: rgba(232,220,196,0.82);
+      border: 2px solid #8e7a60;
       border-radius: 6px;
-
-      /* VISIBILIDAD: contraste y profundidad */
-      color: #2c221a;                                  /* texto oscuro */
-      background-color: rgba(232, 220, 196, 0.82);     /* crema semitransparente */
-      border: 2px solid #8e7a60;                       /* borde bronce/pergamino */
       box-shadow: 0 2px 6px rgba(0,0,0,0.35);
 
-      /* Animación sutil (respeta reduce motion) */
       transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease;
-      will-change: transform;
+      padding-inline: 0.4em;
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      .btn-invisible { transition: none; }
-    }
-
     .btn-invisible:hover,
     .btn-invisible:focus-visible {
-      background-color: rgba(232, 220, 196, 0.95);
+      background-color: rgba(232,220,196,0.95);
       border-color: #d4bc8c;
       transform: translateY(-1px) scale(1.03);
       box-shadow: 0 4px 10px rgba(0,0,0,0.45);
       outline: none;
     }
-
-    /* Estado de foco accesible adicional (teclado) */
     .btn-invisible:focus-visible::after {
       content: "";
       position: absolute;
       inset: -4px;
       border-radius: 10px;
-      outline: 3px solid #f2d38a; /* aro dorado */
-      outline-offset: 0;
+      outline: 3px solid #f2d38a;
       filter: drop-shadow(0 0 6px rgba(242,211,138,0.6));
     }
-
-    /* Tamaño de letra relativo al contenedor para escalar bien */
-    .btn-invisible { font-size: clamp(0.72rem, 1.2vw, 1rem); }
-
-    /* === POSICIONAMIENTO (porcentajes relativos a la imagen) === */
-    /* Ajusta sólo estos % si cambias de diseño */
-    .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
-    .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
-    .btn-correo    { top: 30.5%; left: 69%; width: 22%; height: 6%; }
-    .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
-    .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
-
-    /* El contenido se centra dentro del área clickable */
     .btn-invisible span {
       display: inline-block;
       width: 100%;
@@ -125,37 +95,48 @@
       padding-inline: 0.2em;
     }
 
-    /* === RESPONSIVE FINO EN MÓVIL === */
+    /* === POSICIONAMIENTO relativo a la imagen (mismos %) que usabas === */
+    .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
+    .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
+    .btn-correo    { top: 30.5%; left: 69%; width: 22%; height: 6%; }
+    .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
+    .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
+
+    /* Ajustes móviles */
     @media (max-width: 600px) {
-      .web-container { width: 94vw; }
+      .background-design { height: 94vh; }
       .btn-invisible { font-size: clamp(0.7rem, 3vw, 0.9rem); border-width: 1.5px; }
-      /* Si quieres ampliar áreas clicables en móvil, descomenta:
-      .btn-invisible { height: 7.5%; }
-      */
+    }
+
+    /* Si tienes versión @2x, permite que el contenedor use un poco más de ancho en pantallas grandes */
+    @media (min-width: 1100px) {
+      .background-design { height: 92vh; }  /* margen visual superior en sobremesa */
     }
   </style>
 </head>
 <body>
 
-  <main class="web-container" role="main" aria-label="Portada La Semilla de Anu">
-    <div class="botones-capa" aria-hidden="false">
-      <a class="btn-invisible btn-comprar"   href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" target="_blank" rel="noopener noreferrer" aria-label="Comprar La Semilla de Anu">
-        <span>COMPRAR</span>
-      </a>
-      <a class="btn-invisible btn-tiktok"    href="https://www.tiktok.com/@vorticeverde82" target="_blank" rel="noopener noreferrer" aria-label="TikTok Vorticeverde82">
-        <span>TIKTOK</span>
-      </a>
-      <a class="btn-invisible btn-correo"    href="mailto:vortice_verde@hotmail.com" aria-label="Contacto por correo">
-        <span>CONTACTO</span>
-      </a>
-      <a class="btn-invisible btn-instagram" href="https://www.instagram.com/vorticeverde82/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Vorticeverde82">
-        <span>INSTAGRAM</span>
-      </a>
-      <a class="btn-invisible btn-youtube"   href="https://www.youtube.com/@DRobles82" target="_blank" rel="noopener noreferrer" aria-label="YouTube DRobles82">
-        <span>YOUTUBE</span>
-      </a>
+  <div class="web-container" role="main" aria-label="Portada La Semilla de Anu">
+    <!-- IMPORTANTÍSIMO: añade tu versión @2x en srcset para más nitidez -->
+    <img
+      src="portada.png"
+      srcset="portada.png 928w, portada@2x.jpg 1856w"
+      sizes="(max-width: 600px) 94vh, 96vh"
+      alt="La Semilla de Anu"
+      class="background-design"
+      decoding="async"
+      fetchpriority="high"
+    />
+
+    <div class="botones-capa">
+      <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank" rel="noopener noreferrer"><span>COMPRAR</span></a>
+      <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank" rel="noopener noreferrer"><span>TIKTOK</span></a>
+      <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo"><span>CONTACTO</span></a>
+      <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank" rel="noopener noreferrer"><span>INSTAGRAM</span></a>
+      <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-youtube" target="_blank" rel="noopener noreferrer"><span>YOUTUBE</span></a>
     </div>
-  </main>
+  </div>
 
 </body>
 </html>
+``
