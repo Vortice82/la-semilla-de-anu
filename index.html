@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>La Semilla de Anu - Sitio Oficial</title>
 
   <style>
@@ -10,49 +10,46 @@
        Reset y base
     ---------------------------*/
     *, *::before, *::after { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
-      background: #2c221a;                 /* marrón oscuro de fondo */
-      display: grid;
-      place-items: center;
-      overflow-x: hidden;                  /* evita scroll lateral */
-      overflow-y: auto;                    /* permite desplazamiento vertical en móvil */
+      padding: 0;
+      overflow: hidden; /* Evita scrolls laterales y verticales accidentales */
+    }
+    body {
+      background: #2c221a; /* marrón oscuro de fondo */
+      display: flex;
+      justify-content: center; /* Centrado horizontal */
+      align-items: center;    /* Centrado vertical */
       font-family: Cambria, Georgia, "Times New Roman", serif;
       color: #e8dcc4;
     }
 
     /* --------------------------
        Contenedor principal
-       - Se ajusta al tamaño de la imagen
-       - aspect-ratio para reservar espacio mientras carga
+       - Forzamos altura completa (100vh)
+       - Proporción exacta de tu portada (2/3)
     ---------------------------*/
     .web-container {
       position: relative;
-      display: inline-block;               /* se adapta al contenido (imagen) */
-      max-width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-      overflow: hidden;                    /* recorta solo dentro del marco */
-      background: #1f1812;                 /* color de reserva mientras carga */
-
-      /* Reserva un área aproximada con la proporción de tu diseño.
-         Si tu imagen tiene otra proporción, actualiza este valor. */
-      aspect-ratio: 2 / 3;                 /* 0.666... típico de portada vertical */
-      width: min(96vw, 900px);             /* límite razonable en escritorio */
-      /* La altura vendrá dada por la relación de aspecto y el ancho */
+      /* --- CORRECCIÓN CLAVE --- */
+      height: 100vh; /* Altura completa de la pantalla siempre */
+      width: auto;   /* El ancho se calcula solo según aspect-ratio */
+      aspect-ratio: 2 / 3; /* Proporción de portada (928x1238px o similar) */
+      
+      border-radius: 4px; /* Bordes más sutiles en móvil */
+      box-shadow: 0 5px 15px rgba(0,0,0,0.45);
+      background: #1f1812; /* color de reserva */
     }
 
     /* --------------------------
        Imagen de fondo/diseño
-       - Ocupa todo el contenedor manteniendo proporción
     ---------------------------*/
     .background-design {
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: contain;                 /* quepa sin recortarse */
-      object-position: center;
+      object-fit: cover; /* Asegura que cubra todo el contenedor */
       image-rendering: auto;
     }
 
@@ -61,69 +58,53 @@
     ---------------------------*/
     .botones-capa {
       position: absolute;
-      inset: 0;                            /* ocupa exactamente el área de la imagen */
-      pointer-events: none;                /* por defecto no capta eventos */
+      inset: 0;
+      pointer-events: none;
     }
 
-    /* Botones (visibles y accesibles) */
+    /* Botones (destacados y accesibles) */
     .btn-invisible {
       position: absolute;
       display: flex;
       align-items: center;
       justify-content: center;
 
-      pointer-events: auto;                /* habilitar clicks */
+      pointer-events: auto;
       user-select: none;
       text-decoration: none;
 
       text-transform: uppercase;
       letter-spacing: 0.5px;
       font-weight: 700;
-      font-size: clamp(0.8rem, 1.2vw, 1rem); /* tipografía fluida */
+      /* Tipografía fluida que escala bien en móvil y PC */
+      font-size: clamp(0.75rem, 1.3vh, 1rem); 
 
       color: #2c221a;
-      background-color: rgba(232,220,196,0.9);
-      border: 2px solid #8e7a60;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+      /* Fondo semitransparente color pergamino claro para destacar */
+      background-color: rgba(232, 220, 196, 0.9); 
+      border: 1px solid #8e7a60; /* Borde bronce sutil */
+      border-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
 
-      transition: transform .18s ease,
-                  box-shadow .18s ease,
-                  background-color .18s ease,
-                  border-color .18s ease;
-      padding-inline: 0.6em;
+      transition: all .2s ease;
+      padding-inline: 0.5em;
       line-height: 1.1;
     }
+
+    /* Efectos hover/focus */
     .btn-invisible:hover,
     .btn-invisible:focus-visible {
-      background-color: rgba(232,220,196,0.98);
+      background-color: rgba(232, 220, 196, 1);
       border-color: #d4bc8c;
-      transform: translateY(-1px) scale(1.03);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.45);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
       outline: none;
-    }
-    .btn-invisible:focus-visible::after {
-      content: "";
-      position: absolute;
-      inset: -4px;
-      border-radius: 10px;
-      outline: 3px solid #f2d38a;
-      filter: drop-shadow(0 0 6px rgba(242,211,138,0.6));
-    }
-    .btn-invisible span {
-      display: inline-block;
-      width: 100%;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      padding-inline: 0.2em;
     }
 
     /* --------------------------
-       Posiciones de los botones (porcentajes relativos al área de la imagen)
-       * OJO: ahora sí se verán bien incluso mientras carga la imagen
-         gracias a aspect-ratio.
+       Posiciones de los botones
+       Al forzar height: 100vh, estos porcentajes
+       SIEMPRE son exactos respecto a los dibujos.
     ---------------------------*/
     .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
     .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
@@ -131,75 +112,69 @@
     .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
     .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
 
-    /* --------------------------
-       Ajustes responsivos
-    ---------------------------*/
-    @media (max-width: 900px) {
-      .web-container { width: min(96vw, 720px); }
-      .btn-invisible { font-size: clamp(0.78rem, 2.6vw, 0.95rem); }
-    }
-
-    @media (max-width: 600px) {
-      .web-container { width: 96vw; }
-
-      .btn-invisible {
-        font-size: clamp(0.8rem, 3.7vw, 0.95rem);
-        border-width: 1.5px;
-        padding-inline: 0.55em;
+    /* Ajuste para pantallas anchas (PC) */
+    @media (min-width: 900px) {
+      .web-container {
+        width: auto;
+        height: min(100vh, 900px * 1.5); /* Limita altura si la pantalla es muy grande */
+        max-width: 900px;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.45);
       }
-
-      /* Un pelín más de anchura para que el texto no haga "…" en móviles */
-      .btn-comprar,
-      .btn-tiktok,
-      .btn-correo,
-      .btn-instagram,
-      .btn-youtube { left: 67.5%; width: 24%; }
+      .btn-invisible {
+        font-size: clamp(0.8rem, 1.2vw, 1rem);
+        padding-inline: 0.7em;
+        border-width: 2px;
+      }
     }
 
-    /* Estado activo */
-    .btn-invisible:active { transform: translateY(0); }
+    /* Evitar "…" en móviles muy pequeños */
+    @media (max-width: 400px) {
+      .btn-invisible {
+        font-size: 0.7rem;
+        padding-inline: 0.4em;
+      }
+    }
   </style>
 </head>
 
 <body>
   <div class="web-container" role="main" aria-label="Portada La Semilla de Anu">
 
-    <!-- Imagen base + @2x para pantallas retina (más nitidez) -->
     <img
       src="portada.png"
-      srcset="portada@2x.jpg 2x"
-      alt="La Semilla de Anu"
+      srcset="portada.png 1x, portada.png 2x" /* Reutilizo portada.png si no tienes @2x.jpg */
+      alt="La Semilla de Anu - Diseño Oficial responsive"
       class="background-design"
       decoding="async"
       fetchpriority="high"
     />
 
-    <!-- Capa de botones -->
     <div class="botones-capa" aria-hidden="false">
 
       <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/"
          class="btn-invisible btn-comprar" target="_blank" rel="noopener noreferrer">
-         <span>COMPRAR</span>
+         COMPRAR
       </a>
 
       <a href="https://www.tiktok.com/@vorticeverde82"
          class="btn-invisible btn-tiktok" target="_blank" rel="noopener noreferrer">
-         <span>TIKTOK</span>
+         TIKTOK
       </a>
 
       <a href="mailto:vortice_verde@hotmail.com"
          class="btn-invisible btn-correo">
-         <span>CONTACTO</span>
+         CONTACTO
       </a>
 
       <a href="https://www.instagram.com/vorticeverde82/"
          class="btn-invisible btn-instagram" target="_blank" rel="noopener noreferrer">
-         <span>INSTAGRAM</span>
+         INSTAGRAM
       </a>
 
       <a href="https://www.youtube.com/@DRobles82"
          class="btn-invisible btn-youtube" target="_blank" rel="noopener noreferrer">
-         <span>YOUTUBE</span>
+         YOUTUBE
       </a>
 
     </div>
