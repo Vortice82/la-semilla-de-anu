@@ -25,33 +25,35 @@
     /* --------------------------
        Contenedor principal
        - Se ajusta al tamaño de la imagen
+       - aspect-ratio para reservar espacio mientras carga
     ---------------------------*/
     .web-container {
       position: relative;
       display: inline-block;               /* se adapta al contenido (imagen) */
       max-width: 100%;
-      max-height: 100%;
       border-radius: 8px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.45);
       overflow: hidden;                    /* recorta solo dentro del marco */
       background: #1f1812;                 /* color de reserva mientras carga */
+
+      /* Reserva un área aproximada con la proporción de tu diseño.
+         Si tu imagen tiene otra proporción, actualiza este valor. */
+      aspect-ratio: 2 / 3;                 /* 0.666... típico de portada vertical */
+      width: min(96vw, 900px);             /* límite razonable en escritorio */
+      /* La altura vendrá dada por la relación de aspecto y el ancho */
     }
 
     /* --------------------------
        Imagen de fondo/diseño
-       - Alto relativo al viewport dinámico (móvil)
-       - Mantiene proporción (ancho auto)
+       - Ocupa todo el contenedor manteniendo proporción
     ---------------------------*/
     .background-design {
       display: block;
-      height: min(96dvh, 100dvh);          /* móviles modernos: usa viewport dinámico */
-      width: auto;                         /* mantiene proporción de la imagen */
-      max-width: 100%;                     /* por si la imagen es muy ancha */
+      width: 100%;
+      height: 100%;
+      object-fit: contain;                 /* quepa sin recortarse */
+      object-position: center;
       image-rendering: auto;
-    }
-    /* Fallback si el navegador no soporta dvh */
-    @supports not (height: 100dvh) {
-      .background-design { height: min(96vh, 100vh); }
     }
 
     /* --------------------------
@@ -77,10 +79,10 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       font-weight: 700;
-      font-size: clamp(0.78rem, 1.2vw, 1rem); /* tipografía fluida */
+      font-size: clamp(0.8rem, 1.2vw, 1rem); /* tipografía fluida */
 
       color: #2c221a;
-      background-color: rgba(232,220,196,0.86);
+      background-color: rgba(232,220,196,0.9);
       border: 2px solid #8e7a60;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.35);
@@ -89,12 +91,12 @@
                   box-shadow .18s ease,
                   background-color .18s ease,
                   border-color .18s ease;
-      padding-inline: 0.5em;
+      padding-inline: 0.6em;
       line-height: 1.1;
     }
     .btn-invisible:hover,
     .btn-invisible:focus-visible {
-      background-color: rgba(232,220,196,0.95);
+      background-color: rgba(232,220,196,0.98);
       border-color: #d4bc8c;
       transform: translateY(-1px) scale(1.03);
       box-shadow: 0 4px 10px rgba(0,0,0,0.45);
@@ -120,6 +122,8 @@
 
     /* --------------------------
        Posiciones de los botones (porcentajes relativos al área de la imagen)
+       * OJO: ahora sí se verán bien incluso mientras carga la imagen
+         gracias a aspect-ratio.
     ---------------------------*/
     .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
     .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
@@ -131,27 +135,25 @@
        Ajustes responsivos
     ---------------------------*/
     @media (max-width: 900px) {
-      .btn-invisible { font-size: clamp(0.76rem, 2.6vw, 0.95rem); }
+      .web-container { width: min(96vw, 720px); }
+      .btn-invisible { font-size: clamp(0.78rem, 2.6vw, 0.95rem); }
     }
 
     @media (max-width: 600px) {
-      .background-design { height: min(94dvh, 100dvh); } /* un poco menos para notch/barras */
-      @supports not (height: 100dvh) {
-        .background-design { height: min(94vh, 100vh); }
-      }
+      .web-container { width: 96vw; }
 
       .btn-invisible {
-        font-size: clamp(0.72rem, 3.4vw, 0.9rem);
+        font-size: clamp(0.8rem, 3.7vw, 0.95rem);
         border-width: 1.5px;
-        padding-inline: 0.45em;
+        padding-inline: 0.55em;
       }
 
-      /* Ajuste fino: desplaza ligeramente para evitar bordes en móviles muy estrechos */
+      /* Un pelín más de anchura para que el texto no haga "…" en móviles */
       .btn-comprar,
       .btn-tiktok,
       .btn-correo,
       .btn-instagram,
-      .btn-youtube { left: 68.5%; width: 22.5%; }
+      .btn-youtube { left: 67.5%; width: 24%; }
     }
 
     /* Estado activo */
@@ -165,8 +167,7 @@
     <!-- Imagen base + @2x para pantallas retina (más nitidez) -->
     <img
       src="portada.png"
-      srcset="portada.png 928w, portada@2x.jpg 1856w"
-      sizes="(max-width: 600px) 94dvh, 96dvh"
+      srcset="portada@2x.jpg 2x"
       alt="La Semilla de Anu"
       class="background-design"
       decoding="async"
@@ -177,32 +178,28 @@
     <div class="botones-capa" aria-hidden="false">
 
       <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/"
-         class="btn-invisible btn-comprar"
-         target="_blank" rel="noopener noreferrer">
-        <span>COMPRAR</span>
+         class="btn-invisible btn-comprar" target="_blank" rel="noopener noreferrer">
+         <span>COMPRAR</span>
       </a>
 
       <a href="https://www.tiktok.com/@vorticeverde82"
-         class="btn-invisible btn-tiktok"
-         target="_blank" rel="noopener noreferrer">
-        <span>TIKTOK</span>
+         class="btn-invisible btn-tiktok" target="_blank" rel="noopener noreferrer">
+         <span>TIKTOK</span>
       </a>
 
       <a href="mailto:vortice_verde@hotmail.com"
          class="btn-invisible btn-correo">
-        <span>CONTACTO</span>
+         <span>CONTACTO</span>
       </a>
 
       <a href="https://www.instagram.com/vorticeverde82/"
-         class="btn-invisible btn-instagram"
-         target="_blank" rel="noopener noreferrer">
-        <span>INSTAGRAM</span>
+         class="btn-invisible btn-instagram" target="_blank" rel="noopener noreferrer">
+         <span>INSTAGRAM</span>
       </a>
 
       <a href="https://www.youtube.com/@DRobles82"
-         class="btn-invisible btn-youtube"
-         target="_blank" rel="noopener noreferrer">
-        <span>YOUTUBE</span>
+         class="btn-invisible btn-youtube" target="_blank" rel="noopener noreferrer">
+         <span>YOUTUBE</span>
       </a>
 
     </div>
