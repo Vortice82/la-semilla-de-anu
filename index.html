@@ -5,27 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Semilla de Anu - Sitio Oficial</title>
     <style>
+        /* Estilos base */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body, html { 
             min-height: 100%; 
             background-color: #2c221a; 
             display: flex; 
-            flex-direction: column; /* Cambiado para permitir contenido abajo */
+            flex-direction: column; 
             align-items: center;
             font-family: 'Cambria', 'Georgia', serif;
             overflow-x: hidden;
         }
 
-        /* Contenedor principal de la portada */
+        /* Contenedor de la Portada */
         .web-container {
             position: relative;
-            max-height: 90vh; 
+            max-height: 92vh; 
             width: auto;
             aspect-ratio: 928 / 1238; 
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
@@ -40,6 +41,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
         }
 
+        /* Estilo de los Botones */
         .btn-invisible {
             position: absolute;
             display: flex;
@@ -62,62 +64,46 @@
             transform: scale(1.03);
         }
 
-        /* Posiciones botones */
+        /* Posiciones de los botones */
         .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
         .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
         .btn-correo    { top: 30.5%; left: 69%; width: 22%; height: 6%; }
         .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
         .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
 
-        /* --- NUEVA SECCIÓN DE GALERÍA --- */
-        .galeria-novedades {
+        /* --- SECCIÓN DEL MAPA --- */
+        .seccion-mapa {
             width: 100%;
-            max-width: 900px;
+            max-width: 800px; /* Tamaño ideal para que el mapa no se pixele */
             display: flex;
             justify-content: center;
-            gap: 20px;
-            padding: 40px 20px;
-            background-color: #2c221a;
+            padding: 30px 20px 50px 20px;
         }
 
-        .img-novedad {
-            width: 45%;
+        .img-mapa {
+            width: 100%;
             height: auto;
             border: 2px solid #8e7a60;
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease;
         }
 
-        .img-novedad:hover {
-            transform: scale(1.02);
-        }
-
-        /* --- AJUSTES PARA MÓVIL --- */
+        /* --- AJUSTES MÓVIL --- */
         @media (max-width: 600px) {
-            body { padding: 10px; }
+            body { padding: 5px; }
             
             .web-container { 
-                width: 85vw; 
+                width: 88vw; /* Un poco más grande para que se lea bien en móvil */
                 height: auto; 
                 max-height: none; 
-                margin-bottom: 20px;
+                margin-bottom: 10px;
             }
 
             .background-design { width: 100%; height: auto; }
-            .btn-invisible { font-size: 0.6em; }
+            .btn-invisible { font-size: 0.65em; }
 
-            /* Galería en vertical para móviles */
-            .galeria-novedades {
-                flex-direction: column;
-                align-items: center;
-                padding: 20px 10px;
-            }
-
-            .img-novedad {
-                width: 100%; /* Ocupan todo el ancho en móvil */
-                max-width: 400px;
-                margin-bottom: 20px;
+            .seccion-mapa {
+                padding: 15px 10px 40px 10px;
             }
         }
     </style>
@@ -125,7 +111,8 @@
 <body>
 
     <div class="web-container">
-        <img src="portada.png" class="background-design" alt="La Semilla de Anu">
+        <img src="portada.jpg" class="background-design" alt="La Semilla de Anu">
+        
         <div class="botones-capa">
             <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
             <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
@@ -135,9 +122,8 @@
         </div>
     </div>
 
-    <div class="galeria-novedades">
-        <img src="La semilla de Anu - card novedad.jpg" class="img-novedad" alt="Novedad La Semilla de Anu">
-        <img src="mapa.jpg" class="img-novedad" alt="Mapa de ventas internacional">
+    <div class="seccion-mapa">
+        <img src="mapa.jpg" class="img-mapa" alt="A la venta en 11 países">
     </div>
 
 </body>
