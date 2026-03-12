@@ -1,111 +1,161 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Semilla de Anu - Sitio Oficial</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body, html { 
-            height: 100%; 
-            background-color: #2c221a; /* Fondo marrón oscuro */
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            overflow: hidden; /* Evita barras de desplazamiento */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>La Semilla de Anu - Sitio Oficial</title>
 
-        .web-container {
-            position: relative;
-            /* Solución para encajar la imagen sin cortes verticalmente */
-            max-height: 100vh; 
-            width: auto;
-            aspect-ratio: 928 / 1238; /* Proporción de la imagen original */
-            display: flex;
-            justify-content: center;
-        }
+  <style>
+    /* Reset mínimo */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background-color: #2c221a; /* Fondo marrón oscuro */
+      display: grid;
+      place-items: center;
+      overflow: hidden; /* sin scroll */
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
 
-        .background-design {
-            height: 100%;
-            width: auto;
-            display: block;
-        }
+    /* === CONTENEDOR RESPONSIVE CON RATIO FIJO ===
+       La imagen se renderiza como background para evitar "saltos" de tamaño.
+       El ratio proviene de 928×1238 ≈ 0.7496 (o 928/1238).
+    */
+    .web-container {
+      position: relative;
+      width: min(92vw, 928px);      /* no excede 928px; en móviles ocupa ~92% del ancho */
+      aspect-ratio: 928 / 1238;     /* mantiene proporción exacta */
+      max-height: 96vh;             /* nunca más alto que la ventana */
+      background: #2c221a center/cover no-repeat;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      overflow: hidden;
+      isolation: isolate;           /* apila bien las capas y filtros */
+    }
 
-        /* Capa para posicionar los botones sobre la imagen */
-        .botones-capa {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
+    /* Imagen de fondo (usa tu archivo). Si quieres usar <img>, ver variante más abajo */
+    .web-container {
+      background-image: url("portada.png");
+    }
 
-        /* --- ESTILO ACTUALIZADO PARA DESTACAR LOS BOTONES --- */
-        .btn-invisible {
-            position: absolute;
-            display: flex;
-            align-items: center;
-            justify-content: center; /* Centra el texto */
-            text-decoration: none;
-            
-            /* Color del texto: crema oscuro para contrastar */
-            color: #2c221a; 
-            font-family: 'Cambria', 'Georgia', serif; /* Fuente estilo antiguo */
-            font-weight: bold;
-            font-size: 0.9em;
-            text-transform: uppercase; /* Texto en mayúsculas */
-            letter-spacing: 0.5px;
-            
-            /* --- NUEVOS ESTILOS PARA VISIBILIDAD --- */
-            /* Fondo semitransparente color crema para resaltar */
-            background-color: rgba(232, 220, 196, 0.7); 
-            /* Borde sutil color bronce/pergamino oscuro */
-            border: 1px solid #8e7a60; 
-            /* Bordes ligeramente redondeados */
-            border-radius: 4px;
-            /* Sombra suave para dar profundidad */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            /* Transición suave para el efecto hover */
-            transition: all 0.2s ease;
-        }
+    /* Capa de botones superpuesta a toda el área */
+    .botones-capa {
+      position: absolute;
+      inset: 0;
+      z-index: 1; /* por encima del fondo */
+      pointer-events: none; /* los clics sólo en los botones */
+    }
 
-        /* Efecto al pasar el ratón por encima (Hover) */
-        .btn-invisible:hover {
-            background-color: rgba(232, 220, 196, 0.9); /* Fondo más opaco */
-            border-color: #d4bc8c; /* Borde más claro */
-            transform: scale(1.03); /* Liguero aumento de tamaño */
-            box-shadow: 0 4px 6px rgba(0,0,0,0.4); /* Sombra más pronunciada */
-        }
+    /* === BOTONES VISIBLES Y ACCESIBLES === */
+    .btn-invisible {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      pointer-events: auto;           /* activamos interacción */
+      user-select: none;
 
-        /* Posiciones exactas para coincidir con los botones diseñados en la imagen */
-        .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
-        .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
-        .btn-correo    { top: 30.5%; left: 69%; width: 22%; height: 6%; }
-        .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
-        .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
+      /* Tipografía tipo "pergamino" */
+      font-family: Cambria, Georgia, "Times New Roman", Times, serif;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
 
-        /* Ajustes para dispositivos móviles */
-        @media (max-width: 600px) {
-            .web-container { width: 100vw; height: auto; aspect-ratio: 928 / 1238; max-height: none; }
-            .background-design { width: 100%; height: auto; }
-            .btn-invisible { font-size: 0.8em; }
-        }
-    </style>
+      /* Tamaños y paddings */
+      padding-inline: 0.4em;          /* relleno para que no quede justo al borde */
+      border-radius: 6px;
+
+      /* VISIBILIDAD: contraste y profundidad */
+      color: #2c221a;                                  /* texto oscuro */
+      background-color: rgba(232, 220, 196, 0.82);     /* crema semitransparente */
+      border: 2px solid #8e7a60;                       /* borde bronce/pergamino */
+      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+
+      /* Animación sutil (respeta reduce motion) */
+      transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease;
+      will-change: transform;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn-invisible { transition: none; }
+    }
+
+    .btn-invisible:hover,
+    .btn-invisible:focus-visible {
+      background-color: rgba(232, 220, 196, 0.95);
+      border-color: #d4bc8c;
+      transform: translateY(-1px) scale(1.03);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.45);
+      outline: none;
+    }
+
+    /* Estado de foco accesible adicional (teclado) */
+    .btn-invisible:focus-visible::after {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 10px;
+      outline: 3px solid #f2d38a; /* aro dorado */
+      outline-offset: 0;
+      filter: drop-shadow(0 0 6px rgba(242,211,138,0.6));
+    }
+
+    /* Tamaño de letra relativo al contenedor para escalar bien */
+    .btn-invisible { font-size: clamp(0.72rem, 1.2vw, 1rem); }
+
+    /* === POSICIONAMIENTO (porcentajes relativos a la imagen) === */
+    /* Ajusta sólo estos % si cambias de diseño */
+    .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
+    .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
+    .btn-correo    { top: 30.5%; left: 69%; width: 22%; height: 6%; }
+    .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
+    .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
+
+    /* El contenido se centra dentro del área clickable */
+    .btn-invisible span {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-inline: 0.2em;
+    }
+
+    /* === RESPONSIVE FINO EN MÓVIL === */
+    @media (max-width: 600px) {
+      .web-container { width: 94vw; }
+      .btn-invisible { font-size: clamp(0.7rem, 3vw, 0.9rem); border-width: 1.5px; }
+      /* Si quieres ampliar áreas clicables en móvil, descomenta:
+      .btn-invisible { height: 7.5%; }
+      */
+    }
+  </style>
 </head>
 <body>
 
-    <div class="web-container">
-        <img src="portada.png" class="background-design" alt="La Semilla de Anu">
-
-        <div class="botones-capa">
-            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
-            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
-            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo">CONTACTO</a>
-            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank">INSTAGRAM</a>
-            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-youtube" target="_blank">YOUTUBE</a>
-        </div>
+  <main class="web-container" role="main" aria-label="Portada La Semilla de Anu">
+    <div class="botones-capa" aria-hidden="false">
+      <a class="btn-invisible btn-comprar"   href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" target="_blank" rel="noopener noreferrer" aria-label="Comprar La Semilla de Anu">
+        <span>COMPRAR</span>
+      </a>
+      <a class="btn-invisible btn-tiktok"    href="https://www.tiktok.com/@vorticeverde82" target="_blank" rel="noopener noreferrer" aria-label="TikTok Vorticeverde82">
+        <span>TIKTOK</span>
+      </a>
+      <a class="btn-invisible btn-correo"    href="mailto:vortice_verde@hotmail.com" aria-label="Contacto por correo">
+        <span>CONTACTO</span>
+      </a>
+      <a class="btn-invisible btn-instagram" href="https://www.instagram.com/vorticeverde82/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Vorticeverde82">
+        <span>INSTAGRAM</span>
+      </a>
+      <a class="btn-invisible btn-youtube"   href="https://www.youtube.com/@DRobles82" target="_blank" rel="noopener noreferrer" aria-label="YouTube DRobles82">
+        <span>YOUTUBE</span>
+      </a>
     </div>
+  </main>
 
 </body>
 </html>
