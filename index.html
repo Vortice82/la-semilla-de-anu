@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>La Semilla de Anu - Sitio Oficial</title>
     <style>
-        /* RESET Y BASE */
+        /* 1. RESET Y ESTILOS DE BASE */
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body, html { 
             min-height: 100%; 
             background-color: #2c221a; 
@@ -17,7 +18,7 @@
             font-family: 'Cambria', 'Georgia', serif;
         }
 
-        /* CONTENEDOR PORTADA */
+        /* 2. CONTENEDOR DE PORTADA */
         .web-container {
             position: relative;
             max-height: 92vh; 
@@ -28,10 +29,11 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             margin: 20px 0;
         }
+
         .background-design { height: 100%; width: auto; display: block; }
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-        /* BOTONES PORTADA */
+        /* 3. ESTILO DE BOTONES */
         .btn-invisible {
             position: absolute;
             display: flex;
@@ -51,8 +53,13 @@
             text-align: center;
             cursor: pointer;
         }
-        .btn-invisible:hover { background-color: rgba(232, 220, 196, 0.9); transform: scale(1.03); }
 
+        .btn-invisible:hover {
+            background-color: rgba(232, 220, 196, 0.9);
+            transform: scale(1.03);
+        }
+
+        /* Posiciones exactas */
         .btn-escritura { top: 12.5%; left: 9%; width: 22%; height: 6%; background-color: rgba(85, 60, 40, 0.85); color: #e8dcc4; border: 1px solid #d4bc8c; }
         .btn-juego     { top: 20.5%; left: 9%; width: 22%; height: 6%; background-color: #d4bc8c; color: #2c221a; border: 1px solid #8e7a60; }
         
@@ -62,7 +69,7 @@
         .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
         .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
 
-        /* MODAL DEL JUEGO */
+        /* 4. MODAL DEL JUEGO */
         #game-modal {
             display: none;
             position: fixed;
@@ -72,42 +79,199 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding: 10px;
+        }
+
+        .game-header {
+            color: #d4bc8c;
+            width: 480px;
+            max-width: 95vw;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 14px;
         }
 
         #game-canvas {
             background: #1a1a2e;
             border: 4px solid #d4bc8c;
             max-width: 95vw;
-            max-height: 60vh;
+            max-height: 55vh;
+            cursor: none;
         }
 
-        .game-info {
-            color: #d4bc8c;
-            display: flex;
-            justify-content: space-between;
-            width: 480px;
-            max-width: 95vw;
-            margin-bottom: 5px;
-            font-weight: bold;
+        .game-footer { margin-top: 15px; display: flex; gap: 15px; }
+        .game-btn { 
+            padding: 10px 20px; 
+            background: #d4bc8c; 
+            border: none; 
+            font-weight: bold; 
+            cursor: pointer; 
+            border-radius: 4px;
+            color: #2c221a;
         }
 
-        .game-controls { margin-top: 15px; display: flex; gap: 15px; }
-        .game-btn { padding: 10px 20px; background: #d4bc8c; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; }
-
-        /* CONTROLES MÓVILES */
-        .touch-area {
+        /* CONTROLES TÁCTILES */
+        .mobile-controls {
             margin-top: 20px;
             display: none;
-            gap: 40px;
+            gap: 50px;
         }
-        .touch-btn {
-            width: 70px; height: 70px;
+        .t-btn {
+            width: 75px; height: 75px;
             background: rgba(212, 188, 140, 0.2);
             border: 2px solid #d4bc8c;
             border-radius: 50%;
-            color: white; font-size: 24px;
+            color: white; font-size: 28px;
+            display: flex; align-items: center; justify-content: center;
             touch-action: manipulation;
         }
 
-        /* SECCIÓN MAPA */
-        .seccion-mapa { width:
+        /* 5. SECCIÓN MAPA */
+        .seccion-mapa { width: 100%; max-width: 928px; padding: 20px; margin-bottom: 50px; }
+        .mapa-img { width: 100%; height: auto; border: 1px solid #8e7a60; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            .btn-invisible { font-size: 0.55em; letter-spacing: 0px; }
+            .mobile-controls { display: flex; }
+            .btn-juego { top: 19.5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="web-container">
+        <img src="portada.png" class="background-design" alt="La Semilla de Anu - David Robles">
+        <div class="botones-capa">
+            <a href="cuneiforme.html" class="btn-invisible btn-escritura">ESCRITURA</a>
+            <div class="btn-invisible btn-juego" onclick="openGame()">JUEGO</div>
+            
+            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
+            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
+            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo">CONTACTO</a>
+            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank">INSTAGRAM</a>
+            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-youtube" target="_blank">YOUTUBE</a>
+        </div>
+    </div>
+
+    <div id="game-modal">
+        <div class="game-header">
+            <span id="score">PUNTOS: 0</span>
+            <span id="highscore">RÉCORD: 0 (---)</span>
+        </div>
+        <canvas id="game-canvas"></canvas>
+        <div class="game-footer">
+            <button class="game-btn" onclick="closeGame()">SALIR</button>
+            <button class="game-btn" id="start-btn" onclick="toggleStart()">EMPEZAR</button>
+        </div>
+        <div class="mobile-controls">
+            <button class="t-btn" id="l-btn">◀</button>
+            <button class="t-btn" id="r-btn">▶</button>
+        </div>
+    </div>
+
+    <div class="seccion-mapa">
+        <img src="mapa.jpg" class="mapa-img" alt="Mapa de ventas">
+    </div>
+
+    <script>
+        const canvas = document.getElementById("game-canvas");
+        const ctx = canvas.getContext("2d");
+        const modal = document.getElementById("game-modal");
+        
+        canvas.width = 480;
+        canvas.height = 320;
+
+        let x, y, dx, dy, paddleX, score, gameActive = false;
+        const ballRadius = 8, paddleHeight = 12, paddleWidth = 85;
+        const bRows = 5, bCols = 6, bW = 65, bH = 22, bPad = 8, bOffT = 35, bOffL = 25;
+        let bricks = [];
+        let rightP = false, leftP = false;
+
+        function updateRecord() {
+            const rec = localStorage.getItem("anuScore") || 0;
+            const ini = localStorage.getItem("anuIni") || "---";
+            document.getElementById("highscore").innerText = `RÉCORD: ${rec} (${ini})`;
+        }
+
+        function reset() {
+            x = canvas.width / 2; y = canvas.height - 30;
+            dx = 3; dy = -3; paddleX = (canvas.width - paddleWidth) / 2;
+            score = 0; bricks = [];
+            for(let c=0; c<bCols; c++) {
+                bricks[c] = [];
+                for(let r=0; r<bRows; r++) bricks[c][r] = { x:0, y:0, status:1 };
+            }
+            document.getElementById("score").innerText = "PUNTOS: 0";
+        }
+
+        function openGame() { modal.style.display="flex"; updateRecord(); reset(); drawInit(); }
+        function closeGame() { modal.style.display="none"; gameActive=false; }
+
+        function toggleStart() {
+            if(!gameActive) {
+                reset(); gameActive=true; 
+                document.getElementById("start-btn").innerText="REINICIAR";
+                run();
+            } else { reset(); }
+        }
+
+        // Handlers
+        document.addEventListener("keydown", e => { if(e.key.includes("Right")) rightP=true; if(e.key.includes("Left")) leftP=true; });
+        document.addEventListener("keyup", e => { if(e.key.includes("Right")) rightP=false; if(e.key.includes("Left")) leftP=false; });
+        document.getElementById("l-btn").onpointerdown = e => { e.preventDefault(); leftP=true; };
+        document.getElementById("l-btn").onpointerup = () => leftP=false;
+        document.getElementById("r-btn").onpointerdown = e => { e.preventDefault(); rightP=true; };
+        document.getElementById("r-btn").onpointerup = () => rightP=false;
+
+        function run() {
+            if(!gameActive) return;
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            
+            // Bricks
+            for(let c=0; c<bCols; c++) {
+                for(let r=0; r<bRows; r++) {
+                    let b = bricks[c][r];
+                    if(b.status == 1) {
+                        let bx = c*(bW+bPad)+bOffL, by = r*(bH+bPad)+bOffT;
+                        b.x = bx; b.y = by;
+                        ctx.fillStyle = "#a67b5b"; ctx.fillRect(bx, by, bW, bH);
+                        ctx.strokeStyle = "#4e3b31"; ctx.strokeRect(bx, by, bW, bH);
+                        if(x > bx && x < bx+bW && y > by && y < by+bH) { dy=-dy; b.status=0; score+=10; }
+                    }
+                }
+            }
+            document.getElementById("score").innerText = "PUNTOS: " + score;
+
+            // Ball & Paddle
+            ctx.beginPath(); ctx.arc(x,y,ballRadius,0,Math.PI*2); ctx.fillStyle="#ff8c00"; ctx.fill(); ctx.closePath();
+            ctx.fillStyle="#003399"; ctx.fillRect(paddleX, canvas.height-paddleHeight-5, paddleWidth, paddleHeight);
+
+            if(x+dx > canvas.width-ballRadius || x+dx < ballRadius) dx=-dx;
+            if(y+dy < ballRadius) dy=-dy;
+            else if(y+dy > canvas.height-ballRadius-5) {
+                if(x > paddleX && x < paddleX+paddleWidth) dy=-dy;
+                else { 
+                    gameActive=false; 
+                    let r = localStorage.getItem("anuScore") || 0;
+                    alert("FIN DEL JUEGO. PUNTOS: " + score);
+                    let ini = prompt("Tus 3 iniciales:");
+                    if(ini) {
+                        ini = ini.substring(0,3).toUpperCase();
+                        if(score > r) { localStorage.setItem("anuScore", score); localStorage.setItem("anuIni", ini); }
+                    }
+                    document.getElementById("start-btn").innerText="EMPEZAR";
+                    updateRecord(); return;
+                }
+            }
+
+            if(rightP && paddleX < canvas.width-paddleWidth) paddleX+=7;
+            if(leftP && paddleX > 0) paddleX-=7;
+            x+=dx; y+=dy; requestAnimationFrame(run);
+        }
+
+        function drawInit() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle="#d4bc8
