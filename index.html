@@ -18,7 +18,7 @@
             color: #e8dcc4;
         }
 
-        /* PORTADA */
+        /* CONTENEDOR PORTADA */
         .web-container {
             position: relative;
             width: 100%;
@@ -54,7 +54,7 @@
         .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
         .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
 
-        /* SECCIÓN INFERIOR: TEXTO FIEL A TU IMAGEN */
+        /* SECCIÓN INFERIOR: TEXTO EXACTO DEL MAPA */
         .seccion-inferior {
             width: 100%;
             max-width: 800px;
@@ -71,13 +71,27 @@
         }
 
         .info-libro {
-            background: rgba(0,0,0,0.2);
+            text-align: left;
             padding: 20px;
-            border-radius: 8px;
             line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .highlight-rojo { color: #ff4d4d; font-weight: bold; font-size: 1.4em; display: block; margin-bottom: 10px; }
-        .highlight-azul { color: #00d4ff; font-weight: bold; }
+        .titulo-venta { color: #ff4d4d; font-weight: bold; font-size: 1.8em; margin-bottom: 15px; display: block; text-align: center; }
+        .punto-venta { color: #ff4d4d; font-weight: bold; }
+        .mercado-libre { color: #00d4ff; font-weight: bold; }
 
-        .
+        .grid-paises {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 25px;
+            border-top: 1px solid #8e7a60;
+            padding-top: 15px;
+        }
+
+        /* JUEGO */
+        #game-overlay {
+            display: none;
+            position: fixed;
