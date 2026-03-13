@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>La Semilla de Anu - Sitio Oficial</title>
     <style>
-        /* ESTILOS BASE */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
@@ -16,14 +15,13 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* CONTENEDOR DE PORTADA (RESPONSIVE) */
+        /* PORTADA */
         .main-container {
             position: relative;
             width: 100%;
-            max-width: 600px; /* Tamaño máximo para que no se vea gigante en PC */
+            max-width: 500px;
             margin: 10px 0;
         }
 
@@ -31,10 +29,8 @@
             width: 100%;
             height: auto;
             display: block;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.7);
         }
 
-        /* CAPA DE BOTONES */
         .botones-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -42,30 +38,181 @@
 
         .btn {
             position: absolute;
-            background: rgba(232, 220, 196, 0.8);
+            background: rgba(232, 220, 196, 0.85);
             border: 1px solid #8e7a60;
             border-radius: 4px;
             color: #2c221a;
             font-weight: bold;
-            font-size: 2.8vw; /* Fuente que escala con la imagen */
+            font-size: 11px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
             text-transform: uppercase;
-            cursor: pointer;
         }
 
-        @media (min-width: 600px) { .btn { font-size: 14px; } }
+        /* Posiciones exactas */
+        .btn-escritura { top: 12.5%; left: 8%; width: 25%; height: 6%; background: #553c28; color: #fff; }
+        .btn-juego     { top: 20.5%; left: 8%; width: 25%; height: 6%; background: #d4bc8c; }
+        .btn-comprar   { top: 12.5%; left: 67%; width: 25%; height: 6%; }
+        .btn-tiktok    { top: 21.5%; left: 67%; width: 25%; height: 6%; }
+        .btn-correo    { top: 30.5%; left: 67%; width: 25%; height: 6%; }
+        .btn-instagram { top: 39.5%; left: 67%; width: 25%; height: 6%; }
+        .btn-youtube   { top: 48.5%; left: 67%; width: 25%; height: 6%; }
 
-        /* Posiciones en % para que siempre caigan en el mismo sitio de la imagen */
-        .btn-escritura { top: 12.5%; left: 8.5%; width: 23%; height: 6.5%; background: #553c28; color: #fff; }
-        .btn-juego     { top: 21%; left: 8.5%; width: 23%; height: 6.5%; background: #d4bc8c; }
+        /* JUEGO SIMPLE */
+        #game-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #1a1a2e;
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        canvas { background: #000; border: 2px solid #d4bc8c; max-width: 90vw; }
         
-        .btn-comprar   { top: 12.5%; left: 68.5%; width: 23%; height: 6.5%; }
-        .btn-tiktok    { top: 21.5%; left: 68.5%; width: 23%; height: 6.5%; }
-        .btn-correo    { top: 30.5%; left: 68.5%; width: 23%; height: 6.5%; }
-        .btn-instagram { top: 39.5%; left: 68.5%; width: 23%; height: 6.5%; }
-        .btn-youtube   { top: 48.5%; left: 68.5%; width: 23%; height: 6.5%; }
+        .controls { margin-top: 20px; display: flex; gap: 40px; }
+        .t-btn {
+            width: 80px; height: 80px;
+            background: rgba(212, 188, 140, 0.2);
+            border: 2px solid #d4bc8c;
+            border-radius: 50%;
+            color: white; font-size: 30px;
+            display: flex; align-items: center; justify-content: center;
+            touch-action: none;
+        }
 
-        /* SECCIÓN DEL MAPA Y TEXTO */
+        /* SECCIÓN INFERIOR */
+        .seccion-inferior {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .mapa-img { width: 100%; height: auto; border: 1px solid #d4bc8c; margin-bottom: 20px; }
+
+        /* BARRA DE SUGERENCIAS */
+        .sugerencias-container {
+            background: #3d2f25;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #d4bc8c;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .sugerencias-container h3 { margin-bottom: 10px; color: #d4bc8c; font-size: 16px; }
+
+        #sugerencia-input {
+            width: 100%;
+            padding: 10px;
+            background: #e8dcc4;
+            border: none;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-family: inherit;
+        }
+
+        .send-btn {
+            background: #d4bc8c;
+            color: #2c221a;
+            border: none;
+            padding: 8px 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <img src="portada.png" class="portada-img">
+        <div class="botones-overlay">
+            <a href="cuneiforme.html" class="btn btn-escritura">ESCRITURA</a>
+            <div class="btn btn-juego" onclick="toggleGame(true)">JUEGO</div>
+            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn btn-comprar" target="_blank">COMPRAR</a>
+            <a href="https://www.tiktok.com/@vorticeverde82" class="btn btn-tiktok" target="_blank">TIKTOK</a>
+            <a href="mailto:vortice_verde@hotmail.com" class="btn btn-correo">CONTACTO</a>
+            <a href="https://www.instagram.com/vorticeverde82/" class="btn btn-instagram" target="_blank">INSTAGRAM</a>
+            <a href="https://www.youtube.com/@DRobles82" class="btn btn-youtube" target="_blank">YOUTUBE</a>
+        </div>
+    </div>
+
+    <div class="seccion-inferior">
+        <img src="mapa.jpg" class="mapa-img">
+        
+        <div class="sugerencias-container">
+            <h3>TABLILLA DE SUGERENCIAS</h3>
+            <input type="text" id="sugerencia-input" placeholder="Escribe tu mensaje aquí...">
+            <button class="send-btn" onclick="enviarMensaje()">ENVIAR A ANU</button>
+        </div>
+    </div>
+
+    <div id="game-screen">
+        <canvas id="gameCanvas"></canvas>
+        <div class="controls">
+            <div class="t-btn" id="l-btn">◀</div>
+            <div class="t-btn" id="r-btn">▶</div>
+        </div>
+        <button onclick="toggleGame(false)" style="margin-top:20px; padding:10px; background:#d4bc8c; border:none; font-weight:bold;">VOLVER</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 360; canvas.height = 450;
+
+        let x, y, dx, dy, paddleX, gameActive = false;
+        let leftP = false, rightP = false;
+
+        function toggleGame(show) {
+            document.getElementById("game-screen").style.display = show ? "flex" : "none";
+            if(show) { 
+                x = canvas.width/2; y = canvas.height-30;
+                dx = 3; dy = -3; paddleX = (canvas.width-80)/2;
+                gameActive = true; run();
+            } else { gameActive = false; }
+        }
+
+        // Controles táctiles
+        const lb = document.getElementById("l-btn");
+        const rb = document.getElementById("r-btn");
+        lb.ontouchstart = (e) => { e.preventDefault(); leftP = true; };
+        lb.ontouchend = () => leftP = false;
+        rb.ontouchstart = (e) => { e.preventDefault(); rightP = true; };
+        rb.ontouchend = () => rightP = false;
+
+        function run() {
+            if(!gameActive) return;
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            
+            // Pelota y pala
+            ctx.beginPath(); ctx.arc(x,y,10,0,Math.PI*2); ctx.fillStyle="#ff8c00"; ctx.fill(); ctx.closePath();
+            ctx.fillStyle="#003399"; ctx.fillRect(paddleX, canvas.height-15, 80, 10);
+
+            if(x+dx > canvas.width-10 || x+dx < 10) dx=-dx;
+            if(y+dy < 10) dy=-dy;
+            else if(y+dy > canvas.height-15) {
+                if(x > paddleX && x < paddleX+80) dy=-dy;
+                else { toggleGame(false); alert("FIN DEL JUEGO"); return; }
+            }
+            if(leftP && paddleX > 0) paddleX -= 6;
+            if(rightP && paddleX < canvas.width-80) paddleX += 6;
+            x+=dx; y+=dy; requestAnimationFrame(run);
+        }
+
+        function enviarMensaje() {
+            const msg = document.getElementById("sugerencia-input").value;
+            if(msg) {
+                alert("Tu mensaje ha sido grabado en la arcilla: " + msg);
+                document.getElementById("sugerencia-input").value = "";
+            }
+        }
+    </script>
+</body>
+</html>
