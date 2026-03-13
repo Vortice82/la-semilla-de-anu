@@ -2,33 +2,50 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Semilla de Anu - Sitio Oficial</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        /* Reset de estilos */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
         
         body, html { 
             min-height: 100%; 
-            background-color: #2c221a; 
+            background-color: #2c221a; /* Fondo marrón oscuro */
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             overflow-x: hidden;
             font-family: 'Cambria', 'Georgia', serif;
-            color: #e8dcc4;
         }
 
-        /* CONTENEDOR PORTADA */
+        /* Contenedor de la Portada */
         .web-container {
             position: relative;
-            width: 100%;
-            max-width: 500px;
-            margin: 10px auto;
+            max-height: 92vh; 
+            width: auto;
+            aspect-ratio: 928 / 1238; 
+            display: flex;
+            justify-content: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin: 20px 0;
         }
 
-        .background-design { width: 100%; height: auto; display: block; }
+        .background-design {
+            height: 100%;
+            width: auto;
+            display: block;
+        }
 
+        .botones-capa {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* Estilo general de los botones */
         .btn-invisible {
             position: absolute;
             display: flex;
@@ -37,29 +54,49 @@
             text-decoration: none;
             color: #2c221a; 
             font-weight: bold;
-            font-size: 2.8vw;
+            font-size: 0.9em;
             text-transform: uppercase;
-            background-color: rgba(232, 220, 196, 0.85); 
+            letter-spacing: 0.5px;
+            background-color: rgba(232, 220, 196, 0.7); 
             border: 1px solid #8e7a60; 
             border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+            text-align: center;
         }
 
-        @media (min-width: 500px) { .btn-invisible { font-size: 13px; } }
+        .btn-invisible:hover {
+            background-color: rgba(232, 220, 196, 0.9);
+            transform: scale(1.03);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+        }
 
-        .btn-escritura { top: 12.5%; left: 9%; width: 22%; height: 6%; background-color: #553c28; color: #e8dcc4; }
-        .btn-juego     { top: 21.5%; left: 9%; width: 22%; height: 6%; background-color: #d4bc8c; cursor: pointer; }
+        /* POSICIONES BOTONES DERECHA */
         .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
         .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
         .btn-correo    { top: 30.5%; left: 69%; width: 22%; height: 6%; }
         .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
         .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
 
-        /* SECCIÓN INFERIOR: TEXTO FIEL AL MAPA ORIGINAL */
-        .seccion-inferior {
+        /* NUEVO BOTÓN IZQUIERDA (Escritura Cuneiforme) */
+        .btn-escritura { 
+            top: 12.5%; 
+            left: 9%; 
+            width: 22%; 
+            height: 6%; 
+            background-color: rgba(85, 60, 40, 0.85); /* Un tono más arcilla */
+            color: #e8dcc4;
+            border: 1px solid #d4bc8c;
+        }
+
+        /* Sección del Mapa Abajo */
+        .seccion-mapa {
             width: 100%;
-            max-width: 800px;
+            max-width: 928px;
             padding: 20px;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
         }
 
         .mapa-img {
@@ -67,22 +104,43 @@
             height: auto;
             border: 1px solid #8e7a60;
             border-radius: 4px;
-            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .info-libro {
-            text-align: left;
-            padding: 20px;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
+        /* Ajustes para Móvil */
+        @media (max-width: 600px) {
+            body { padding: 5px; }
+            .web-container { 
+                width: 90vw; 
+                height: auto; 
+                max-height: none; 
+            }
+            .background-design { width: 100%; height: auto; }
+            .seccion-mapa { width: 100vw; padding: 15px; }
+            .btn-invisible { font-size: 0.55em; letter-spacing: 0px; }
         }
+    </style>
+</head>
+<body>
 
-        .titulo-rojo { color: #ff4d4d; font-weight: bold; font-size: 1.8em; margin-bottom: 10px; display: block; text-align: left; }
-        .resaltado-rojo { color: #ff4d4d; font-weight: bold; }
-        .resaltado-azul { color: #00d4ff; font-weight: bold; }
+    <div class="web-container">
+        <img src="portada.png" class="background-design" alt="La Semilla de Anu - David Robles">
 
-        .grid-paises {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2
+        <div class="botones-capa">
+            <a href="cuneiforme.html" class="btn-invisible btn-escritura">ESCRITURA</a>
+
+            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
+            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
+            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo">CONTACTO</a>
+            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank">INSTAGRAM</a>
+            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-youtube" target="_blank">YOUTUBE</a>
+        </div>
+    </div>
+
+    <div class="seccion-mapa">
+        <img src="mapa.jpg" class="mapa-img" alt="Mapa de ventas mundial">
+    </div>
+
+</body>
+</html>
+
