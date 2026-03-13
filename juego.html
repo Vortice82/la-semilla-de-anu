@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Anu Adventure - Mini Juego</title>
+    <style>
+        body { background: #2c221a; color: white; text-align: center; font-family: sans-serif; overflow: hidden; }
+        canvas { border: 4px solid #d4bc8c; background: #4a3b2c; margin-top: 20px; touch-action: none; }
+        .instrucciones { margin-top: 10px; color: #d4bc8c; }
+    </style>
+</head>
+<body>
+    <h1>ANUNAKI ESCAPE</h1>
+    <canvas id="gameCanvas" width="800" height="400"></canvas>
+    <div class="instrucciones">Presiona ESPACIO o TOCA la pantalla para saltar los troncos</div>
+    <br>
+    <a href="index.html" style="color: #e8dcc4; text-decoration: none;">← VOLVER AL INICIO</a>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let personaje = { x: 50, y: 300, w: 30, h: 50, dy: 0, saltando: false };
+        let obstaculos = [];
+        let score = 0;
+        let juegoActivo = true;
+
+        function crearObstaculo() {
+            if (Math.random() < 0.02) {
+                obstaculos.push({ x: 800, y: 320, w: 20, h: 30 });
+            }
+        }
+
+        function saltar() {
+            if (!personaje.saltando) {
+                personaje.dy = -12;
+                personaje.saltando = true;
+            }
+        }
+
+        window.addEventListener('keydown', (e) => { if (e.code === 'Space') saltar(); });
+        canvas.addEventListener('touchstart', (e) => { e.preventDefault(); saltar(); });
+
+        function update() {
+            if (!juegoActivo) return;
+
+            personaje.dy += 0.6; // Gravedad
+            personaje.y += personaje.dy;
+
+            if (personaje.y > 300) {
+                personaje.y = 300;
+                personaje.saltando = false;
+            }
+
+            obstaculos.forEach((obs, index) => {
+                obs.x -= 6;
+                if (obs.x + obs.w < 0) {
+                    obstaculos.splice(index, 1);
+                    score++;
+                }
+
+                // Colisión
+                if (personaje.x < obs.x + obs.w && personaje.x + personaje.w > obs.x &&
+                    personaje.y < obs.y + obs.h && personaje.y + personaje.h > obs.y) {
+                    juegoActivo = false;
+                    alert("¡Misión fallida! Puntuación: " + score);
+                    location.reload();
+                }
+            });
+
+            crearObstaculo();
+            draw();
+            requestAnimationFrame(update);
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Suelo
+            ctx.fillStyle = "#654321";
+            ctx.fillRect(0, 350, 800, 50);
+
+            // Personaje (Harry Anunaki)
+            ctx.fillStyle = "#ffd700";
+            ctx.fillRect(personaje.x, personaje.y, personaje.w, personaje.h);
+
+            // Obstáculos
+            ctx.fillStyle = "#ff4500";
+            obstaculos.forEach(obs => ctx.fillRect(obs.x, obs.y, obs.w, obs.h));
+
+            // Score
+            ctx.fillStyle = "white";
+            ctx.font = "20px Arial";
+            ctx.fillText("Puntos: " + score, 20, 30);
+        }
+
+        update();
+    </script>
+</body>
+</html>
