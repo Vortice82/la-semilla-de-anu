@@ -17,11 +17,11 @@
             font-family: 'Cambria', 'Georgia', serif;
         }
 
-        /* PORTADA ADAPTATIVA */
+        /* CONTENEDOR PORTADA (Solución para que no se corte en móvil) */
         .web-container {
             position: relative;
             width: 100%;
-            max-width: 500px; /* Tamaño optimizado */
+            max-width: 500px;
             margin: 10px auto;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
@@ -45,17 +45,19 @@
             text-decoration: none;
             color: #2c221a; 
             font-weight: bold;
-            font-size: 2.8vw;
+            font-size: 2.8vw; /* Escala con la imagen */
             text-transform: uppercase;
-            background-color: rgba(232, 220, 196, 0.8); 
+            background-color: rgba(232, 220, 196, 0.85); 
             border: 1px solid #8e7a60; 
             border-radius: 4px;
+            cursor: pointer;
         }
 
         @media (min-width: 500px) { .btn-invisible { font-size: 13px; } }
 
+        /* POSICIONES */
         .btn-escritura { top: 12.5%; left: 9%; width: 22%; height: 6%; background-color: #553c28; color: #e8dcc4; }
-        .btn-juego     { top: 21.5%; left: 9%; width: 22%; height: 6%; background-color: #d4bc8c; border: 1px solid #8e7a60; cursor: pointer; }
+        .btn-juego     { top: 21.5%; left: 9%; width: 22%; height: 6%; background-color: #d4bc8c; }
         
         .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
         .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
@@ -63,15 +65,216 @@
         .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
         .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
 
-        /* SECCIÓN INFERIOR: TEXTO EXACTO DE LA CAPTURA */
+        /* SECCIÓN INFERIOR: TEXTO ORIGINAL RECUPERADO */
         .seccion-inferior {
             width: 100%;
             max-width: 500px;
-            padding: 10px 20px 40px 20px;
+            padding: 10px 20px 50px 20px;
             text-align: center;
             color: #e8dcc4;
         }
 
         .mapa-img {
             width: 100%;
-            height:
+            height: auto;
+            border: 1px solid #8e7a60;
+            border-radius: 4px;
+            margin-bottom: 25px;
+        }
+
+        .texto-original-vortice {
+            font-weight: bold;
+            font-size: 1em;
+            line-height: 1.4;
+            letter-spacing: 0.5px;
+        }
+
+        .texto-paises-vortice {
+            margin-top: 15px;
+            font-size: 0.85em;
+            line-height: 1.6;
+            color: #d4bc8c;
+        }
+
+        /* JUEGO MODAL */
+        #game-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #1a1a2e;
+            z-index: 10000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        canvas { background: #000; border: 2px solid #d4bc8c; max-width: 95vw; }
+        
+        .controls { margin-top: 20px; display: flex; gap: 40px; }
+        .t-btn {
+            width: 75px; height: 75px;
+            background: rgba(212, 188, 140, 0.2);
+            border: 2px solid #d4bc8c;
+            border-radius: 50%;
+            color: white; font-size: 30px;
+            display: flex; align-items: center; justify-content: center;
+            touch-action: none;
+            user-select: none;
+        }
+
+        /* UI SUGERENCIAS DENTRO DEL JUEGO */
+        #ui-sugerencias {
+            display: none;
+            text-align: center;
+            width: 100%;
+            max-width: 360px;
+        }
+
+        #sugerencia-input {
+            width: 100%; padding: 12px; border-radius: 4px; border: none; margin: 15px 0; font-size: 16px;
+        }
+
+        .btn-ui { padding: 10px 20px; background: #d4bc8c; border: none; font-weight: bold; border-radius: 4px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="web-container">
+        <img src="portada.png" class="background-design" alt="La Semilla de Anu">
+        <div class="botones-capa">
+            <a href="cuneiforme.html" class="btn-invisible btn-escritura">ESCRITURA</a>
+            <div class="btn-invisible btn-juego" onclick="openGame()">JUEGO</div>
+
+            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
+            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
+            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo">CONTACTO</a>
+            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank">INSTAGRAM</a>
+            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-youtube" target="_blank">YOUTUBE</a>
+        </div>
+    </div>
+
+    <div class="seccion-inferior">
+        <img src="mapa.jpg" class="mapa-img" alt="Mapa">
+        
+        <div class="texto-original-vortice">
+            YA A LA VENTA EN LAS MEJORES LIBRERÍAS Y PLATAFORMAS DIGITALES
+        </div>
+        
+        <div class="texto-paises-vortice">
+            ESPAÑA - MÉXICO - ESTADOS UNIDOS - CANADÁ - REINO UNIDO - ALEMANIA - FRANCIA - ITALIA - AUSTRALIA - JAPÓN - CHINA
+        </div>
+    </div>
+
+    <div id="game-overlay">
+        <canvas id="gameCanvas"></canvas>
+        
+        <div id="game-controls">
+            <div class="controls">
+                <div class="t-btn" id="l-btn">◀</div>
+                <div class="t-btn" id="r-btn">▶</div>
+            </div>
+            <button class="btn-ui" style="margin-top:20px;" onclick="closeGame()">VOLVER</button>
+        </div>
+
+        <div id="ui-sugerencias">
+            <h3 style="color:#d4bc8c;">DÉJANOS TU SUGERENCIA</h3>
+            <input type="text" id="sugerencia-input" placeholder="Escribe aquí tu mensaje...">
+            <br>
+            <button class="btn-ui" onclick="enviarSugerencia()">ENVIAR MENSAJE</button>
+            <button class="btn-ui" style="background:#553c28; color:#fff;" onclick="resetJuego()">REINTENTAR</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 360; canvas.height = 400;
+
+        let x, y, dx, dy, paddleX, gameActive = false;
+        let bricks = [];
+        let leftP = false, rightP = false;
+
+        function openGame() {
+            document.getElementById("game-overlay").style.display = "flex";
+            resetJuego();
+        }
+
+        function closeGame() {
+            document.getElementById("game-overlay").style.display = "none";
+            gameActive = false;
+        }
+
+        function resetJuego() {
+            x = canvas.width/2; y = canvas.height-30;
+            dx = 3; dy = -3;
+            paddleX = (canvas.width-80)/2;
+            bricks = [];
+            // Filas y columnas de bloques (tablillas)
+            for(let c=0; c<5; c++) {
+                bricks[c] = [];
+                for(let r=0; r<4; r++) bricks[c][r] = { x:0, y:0, status:1 };
+            }
+            document.getElementById("ui-sugerencias").style.display = "none";
+            document.getElementById("game-controls").style.display = "block";
+            gameActive = true;
+            draw();
+        }
+
+        const lb = document.getElementById("l-btn");
+        const rb = document.getElementById("r-btn");
+        lb.ontouchstart = (e) => { e.preventDefault(); leftP = true; };
+        lb.ontouchend = () => leftP = false;
+        rb.ontouchstart = (e) => { e.preventDefault(); rightP = true; };
+        rb.ontouchend = () => rightP = false;
+
+        function draw() {
+            if(!gameActive) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // TABLILLAS
+            for(let c=0; c<5; c++) {
+                for(let r=0; r<4; r++) {
+                    let b = bricks[c][r];
+                    if(b.status == 1) {
+                        b.x = c*(65+5)+10; b.y = r*(20+5)+40;
+                        ctx.fillStyle = "#a67b5b"; ctx.fillRect(b.x, b.y, 65, 20);
+                        ctx.strokeStyle = "#4e3b31"; ctx.strokeRect(b.x, b.y, 65, 20);
+                        if(x > b.x && x < b.x+65 && y > b.y && y < b.y+20) { dy=-dy; b.status=0; }
+                    }
+                }
+            }
+
+            // BOLA Y PALA
+            ctx.beginPath(); ctx.arc(x,y,8,0,Math.PI*2); ctx.fillStyle="#ff8c00"; ctx.fill(); ctx.closePath();
+            ctx.fillStyle="#003399"; ctx.fillRect(paddleX, canvas.height-15, 80, 10);
+
+            if(x+dx > canvas.width-8 || x+dx < 8) dx=-dx;
+            if(y+dy < 8) dy=-dy;
+            else if(y+dy > canvas.height-15) {
+                if(x > paddleX && x < paddleX+80) dy=-dy;
+                else { 
+                    gameActive = false;
+                    document.getElementById("game-controls").style.display = "none";
+                    document.getElementById("ui-sugerencias").style.display = "block";
+                }
+            }
+
+            if(leftP && paddleX > 0) paddleX -= 7;
+            if(rightP && paddleX < canvas.width-80) paddleX += 7;
+
+            x+=dx; y+=dy;
+            requestAnimationFrame(draw);
+        }
+
+        function enviarSugerencia() {
+            const val = document.getElementById("sugerencia-input").value;
+            if(val) {
+                alert("MENSAJE RECIBIDO: " + val);
+                document.getElementById("sugerencia-input").value = "";
+                closeGame();
+            }
+        }
+    </script>
+</body>
+</html>
