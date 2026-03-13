@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>La Semilla de Anu - Sitio Oficial</title>
     <style>
-        /* 1. ESTILOS BASE */
+        /* ESTILOS BASE */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
@@ -16,23 +16,25 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* 2. PORTADA Y BOTONES */
+        /* CONTENEDOR DE PORTADA (RESPONSIVE) */
         .main-container {
             position: relative;
             width: 100%;
-            max-width: 600px;
-            margin: 20px 0;
+            max-width: 600px; /* Tamaño máximo para que no se vea gigante en PC */
+            margin: 10px 0;
         }
 
         .portada-img {
             width: 100%;
             height: auto;
             display: block;
-            box-shadow: 0 0 30px rgba(0,0,0,0.6);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.7);
         }
 
+        /* CAPA DE BOTONES */
         .botones-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -40,80 +42,30 @@
 
         .btn {
             position: absolute;
-            background: rgba(232, 220, 196, 0.85);
+            background: rgba(232, 220, 196, 0.8);
             border: 1px solid #8e7a60;
             border-radius: 4px;
             color: #2c221a;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 2.8vw; /* Fuente que escala con la imagen */
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
             text-transform: uppercase;
             cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
-        /* Posiciones exactas */
-        .btn-escritura { top: 12.5%; left: 8%; width: 25%; height: 6%; background: #553c28; color: #fff; border-color: #d4bc8c; }
-        .btn-juego     { top: 20.5%; left: 8%; width: 25%; height: 6%; background: #d4bc8c; }
-        .btn-comprar   { top: 12.5%; left: 67%; width: 25%; height: 6%; }
-        .btn-tiktok    { top: 21.5%; left: 67%; width: 25%; height: 6%; }
-        .btn-correo    { top: 30.5%; left: 67%; width: 25%; height: 6%; }
-        .btn-instagram { top: 39.5%; left: 67%; width: 25%; height: 6%; }
-        .btn-youtube   { top: 48.5%; left: 67%; width: 25%; height: 6%; }
+        @media (min-width: 600px) { .btn { font-size: 14px; } }
 
-        /* 3. SECCIÓN MAPA Y TEXTO (Lo que faltaba) */
-        .seccion-inferior {
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-            text-align: center;
-        }
+        /* Posiciones en % para que siempre caigan en el mismo sitio de la imagen */
+        .btn-escritura { top: 12.5%; left: 8.5%; width: 23%; height: 6.5%; background: #553c28; color: #fff; }
+        .btn-juego     { top: 21%; left: 8.5%; width: 23%; height: 6.5%; background: #d4bc8c; }
+        
+        .btn-comprar   { top: 12.5%; left: 68.5%; width: 23%; height: 6.5%; }
+        .btn-tiktok    { top: 21.5%; left: 68.5%; width: 23%; height: 6.5%; }
+        .btn-correo    { top: 30.5%; left: 68.5%; width: 23%; height: 6.5%; }
+        .btn-instagram { top: 39.5%; left: 68.5%; width: 23%; height: 6.5%; }
+        .btn-youtube   { top: 48.5%; left: 68.5%; width: 23%; height: 6.5%; }
 
-        .mapa-img {
-            width: 100%;
-            height: auto;
-            border: 1px solid #d4bc8c;
-            border-radius: 4px;
-            margin-bottom: 25px;
-        }
-
-        .texto-paises {
-            line-height: 1.6;
-            margin-bottom: 50px;
-        }
-
-        .texto-paises h2 {
-            color: #d4bc8c;
-            margin-bottom: 15px;
-            font-size: 1.4em;
-        }
-
-        /* 4. MODAL DEL JUEGO (Capa superior) */
-        #game-screen {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(26, 26, 46, 0.98);
-            z-index: 9999;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        canvas {
-            background: #1a1a2e;
-            border: 3px solid #d4bc8c;
-            max-width: 90vw;
-            max-height: 50vh;
-            touch-action: none;
-        }
-
-        .hud { color: #d4bc8c; margin-bottom: 10px; font-family: monospace; }
-        .controls { margin-top: 25px; display: flex; gap: 40px; }
-        .t-btn {
-            width: 75px; height: 75px;
-            background: rgba(212, 188, 140, 0.2);
-            border: 2px solid #d
+        /* SECCIÓN DEL MAPA Y TEXTO */
