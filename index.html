@@ -2,145 +2,227 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>La Semilla de Anu - Sitio Oficial</title>
     <style>
-        /* Reset de estilos */
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        body, html { 
-            min-height: 100%; 
-            background-color: #2c221a; /* Fondo marrón oscuro */
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            overflow-x: hidden;
-            font-family: 'Cambria', 'Georgia', serif;
-        }
-
-        /* Contenedor de la Portada */
-        .web-container {
-            position: relative;
-            max-height: 92vh; 
-            width: auto;
-            aspect-ratio: 928 / 1238; 
+        body { 
+            background-color: #2c221a; 
+            color: #e8dcc4;
+            font-family: 'serif';
             display: flex;
-            justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin: 20px 0;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        .background-design {
-            height: 100%;
-            width: auto;
+        /* PORTADA ADAPTATIVA */
+        .main-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px; /* Tamaño ideal para móvil */
+            margin-top: 10px;
+        }
+
+        .portada-img {
+            width: 100%;
+            height: auto;
             display: block;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
-        .botones-capa {
+        /* CAPA DE BOTONES SOBRE LA IMAGEN */
+        .botones-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
         }
 
-        /* Estilo general de los botones */
-        .btn-invisible {
+        .btn {
             position: absolute;
+            background: rgba(232, 220, 196, 0.8);
+            border: 1px solid #8e7a60;
+            border-radius: 4px;
+            color: #2c221a;
+            font-weight: bold;
+            font-size: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            color: #2c221a; 
-            font-weight: bold;
-            font-size: 0.9em;
+            cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            background-color: rgba(232, 220, 196, 0.7); 
-            border: 1px solid #8e7a60; 
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            transition: all 0.2s ease;
-            text-align: center;
         }
 
-        .btn-invisible:hover {
-            background-color: rgba(232, 220, 196, 0.9);
-            transform: scale(1.03);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.4);
-        }
+        /* Posiciones exactas ajustadas */
+        .btn-escritura { top: 12.5%; left: 8%; width: 25%; height: 6%; background: #553c28; color: #fff; }
+        .btn-juego     { top: 20.5%; left: 8%; width: 25%; height: 6%; background: #d4bc8c; }
+        
+        .btn-comprar   { top: 12.5%; left: 67%; width: 25%; height: 6%; }
+        .btn-tiktok    { top: 21.5%; left: 67%; width: 25%; height: 6%; }
+        .btn-correo    { top: 30.5%; left: 67%; width: 25%; height: 6%; }
+        .btn-instagram { top: 39.5%; left: 67%; width: 25%; height: 6%; }
+        .btn-youtube   { top: 48.5%; left: 67%; width: 25%; height: 6%; }
 
-        /* POSICIONES BOTONES DERECHA */
-        .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
-        .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
-        .btn-correo    { top: 30.5%; left: 69%; width: 22%; height: 6%; }
-        .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
-        .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
-
-        /* NUEVO BOTÓN IZQUIERDA (Escritura Cuneiforme) */
-        .btn-escritura { 
-            top: 12.5%; 
-            left: 9%; 
-            width: 22%; 
-            height: 6%; 
-            background-color: rgba(85, 60, 40, 0.85); /* Un tono más arcilla */
-            color: #e8dcc4;
-            border: 1px solid #d4bc8c;
-        }
-
-        /* Sección del Mapa Abajo */
-        .seccion-mapa {
-            width: 100%;
-            max-width: 928px;
-            padding: 20px;
-            display: flex;
+        /* MODAL DEL JUEGO */
+        #game-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #1a1a2e;
+            z-index: 9999;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            margin-bottom: 50px;
         }
 
-        .mapa-img {
-            width: 100%;
-            height: auto;
-            border: 1px solid #8e7a60;
-            border-radius: 4px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        canvas {
+            background: #1a1a2e;
+            border: 2px solid #d4bc8c;
+            max-width: 95vw;
+            touch-action: none;
         }
 
-        /* Ajustes para Móvil */
-        @media (max-width: 600px) {
-            body { padding: 5px; }
-            .web-container { 
-                width: 90vw; 
-                height: auto; 
-                max-height: none; 
-            }
-            .background-design { width: 100%; height: auto; }
-            .seccion-mapa { width: 100vw; padding: 15px; }
-            .btn-invisible { font-size: 0.55em; letter-spacing: 0px; }
+        .hud { color: #d4bc8c; margin-bottom: 10px; font-weight: bold; }
+        .controls { margin-top: 20px; display: flex; gap: 30px; }
+        
+        .t-btn {
+            width: 70px; height: 70px;
+            background: rgba(212, 188, 140, 0.3);
+            border: 2px solid #d4bc8c;
+            border-radius: 50%;
+            color: white; font-size: 30px;
+            display: flex; align-items: center; justify-content: center;
+            touch-action: none;
         }
+
+        .close-btn { margin-top: 15px; padding: 10px; background: #d4bc8c; border: none; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="web-container">
-        <img src="portada.png" class="background-design" alt="La Semilla de Anu - David Robles">
-
-        <div class="botones-capa">
-            <a href="cuneiforme.html" class="btn-invisible btn-escritura">ESCRITURA</a>
-
-            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
-            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
-            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo">CONTACTO</a>
-            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank">INSTAGRAM</a>
-            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-youtube" target="_blank">YOUTUBE</a>
+    <div class="main-container">
+        <img src="portada.png" class="portada-img" alt="Portada">
+        
+        <div class="botones-overlay">
+            <a href="cuneiforme.html" class="btn btn-escritura">ESCRITURA</a>
+            <div class="btn btn-juego" onclick="openGame()">JUEGO</div>
+            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn btn-comprar" target="_blank">COMPRAR</a>
+            <a href="https://www.tiktok.com/@vorticeverde82" class="btn btn-tiktok" target="_blank">TIKTOK</a>
+            <a href="mailto:vortice_verde@hotmail.com" class="btn btn-correo">CONTACTO</a>
+            <a href="https://www.instagram.com/vorticeverde82/" class="btn btn-instagram" target="_blank">INSTAGRAM</a>
+            <a href="https://www.youtube.com/@DRobles82" class="btn btn-youtube" target="_blank">YOUTUBE</a>
         </div>
     </div>
 
-    <div class="seccion-mapa">
-        <img src="mapa.jpg" class="mapa-img" alt="Mapa de ventas mundial">
+    <div id="game-screen">
+        <div class="hud" id="stats">PUNTOS: 0 | RÉCORD: 0</div>
+        <canvas id="gameCanvas"></canvas>
+        <div class="controls">
+            <div class="t-btn" id="l-btn">◀</div>
+            <div class="t-btn" id="r-btn">▶</div>
+        </div>
+        <button class="close-btn" onclick="closeGame()">VOLVER AL SITIO</button>
     </div>
 
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 400; canvas.height = 500;
+
+        let x, y, dx, dy, paddleX, score = 0, gameActive = false;
+        const ballRadius = 10, paddleWidth = 90, paddleHeight = 15;
+        let bricks = [];
+        let leftP = false, rightP = false;
+
+        function openGame() {
+            document.getElementById("game-screen").style.display = "flex";
+            const record = localStorage.getItem("anuHigh") || 0;
+            const ini = localStorage.getItem("anuIni") || "---";
+            document.getElementById("stats").innerText = `PUNTOS: 0 | RÉCORD: ${record} (${ini})`;
+            initGame();
+        }
+
+        function closeGame() {
+            document.getElementById("game-screen").style.display = "none";
+            gameActive = false;
+        }
+
+        function initGame() {
+            x = canvas.width/2; y = canvas.height-50;
+            dx = 3; dy = -3;
+            paddleX = (canvas.width-paddleWidth)/2;
+            bricks = [];
+            for(let c=0; c<5; c++) {
+                bricks[c] = [];
+                for(let r=0; r<4; r++) bricks[c][r] = { x:0, y:0, status:1 };
+            }
+            score = 0; gameActive = true;
+            run();
+        }
+
+        // CONTROLES TÁCTILES MEJORADOS
+        const lBtn = document.getElementById("l-btn");
+        const rBtn = document.getElementById("r-btn");
+
+        const startLeft = (e) => { e.preventDefault(); leftP = true; };
+        const endLeft = () => leftP = false;
+        const startRight = (e) => { e.preventDefault(); rightP = true; };
+        const endRight = () => rightP = false;
+
+        lBtn.addEventListener("touchstart", startLeft);
+        lBtn.addEventListener("touchend", endLeft);
+        rBtn.addEventListener("touchstart", startRight);
+        rBtn.addEventListener("touchend", endRight);
+        // También para ratón por si acaso
+        lBtn.addEventListener("mousedown", startLeft);
+        window.addEventListener("mouseup", () => { leftP = false; rightP = false; });
+
+        function run() {
+            if(!gameActive) return;
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+
+            // Dibujar Bricks
+            for(let c=0; c<5; c++) {
+                for(let r=0; r<4; r++) {
+                    let b = bricks[c][r];
+                    if(b.status == 1) {
+                        b.x = c*(70+5)+15; b.y = r*(25+5)+50;
+                        ctx.fillStyle = "#a67b5b"; ctx.fillRect(b.x, b.y, 70, 25);
+                        if(x > b.x && x < b.x+70 && y > b.y && y < b.y+25) { dy=-dy; b.status=0; score+=10; }
+                    }
+                }
+            }
+
+            // Pelota y Pala
+            ctx.beginPath(); ctx.arc(x,y,ballRadius,0,Math.PI*2); ctx.fillStyle="#ff8c00"; ctx.fill(); ctx.closePath();
+            ctx.fillStyle="#003399"; ctx.fillRect(paddleX, canvas.height-paddleHeight-10, paddleWidth, paddleHeight);
+
+            // Colisiones y Movimiento
+            if(x+dx > canvas.width-ballRadius || x+dx < ballRadius) dx=-dx;
+            if(y+dy < ballRadius) dy=-dy;
+            else if(y+dy > canvas.height-ballRadius-10) {
+                if(x > paddleX && x < paddleX+paddleWidth) dy=-dy;
+                else {
+                    gameActive = false;
+                    alert("HAS PERDIDO UNA TABLILLA. PUNTOS: " + score);
+                    let h = localStorage.getItem("anuHigh") || 0;
+                    if(score > h) {
+                        let ini = prompt("NUEVO RÉCORD. Tus 3 iniciales:");
+                        localStorage.setItem("anuHigh", score);
+                        localStorage.setItem("anuIni", (ini||"ANU").substring(0,3).toUpperCase());
+                    }
+                    return;
+                }
+            }
+
+            if(leftP && paddleX > 0) paddleX -= 7;
+            if(rightP && paddleX < canvas.width-paddleWidth) paddleX += 7;
+
+            x+=dx; y+=dy;
+            document.getElementById("stats").innerText = `PUNTOS: ${score} | RÉCORD: ${localStorage.getItem("anuHigh")||0}`;
+            requestAnimationFrame(run);
+        }
+    </script>
 </body>
 </html>
-
