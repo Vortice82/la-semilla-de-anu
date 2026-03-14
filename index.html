@@ -10,7 +10,7 @@
         
         body, html { 
             min-height: 100%; 
-            background-color: #0d0a07; /* Negro casi total para que el marrón no domine */
+            background-color: #0d0a07; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -27,7 +27,6 @@
             font-size: 1.6em;
             text-transform: uppercase;
             letter-spacing: 4px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
         .web-container {
@@ -45,7 +44,6 @@
         .background-design { width: 100%; height: 100%; display: block; object-fit: contain; }
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-        /* ESTILO GENERAL DE BOTONES */
         .btn-invisible {
             position: absolute;
             display: flex;
@@ -62,27 +60,26 @@
             white-space: nowrap;
         }
 
-        /* BOTONES IZQUIERDA (CONTENIDO) - Tono Ámbar */
+        /* BOTONES IZQUIERDA */
         .btn-escritura, .btn-juego, .btn-dioses {
             background-color: rgba(139, 101, 52, 0.9);
             color: #fff;
             border: 1px solid #f4e4bc;
         }
 
-        /* BOTONES DERECHA (REDES) - Tono Negro Elegante */
+        /* BOTONES DERECHA */
         .btn-tiktok, .btn-correo, .btn-instagram, .btn-youtube {
             background-color: rgba(0, 0, 0, 0.85);
             color: #d4bc8c;
             border: 1px solid #3d2b1f;
         }
 
-        /* BOTÓN COMPRAR (EL DESTACADO) */
+        /* BOTÓN COMPRAR */
         .btn-comprar {
-            background-color: #d4bc8c !important; /* Dorado */
+            background-color: #d4bc8c !important;
             color: #1a140f !important;
             border: 2px solid #fff !important;
             box-shadow: 0 0 20px rgba(212, 188, 140, 0.6) !important;
-            transform: scale(1.05);
         }
 
         .btn-invisible:hover {
@@ -94,13 +91,13 @@
         .btn-escritura { top: 12.5%; left: 7%; width: 26%; height: 6%; }
         .btn-juego     { top: 21.5%; left: 7%; width: 26%; height: 6%; }
         .btn-dioses    { top: 30.5%; left: 7%; width: 26%; height: 6%; }
-        
         .btn-comprar   { top: 12.5%; left: 66%; width: 26%; height: 6%; }
         .btn-tiktok    { top: 21.5%; left: 66%; width: 26%; height: 6%; }
         .btn-correo    { top: 30.5%; left: 66%; width: 26%; height: 6%; }
         .btn-instagram { top: 39.5%; left: 66%; width: 26%; height: 6%; }
         .btn-youtube   { top: 48.5%; left: 66%; width: 26%; height: 6%; }
 
+        /* VÍDEO (Sin muted por defecto) */
         .video-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -112,7 +109,7 @@
         }
 
         .seccion-mapa { width: 100%; max-width: 900px; padding: 30px 20px; text-align: center; }
-        .mapa-img { width: 95%; height: auto; border: 1px solid #3d2b1f; border-radius: 4px; filter: grayscale(0.2); }
+        .mapa-img { width: 95%; height: auto; border: 1px solid #3d2b1f; border-radius: 4px; }
 
         .texto-paises {
             max-width: 800px;
@@ -135,9 +132,11 @@
 
     <div class="web-container">
         <img src="portada.png" class="background-design" alt="Portada">
-        <video id="videoDioses" class="video-overlay" muted loop playsinline preload="auto">
+        
+        <video id="videoDioses" class="video-overlay" loop playsinline preload="auto">
             <source src="video.mp4" type="video/mp4">
         </video>
+        
         <audio id="audioTetrico" preload="auto">
             <source src="sonido.mp3" type="audio/mpeg">
         </audio>
@@ -177,9 +176,12 @@
 
         function activar() {
             video.style.opacity = "1";
+            video.muted = false; // Forzamos a que no esté silenciado
+            video.volume = 0.7;
             video.play();
+            
             audio.volume = 0.6;
-            audio.play().catch(e => {});
+            audio.play().catch(e => console.log("Audio bloqueado: haz clic en la página"));
         }
 
         function desactivar() {
@@ -189,15 +191,27 @@
             audio.pause();
         }
 
+        // PC
         btnDioses.addEventListener('mouseenter', activar);
         btnDioses.addEventListener('mouseleave', desactivar);
+        
+        // Móvil
         btnDioses.addEventListener('touchstart', (e) => { e.preventDefault(); activar(); });
         btnDioses.addEventListener('touchend', desactivar);
 
-        document.body.addEventListener('touchstart', () => {
+        // EL SECRETO: Desbloquea el audio en cuanto el usuario haga CUALQUIER cosa en la web
+        const desbloquearAudio = () => {
+            video.play().then(() => {
+                video.pause();
+                video.currentTime = 0;
+            });
             audio.load();
-            video.load();
-        }, {once: true});
+            document.removeEventListener('mousedown', desbloquearAudio);
+            document.removeEventListener('touchstart', desbloquearAudio);
+        };
+
+        document.addEventListener('mousedown', desbloquearAudio);
+        document.addEventListener('touchstart', desbloquearAudio);
     </script>
 
 </body>
