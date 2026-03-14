@@ -2,13 +2,11 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>La Semilla de Anu - David Robles</title>
-    <meta name="description" content="Web oficial de la saga La Semilla de Anu de David Robles.">
-    <link rel="canonical" href="https://vortice82.github.io/la-semilla-de-anu/index.html">
 
     <style>
-        /* 1. RESET Y ESTILOS DE BASE */
+        /* BASE Y PREVENCIÓN DE DESPLAZAMIENTO LATERAL */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body, html { 
@@ -17,37 +15,49 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            overflow-x: hidden;
             font-family: 'Cambria', 'Georgia', serif;
             color: #e8dcc4;
+            overflow-x: hidden; /* Esto evita el rastro a la derecha */
+            width: 100%;
         }
 
         .seo-title {
             color: #d4bc8c;
             text-align: center;
-            padding: 30px 10px 10px 10px;
-            font-size: 1.8em;
+            padding: 20px 10px;
+            font-size: 1.5em;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
         }
 
-        /* 2. CONTENEDOR DE PORTADA */
+        /* CONTENEDOR FLEXIBLE (SOLUCIÓN AL CORTE) */
         .web-container {
             position: relative;
-            max-height: 85vh; 
-            width: auto;
+            width: 92%; /* Deja un margen pequeño a los lados en móvil */
+            max-width: 500px; 
             aspect-ratio: 928 / 1238; 
-            display: flex;
-            justify-content: center;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            margin: 20px 0;
-            border: 1px solid #3d2b1f;
+            margin: 10px auto;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            background-color: #000;
+            overflow: hidden; /* Corta lo que sobresalga del borde redondeado */
         }
 
-        .background-design { height: 100%; width: auto; display: block; }
-        .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .background-design { 
+            width: 100%; 
+            height: 100%; 
+            display: block;
+            object-fit: contain; /* Asegura que la imagen quepa entera sin cortarse */
+        }
 
-        /* 3. ESTILO DE BOTONES (UNIFICADOS OSCUROS) */
+        .botones-capa { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+        }
+
+        /* BOTONES ADAPTABLES */
         .btn-invisible {
             position: absolute;
             display: flex;
@@ -55,61 +65,51 @@
             justify-content: center;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.85em;
+            font-size: clamp(0.45rem, 2.2vw, 0.8rem); /* Texto que se encoge en móvil */
             text-transform: uppercase;
-            border-radius: 4px;
-            transition: all 0.3s ease;
+            border-radius: 3px;
             z-index: 10;
             background-color: rgba(20, 15, 10, 0.9); 
             color: #a68d6a; 
             border: 1px solid #4d3a2a;
+            padding: 2px;
+            white-space: nowrap; /* Evita que el texto se parta en dos líneas */
         }
 
-        .btn-invisible:hover {
-            background-color: rgba(44, 34, 26, 1);
-            color: #d4bc8c;
-            border-color: #d4bc8c;
-            transform: scale(1.05);
-        }
-
-        /* BOTÓN COMPRAR (EL QUE MÁS RESALTA) */
+        /* BOTÓN COMPRAR RESALTADO */
         .btn-comprar {
             background-color: #d4bc8c !important;
             color: #1a140f !important;
-            border: 2px solid #fff !important;
-            box-shadow: 0 0 20px rgba(212, 188, 140, 0.5) !important;
+            border: 1px solid #fff !important;
+            box-shadow: 0 0 10px rgba(212, 188, 140, 0.5) !important;
         }
 
-        /* POSICIONES EXACTAS */
-        .btn-escritura { top: 12.5%; left: 9%; width: 22%; height: 6%; }
-        .btn-juego     { top: 21.5%; left: 9%; width: 22%; height: 6%; }
-        .btn-dioses    { top: 30.5%; left: 9%; width: 22%; height: 6%; }
+        /* POSICIONES EN PORCENTAJE PARA QUE NO SE MUEVAN */
+        .btn-escritura { top: 12.5%; left: 8%; width: 25%; height: 6%; }
+        .btn-juego     { top: 21.5%; left: 8%; width: 25%; height: 6%; }
+        .btn-dioses    { top: 30.5%; left: 8%; width: 25%; height: 6%; }
         
-        .btn-comprar   { top: 12.5%; left: 69%; width: 22%; height: 6%; }
-        .btn-tiktok    { top: 21.5%; left: 69%; width: 22%; height: 6%; }
-        .btn-correo    { top: 30.5%; left: 69%; width: 22%; height: 6%; }
-        .btn-instagram { top: 39.5%; left: 69%; width: 22%; height: 6%; }
-        .btn-youtube   { top: 48.5%; left: 69%; width: 22%; height: 6%; }
+        .btn-comprar   { top: 12.5%; left: 67%; width: 25%; height: 6%; }
+        .btn-tiktok    { top: 21.5%; left: 67%; width: 25%; height: 6%; }
+        .btn-correo    { top: 30.5%; left: 67%; width: 25%; height: 6%; }
+        .btn-instagram { top: 39.5%; left: 67%; width: 25%; height: 6%; }
+        .btn-youtube   { top: 48.5%; left: 67%; width: 25%; height: 6%; }
 
-        /* 4. EFECTOS MULTIMEDIA */
+        /* VÍDEO */
         .video-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 0.6s ease;
+            transition: opacity 0.5s ease;
             pointer-events: none;
             z-index: 5;
         }
 
-        /* 5. SECCIÓN MAPA */
-        .seccion-mapa { width: 100%; max-width: 900px; padding: 40px 20px; text-align: center; }
-        .mapa-img { width: 100%; border: 1px solid #3d2b1f; border-radius: 8px; }
+        /* MAPA */
+        .seccion-mapa { width: 100%; max-width: 900px; padding: 20px; text-align: center; }
+        .mapa-img { width: 92%; height: auto; border: 1px solid #3d2b1f; border-radius: 8px; }
 
-        @media (max-width: 600px) {
-            .web-container { width: 95vw; }
-            .btn-invisible { font-size: 0.5em; }
-        }
     </style>
 </head>
 <body>
@@ -117,7 +117,7 @@
     <h1 class="seo-title">La Semilla de Anu</h1>
 
     <div class="web-container">
-        <img src="portada.png" class="background-design" alt="Portada Libro David Robles">
+        <img src="portada.png" class="background-design" alt="Portada">
 
         <video id="videoDioses" class="video-overlay" muted loop playsinline preload="auto">
             <source src="video.mp4" type="video/mp4">
@@ -130,9 +130,9 @@
         <div class="botones-capa">
             <a href="cuneiforme.html" class="btn-invisible btn-escritura">ESCRITURA</a>
             <a href="juego.html" class="btn-invisible btn-juego">EL JUEGO</a>
-            <a href="#" class="btn-invisible btn-dioses">DIOSES</a>
+            <a href="javascript:void(0)" class="btn-invisible btn-dioses" id="btnDioses">DIOSES</a>
             
-            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR LIBRO</a>
+            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
             <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
             <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo">CONTACTO</a>
             <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank">INSTAGRAM</a>
@@ -141,38 +141,43 @@
     </div>
 
     <div class="seccion-mapa">
-        <img src="mapa.jpg" class="mapa-img" alt="Mapa de distribución">
+        <img src="mapa.jpg" class="mapa-img" alt="Mapa">
     </div>
 
     <script>
-        const btnDioses = document.querySelector('.btn-dioses');
+        const btnDioses = document.getElementById('btnDioses');
         const video = document.getElementById('videoDioses');
         const audio = document.getElementById('audioTetrico');
 
-        btnDioses.addEventListener('mouseenter', () => {
-            // Mostrar y reproducir vídeo
+        function activar() {
             video.style.opacity = "1";
             video.play();
-            
-            // Reproducir sonido
-            audio.volume = 0.5;
-            audio.currentTime = 0;
-            audio.play().catch(e => console.log("Audio en espera de interacción del usuario"));
-        });
+            audio.volume = 0.6;
+            audio.play().catch(e => console.log("Toque necesario"));
+        }
 
-        btnDioses.addEventListener('mouseleave', () => {
-            // Ocultar y pausar todo
+        function desactivar() {
             video.style.opacity = "0";
             video.pause();
             video.currentTime = 0;
-            
             audio.pause();
-            audio.currentTime = 0;
-        });
+        }
 
-        // Activa el motor de audio al primer clic del usuario en la web
-        document.body.addEventListener('click', () => {
-            audio.load(); 
+        // PC
+        btnDioses.addEventListener('mouseenter', activar);
+        btnDioses.addEventListener('mouseleave', desactivar);
+
+        // MÓVIL (Pulsar el botón)
+        btnDioses.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            activar();
+        });
+        btnDioses.addEventListener('touchend', desactivar);
+
+        // Desbloqueo global de audio en móviles
+        document.body.addEventListener('touchstart', () => {
+            audio.load();
+            video.load();
         }, {once: true});
     </script>
 
