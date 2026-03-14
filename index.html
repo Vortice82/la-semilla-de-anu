@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>La Semilla de Anu - David Robles</title>
 
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico">
+
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
@@ -74,12 +77,38 @@
             border: 1px solid #3d2b1f;
         }
 
-        /* BOTÓN COMPRAR */
+        /* --- BOTÓN COMPRAR --- */
+        /* He añadido la animación y un color base más potente */
         .btn-comprar {
             background-color: #d4bc8c !important;
             color: #1a140f !important;
             border: 2px solid #fff !important;
             box-shadow: 0 0 20px rgba(212, 188, 140, 0.6) !important;
+            
+            /* ESTO ACTIVA LA ANIMACIÓN */
+            animation: brilloComprar 3s ease-in-out infinite;
+        }
+
+        /* --- LA ANIMACIÓN DE BRILLO CADA 3 SEGUNDOS --- */
+        @keyframes brilloComprar {
+            0% { 
+                box-shadow: 0 0 10px rgba(212, 188, 140, 0.6);
+                transform: scale(1);
+            }
+            15% {
+                box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+                transform: scale(1.03); /* Un ligero pulso */
+                background-color: #fff !important; /* Brillo de color blanco */
+            }
+            30% { 
+                box-shadow: 0 0 10px rgba(212, 188, 140, 0.6);
+                transform: scale(1);
+                background-color: #d4bc8c !important;
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(212, 188, 140, 0.6);
+                transform: scale(1);
+            }
         }
 
         .btn-invisible:hover {
@@ -97,7 +126,6 @@
         .btn-instagram { top: 39.5%; left: 66%; width: 26%; height: 6%; }
         .btn-youtube   { top: 48.5%; left: 66%; width: 26%; height: 6%; }
 
-        /* VÍDEO (Sin muted por defecto) */
         .video-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -176,7 +204,7 @@
 
         function activar() {
             video.style.opacity = "1";
-            video.muted = false; // Forzamos a que no esté silenciado
+            video.muted = false; 
             video.volume = 0.7;
             video.play();
             
@@ -191,15 +219,12 @@
             audio.pause();
         }
 
-        // PC
         btnDioses.addEventListener('mouseenter', activar);
         btnDioses.addEventListener('mouseleave', desactivar);
         
-        // Móvil
         btnDioses.addEventListener('touchstart', (e) => { e.preventDefault(); activar(); });
         btnDioses.addEventListener('touchend', desactivar);
 
-        // EL SECRETO: Desbloquea el audio en cuanto el usuario haga CUALQUIER cosa en la web
         const desbloquearAudio = () => {
             video.play().then(() => {
                 video.pause();
