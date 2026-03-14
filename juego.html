@@ -2,12 +2,21 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anu Quest - La Semilla de Anu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Anu Quest - Disparo y Táctil</title>
     <style>
-        /* ESTÉTICA PIXEL ART Y ANUNNAKI */
+        /* ESTILOS BASE Y PIXEL ART */
+        * {
+            box-sizing: border-box;
+            -webkit-touch-callout: none; /* Desactiva menú contextual en móvil */
+            -webkit-user-select: none;   /* Desactiva selección de texto */
+            user-select: none;
+            touch-action: none;          /* Desactiva gestos del navegador */
+        }
+
         body {
             margin: 0;
+            padding: 0;
             background-color: #1a1510;
             color: #e8dcc4;
             font-family: 'Courier New', Courier, monospace;
@@ -17,78 +26,105 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            width: 100vw;
         }
 
         #game-container {
             position: relative;
-            width: 400px;
-            height: 600px;
+            width: 360px; /* Ancho optimizado para móviles */
+            height: 85vh;
+            max-height: 600px;
             background: linear-gradient(to bottom, #2c221a, #4a3b2c);
             border: 4px solid #d4bc8c;
             overflow: hidden;
-            image-rendering: pixelated; /* Mantiene el look retro */
+            image-rendering: pixelated;
         }
 
-        /* DETALLE: El Jugador (Nave Anunnaki) */
+        /* JUGADOR: Nave Anunnaki Detallada */
         #player {
             position: absolute;
-            bottom: 20px;
-            left: 180px;
+            bottom: 30px;
+            left: 160px;
             width: 40px;
             height: 40px;
             background-color: #d4bc8c;
-            /* Dibujo pixelado con sombras */
+            /* Detalle pixelado: forma de nave con sombra */
             box-shadow: 
-                0 5px 0 #8e7a60, 
-                10px 0 0 -5px #f4e4bc, 
-                -10px 0 0 -5px #f4e4bc;
+                0 6px 0 #8e7a60, 
+                10px -2px 0 -5px #f4e4bc, 
+                -10px -2px 0 -5px #f4e4bc;
             border-radius: 2px;
             transition: left 0.1s ease-out;
+            z-index: 10;
         }
 
-        /* DETALLE: Los Enemigos (Símbolos o naves enemigas) */
+        /* ENEMIGO: Bloque/Símbolo */
         .enemy {
             position: absolute;
             width: 30px;
             height: 30px;
             background-color: #e74c3c;
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* Forma de diamante */
-            box-shadow: inset -3px -3px 0px #c0392b;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* Diamante */
+            box-shadow: inset -4px -4px 0px #c0392b;
+            z-index: 5;
         }
 
-        /* DETALLE: Estrellas de fondo para profundidad */
+        /* PROYECTIL: Disparo */
+        .bullet {
+            position: absolute;
+            width: 6px;
+            height: 12px;
+            background-color: #f4e4bc; /* Color dorado claro */
+            box-shadow: 0 0 6px #d4bc8c;
+            border-radius: 1px;
+            z-index: 8;
+        }
+
+        /* EFECTO: Estrella de fondo */
         .star {
             position: absolute;
             background: #fff;
             width: 2px;
             height: 2px;
-            opacity: 0.5;
+            opacity: 0.4;
         }
 
+        /* INTERFAZ */
         #ui {
             position: absolute;
             top: 10px;
             left: 10px;
-            font-size: 18px;
+            font-size: 16px;
             text-shadow: 2px 2px #000;
+            z-index: 20;
         }
 
-        .mensaje {
+        #score { color: #f1c40f; font-weight: bold; }
+
+        .controles-info {
             text-align: center;
             margin-top: 10px;
+            font-size: 12px;
+            max-width: 360px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 400px) {
+            #game-container { width: 95vw; }
         }
     </style>
 </head>
 <body>
 
     <div id="game-container">
-        <div id="ui">ORO RECOLECTADO: <span id="score">0</span></div>
+        <div id="ui">ORO ENCONTRADO: <span id="score">0</span></div>
         <div id="player"></div>
     </div>
 
-    <div class="mensaje">
-        <p>Usa las <b>Flechas</b> o <b>A/D</b> para moverte</p>
-        <p><i>Inspirado en "La Semilla de Anu" de David Robles</i></p>
+    <div class="controles-info">
+        <p><b>PC:</b> Flechas o A/D para mover. <b>Espacio</b> para disparar.</p>
+        <p><b>MÓVIL:</b> Toca lados para mover. <b>Doble toque</b> para disparar.</p>
+        <p><i>La Semilla de Anu - David Robles</i></p>
     </div>
 
     <script>
@@ -96,64 +132,155 @@
         const player = document.getElementById('player');
         const scoreElement = document.getElementById('score');
         
-        let score = 0;
-        let playerX = 180;
-        const playerSpeed = 20;
-        
-        // --- AJUSTES DE VELOCIDAD (MÁS DESPACIO) ---
-        const gameSpeed = 2;       // Píxeles que baja cada enemigo (antes era 5 o más)
-        const spawnRate = 1500;    // Aparece un enemigo cada 1.5 segundos (antes era 1000)
+        // Dimensiones del juego (dinámicas para el contenedor)
+        let gameW, gameH;
+        function updateGameSize() {
+            gameW = container.offsetWidth;
+            gameH = container.offsetHeight;
+        }
+        updateGameSize();
+        window.addEventListener('resize', updateGameSize);
 
-        // Movimiento
+        let score = 0;
+        let playerX = (gameW / 2) - 20; // Centrado inicial
+        const playerSpeed = 25; // Píxeles por movimiento
+        
+        // --- AJUSTES DE VELOCIDAD (JUGABLE) ---
+        const enemyFallSpeed = 1.8; // Velocidad de caída de bloques
+        const bulletSpeed = 6;      // Velocidad de disparo
+        const spawnRate = 1800;     // Un enemigo cada 1.8 segundos
+
+        // Estado de proyectiles y enemigos
+        let bullets = [];
+        let enemies = [];
+
+        // --- CONTROLES (PC) ---
         document.addEventListener('keydown', (e) => {
-            if ((e.key === 'ArrowLeft' || e.key === 'a') && playerX > 0) {
+            if ((e.key === 'ArrowLeft' || e.key === 'a') && playerX > 10) {
                 playerX -= playerSpeed;
-            } else if ((e.key === 'ArrowRight' || e.key === 'd') && playerX < 360) {
+            } else if ((e.key === 'ArrowRight' || e.key === 'd') && playerX < (gameW - 50)) {
                 playerX += playerSpeed;
+            } else if (e.key === ' ' || e.key === 'ArrowUp') {
+                fireBullet();
             }
-            player.style.left = playerX + 'px';
+            updatePlayerPosition();
         });
 
-        // Crear estrellas de fondo
-        for(let i=0; i<30; i++) {
-            let star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 400 + 'px';
-            star.style.top = Math.random() * 600 + 'px';
-            container.appendChild(star);
+        // --- CONTROLES (MÓVIL) ---
+        let lastTouchTime = 0;
+        container.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Previene zoom y scroll
+            const touchX = e.touches[0].clientX;
+            const containerRect = container.getBoundingClientRect();
+            const relativeX = touchX - containerRect.left;
+
+            const now = new Date().getTime();
+            const timesince = now - lastTouchTime;
+
+            // Detección de Doble Toque (Disparo)
+            if (timesince < 300 && timesince > 0) {
+                fireBullet();
+                lastTouchTime = 0; // Reset
+                return;
+            }
+            lastTouchTime = now;
+
+            // Movimiento Táctil Simple
+            if (relativeX < (gameW / 2)) {
+                // Toca mitad izquierda
+                if (playerX > 10) playerX -= playerSpeed;
+            } else {
+                // Toca mitad derecha
+                if (playerX < (gameW - 50)) playerX += playerSpeed;
+            }
+            updatePlayerPosition();
+        }, {passive: false});
+
+        function updatePlayerPosition() {
+            player.style.left = playerX + 'px';
         }
 
+        // --- LÓGICA DE DISPARO ---
+        function fireBullet() {
+            const bullet = document.createElement('div');
+            bullet.className = 'bullet';
+            // Centrado en la nave
+            bullet.style.left = (playerX + 17) + 'px'; 
+            bullet.style.bottom = '70px'; // Sale desde encima de la nave
+            container.appendChild(bullet);
+            bullets.push(bullet);
+        }
+
+        // --- LÓGICA DE ENEMIGOS/BLOQUES ---
         function createEnemy() {
             const enemy = document.createElement('div');
             enemy.className = 'enemy';
-            enemy.style.left = Math.random() * 370 + 'px';
-            enemy.style.top = '-40px';
+            // Posición aleatoria en horizontal (respetando bordes)
+            enemy.style.left = (Math.random() * (gameW - 40) + 5) + 'px';
+            enemy.style.top = '-40px'; // Empieza fuera de la pantalla
             container.appendChild(enemy);
-
-            let interval = setInterval(() => {
-                let top = parseInt(enemy.style.top);
-                
-                if (top > 600) {
-                    // Si escapa, sumamos puntos (o lo que prefieras)
-                    score += 10;
-                    scoreElement.innerText = score;
-                    clearInterval(interval);
-                    enemy.remove();
-                } else {
-                    enemy.style.top = (top + gameSpeed) + 'px';
-                }
-
-                // DETECCIÓN DE COLISIÓN
-                if (isColliding(player, enemy)) {
-                    alert("¡Misión fallida! Has recolectado " + score + " de oro Anunnaki.");
-                    score = 0;
-                    scoreElement.innerText = score;
-                    enemy.remove();
-                    location.reload(); 
-                }
-            }, 20); // Refresco suave cada 20ms
+            enemies.push(enemy);
         }
 
+        // --- BUCLE PRINCIPAL DE ANIMACIÓN ---
+        function gameLoop() {
+            // 1. Mover Proyectiles
+            for (let i = bullets.length - 1; i >= 0; i--) {
+                let bullet = bullets[i];
+                let bBottom = parseInt(bullet.style.bottom);
+                
+                if (bBottom > gameH) {
+                    // Sale de la pantalla
+                    bullet.remove();
+                    bullets.splice(i, 1);
+                } else {
+                    bullet.style.bottom = (bBottom + bulletSpeed) + 'px';
+                }
+            }
+
+            // 2. Mover Enemigos y Detectar Colisiones
+            for (let i = enemies.length - 1; i >= 0; i--) {
+                let enemy = enemies[i];
+                let eTop = parseInt(enemy.style.top);
+                
+                if (eTop > gameH) {
+                    // El bloque llega al suelo (puntos por esquivar, opcional)
+                    score += 5;
+                    scoreElement.innerText = score;
+                    enemy.remove();
+                    enemies.splice(i, 1);
+                } else {
+                    enemy.style.top = (eTop + enemyFallSpeed) + 'px';
+                }
+
+                // Colisión ENEMIGO vs JUGADOR
+                if (isColliding(player, enemy)) {
+                    gameOver();
+                    return; // Detener bucle
+                }
+
+                // Colisión ENEMIGO vs PROYECTILES
+                for (let j = bullets.length - 1; j >= 0; j--) {
+                    if (isColliding(bullets[j], enemy)) {
+                        // ¡Impacto!
+                        score += 25; // Más puntos por destruir
+                        scoreElement.innerText = score;
+                        
+                        createExplosionEffect(enemy);
+
+                        enemy.remove();
+                        enemies.splice(i, 1);
+                        bullets[j].remove();
+                        bullets.splice(j, 1);
+                        break; // El enemigo ya murió, no chequear más balas
+                    }
+                }
+            }
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // --- UTILIDADES ---
         function isColliding(a, b) {
             let aRect = a.getBoundingClientRect();
             let bRect = b.getBoundingClientRect();
@@ -165,8 +292,66 @@
             );
         }
 
-        // Generar enemigos cada cierto tiempo
+        function createExplosionEffect(enemy) {
+            // Simple efecto visual: crea 3 partículas doradas rápidas
+            for(let i=0; i<3; i++) {
+                let part = document.createElement('div');
+                part.style.position = 'absolute';
+                part.style.width = '6px';
+                part.style.height = '6px';
+                part.style.backgroundColor = '#d4bc8c';
+                part.style.left = enemy.style.left;
+                part.style.top = enemy.style.top;
+                part.style.zIndex = '6';
+                container.appendChild(part);
+                
+                // Animación simple de dispersión
+                let speedX = (Math.random() - 0.5) * 4;
+                let speedY = (Math.random() - 0.5) * 4;
+                let pTop = parseInt(enemy.style.top);
+                let pLeft = parseInt(enemy.style.left);
+
+                let pInt = setInterval(() => {
+                    pTop += speedY;
+                    pLeft += speedX;
+                    part.style.top = pTop + 'px';
+                    part.style.left = pLeft + 'px';
+                    part.style.opacity = parseFloat(part.style.opacity || 1) - 0.1;
+                    if(part.style.opacity <= 0) {
+                        clearInterval(pInt);
+                        part.remove();
+                    }
+                }, 30);
+            }
+        }
+
+        function gameOver() {
+            alert("¡Invasión Anunnaki detenida! Oro recolectado: " + score);
+            // Reiniciar juego
+            score = 0;
+            scoreElement.innerText = score;
+            enemies.forEach(e => e.remove());
+            bullets.forEach(b => b.remove());
+            enemies = [];
+            bullets = [];
+            playerX = (gameW / 2) - 20;
+            updatePlayerPosition();
+            // location.reload(); // Opcional, recarga la página completa
+        }
+
+        // --- INICIAR ---
+        // Crear estrellas de fondo (detalle visual)
+        for(let i=0; i<25; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            container.appendChild(star);
+        }
+
+        // Timers
         setInterval(createEnemy, spawnRate);
+        requestAnimationFrame(gameLoop); // Inicia el bucle suave
 
     </script>
 </body>
