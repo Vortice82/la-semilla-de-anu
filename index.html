@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>La Semilla de Anu - David Robles</title>
 
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?v=2">
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -77,43 +77,43 @@
             border: 1px solid #3d2b1f;
         }
 
-        /* --- BOTÓN COMPRAR --- */
-        /* He añadido la animación y un color base más potente */
+        /* --- BOTÓN COMPRAR REHECHO PARA BRILLO ESTÁTICO --- */
         .btn-comprar {
-            background-color: #d4bc8c !important;
+            background-color: #d4bc8c !important; /* Color dorado base */
             color: #1a140f !important;
             border: 2px solid #fff !important;
-            box-shadow: 0 0 20px rgba(212, 188, 140, 0.6) !important;
-            
-            /* ESTO ACTIVA LA ANIMACIÓN */
-            animation: brilloComprar 3s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(212, 188, 140, 0.5) !important;
+            overflow: hidden; /* Necesario para el efecto de barrido */
+            position: absolute; /* Aseguramos su posicionamiento */
         }
 
-        /* --- LA ANIMACIÓN DE BRILLO CADA 3 SEGUNDOS --- */
-        @keyframes brilloComprar {
-            0% { 
-                box-shadow: 0 0 10px rgba(212, 188, 140, 0.6);
-                transform: scale(1);
-            }
-            15% {
-                box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
-                transform: scale(1.03); /* Un ligero pulso */
-                background-color: #fff !important; /* Brillo de color blanco */
-            }
-            30% { 
-                box-shadow: 0 0 10px rgba(212, 188, 140, 0.6);
-                transform: scale(1);
-                background-color: #d4bc8c !important;
-            }
-            100% {
-                box-shadow: 0 0 10px rgba(212, 188, 140, 0.6);
-                transform: scale(1);
-            }
+        /* EL EFECTO DE DESTELLO (BRILLO) */
+        /* Creamos una capa invisible que pasa por encima */
+        .btn-comprar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%; /* Empieza fuera por la izquierda */
+            width: 100%;
+            height: 100%;
+            /* Degradado sutil de luz blanca/dorada */
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            /* ACTIVAMOS LA ANIMACIÓN DE BARRIDO */
+            animation: destelloGlow 3s infinite;
+        }
+
+        /* ANIMACIÓN DE DESTELLO ESTÁTICO (NO LATE) */
+        @keyframes destelloGlow {
+            0% { left: -100%; }
+            /* Pasa rápido por el centro entre el 10% y el 30% */
+            15% { left: 100%; } 
+            /* Se queda parado (invisible) el resto del tiempo */
+            100% { left: 100%; }
         }
 
         .btn-invisible:hover {
             filter: brightness(1.3);
-            transform: scale(1.1);
+            transform: scale(1.05); /* Un hover sutil, pero no late solo */
         }
 
         /* POSICIONES */
