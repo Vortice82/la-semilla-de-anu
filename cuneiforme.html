@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escritura Cuneiforme - La Semilla de Anu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Diccionario Cuneiforme - La Semilla de Anu</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
@@ -15,140 +15,212 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
-            cursor: url('https://img.icons8.com/ios-filled/50/d4bc8c/hammer.png'), auto; /* Cursor opcional de martillo */
+            /* El punto de impacto del martillo ahora es el centro exacto de la imagen */
+            cursor: url('https://img.icons8.com/ios-filled/50/d4bc8c/hammer.png') 25 25, auto;
         }
 
-        .instrucciones {
-            padding: 20px;
+        /* PANEL DE TRADUCCIÓN FIJO (Para que no se pierda al bajar) */
+        .header-fijo {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 10, 7, 0.95);
+            border-bottom: 2px solid #3d2b1f;
+            z-index: 100;
+            padding: 15px;
             text-align: center;
-            color: #d4bc8c;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            animation: fade 2s infinite alternate;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
         }
 
-        @keyframes fade { from { opacity: 0.5; } to { opacity: 1; } }
+        #traduccion-texto {
+            font-size: 1.3em;
+            color: #d4bc8c;
+            min-height: 1.5em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
 
-        /* EL BLOQUE DE PIEDRA */
-        .contenedor-piedra {
-            position: relative;
-            width: 90%;
-            max-width: 800px;
-            height: 500px;
-            background: url('https://www.transparenttextures.com/patterns/dark-matter.png'), #2a221a;
-            border: 10px solid #1a140f;
-            box-shadow: inset 0 0 100px #000, 0 0 30px rgba(0,0,0,0.5);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow: hidden;
+        .instruccion {
+            font-size: 0.8em;
+            color: #8a7a5f;
+            margin-top: 5px;
+        }
+
+        /* CONTENEDOR DE LA TABLILLA */
+        .tablilla-container {
+            width: 95%;
+            max-width: 900px;
+            margin: 20px 0;
+            padding-bottom: 100px; /* Espacio para el botón de volver */
+        }
+
+        .piedra {
+            background: #2a221a url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            border: 12px solid #1a140f;
+            box-shadow: inset 0 0 60px #000;
+            display: grid;
+            /* Ajuste para que quepan muchos más símbolos */
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 10px;
+            padding: 25px;
             user-select: none;
         }
 
         .simbolo {
-            font-size: 4rem;
-            margin: 15px;
-            color: #1a140f; /* Oculto inicialmente (mismo color que la piedra) */
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.05);
-            transition: all 0.1s;
-            cursor: pointer;
-            position: relative;
+            font-size: 2.8rem;
+            color: rgba(26, 20, 15, 0.6); /* Casi invisible al inicio */
+            text-align: center;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.1s ease;
+            cursor: inherit;
+            border-radius: 4px;
         }
 
-        /* Cuando se ha "picado" el símbolo */
+        /* Efecto cuando se pica */
         .simbolo.grabado {
             color: #d4bc8c;
-            text-shadow: -1px -1px 2px #000, 1px 1px 2px rgba(255,255,255,0.2);
-            transform: scale(1.1);
+            text-shadow: -1px -1px 1px #000, 1px 1px 2px rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.2);
+            transform: scale(1.05);
         }
 
-        /* Efecto de chispas/polvo al picar */
+        /* Partículas */
         .chispa {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 3px;
+            height: 3px;
             background: #d4bc8c;
             pointer-events: none;
             border-radius: 50%;
+            z-index: 1000;
             animation: saltar 0.5s ease-out forwards;
         }
 
         @keyframes saltar {
-            0% { transform: translate(0,0) scale(1); opacity: 1; }
-            100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+            0% { transform: translate(0,0); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+        }
+
+        .footer-nav {
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .btn-volver {
-            margin-top: 30px;
             padding: 10px 20px;
-            background: transparent;
             border: 1px solid #3d2b1f;
             color: #d4bc8c;
             text-decoration: none;
             text-transform: uppercase;
+            font-size: 0.8em;
+        }
+
+        /* Ajustes para Móvil */
+        @media (max-width: 600px) {
+            .piedra { grid-template-columns: repeat(4, 1fr); padding: 15px; }
+            .simbolo { font-size: 2.2rem; }
+            #traduccion-texto { font-size: 1.1em; }
         }
     </style>
 </head>
 <body>
 
-    <div class="instrucciones">Golpea la piedra para grabar los mensajes de Anu</div>
-
-    <div class="contenedor-piedra" id="piedra">
-        <div class="simbolo">𒀭</div>
-        <div class="simbolo">𒂗</div>
-        <div class="simbolo">𒆠</div>
-        <div class="simbolo">𒈗</div>
-        <div class="simbolo">𒂍</div>
-        <div class="simbolo">𒆳</div>
-        <div class="simbolo">叮</div>
-        <div class="simbolo">𒀀</div>
+    <div class="header-fijo">
+        <div id="traduccion-texto">Pica la piedra...</div>
+        <div class="instruccion">Descifra el mensaje de los Anunnaki</div>
     </div>
 
-    <a href="index.html" class="btn-volver">Volver al Templo</a>
+    <div class="tablilla-container">
+        <div class="piedra" id="tablilla">
+            <div class="simbolo" data-trad="Anu (Dios del Cielo)">𒀭</div>
+            <div class="simbolo" data-trad="Enlil (Señor del Viento)">𒂗</div>
+            <div class="simbolo" data-trad="Enki (Señor de la Tierra)">𒂗𒆠</div>
+            <div class="simbolo" data-trad="Lugal (Rey / Hombre Grande)">𒈗</div>
+            <div class="simbolo" data-trad="E2 (Templo / Casa)">𒂍</div>
+            <div class="simbolo" data-trad="Kur (Montaña / Inframundo)">𒆳</div>
+            <div class="simbolo" data-trad="Ud (Sol / Día)">𒌓</div>
+            <div class="simbolo" data-trad="Mu (Nombre / Año)">𒈬</div>
+            <div class="simbolo" data-trad="Dingir (Deidad)">叮</div>
+            <div class="simbolo" data-trad="Gal (Grande)">𒃲</div>
+            <div class="simbolo" data-trad="Tur (Pequeño)">𒌉</div>
+            <div class="simbolo" data-trad="Kalam (La Tierra / Sumeria)">𒌦</div>
+            <div class="simbolo" data-trad="Ama (Madre)">𒂼</div>
+            <div class="simbolo" data-trad="Abba (Padre)"> отец </div>
+            <div class="simbolo" data-trad="Shesh (Hermano)">𒋀</div>
+            <div class="simbolo" data-trad="Nin (Señora / Reina)">𒊩𒌆</div>
+            <div class="simbolo" data-trad="Dumu (Hijo)">𒌉</div>
+            <div class="simbolo" data-trad="Ti (Vida)">𒋾</div>
+            <div class="simbolo" data-trad="Gud (Toro)">𒄞</div>
+            <div class="simbolo" data-trad="Ur (Perro / Guerrero)">𒌨</div>
+            <div class="simbolo" data-trad="Ka (Boca)">𒅗</div>
+            <div class="simbolo" data-trad="Ninda (Pan)">𒃻</div>
+            <div class="simbolo" data-trad="Kash (Cerveza)">𒁉</div>
+            <div class="simbolo" data-trad="Ki (Lugar)">𒆠</div>
+            <div class="simbolo" data-trad="A (Agua)">𒀀</div>
+            <div class="simbolo" data-trad="Igi (Ojo)">𒅆</div>
+            <div class="simbolo" data-trad="Shu (Mano)">𒋗</div>
+            <div class="simbolo" data-trad="Giri3 (Pie)">𒈨𒊑</div>
+            <div class="simbolo" data-trad="Gu2 (Cuello)">𒄘</div>
+            <div class="simbolo" data-trad="Sag (Cabeza)">𒊕</div>
+            <div class="simbolo" data-trad="Sahar (Polvo)"> धूल </div>
+            <div class="simbolo" data-trad="Ishkur (Dios de la Tormenta)">𒅎</div>
+        </div>
+
+        <div class="footer-nav">
+            <a href="index.html" class="btn-volver">Regresar al Templo</a>
+        </div>
+    </div>
 
     <audio id="sonidoCincel">
         <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        const piedra = document.getElementById('piedra');
         const sonido = document.getElementById('sonidoCincel');
+        const display = document.getElementById('traduccion-texto');
 
-        document.querySelectorAll('.simbolo').forEach(simbolo => {
-            simbolo.addEventListener('mousedown', function(e) {
-                // Reproducir sonido
+        document.querySelectorAll('.simbolo').forEach(s => {
+            const handleAction = (e) => {
+                // Prevenir comportamiento por defecto en móvil para evitar scroll raro
+                if(e.type === 'touchstart') e.preventDefault();
+                
+                // Sonido
                 sonido.currentTime = 0;
-                sonido.play();
+                sonido.play().catch(()=>{});
 
-                // Marcar como grabado
-                this.classList.add('grabado');
+                // Grabado
+                s.classList.add('grabado');
+                display.innerText = s.getAttribute('data-trad');
 
-                // Crear chispas visuales
+                // Chispas
+                const posX = e.pageX || e.touches[0].pageX;
+                const posY = e.pageY || e.touches[0].pageY;
                 for(let i=0; i<6; i++) {
-                    crearChispa(e.pageX, e.pageY);
+                    crearChispa(posX, posY);
                 }
-            });
+            };
+
+            s.addEventListener('mousedown', handleAction);
+            s.addEventListener('touchstart', handleAction);
         });
 
         function crearChispa(x, y) {
-            const chispa = document.createElement('div');
-            chispa.className = 'chispa';
-            document.body.appendChild(chispa);
-
-            const rect = piedra.getBoundingClientRect();
-            chispa.style.left = x + 'px';
-            chispa.style.top = y + 'px';
-
-            // Dirección aleatoria de la chispa
-            const moveX = (Math.random() - 0.5) * 100;
-            const moveY = (Math.random() - 0.5) * 100;
-            chispa.style.setProperty('--x', moveX + 'px');
-            chispa.style.setProperty('--y', moveY + 'px');
-
-            setTimeout(() => chispa.remove(), 500);
+            const c = document.createElement('div');
+            c.className = 'chispa';
+            document.body.appendChild(c);
+            c.style.left = x + 'px';
+            c.style.top = y + 'px';
+            const mx = (Math.random() - 0.5) * 100;
+            const my = (Math.random() - 0.5) * 100;
+            c.style.setProperty('--x', mx + 'px');
+            c.style.setProperty('--y', my + 'px');
+            setTimeout(() => c.remove(), 500);
         }
     </script>
 </body>
