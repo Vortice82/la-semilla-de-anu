@@ -8,18 +8,18 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
 
     <style>
-        /* RESET TOTAL PARA EVITAR COLAPSOS VISUALES */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
             background-color: #0d0a07; 
             color: #e8dcc4;
-            font-family: 'Cambria', serif;
+            font-family: 'Cambria', 'Georgia', serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
-            overflow-x: hidden;
+            min-height: 100vh;
+            overflow-y: auto;
         }
 
         .seo-title {
@@ -31,14 +31,13 @@
             text-align: center;
         }
 
-        /* --- SECCIÓN 1: EL TEMPLO (INTERACTIVO) --- */
-        .templo-wrapper {
+        .templo-master {
             position: relative;
             width: 96%;
-            max-width: 1300px; /* PC AMPLIO */
-            margin-bottom: 40px;
+            max-width: 1300px;
+            margin-bottom: 50px;
             border: 1px solid #3d2b1f;
-            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+            box-shadow: 0 0 50px rgba(0,0,0,1);
             background: #000;
         }
 
@@ -48,16 +47,13 @@
             display: block;
         }
 
-        /* Lógica de Imagen Dual */
         .img-pc { display: none; }
         .img-movil { display: block; }
-
         @media (min-width: 800px) {
             .img-pc { display: block; }
             .img-movil { display: none; }
         }
 
-        /* Capa de Botones */
         .botones-capa {
             position: absolute;
             top: 0; left: 0;
@@ -72,17 +68,30 @@
             justify-content: center;
             text-decoration: none;
             font-weight: bold;
-            font-size: clamp(0.5rem, 1.6vw, 0.9rem);
+            font-size: clamp(0.5rem, 1.8vw, 0.95rem);
             text-transform: uppercase;
             border-radius: 2px;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
 
-        .btn-escritura, .btn-juego, .btn-dioses { background: rgba(92, 64, 34, 0.9); color: #fff; border: 1px solid #f4e4bc; }
+        .btn-escritura, .btn-juego, .btn-dioses { background: rgba(92, 64, 34, 0.92); color: #fff; border: 1px solid #f4e4bc; }
         .btn-tiktok, .btn-correo, .btn-instagram, .btn-youtube { background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
-        .btn-comprar { background: #d4bc8c !important; color: #1a140f !important; border: 1.5px solid #fff !important; }
+        
+        /* BOTÓN COMPRAR CON LATIDO */
+        .btn-comprar { 
+            background: #d4bc8c !important; 
+            color: #1a140f !important; 
+            border: 2px solid #fff !important; 
+            animation: latido 2s infinite; /* Activa el latido cada 2 segundos */
+        }
 
-        /* Coordenadas */
+        @keyframes latido {
+            0% { transform: scale(1); box-shadow: 0 0 0px rgba(255, 255, 255, 0); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 0 0px rgba(255, 255, 255, 0); }
+        }
+
+        /* Posiciones */
         .btn-escritura { top: 55%; left: 8%; width: 24%; height: 6%; }
         .btn-juego     { top: 64%; left: 8%; width: 24%; height: 6%; }
         .btn-dioses    { top: 73%; left: 8%; width: 24%; height: 6%; }
@@ -98,44 +107,48 @@
             object-fit: cover; opacity: 0; pointer-events: none; z-index: 5;
         }
 
-        /* --- SECCIÓN 2: MAPA Y TEXTO (TOTALMENTE INDEPENDIENTE) --- */
-        .info-global {
+        .seccion-informacion {
             width: 100%;
             max-width: 1000px;
-            padding: 20px;
-            text-align: center;
-            display: block; /* Forzamos flujo normal */
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #0d0a07;
         }
 
         .mapa-img {
             width: 100%;
-            max-width: 900px;
             height: auto;
             border: 1px solid #3d2b1f;
-            margin: 20px auto 40px auto;
+            border-radius: 4px;
+            margin-bottom: 40px;
             display: block;
         }
 
-        .texto-original {
-            padding: 0 20px 100px 20px;
+        .bloque-texto {
+            text-align: center;
             line-height: 1.8;
             color: #bfa888;
+            padding-bottom: 100px;
         }
 
-        .texto-original h2 { 
+        .bloque-texto h2 { 
             color: #d4bc8c; 
-            margin-bottom: 20px; 
+            margin-bottom: 25px; 
             text-transform: uppercase;
+            font-size: 1.6em;
+            letter-spacing: 2px;
         }
 
-        .texto-original b { color: #fff; }
+        .bloque-texto b { color: #fff; }
     </style>
 </head>
 <body>
 
     <h1 class="seo-title">La Semilla de Anu</h1>
 
-    <div class="templo-wrapper">
+    <div class="templo-master">
         <img src="portada-movil.png" class="background-design img-movil" alt="Portada móvil">
         <img src="portada-pc.png" class="background-design img-pc" alt="Portada PC">
         
@@ -160,13 +173,13 @@
         </div>
     </div>
 
-    <div class="info-global">
+    <div class="seccion-informacion">
         <img src="mapa.jpg" class="mapa-img" alt="Mapa de distribución">
         
-        <div class="texto-original">
+        <div class="bloque-texto">
             <h2>🌍 ¡La invasión Anunaki ya es global!</h2>
             <p>Encuentra la obra de <b>David Robles</b> en las librerías más prestigiosas. Disponible en <b>España, Portugal, U.K., México, EE.UU., Colombia, Perú, Ecuador, Chile, Argentina y Uruguay</b>.</p>
-            <p style="margin-top: 20px;">Consigue tu ejemplar en <b>Barnes & Noble</b>, <b>Librerías Gandhi</b>, <b>Casa del Libro</b>, <b>Agapea</b> y <b>Mercado Libre</b>.</p>
+            <p style="margin-top: 25px;">Consigue tu ejemplar en <b>Barnes & Noble</b>, <b>Librerías Gandhi</b>, <b>Casa del Libro</b>, <b>Agapea</b> y <b>Mercado Libre</b>.</p>
         </div>
     </div>
 
