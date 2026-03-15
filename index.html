@@ -8,7 +8,6 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
 
     <style>
-        /* Reset para evitar bloques de color sólido */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
@@ -23,42 +22,34 @@
 
         .seo-title {
             color: #d4bc8c;
-            padding: 20px;
+            padding: 30px 10px;
+            font-size: 1.8em;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-align: center;
         }
 
-        /* Contenedor flexible para que no se colapse */
-        .web-container {
+        /* BLOQUE 1: TEMPLO */
+        .templo-seccion {
             position: relative;
-            width: 100%;
-            max-width: 1300px; /* Tamaño grande para PC */
-            margin-bottom: 30px;
+            width: 96%;
+            max-width: 1300px;
+            margin-bottom: 40px;
+            border: 1px solid #3d2b1f;
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+            background: #000;
         }
 
-        .background-design {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+        .background-design { width: 100%; height: auto; display: block; }
 
-        /* Lógica para mostrar una imagen u otra */
-        @media (max-width: 799px) {
-            .img-pc { display: none !important; }
-            .img-movil { display: block !important; width: 100%; max-width: 500px; margin: 0 auto; }
-        }
+        .img-pc { display: none; }
+        .img-movil { display: block; }
         @media (min-width: 800px) {
-            .img-movil { display: none !important; }
-            .img-pc { display: block !important; }
+            .img-pc { display: block; }
+            .img-movil { display: none; }
         }
 
-        /* Capa de botones */
-        .botones-capa {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-        }
+        .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
 
         .btn-invisible {
             position: absolute;
@@ -67,18 +58,17 @@
             justify-content: center;
             text-decoration: none;
             font-weight: bold;
-            font-size: clamp(0.5rem, 1.5vw, 0.9rem);
+            font-size: clamp(0.5rem, 1.6vw, 0.9rem);
             text-transform: uppercase;
-            color: #fff;
             border-radius: 2px;
+            transition: 0.3s;
         }
 
-        /* Colores de botones */
-        .btn-escritura, .btn-juego, .btn-dioses { background: rgba(92, 64, 34, 0.9); border: 1px solid #f4e4bc; }
-        .btn-tiktok, .btn-correo, .btn-instagram, .btn-youtube { background: rgba(0, 0, 0, 0.8); color: #d4bc8c; border: 1px solid #3d2b1f; }
-        .btn-comprar { background: #d4bc8c !important; color: #1a140f !important; border: 1px solid #fff !important; }
+        .btn-escritura, .btn-juego, .btn-dioses { background: rgba(92, 64, 34, 0.9); color: #fff; border: 1px solid #f4e4bc; }
+        .btn-tiktok, .btn-correo, .btn-instagram, .btn-youtube { background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
+        .btn-comprar { background: #d4bc8c !important; color: #1a140f !important; border: 1.5px solid #fff !important; }
 
-        /* Posiciones */
+        /* Coordenadas de botones */
         .btn-escritura { top: 55%; left: 8%; width: 24%; height: 6%; }
         .btn-juego     { top: 64%; left: 8%; width: 24%; height: 6%; }
         .btn-dioses    { top: 73%; left: 8%; width: 24%; height: 6%; }
@@ -88,39 +78,50 @@
         .btn-instagram { top: 82%; left: 68%; width: 24%; height: 6%; }
         .btn-youtube   { top: 91%; left: 68%; width: 24%; height: 6%; }
 
+        /* BLOQUE 2: MAPA Y TEXTO (TOTALMENTE FUERA DEL TEMPLO) */
+        .contenedor-global {
+            width: 100%;
+            max-width: 1000px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .mapa-img {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            border: 1px solid #3d2b1f;
+            margin: 20px auto 40px auto;
+            display: block;
+        }
+
+        .texto-original-restaurado {
+            padding: 0 20px 100px 20px;
+            line-height: 1.8;
+            color: #bfa888;
+        }
+
+        .texto-original-restaurado h2 { 
+            color: #d4bc8c; 
+            margin-bottom: 20px; 
+            text-transform: uppercase;
+        }
+
+        .texto-original-restaurado b { color: #fff; }
+
         .video-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0; pointer-events: none;
+            object-fit: cover; opacity: 0; pointer-events: none; z-index: 5;
         }
-
-        /* Sección inferior - Forzamos que se vea */
-        .seccion-inferior {
-            width: 100%;
-            max-width: 900px;
-            padding: 20px;
-            text-align: center;
-            background: #0d0a07; /* Asegura fondo oscuro detrás del texto */
-        }
-
-        .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 30px; }
-
-        .texto-paises {
-            color: #bfa888;
-            line-height: 1.8;
-            margin-bottom: 50px;
-        }
-
-        .texto-paises h2 { color: #d4bc8c; margin-bottom: 15px; }
-        .texto-paises b { color: #fff; }
     </style>
 </head>
 <body>
 
     <h1 class="seo-title">La Semilla de Anu</h1>
 
-    <div class="web-container">
-        <img src="portada-movil.png" class="background-design img-movil" alt="Portada">
+    <div class="templo-seccion">
+        <img src="portada-movil.png" class="background-design img-movil" alt="Portada móvil">
         <img src="portada-pc.png" class="background-design img-pc" alt="Portada PC">
         
         <video id="videoDioses" class="video-overlay" loop playsinline>
@@ -140,9 +141,4 @@
             <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
             <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo">CONTACTO</a>
             <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank">INSTAGRAM</a>
-            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-youtube" target="_blank">YOUTUBE</a>
-        </div>
-    </div>
-
-    <div class="seccion-inferior">
-        <img src="mapa.jpg" class="
+            <a href="
