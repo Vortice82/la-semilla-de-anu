@@ -40,6 +40,49 @@
             border: 1px solid #3d2b1f;
             box-shadow: 0 0 60px rgba(0,0,0,1);
             background: #000;
+            overflow: hidden; /* Importante para que la gota no se salga */
+        }
+
+        /* --- EFECTO GOTEO (CUEVA ANTIGUA) --- */
+        .gota {
+            position: absolute;
+            top: -20px;
+            left: 50%; /* Cae por el centro, puedes ajustarlo */
+            width: 2px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 20;
+            animation: caerGota 3s infinite cubic-bezier(0.5, 0, 0.9, 0.5);
+        }
+
+        .onda {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 19;
+            animation: ondaGota 3s infinite;
+        }
+
+        @keyframes caerGota {
+            0% { top: -20px; opacity: 0; }
+            10% { opacity: 0.7; }
+            70% { top: 90%; opacity: 0.4; }
+            71% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes ondaGota {
+            0%, 69% { width: 0; height: 0; opacity: 0; }
+            70% { width: 5px; height: 2px; opacity: 1; }
+            100% { width: 100px; height: 40px; opacity: 0; }
         }
 
         .background-design { width: 100%; height: auto; display: block; }
@@ -103,7 +146,6 @@
             object-fit: cover; opacity: 0; pointer-events: none; z-index: 5;
         }
 
-        /* --- SECCIÓN 2: MAPA Y TEXTO ORIGINAL --- */
         .seccion-global {
             width: 100%;
             max-width: 1000px;
@@ -131,7 +173,6 @@
         .texto-original h2 { color: #d4bc8c; margin-bottom: 20px; text-transform: uppercase; }
         .texto-original b { color: #fff; }
 
-        /* --- SECCIÓN 3: MECANISMO ARQUEOLÓGICO (ESTILO INDIANA JONES) --- */
         .excavacion-sello {
             margin: 40px auto 100px auto;
             padding: 40px 20px;
@@ -199,6 +240,9 @@
     <h1 class="seo-title">La Semilla de Anu</h1>
 
     <div class="templo-master">
+        <div class="gota"></div>
+        <div class="onda"></div>
+
         <img src="portada-movil.png" class="background-design img-movil" alt="Portada móvil">
         <img src="portada-pc.png" class="background-design img-pc" alt="Portada PC">
         
