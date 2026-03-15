@@ -8,7 +8,6 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
 
     <style>
-        /* RESET GENERAL */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body, html { 
@@ -30,23 +29,23 @@
             font-size: 1.6em;
             text-transform: uppercase;
             letter-spacing: 4px;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
         }
 
-        /* CONTENEDOR PRINCIPAL DEL TEMPLO */
+        /* --- CONTENEDOR PRINCIPAL --- */
         .web-container {
             position: relative;
-            width: 96%; 
+            width: 100%; 
             margin: 10px auto;
             box-shadow: 0 0 50px rgba(0,0,0,1);
             background-color: #000;
             overflow: hidden;
             border: 1px solid #2a1f15;
-            max-width: 500px; /* Tamaño móvil por defecto */
+            /* Ajuste para PC: Aumentamos el ancho máximo para que la imagen se vea más grande */
+            max-width: 500px; 
         }
 
         @media (min-width: 800px) {
-            .web-container { max-width: 1000px; } /* Tamaño PC */
+            .web-container { max-width: 1200px; } /* Imagen más grande en monitores */
         }
 
         .background-design { 
@@ -57,7 +56,7 @@
             z-index: 1;
         }
 
-        /* LÓGICA DE IMAGEN DUAL SEGÚN TU GITHUB */
+        /* Lógica de imagen dual */
         .img-pc { display: none; }
         .img-movil { display: block; }
 
@@ -85,7 +84,6 @@
             text-transform: uppercase;
             border-radius: 2px;
             transition: all 0.3s ease;
-            white-space: nowrap;
         }
 
         .btn-escritura, .btn-juego, .btn-dioses { background-color: rgba(139, 101, 52, 0.9); color: #fff; border: 1px solid #f4e4bc; }
@@ -95,22 +93,9 @@
             background-color: #d4bc8c !important;
             color: #1a140f !important;
             border: 2px solid #fff !important;
-            box-shadow: 0 0 15px rgba(212, 188, 140, 0.6) !important;
-            overflow: hidden;
         }
 
-        /* Efecto destello para Comprar */
-        .btn-comprar::after {
-            content: "";
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-            animation: destelloGlow 3s infinite;
-        }
-
-        @keyframes destelloGlow { 0% { left: -100%; } 15% { left: 100%; } 100% { left: 100%; } }
-
-        /* POSICIONES AJUSTADAS AL NUEVO DISEÑO */
+        /* POSICIONES */
         .btn-escritura { top: 55%; left: 8%; width: 24%; height: 6%; }
         .btn-juego     { top: 64%; left: 8%; width: 24%; height: 6%; }
         .btn-dioses    { top: 73%; left: 8%; width: 24%; height: 6%; }
@@ -131,43 +116,20 @@
             z-index: 5;
         }
 
-        /* SECCIÓN INFERIOR: MAPA Y TEXTO */
-        .seccion-inferior {
-            width: 100%;
-            max-width: 1000px;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .mapa-img { 
-            width: 100%; 
-            max-width: 900px;
-            height: auto; 
-            border: 1px solid #3d2b1f; 
-            border-radius: 4px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
-            margin-bottom: 40px;
-        }
+        /* --- SECCIÓN INFERIOR: TEXTO ORIGINAL --- */
+        .seccion-mapa { width: 100%; max-width: 900px; padding: 30px 20px; text-align: center; }
+        .mapa-img { width: 95%; height: auto; border: 1px solid #3d2b1f; border-radius: 4px; }
 
         .texto-paises {
             max-width: 800px;
-            text-align: center;
+            margin: 20px auto 80px auto;
+            padding: 0 30px;
             color: #bfa888;
+            text-align: center;
             line-height: 1.8;
-            margin-bottom: 80px;
         }
 
-        .texto-paises h2 { 
-            color: #d4bc8c; 
-            margin-bottom: 25px; 
-            text-transform: uppercase; 
-            font-size: 1.6em; 
-            letter-spacing: 3px; 
-        }
-
-        .texto-paises b { color: #fff; }
+        .texto-paises h2 { color: #d4bc8c; margin-bottom: 20px; text-transform: uppercase; font-size: 1.5em; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -175,8 +137,8 @@
     <h1 class="seo-title">La Semilla de Anu</h1>
 
     <div class="web-container">
-        <img src="portada-movil.png" class="background-design img-movil" alt="Entrada al Templo Anunnaki">
-        <img src="portada-pc.png" class="background-design img-pc" alt="Entrada al Templo Anunnaki PC">
+        <img src="portada-movil.png" class="background-design img-movil" alt="Portada móvil">
+        <img src="portada-pc.png" class="background-design img-pc" alt="Portada PC">
         
         <video id="videoDioses" class="video-overlay" loop playsinline preload="auto">
             <source src="video.mp4" type="video/mp4">
@@ -199,14 +161,13 @@
         </div>
     </div>
 
-    <div class="seccion-inferior">
-        <img src="mapa.jpg" class="mapa-img" alt="Mapa de distribución mundial">
-        
-        <div class="texto-paises">
-            <h2>🌍 ¡La invasión Anunaki ya es global!</h2>
-            <p>La verdad sobre nuestros orígenes no tiene fronteras. Puedes adquirir la obra de <b>David Robles</b> en las librerías más prestigiosas del mundo.</p>
-            <p style="margin-top: 20px;">Disponible en: <b>Barnes & Noble (EE.UU.), Librerías Gandhi (México), Casa del Libro y Agapea (España)</b>.</p>
-        </div>
+    <div class="seccion-mapa">
+        <img src="mapa.jpg" class="mapa-img" alt="Mapa">
+    </div>
+
+    <div class="texto-paises">
+        <h2>🌍 ¡La invasión Anunaki ya es global!</h2>
+        <p>Encuentra la obra de <b>David Robles</b> en <b>Barnes & Noble</b>, <b>Librerías Gandhi</b>, <b>Casa del Libro</b> y <b>Agapea</b>.</p>
     </div>
 
     <script>
@@ -214,17 +175,15 @@
         const video = document.getElementById('videoDioses');
         const audio = document.getElementById('audioTetrico');
 
-        // Función para activar atmósfera Anunnaki
         function activar() {
             video.style.opacity = "1";
             video.muted = false; 
             video.volume = 0.7;
             video.play();
             audio.volume = 0.6;
-            audio.play().catch(e => console.log("Audio en espera de interacción"));
+            audio.play().catch(e => {});
         }
 
-        // Función para desactivar atmósfera
         function desactivar() {
             video.style.opacity = "0";
             video.pause();
@@ -232,25 +191,20 @@
             audio.pause();
         }
 
-        // Eventos para PC
         btnDioses.addEventListener('mouseenter', activar);
         btnDioses.addEventListener('mouseleave', desactivar);
-        
-        // Eventos para Móvil
-        btnDioses.addEventListener('touchstart', (e) => { 
-            e.preventDefault(); 
-            activar(); 
-        });
+        btnDioses.addEventListener('touchstart', (e) => { e.preventDefault(); activar(); });
         btnDioses.addEventListener('touchend', desactivar);
 
-        // Desbloqueo de audio por política de navegadores
         const desbloquearAudio = () => {
-            video.play().then(() => {
-                video.pause();
-                video.currentTime = 0;
-            });
+            video.play().then(() => { video.pause(); video.currentTime = 0; });
             audio.load();
             document.removeEventListener('mousedown', desbloquearAudio);
             document.removeEventListener('touchstart', desbloquearAudio);
         };
-        document.addEventListener('mousedown',
+        document.addEventListener('mousedown', desbloquearAudio);
+        document.addEventListener('touchstart', desbloquearAudio);
+    </script>
+
+</body>
+</html>
