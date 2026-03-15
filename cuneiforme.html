@@ -3,136 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diccionario Cuneiforme - La Semilla de Anu</title>
+    <title>Escritura Cuneiforme - La Semilla de Anu</title>
     <style>
-        body { background-color: #2c221a; color: #e8dcc4; font-family: 'Cambria', serif; text-align: center; padding: 20px; }
-        .container { max-width: 900px; margin: auto; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        h1 { color: #d4bc8c; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 2px; }
-        .subtitle { font-style: italic; margin-bottom: 30px; opacity: 0.8; }
+        body {
+            background-color: #0d0a07;
+            color: #e8dcc4;
+            font-family: 'Cambria', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: url('https://img.icons8.com/ios-filled/50/d4bc8c/hammer.png'), auto; /* Cursor opcional de martillo */
+        }
 
-        /* Cuadrícula de Vocabulario */
-        .grid-simbolos { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); 
-            gap: 15px; 
-            margin-bottom: 40px; 
+        .instrucciones {
+            padding: 20px;
+            text-align: center;
+            color: #d4bc8c;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fade 2s infinite alternate;
         }
-        
-        .card { 
-            background: #3d2f25; 
-            padding: 15px; 
-            border: 1px solid #8e7a60; 
-            border-radius: 8px;
-            transition: transform 0.2s;
-        }
-        
-        .card:hover { transform: translateY(-5px); border-color: #d4bc8c; }
-        
-        .simbolo { 
-            font-size: 3.5em; 
-            display: block; 
-            margin-bottom: 10px; 
-            color: #f4e4bc;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .card b { color: #d4bc8c; font-size: 1.1em; display: block; }
-        .card span.trad { font-size: 0.9em; opacity: 0.7; }
 
-        /* Pizarra de Arcilla */
-        .pizarra-contenedor { 
-            background-color: #c5b395; 
-            margin: 20px auto; 
-            border-radius: 10px; 
-            border: 10px solid #5a3e2b; 
-            width: 100%; 
-            max-width: 600px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6), inset 0 0 40px rgba(0,0,0,0.1);
-        }
-        
-        canvas { display: block; cursor: url('https://cur.cursors-4u.net/others/oth-2/oth165.cur'), crosshair; touch-action: none; width: 100%; }
+        @keyframes fade { from { opacity: 0.5; } to { opacity: 1; } }
 
-        .controles { margin-top: 20px; }
-        button { 
-            padding: 12px 30px; 
-            cursor: pointer; 
-            background: #5a3e2b; 
-            color: #d4bc8c; 
-            border: 2px solid #d4bc8c; 
-            border-radius: 5px; 
-            font-weight: bold;
+        /* EL BLOQUE DE PIEDRA */
+        .contenedor-piedra {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            height: 500px;
+            background: url('https://www.transparenttextures.com/patterns/dark-matter.png'), #2a221a;
+            border: 10px solid #1a140f;
+            box-shadow: inset 0 0 100px #000, 0 0 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .simbolo {
+            font-size: 4rem;
+            margin: 15px;
+            color: #1a140f; /* Oculto inicialmente (mismo color que la piedra) */
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.05);
+            transition: all 0.1s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Cuando se ha "picado" el símbolo */
+        .simbolo.grabado {
+            color: #d4bc8c;
+            text-shadow: -1px -1px 2px #000, 1px 1px 2px rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        /* Efecto de chispas/polvo al picar */
+        .chispa {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #d4bc8c;
+            pointer-events: none;
+            border-radius: 50%;
+            animation: saltar 0.5s ease-out forwards;
+        }
+
+        @keyframes saltar {
+            0% { transform: translate(0,0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+        }
+
+        .btn-volver {
+            margin-top: 30px;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid #3d2b1f;
+            color: #d4bc8c;
+            text-decoration: none;
             text-transform: uppercase;
         }
-
-        .volver { display: inline-block; margin-top: 50px; color: #d4bc8c; text-decoration: none; padding: 10px 25px; border: 1px solid #d4bc8c; border-radius: 4px; }
-        .volver:hover { background: #d4bc8c; color: #2c221a; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Escritura Cuneiforme</h1>
-    <p class="subtitle">Vocabulario fundamental de la civilización sumeria</p>
+    <div class="instrucciones">Golpea la piedra para grabar los mensajes de Anu</div>
 
-    <div class="grid-simbolos">
-        <div class="card"><span class="simbolo">𒀭</span><b>AN</b><span class="trad">(Dios / Cielo)</span></div>
-        <div class="card"><span class="simbolo">𒆠</span><b>KI</b><span class="trad">(Tierra)</span></div>
-        <div class="card"><span class="simbolo">𒈗</span><b>LUGAL</b><span class="trad">(Rey)</span></div>
-        <div class="card"><span class="simbolo">𒂍</span><b>E</b><span class="trad">(Templo / Casa)</span></div>
-        <div class="card"><span class="simbolo">𒀀</span><b>A</b><span class="trad">(Agua)</span></div>
-        <div class="card"><span class="simbolo">𒌓</span><b>UD</b><span class="trad">(Sol / Día)</span></div>
-        <div class="card"><span class="simbolo">𒋀</span><b>URUS</b><span class="trad">(Hermano)</span></div>
-        <div class="card"><span class="simbolo">মু</span><b>MU</b><span class="trad">(Nombre / Año)</span></div>
+    <div class="contenedor-piedra" id="piedra">
+        <div class="simbolo">𒀭</div>
+        <div class="simbolo">𒂗</div>
+        <div class="simbolo">𒆠</div>
+        <div class="simbolo">𒈗</div>
+        <div class="simbolo">𒂍</div>
+        <div class="simbolo">𒆳</div>
+        <div class="simbolo">叮</div>
+        <div class="simbolo">𒀀</div>
     </div>
 
-    <h3>Tu Tablilla de Arcilla</h3>
-    <p style="font-size: 0.9em; margin-bottom: 10px;">Usa el ratón o el dedo para tallar los símbolos</p>
-    
-    <div class="pizarra-contenedor">
-        <canvas id="pizarra" width="600" height="400"></canvas>
-    </div>
-    
-    <div class="controles">
-        <button onclick="limpiar()">Limpiar Tablilla</button>
-    </div>
+    <a href="index.html" class="btn-volver">Volver al Templo</a>
 
-    <a href="index.html" class="volver">← Volver al Sitio Principal</a>
-</div>
+    <audio id="sonidoCincel">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg">
+    </audio>
 
-<script>
-    const canvas = document.getElementById('pizarra');
-    const ctx = canvas.getContext('2d');
-    let dibujando = false;
+    <script>
+        const piedra = document.getElementById('piedra');
+        const sonido = document.getElementById('sonidoCincel');
 
-    ctx.strokeStyle = '#423124';
-    ctx.lineWidth = 6;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
+        document.querySelectorAll('.simbolo').forEach(simbolo => {
+            simbolo.addEventListener('mousedown', function(e) {
+                // Reproducir sonido
+                sonido.currentTime = 0;
+                sonido.play();
 
-    function obtenerCoords(e) {
-        const rect = canvas.getBoundingClientRect();
-        const scaleX = canvas.width / rect.width;
-        const scaleY = canvas.height / rect.height;
-        let cx, cy;
-        if (e.touches) { cx = e.touches[0].clientX; cy = e.touches[0].clientY; }
-        else { cx = e.clientX; cy = e.clientY; }
-        return { x: (cx - rect.left) * scaleX, y: (cy - rect.top) * scaleY };
-    }
+                // Marcar como grabado
+                this.classList.add('grabado');
 
-    function iniciar(e) { dibujando = true; const c = obtenerCoords(e); ctx.beginPath(); ctx.moveTo(c.x, c.y); }
-    function mover(e) { if (!dibujando) return; const c = obtenerCoords(e); ctx.lineTo(c.x, c.y); ctx.stroke(); }
-    function parar() { dibujando = false; }
+                // Crear chispas visuales
+                for(let i=0; i<6; i++) {
+                    crearChispa(e.pageX, e.pageY);
+                }
+            });
+        });
 
-    canvas.addEventListener('mousedown', iniciar);
-    canvas.addEventListener('mousemove', mover);
-    window.addEventListener('mouseup', parar);
-    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); iniciar(e); });
-    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); mover(e); });
-    canvas.addEventListener('touchend', parar);
+        function crearChispa(x, y) {
+            const chispa = document.createElement('div');
+            chispa.className = 'chispa';
+            document.body.appendChild(chispa);
 
-    function limpiar() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-</script>
+            const rect = piedra.getBoundingClientRect();
+            chispa.style.left = x + 'px';
+            chispa.style.top = y + 'px';
 
+            // Dirección aleatoria de la chispa
+            const moveX = (Math.random() - 0.5) * 100;
+            const moveY = (Math.random() - 0.5) * 100;
+            chispa.style.setProperty('--x', moveX + 'px');
+            chispa.style.setProperty('--y', moveY + 'px');
+
+            setTimeout(() => chispa.remove(), 500);
+        }
+    </script>
 </body>
 </html>
