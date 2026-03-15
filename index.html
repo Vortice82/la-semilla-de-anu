@@ -40,71 +40,51 @@
             border: 1px solid #3d2b1f;
             box-shadow: 0 0 60px rgba(0,0,0,1);
             background: #000;
-            overflow: hidden; /* Importante para que el charco no se salga */
+            overflow: hidden; 
         }
 
-        /* --- EFECTO GOTEO Y CHARCO (CUEVA SUMERIA) --- */
-        
-        /* 1. EL CHARCO PERSISTENTE (Abajo) */
-        .charco {
-            position: absolute;
-            bottom: -15px; /* Un poco hundido en el borde */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 40px;
-            background: rgba(43, 31, 20, 0.4); /* Color agua sucia estancada */
-            border-radius: 50%;
-            filter: blur(5px);
-            z-index: 15;
-            box-shadow: 0 0 15px rgba(0,0,0,0.8);
-            pointer-events: none;
-        }
-
-        /* 2. LA GOTA CAYENDO */
+        /* --- EFECTO GOTEO DORADO (CUEVA) --- */
         .gota {
             position: absolute;
             top: -20px;
-            left: 50%; /* Cae por el centro exacto del charco */
-            transform: translateX(-50%);
-            width: 2px;
+            left: 50%;
+            width: 3px;
             height: 15px;
-            background: rgba(212, 188, 140, 0.4); /* Color ámbar/agua */
+            background: #d4bc8c; /* Oro para visibilidad total */
             border-radius: 50%;
             pointer-events: none;
-            z-index: 20;
-            animation: caerGotaYImpacto 3s infinite cubic-bezier(0.5, 0, 0.8, 0.5);
+            z-index: 100; /* Por encima de botones y videos */
+            animation: caerGota 3s infinite cubic-bezier(0.5, 0, 0.9, 0.5);
         }
 
-        /* 3. LAS ONDAS AL IMPACTAR */
         .onda {
             position: absolute;
-            bottom: 1px; /* Justo sobre el charco */
+            bottom: 5%; 
             left: 50%;
             transform: translateX(-50%);
-            border: 1.5px solid rgba(212, 188, 140, 0.3); /* Color reflejo onda */
+            width: 0;
+            height: 0;
+            border: 2px solid #d4bc8c;
             border-radius: 50%;
             pointer-events: none;
-            z-index: 18;
+            z-index: 99;
             opacity: 0;
+            animation: ondaImpacto 3s infinite;
+            animation-delay: 2.1s; /* Sincronizado con la caída de la gota */
         }
 
-        /* Ondas concéntricas (mismo timing que la gota) */
-        .onda-1 { animation: ondaImpacto 3s infinite 2.25s; /* Empieza al tocar suelo */ }
-        .onda-2 { animation: ondaImpacto 3s infinite 2.45s; }
-
-        @keyframes caerGotaYImpacto {
+        @keyframes caerGota {
             0% { top: -20px; opacity: 0; }
-            10% { opacity: 0.8; }
-            74% { top: 92%; opacity: 0.6; } /* Cae rápido al suelo */
-            75% { opacity: 0; top: 92%; } /* Desaparece al tocar */
+            10% { opacity: 1; }
+            70% { top: 92%; opacity: 1; }
+            71% { opacity: 0; }
             100% { opacity: 0; }
         }
 
         @keyframes ondaImpacto {
             0% { width: 0; height: 0; opacity: 0; }
-            5% { opacity: 1; }
-            100% { width: 250px; height: 50px; opacity: 0; } /* Se expande por el charco */
+            10% { opacity: 1; }
+            100% { width: 280px; height: 50px; opacity: 0; }
         }
 
         .background-design { width: 100%; height: auto; display: block; }
@@ -114,38 +94,3 @@
         @media (min-width: 800px) {
             .img-pc { display: block; }
             .img-movil { display: none; }
-        }
-
-        .botones-capa {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 10;
-        }
-
-        .btn-invisible {
-            position: absolute;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: clamp(0.5rem, 1.8vw, 0.95rem);
-            text-transform: uppercase;
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-escritura, .btn-juego, .btn-dioses { background: rgba(92, 64, 34, 0.92); color: #fff; border: 1px solid #f4e4bc; }
-        .btn-tiktok, .btn-correo, .btn-instagram, .btn-youtube { background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
-        
-        .btn-comprar { 
-            background: #d4bc8c !important; 
-            color: #1a140f !important; 
-            border: 2px solid #fff !important; 
-            animation: latido 2s infinite; 
-        }
-
-        @keyframes latido {
-            0% { transform: scale(1); box-shadow: 0 0 0px rgba(255, 255, 255, 0); }
-            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(
