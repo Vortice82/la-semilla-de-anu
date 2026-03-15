@@ -32,11 +32,10 @@
             letter-spacing: 4px;
         }
 
+        /* --- CONTENEDOR --- */
         .web-container {
             position: relative;
-            width: 94%; 
-            max-width: 500px; 
-            aspect-ratio: 928 / 1238; 
+            width: 100%; 
             margin: 10px auto;
             box-shadow: 0 0 40px rgba(0,0,0,1);
             background-color: #000;
@@ -44,7 +43,19 @@
             border: 1px solid #2a1f15;
         }
 
-        .background-design { width: 100%; height: 100%; display: block; object-fit: contain; }
+        .background-design { width: 100%; height: auto; display: block; }
+
+        /* Lógica de cambio de imagen según pantalla */
+        .img-pc { display: none; }
+        .img-movil { display: block; }
+        .web-container { max-width: 500px; }
+
+        @media (min-width: 800px) {
+            .img-pc { display: block; }
+            .img-movil { display: none; }
+            .web-container { max-width: 1000px; }
+        }
+
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
         .btn-invisible {
@@ -63,181 +74,5 @@
             white-space: nowrap;
         }
 
-        /* BOTONES IZQUIERDA */
-        .btn-escritura, .btn-juego, .btn-dioses {
-            background-color: rgba(139, 101, 52, 0.9);
-            color: #fff;
-            border: 1px solid #f4e4bc;
-        }
-
-        /* BOTONES DERECHA */
-        .btn-tiktok, .btn-correo, .btn-instagram, .btn-youtube {
-            background-color: rgba(0, 0, 0, 0.85);
-            color: #d4bc8c;
-            border: 1px solid #3d2b1f;
-        }
-
-        /* --- BOTÓN COMPRAR REHECHO PARA BRILLO ESTÁTICO --- */
-        .btn-comprar {
-            background-color: #d4bc8c !important; /* Color dorado base */
-            color: #1a140f !important;
-            border: 2px solid #fff !important;
-            box-shadow: 0 0 10px rgba(212, 188, 140, 0.5) !important;
-            overflow: hidden; /* Necesario para el efecto de barrido */
-            position: absolute; /* Aseguramos su posicionamiento */
-        }
-
-        /* EL EFECTO DE DESTELLO (BRILLO) */
-        /* Creamos una capa invisible que pasa por encima */
-        .btn-comprar::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%; /* Empieza fuera por la izquierda */
-            width: 100%;
-            height: 100%;
-            /* Degradado sutil de luz blanca/dorada */
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-            /* ACTIVAMOS LA ANIMACIÓN DE BARRIDO */
-            animation: destelloGlow 3s infinite;
-        }
-
-        /* ANIMACIÓN DE DESTELLO ESTÁTICO (NO LATE) */
-        @keyframes destelloGlow {
-            0% { left: -100%; }
-            /* Pasa rápido por el centro entre el 10% y el 30% */
-            15% { left: 100%; } 
-            /* Se queda parado (invisible) el resto del tiempo */
-            100% { left: 100%; }
-        }
-
-        .btn-invisible:hover {
-            filter: brightness(1.3);
-            transform: scale(1.05); /* Un hover sutil, pero no late solo */
-        }
-
-        /* POSICIONES */
-        .btn-escritura { top: 12.5%; left: 7%; width: 26%; height: 6%; }
-        .btn-juego     { top: 21.5%; left: 7%; width: 26%; height: 6%; }
-        .btn-dioses    { top: 30.5%; left: 7%; width: 26%; height: 6%; }
-        .btn-comprar   { top: 12.5%; left: 66%; width: 26%; height: 6%; }
-        .btn-tiktok    { top: 21.5%; left: 66%; width: 26%; height: 6%; }
-        .btn-correo    { top: 30.5%; left: 66%; width: 26%; height: 6%; }
-        .btn-instagram { top: 39.5%; left: 66%; width: 26%; height: 6%; }
-        .btn-youtube   { top: 48.5%; left: 66%; width: 26%; height: 6%; }
-
-        .video-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .seccion-mapa { width: 100%; max-width: 900px; padding: 30px 20px; text-align: center; }
-        .mapa-img { width: 95%; height: auto; border: 1px solid #3d2b1f; border-radius: 4px; }
-
-        .texto-paises {
-            max-width: 800px;
-            margin: 20px auto 80px auto;
-            padding: 0 30px;
-            color: #bfa888;
-            text-align: center;
-            line-height: 1.8;
-        }
-
-        .texto-paises h2 { color: #d4bc8c; margin-bottom: 20px; text-transform: uppercase; font-size: 1.5em; letter-spacing: 2px; }
-        .texto-paises h3 { color: #e8dcc4; margin: 25px 0 10px 0; font-size: 1.2em; border-bottom: 1px solid #3d2b1f; display: inline-block; padding-bottom: 5px; }
-        .texto-paises b { color: #fff; }
-
-    </style>
-</head>
-<body>
-
-    <h1 class="seo-title">La Semilla de Anu</h1>
-
-    <div class="web-container">
-        <img src="portada.png" class="background-design" alt="Portada">
-        
-        <video id="videoDioses" class="video-overlay" loop playsinline preload="auto">
-            <source src="video.mp4" type="video/mp4">
-        </video>
-        
-        <audio id="audioTetrico" preload="auto">
-            <source src="sonido.mp3" type="audio/mpeg">
-        </audio>
-
-        <div class="botones-capa">
-            <a href="cuneiforme.html" class="btn-invisible btn-escritura">ESCRITURA</a>
-            <a href="juego.html" class="btn-invisible btn-juego">EL JUEGO</a>
-            <a href="javascript:void(0)" class="btn-invisible btn-dioses" id="btnDioses">DIOSES</a>
-            
-            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
-            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
-            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo">CONTACTO</a>
-            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank">INSTAGRAM</a>
-            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-youtube" target="_blank">YOUTUBE</a>
-        </div>
-    </div>
-
-    <div class="seccion-mapa">
-        <img src="mapa.jpg" class="mapa-img" alt="Mapa">
-    </div>
-
-    <div class="texto-paises">
-        <h2>🌍 ¡La invasión Anunaki ya es global!</h2>
-        <p>No importa dónde estés, la verdad sobre nuestros orígenes te espera en <b>La Semilla de Anu</b>.</p>
-        
-        <h3>¿Dónde comprar el libro?</h3>
-        <p>Encuentra la obra de <b>David Robles</b> en <b>Barnes & Noble</b> (EE.UU.), <b>Librerías Gandhi</b> (México), o en <b>Casa del Libro</b> y <b>Agapea</b> (España).</p>
-        
-        <h3>Distribución Internacional</h3>
-        <p>Estamos presentes en 11 países: <b>España, Portugal, U.K., México, EE.UU., Colombia, Perú, Ecuador, Chile, Argentina y Uruguay</b>. ¡Disponible también en <b>Mercado Libre</b>!</p>
-    </div>
-
-    <script>
-        const btnDioses = document.getElementById('btnDioses');
-        const video = document.getElementById('videoDioses');
-        const audio = document.getElementById('audioTetrico');
-
-        function activar() {
-            video.style.opacity = "1";
-            video.muted = false; 
-            video.volume = 0.7;
-            video.play();
-            
-            audio.volume = 0.6;
-            audio.play().catch(e => console.log("Audio bloqueado: haz clic en la página"));
-        }
-
-        function desactivar() {
-            video.style.opacity = "0";
-            video.pause();
-            video.currentTime = 0;
-            audio.pause();
-        }
-
-        btnDioses.addEventListener('mouseenter', activar);
-        btnDioses.addEventListener('mouseleave', desactivar);
-        
-        btnDioses.addEventListener('touchstart', (e) => { e.preventDefault(); activar(); });
-        btnDioses.addEventListener('touchend', desactivar);
-
-        const desbloquearAudio = () => {
-            video.play().then(() => {
-                video.pause();
-                video.currentTime = 0;
-            });
-            audio.load();
-            document.removeEventListener('mousedown', desbloquearAudio);
-            document.removeEventListener('touchstart', desbloquearAudio);
-        };
-
-        document.addEventListener('mousedown', desbloquearAudio);
-        document.addEventListener('touchstart', desbloquearAudio);
-    </script>
-
-</body>
-</html>
+        /* Colores Botones */
+        .btn-escritura, .btn-juego, .btn-
