@@ -106,7 +106,8 @@
             transition: all 0.3s ease;
         }
 
-        .btn-escritura, .btn-juego, .btn-dioses { background: rgba(92, 64, 34, 0.92); color: #fff; border: 1px solid #f4e4bc; }
+        .btn-escritura, .btn-juego, .btn-dioses, .btn-destino { background: rgba(92, 64, 34, 0.92); color: #fff; border: 1px solid #f4e4bc; }
+        .btn-destino { background: rgba(139, 69, 19, 0.95); border-color: #d4bc8c; box-shadow: 0 0 10px rgba(212, 188, 140, 0.3); }
         .btn-tiktok, .btn-correo, .btn-instagram, .btn-youtube { background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
         .btn-comprar { background: #d4bc8c !important; color: #1a140f !important; border: 2px solid #fff !important; animation: latido 2s infinite; }
 
@@ -116,10 +117,12 @@
             100% { transform: scale(1); }
         }
 
-        /* COORDENADAS BOTONES */
-        .btn-escritura { top: 55%; left: 8%; width: 24%; height: 6%; }
-        .btn-juego     { top: 64%; left: 8%; width: 24%; height: 6%; }
-        .btn-dioses    { top: 73%; left: 8%; width: 24%; height: 6%; }
+        /* --- COORDENADAS AJUSTADAS --- */
+        .btn-escritura { top: 52%; left: 8%; width: 24%; height: 6%; }
+        .btn-juego     { top: 61%; left: 8%; width: 24%; height: 6%; }
+        .btn-dioses    { top: 70%; left: 8%; width: 24%; height: 6%; }
+        .btn-destino   { top: 79%; left: 8%; width: 24%; height: 6%; } /* Nuevo botón debajo de Dioses */
+        
         .btn-comprar   { top: 55%; left: 68%; width: 24%; height: 6%; }
         .btn-tiktok    { top: 64%; left: 68%; width: 24%; height: 6%; }
         .btn-correo    { top: 73%; left: 68%; width: 24%; height: 6%; }
@@ -128,14 +131,13 @@
 
         .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; }
 
-        /* --- TEXTO INFERIOR --- */
+        /* --- RESTO DE ESTILOS --- */
         .seccion-global { width: 100%; max-width: 1000px; padding: 40px 20px; text-align: center; }
         .mapa-img { width: 100%; max-width: 900px; height: auto; border: 1px solid #3d2b1f; margin-bottom: 40px; }
         .texto-original { line-height: 1.8; color: #bfa888; margin-bottom: 60px; }
         .texto-original h2 { color: #d4bc8c; margin-bottom: 20px; text-transform: uppercase; }
         .texto-original b { color: #fff; }
 
-        /* --- MECANISMO DE SELLOS --- */
         .excavacion-sello {
             margin: 40px auto 100px auto;
             padding: 40px 20px;
@@ -208,6 +210,7 @@
             <a href="cuneiforme.html" class="btn-invisible btn-escritura">ESCRITURA</a>
             <a href="juego.html" class="btn-invisible btn-juego">EL JUEGO</a>
             <a href="javascript:void(0)" class="btn-invisible btn-dioses" id="btnDioses">DIOSES</a>
+            <a href="destino.html" class="btn-invisible btn-destino" target="_blank">DESTINO</a>
             
             <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
             <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
@@ -240,6 +243,7 @@
     </div>
 
     <script>
+        // ... (Tu código JavaScript actual se mantiene intacto)
         const btnDioses = document.getElementById('btnDioses');
         const video = document.getElementById('videoDioses');
         const audio = document.getElementById('audioTetrico');
