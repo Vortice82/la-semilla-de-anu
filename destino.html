@@ -10,6 +10,7 @@
             margin: 0; padding: 0; width: 100%; height: 100%;
             background-color: #0d0a07; color: #d4bc8c;
             font-family: 'Cambria', serif;
+            overflow: hidden;
         }
         .main-wrapper {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -28,6 +29,7 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 55px; border: 2px solid #d4bc8c; border-radius: 12px;
             box-shadow: 0 0 20px rgba(0,0,0,0.6); color: #e8dcc4;
+            user-select: none;
         }
         @media (min-width: 900px) {
             .dado { width: 170px; height: 170px; font-size: 110px; border-width: 4px; }
@@ -43,6 +45,7 @@
             margin-bottom: 30px; font-style: italic; color: #e8dcc4;
             max-width: 750px; line-height: 1.6;
             display: flex; align-items: center; justify-content: center;
+            text-align: center;
         }
         .btn-lanzar {
             background: #d4bc8c; color: #1a140f; border: none;
@@ -82,6 +85,8 @@
             "Para la mayoría de nosotros, la vida verdadera es la vida que no llevamos."
         ];
 
+        let ultimaFrase = -1;
+
         function lanzar() {
             const d1 = document.getElementById('d1');
             const d2 = document.getElementById('d2');
@@ -95,9 +100,15 @@
                 d1.classList.remove('girando');
                 d2.classList.remove('girando');
                 
-                const fraseFinal = frases[Math.floor(Math.random() * frases.length)];
-                const caras = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+                let indice;
+                do {
+                    indice = Math.floor(Math.random() * frases.length);
+                } while (indice === ultimaFrase);
                 
+                ultimaFrase = indice;
+                const fraseFinal = frases[indice];
+                
+                const caras = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
                 d1.innerText = caras[Math.floor(Math.random() * 6)];
                 d2.innerText = caras[Math.floor(Math.random() * 6)];
 
