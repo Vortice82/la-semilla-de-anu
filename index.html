@@ -34,45 +34,6 @@
             box-shadow: 0 0 60px rgba(0,0,0,1);
             background: #000;
         }
-        .efecto-goteo-contenedor {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-        }
-        .gota {
-            position: absolute;
-            top: -20px; left: 50%;
-            width: 4px; height: 20px;
-            background: #d4bc8c;
-            box-shadow: 0 0 10px #d4bc8c;
-            border-radius: 50%;
-            animation: caerGota 3s infinite cubic-bezier(0.5, 0, 0.9, 0.5);
-        }
-        .onda {
-            position: absolute;
-            bottom: 5%; left: 50%;
-            transform: translateX(-50%);
-            width: 0; height: 0;
-            border: 3px solid #d4bc8c;
-            box-shadow: 0 0 15px #d4bc8c;
-            border-radius: 50%;
-            opacity: 0;
-            animation: ondaImpacto 3s infinite;
-            animation-delay: 2.1s;
-        }
-        @keyframes caerGota {
-            0% { top: -20px; opacity: 0; }
-            10% { opacity: 1; }
-            70% { top: 92%; opacity: 1; }
-            71% { opacity: 0; }
-            100% { opacity: 0; }
-        }
-        @keyframes ondaImpacto {
-            0% { width: 0; height: 0; opacity: 0; }
-            10% { opacity: 1; }
-            100% { width: 350px; height: 70px; opacity: 0; }
-        }
         .background-design { width: 100%; height: auto; display: block; }
         .img-pc { display: none; }
         .img-movil { display: block; }
@@ -92,6 +53,8 @@
             transition: all 0.3s ease;
             text-align: center;
         }
+        
+        /* Estilos de botones */
         .btn-escritura, .btn-juego, .btn-dioses, .btn-destino { background: rgba(92, 64, 34, 0.92); color: #fff; border: 1px solid #f4e4bc; }
         .btn-destino { background: rgba(139, 69, 19, 0.95); border-color: #d4bc8c; }
         .btn-tiktok, .btn-correo, .btn-instagram, .btn-youtube { background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
@@ -103,7 +66,7 @@
             100% { transform: scale(1); }
         }
 
-        /* COORDENADAS BOTONES */
+        /* Coordenadas */
         .btn-escritura { top: 52%; left: 8%; width: 24%; height: 6%; }
         .btn-juego     { top: 61%; left: 8%; width: 24%; height: 6%; }
         .btn-dioses    { top: 70%; left: 8%; width: 24%; height: 6%; }
@@ -116,69 +79,14 @@
         .btn-youtube   { top: 91%; left: 68%; width: 24%; height: 6%; }
 
         .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; }
-
+        
         .seccion-global { width: 100%; max-width: 1000px; padding: 40px 20px; text-align: center; }
         .mapa-img { width: 100%; max-width: 900px; height: auto; border: 1px solid #3d2b1f; margin-bottom: 40px; }
-        .texto-original { line-height: 1.8; color: #bfa888; margin-bottom: 60px; }
-        .texto-original h2 { color: #d4bc8c; margin-bottom: 20px; text-transform: uppercase; }
-        .texto-original b { color: #fff; }
-
-        .excavacion-sello {
-            margin: 40px auto 100px auto;
-            padding: 40px 20px;
-            text-align: center;
-            background: linear-gradient(to bottom, #1a140f, #0d0a07);
-            border: 2px solid #3d2b1f;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 20px #000;
-            max-width: 700px;
-            width: 90%;
-            position: relative;
-        }
-        .mecanismo-eje {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            background: rgba(0,0,0,0.3);
-            padding: 40px 15px;
-            border-radius: 10px;
-            border-top: 4px solid #1a140f;
-            border-bottom: 4px solid #1a140f;
-            perspective: 1000px;
-        }
-        .cilindro-piedra {
-            width: 60px;
-            height: 90px;
-            background: #3d2b1f url('https://www.transparenttextures.com/patterns/rock.png');
-            border: 3px solid #1a140f;
-            box-shadow: inset 0 0 15px #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            color: #d4bc8c;
-            border-radius: 15px; 
-            text-shadow: 2px 2px 4px #000;
-        }
-        .giro-mecanico { animation: rotacionEmpujada 0.15s infinite linear; }
-        @keyframes rotacionEmpujada { 0% { transform: rotateX(0deg); } 100% { transform: rotateX(360deg); } }
-
-        .btn-activar-trampa {
-            margin-top: 30px;
-            background: transparent;
-            border: 1px solid #d4bc8c;
-            color: #d4bc8c;
-            padding: 12px 30px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-family: inherit;
-        }
     </style>
 </head>
 <body>
     <h1 class="seo-title">La Semilla de Anu</h1>
     <div class="templo-master">
-        <div class="efecto-goteo-contenedor"><div class="gota"></div><div class="onda"></div></div>
         <img src="portada-movil.png" class="background-design img-movil">
         <img src="portada-pc.png" class="background-design img-pc">
         <video id="videoDioses" class="video-overlay" loop playsinline muted><source src="video.mp4" type="video/mp4"></video>
@@ -189,6 +97,7 @@
             <a href="juego.html" class="btn-invisible btn-juego">EL JUEGO</a>
             <a href="javascript:void(0)" class="btn-invisible btn-dioses" id="btnDioses">DIOSES</a>
             <a href="destino.html" class="btn-invisible btn-destino">DESTINO</a>
+            
             <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
             <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
             <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo">CONTACTO</a>
@@ -198,28 +107,14 @@
     </div>
 
     <div class="seccion-global">
-        <img src="mapa.jpg" class="mapa-img" alt="Mapa">
-        <div class="texto-original">
-            <h2>🌍 ¡La invasión Anunaki ya es global!</h2>
-            <p>Encuentra la obra de <b>David Robles</b> en las librerías más prestigiosas.</p>
-        </div>
-    </div>
-
-    <div class="excavacion-sello">
-        <div class="mecanismo-eje">
-            <div id="c1" class="cilindro-piedra">𒀭</div>
-            <div id="c2" class="cilindro-piedra">𒂗</div>
-            <div id="c3" class="cilindro-piedra">𒆠</div>
-            <div id="c4" class="cilindro-piedra">𒈗</div>
-            <div id="c5" class="cilindro-piedra">𒂍</div>
-        </div>
-        <button class="btn-activar-trampa" onclick="activarMecanismo()">Activar Mecanismo</button>
+        <img src="mapa.jpg" class="mapa-img">
     </div>
 
     <script>
         const btnDioses = document.getElementById('btnDioses');
         const video = document.getElementById('videoDioses');
         const audio = document.getElementById('audioTetrico');
+
         async function activar() {
             video.style.opacity = "1";
             video.muted = true; 
@@ -227,27 +122,17 @@
             video.muted = false; 
             audio.play().catch(() => {});
         }
+
         function desactivar() {
             video.style.opacity = "0";
             video.pause();
             audio.pause();
         }
+
         btnDioses.addEventListener('mouseenter', activar);
         btnDioses.addEventListener('mouseleave', desactivar);
         btnDioses.addEventListener('touchstart', (e) => { e.preventDefault(); activar(); });
         btnDioses.addEventListener('touchend', desactivar);
-
-        const glifos = ["𒀭", "𒂗", "𒆠", "𒈗", "𒂍", "𒆳"];
-        function activarMecanismo() {
-            const cilindros = [document.getElementById('c1'), document.getElementById('c2'), document.getElementById('c3'), document.getElementById('c4'), document.getElementById('c5')];
-            cilindros.forEach((c, i) => {
-                setTimeout(() => { c.classList.add('giro-mecanico'); }, i * 100);
-                setTimeout(() => {
-                    c.classList.remove('giro-mecanico');
-                    c.innerText = glifos[Math.floor(Math.random() * glifos.length)];
-                }, 1000 + (i * 200));
-            });
-        }
     </script>
 </body>
 </html>
