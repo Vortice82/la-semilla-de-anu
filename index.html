@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body { 
             background-color: #0d0a07; 
             color: #e8dcc4;
@@ -17,6 +18,7 @@
             width: 100%;
             overflow-x: hidden;
         }
+
         .seo-title {
             color: #d4bc8c;
             padding: 30px 10px;
@@ -25,6 +27,8 @@
             letter-spacing: 4px;
             text-align: center;
         }
+
+        /* --- CONTENEDOR DEL TEMPLO --- */
         .templo-master {
             position: relative;
             width: 96%;
@@ -34,12 +38,61 @@
             box-shadow: 0 0 60px rgba(0,0,0,1);
             background: #000;
         }
+
+        /* --- EFECTO GOTEO REINSTALADO --- */
+        .efecto-goteo-contenedor {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .gota {
+            position: absolute;
+            top: -20px; left: 50%;
+            width: 4px; height: 20px;
+            background: #d4bc8c;
+            box-shadow: 0 0 10px #d4bc8c;
+            border-radius: 50%;
+            animation: caerGota 3s infinite cubic-bezier(0.5, 0, 0.9, 0.5);
+        }
+
+        .onda {
+            position: absolute;
+            bottom: 5%; left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border: 3px solid #d4bc8c;
+            box-shadow: 0 0 15px #d4bc8c;
+            border-radius: 50%;
+            opacity: 0;
+            animation: ondaImpacto 3s infinite;
+            animation-delay: 2.1s;
+        }
+
+        @keyframes caerGota {
+            0% { top: -20px; opacity: 0; }
+            10% { opacity: 1; }
+            70% { top: 92%; opacity: 1; }
+            71% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes ondaImpacto {
+            0% { width: 0; height: 0; opacity: 0; }
+            10% { opacity: 1; }
+            100% { width: 350px; height: 70px; opacity: 0; }
+        }
+
+        /* --- IMÁGENES --- */
         .background-design { width: 100%; height: auto; display: block; }
         .img-pc { display: none; }
         .img-movil { display: block; }
         @media (min-width: 800px) { .img-pc { display: block; } .img-movil { display: none; } }
 
+        /* --- BOTONES SOBRE LA IMAGEN --- */
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
+        
         .btn-invisible {
             position: absolute;
             display: flex;
@@ -53,8 +106,7 @@
             transition: all 0.3s ease;
             text-align: center;
         }
-        
-        /* Estilos de botones */
+
         .btn-escritura, .btn-juego, .btn-dioses, .btn-destino { background: rgba(92, 64, 34, 0.92); color: #fff; border: 1px solid #f4e4bc; }
         .btn-destino { background: rgba(139, 69, 19, 0.95); border-color: #d4bc8c; }
         .btn-tiktok, .btn-correo, .btn-instagram, .btn-youtube { background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
@@ -66,7 +118,7 @@
             100% { transform: scale(1); }
         }
 
-        /* Coordenadas */
+        /* COORDENADAS */
         .btn-escritura { top: 52%; left: 8%; width: 24%; height: 6%; }
         .btn-juego     { top: 61%; left: 8%; width: 24%; height: 6%; }
         .btn-dioses    { top: 70%; left: 8%; width: 24%; height: 6%; }
@@ -79,16 +131,58 @@
         .btn-youtube   { top: 91%; left: 68%; width: 24%; height: 6%; }
 
         .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; }
-        
-        .seccion-global { width: 100%; max-width: 1000px; padding: 40px 20px; text-align: center; }
-        .mapa-img { width: 100%; max-width: 900px; height: auto; border: 1px solid #3d2b1f; margin-bottom: 40px; }
+
+        /* --- SECCIÓN INFERIOR RESTAURADA --- */
+        .seccion-global { 
+            width: 100%; 
+            max-width: 1000px; 
+            padding: 40px 20px; 
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .mapa-img { 
+            width: 100%; 
+            max-width: 900px; 
+            height: auto; 
+            border: 1px solid #3d2b1f; 
+            margin-bottom: 40px; 
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .texto-original { 
+            line-height: 1.8; 
+            color: #bfa888; 
+            margin-bottom: 60px; 
+            font-size: 1.1rem;
+        }
+
+        .texto-original h2 { 
+            color: #d4bc8c; 
+            margin-bottom: 20px; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+        }
+
+        .texto-original b { color: #fff; }
+
     </style>
 </head>
 <body>
+
     <h1 class="seo-title">La Semilla de Anu</h1>
+
     <div class="templo-master">
+        <div class="efecto-goteo-contenedor">
+            <div class="gota"></div>
+            <div class="onda"></div>
+        </div>
+        
         <img src="portada-movil.png" class="background-design img-movil">
         <img src="portada-pc.png" class="background-design img-pc">
+        
         <video id="videoDioses" class="video-overlay" loop playsinline muted><source src="video.mp4" type="video/mp4"></video>
         <audio id="audioTetrico"><source src="sonido.mp3" type="audio/mpeg"></audio>
 
@@ -107,7 +201,12 @@
     </div>
 
     <div class="seccion-global">
-        <img src="mapa.jpg" class="mapa-img">
+        <img src="mapa.jpg" class="mapa-img" alt="Mapa del mundo Anunaki">
+        <div class="texto-original">
+            <h2>🌍 ¡La invasión ya es global!</h2>
+            <p>Encuentra la obra de <b>David Robles</b> en las librerías más prestigiosas. Disponible en <b>España, Portugal, U.K., México, EE.UU., Colombia, Perú, Ecuador, Chile, Argentina y Uruguay</b>.</p>
+            <p style="margin-top: 20px;">Consigue tu ejemplar en <b>Barnes & Noble</b>, <b>Librerías Gandhi</b>, <b>Casa del Libro</b>, <b>Agapea</b> y <b>Mercado Libre</b>.</p>
+        </div>
     </div>
 
     <script>
