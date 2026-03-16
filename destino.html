@@ -14,143 +14,61 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh; /* Cambiado para asegurar que se vea en móviles */
+            min-height: 100vh;
             margin: 0;
             background-image: radial-gradient(circle, #1a140f 0%, #0d0a07 100%);
+            overflow-x: hidden;
         }
 
         .contenedor-principal {
             padding: 20px;
-            width: 90%;
-            max-width: 500px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h1 {
             text-transform: uppercase;
             letter-spacing: 3px;
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            text-shadow: 0 0 10px rgba(212, 188, 140, 0.4);
+            font-size: clamp(1.2rem, 5vw, 2.5rem); /* Se adapta al tamaño de pantalla */
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(212, 188, 140, 0.4);
         }
 
         .dados-zona {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-bottom: 30px;
+            margin: 20px 0;
         }
 
+        /* --- TAMAÑO DE DADOS PARA MÓVIL (Por defecto) --- */
         .dado {
             background: #2a1f14;
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px;
+            font-size: 45px;
             border: 2px solid #d4bc8c;
             border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: 0 0 20px rgba(0,0,0,0.6);
             color: #e8dcc4;
+            transition: all 0.3s ease;
         }
 
-        .girando { animation: rodar 0.1s infinite; }
-
-        @keyframes rodar {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            50% { transform: translate(-1px, -1px) rotate(2deg); }
-            100% { transform: translate(1px, 1px) rotate(0deg); }
+        /* --- TAMAÑO DE DADOS PARA PC (Pantallas grandes) --- */
+        @media (min-width: 800px) {
+            .dado {
+                width: 150px;
+                height: 150px;
+                font-size: 100px;
+                border-width: 4px;
+            }
+            .dados-zona { gap: 40px; }
+            h1 { margin-bottom: 50px; }
         }
 
-        #resultado-texto {
-            font-size: 1.2rem;
-            min-height: 80px;
-            margin: 20px 0;
-            font-style: italic;
-            color: #e8dcc4;
-            line-height: 1.4;
-        }
-
-        .btn-lanzar {
-            background: #d4bc8c;
-            color: #1a140f;
-            border: none;
-            padding: 15px 35px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 4px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-        }
-
-        .btn-lanzar:active { transform: scale(0.95); }
-
-        .btn-volver {
-            margin-top: 40px;
-            display: block;
-            color: #5c4022;
-            text-decoration: none;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="contenedor-principal">
-        <h1>Consulta el Destino</h1>
-        
-        <div class="dados-zona">
-            <div id="dado1" class="dado">🎲</div>
-            <div id="dado2" class="dado">🎲</div>
-        </div>
-
-        <div id="resultado-texto">Toca el botón para invocar el decreto de los dioses...</div>
-
-        <button class="btn-lanzar" onclick="lanzarDados()">Girar Dados</button>
-
-        <a href="index.html" class="btn-volver">← Volver al Templo</a>
-    </div>
-
-    <audio id="sonidoDados" src="dados.mp3"></audio>
-
-    <script>
-        const opciones = [
-            { dios: "ENLIL", msg: "Tu destino está forjado en las tormentas del este." },
-            { dios: "ENKI", msg: "La corriente de los ríos antiguos guía tus pasos." },
-            { dios: "ANU", msg: "El firmamento ha dictado sentencia sobre tu linaje." },
-            { dios: "INANNA", msg: "La estrella de la mañana ilumina tu victoria." },
-            { dios: "ERESHKIGAL", msg: "Los secretos del inframundo te serán revelados." }
-        ];
-
-        function lanzarDados() {
-            const d1 = document.getElementById('dado1');
-            const d2 = document.getElementById('dado2');
-            const res = document.getElementById('resultado-texto');
-            const sonido = document.getElementById('sonidoDados');
-
-            d1.classList.add('girando');
-            d2.classList.add('girando');
-            res.innerText = "Los dados giran...";
-            
-            // Intenta reproducir sonido si existe
-            sonido.currentTime = 0;
-            sonido.play().catch(() => {});
-
-            setTimeout(() => {
-                d1.classList.remove('girando');
-                d2.classList.remove('girando');
-                
-                const r = opciones[Math.floor(Math.random() * opciones.length)];
-                const caras = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
-                
-                d1.innerText = caras[Math.floor(Math.random() * 6)];
-                d2.innerText = caras[Math.floor(Math.random() * 6)];
-
-                res.innerHTML = `<strong style="color:#d4bc8c">${r.dios}:</strong><br>"${r.msg}"`;
-            }, 1000);
-        }
-    </script>
-</body>
-</html>
+        .
