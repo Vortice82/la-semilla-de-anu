@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Destino - La Semilla de Anu</title>
+    <title>El Destino - La Semilla de Anu</title>
     <style>
         * { box-sizing: border-box; }
         body, html {
@@ -24,13 +24,13 @@
         }
         .dados-zona { display: flex; gap: 15px; margin-bottom: 30px; }
         .dado {
-            background: #2a1f14; width: 80px; height: 80px;
+            background: #2a1f14; width: 85px; height: 85px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 50px; border: 2px solid #d4bc8c; border-radius: 12px;
+            font-size: 55px; border: 2px solid #d4bc8c; border-radius: 12px;
             box-shadow: 0 0 20px rgba(0,0,0,0.6); color: #e8dcc4;
         }
-        @media (min-width: 800px) {
-            .dado { width: 160px; height: 160px; font-size: 100px; border-width: 4px; }
+        @media (min-width: 900px) {
+            .dado { width: 170px; height: 170px; font-size: 110px; border-width: 4px; }
             .dados-zona { gap: 40px; }
         }
         .girando { animation: vibrar 0.1s infinite; }
@@ -39,42 +39,47 @@
             100% { transform: rotate(-2deg) translate(-1px, -1px); }
         }
         #texto-resultado {
-            font-size: clamp(1rem, 4vw, 1.5rem); min-height: 80px;
+            font-size: clamp(1.1rem, 4.5vw, 1.7rem); min-height: 120px;
             margin-bottom: 30px; font-style: italic; color: #e8dcc4;
-            max-width: 600px; line-height: 1.4;
+            max-width: 750px; line-height: 1.6;
+            display: flex; align-items: center; justify-content: center;
         }
         .btn-lanzar {
             background: #d4bc8c; color: #1a140f; border: none;
-            padding: 15px 40px; font-weight: bold; text-transform: uppercase;
+            padding: 15px 45px; font-weight: bold; text-transform: uppercase;
             letter-spacing: 2px; border-radius: 4px; cursor: pointer;
             font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.1s;
         }
         .btn-lanzar:active { transform: scale(0.95); }
         .btn-volver {
             margin-top: 40px; color: #5c4022; text-decoration: none;
-            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;
+            border-bottom: 1px solid transparent;
         }
+        .btn-volver:hover { border-bottom: 1px solid #5c4022; }
     </style>
 </head>
 <body>
     <div class="main-wrapper">
-        <h1>Tu Destino Anunnaki</h1>
+        <h1>Consulta tu Destino</h1>
         <div class="dados-zona">
             <div id="d1" class="dado">🎲</div>
             <div id="d2" class="dado">🎲</div>
         </div>
-        <div id="texto-resultado">Toca el botón para invocar el decreto de los dioses...</div>
+        <div id="texto-resultado">Lanza los dados para conocer qué te depara el futuro...</div>
         <button class="btn-lanzar" onclick="lanzar()">Girar Dados</button>
         <a href="index.html" class="btn-volver">← Volver al Templo</a>
     </div>
 
     <script>
-        const opciones = [
-            { d: "ENLIL", m: "El Señor del Viento decreta un cambio radical en tu rumbo." },
-            { d: "ENKI", m: "La sabiduría de las aguas profundas te guiará en la oscuridad." },
-            { d: "ANU", m: "Tu destino ha sido sellado en la corte celestial de los dioses." },
-            { d: "INANNA", m: "La estrella de la mañana ilumina el valor que hay en tu pecho." },
-            { d: "ERESHKIGAL", m: "No temas a las sombras, allí reside el poder antiguo." }
+        const frases = [
+            "El amor nace del recuerdo, vive de la inteligencia y muere por el olvido.",
+            "Se aprende poco con la victoria, en cambio mucho con la derrota.",
+            "Los libros son como las abejas que llevan el polen de una inteligencia a otra.",
+            "No hay nada nuevo bajo el sol, pero cuantas cosas viejas hay que no conocemos.",
+            "El niño es realista, el muchacho idealista, el hombre escéptico y el viejo místico.",
+            "Para la mayoría de nosotros, la vida verdadera es la vida que no llevamos."
         ];
 
         function lanzar() {
@@ -84,20 +89,20 @@
             
             d1.classList.add('girando');
             d2.classList.add('girando');
-            res.innerText = "Consultando el oráculo...";
+            res.innerText = "Los dados están decidiendo...";
 
             setTimeout(() => {
                 d1.classList.remove('girando');
                 d2.classList.remove('girando');
                 
-                const r = opciones[Math.floor(Math.random() * opciones.length)];
+                const fraseFinal = frases[Math.floor(Math.random() * frases.length)];
                 const caras = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
                 
                 d1.innerText = caras[Math.floor(Math.random() * 6)];
                 d2.innerText = caras[Math.floor(Math.random() * 6)];
 
-                res.innerHTML = `<strong style="color:#d4bc8c">${r.d:}:</strong><br>"${r.m}"`;
-            }, 800);
+                res.innerHTML = `"${fraseFinal}"`;
+            }, 850);
         }
     </script>
 </body>
