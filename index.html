@@ -3,175 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Semilla de Anu - David Robles</title>
+    <title>La Semilla de Anu - David Robles Asuncion</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            background-color: #050505;
-            color: #ffffff;
-            font-family: 'Segoe UI', sans-serif;
-            line-height: 1.6;
+            background-color: #120f0d; /* Fondo muy oscuro, casi negro */
+            color: #e0d0b0;
+            font-family: 'Segoe UI', serif;
         }
 
-        /* --- CONTENEDOR DE PORTADA --- */
-        .hero {
+        /* --- PORTADA CON FUERZA --- */
+        .seccion-principal {
             position: relative;
             width: 100%;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: url('portada-pc.png') no-repeat center center;
+            background: url('portada-pc.png') no-repeat center top;
             background-size: cover;
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
         }
 
-        /* Degradado para que no se vea "todo marrón" y la imagen respire */
-        .hero::before {
-            content: "";
+        /* Ajuste para móvil: cambiamos a la portada de móvil para que se vea el libro */
+        @media (max-width: 600px) {
+            .seccion-principal {
+                background-image: url('portada-movil.png');
+                padding-top: 10px;
+            }
+        }
+
+        .capa-filtro {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(18,15,13,1) 95%);
             z-index: 1;
         }
 
-        .contenido-hero {
+        .contenido-interactivo {
             position: relative;
             z-index: 2;
-            width: 100%;
-            max-width: 420px; /* Más estrecho para que se vea más la portada lateral */
+            width: 90%;
+            max-width: 400px;
+            margin-top: auto; /* Empuja el contenido hacia la zona visible baja de la portada */
+            margin-bottom: 50px;
             text-align: center;
         }
 
         h1 {
             font-family: 'Cinzel', serif;
             color: #d4af37;
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-        }
-
-        /* --- VENTANA DE CONTACTO (ESTILO CRISTAL OSCURO) --- */
-        .tablilla-contacto {
-            background: rgba(20, 20, 20, 0.8); /* Fondo casi negro translúcido */
-            backdrop-filter: blur(8px); /* Efecto de desenfoque muy moderno */
-            border: 1px solid rgba(212, 175, 55, 0.3); /* Borde fino dorado */
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-        }
-
-        .tablilla-contacto h3 {
-            font-family: 'Cinzel', serif;
-            color: #d4af37;
-            font-size: 1rem;
+            text-shadow: 2px 2px 8px #000;
             margin-bottom: 15px;
-            letter-spacing: 1px;
+            font-size: 1.8rem;
         }
 
-        input, textarea {
+        /* --- LA VENTANA DE PIEDRA (EL CONTACTO) --- */
+        .ventana-piedra {
+            background-color: #2c241e;
+            background-image: url('https://www.transparenttextures.com/patterns/rock.png');
+            border: 5px solid #1a1510;
+            border-radius: 4px;
+            padding: 20px;
+            box-shadow: inset 0 0 15px #000, 0 10px 25px rgba(0,0,0,0.7);
+            margin-bottom: 10px; /* Pegada al botón de compra */
+        }
+
+        .ventana-piedra h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: #d4af37;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .ventana-piedra input, .ventana-piedra textarea {
             width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #4a3f35;
             color: #fff;
-            padding: 12px;
-            margin-bottom: 12px;
-            border-radius: 5px;
-            outline: none;
-        }
-
-        input:focus, textarea:focus {
-            border-color: #d4af37;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
         }
 
         .btn-enviar {
             width: 100%;
-            background: transparent;
-            color: #d4af37;
-            border: 1px solid #d4af37;
-            padding: 10px;
+            background: #5d2e0d;
+            color: #e0d0b0;
+            border: 1px solid #1a1510;
+            padding: 8px;
+            cursor: pointer;
             font-weight: bold;
             text-transform: uppercase;
-            cursor: pointer;
-            transition: 0.3s;
         }
 
-        .btn-enviar:hover {
-            background: #d4af37;
-            color: #000;
-        }
-
-        /* --- BOTÓN COMPRAR (EL QUE TIENE QUE RESALTAR) --- */
+        /* --- EL BOTÓN DE COMPRAR (DEBAJO DE LA PIEDRA) --- */
         .btn-comprar {
             display: block;
             width: 100%;
             background: #d4af37;
             color: #000 !important;
-            padding: 20px;
+            padding: 18px;
             text-decoration: none;
-            font-weight: 800;
-            border-radius: 5px;
-            text-transform: uppercase;
+            font-weight: 900;
             font-size: 1.2rem;
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-            transition: transform 0.2s;
+            text-transform: uppercase;
+            border-radius: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: 0.2s;
         }
 
         .btn-comprar:hover {
-            transform: scale(1.02);
             background: #fff;
         }
 
-        /* --- RESPONSIVE MÓVIL --- */
-        @media (max-width: 480px) {
-            .hero {
-                background-image: url('portada-movil.png');
-                padding: 15px;
-                align-items: flex-start; /* Sube todo arriba para que se vea el botón */
-                padding-top: 50px;
-            }
-            h1 { font-size: 1.8rem; }
-            .tablilla-contacto { padding: 15px; }
-            .btn-comprar { padding: 15px; font-size: 1rem; }
+        /* --- NAVEGACIÓN Y REDES --- */
+        nav {
+            position: relative;
+            z-index: 3;
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            text-align: center;
         }
 
-        /* --- SECCIÓN INFERIOR --- */
-        .librerias {
-            background: #000;
-            padding: 50px 20px;
+        nav a {
+            color: #d4af37;
+            text-decoration: none;
+            margin: 0 10px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+        }
+
+        .redes {
+            padding: 30px;
             text-align: center;
+            background: #120f0d;
+        }
+
+        .redes a {
+            color: #666;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="hero">
-        <div class="contenido-hero">
+    <nav>
+        <a href="cuneiforme.html">ESCRITURA</a>
+        <a href="juego.html">EL JUEGO</a>
+        <a href="destino.html">DESTINO</a>
+    </nav>
+
+    <div class="seccion-principal">
+        <div class="capa-filtro"></div>
+        
+        <div class="contenido-interactivo">
             <h1>LA SEMILLA DE ANU</h1>
-            
-            <div class="tablilla-contacto">
-                <h3>CONTACTO CON EL AUTOR</h3>
+
+            <div class="ventana-piedra">
+                <h3>MENSAJE A LOS ANUNNAKI</h3>
                 <form action="https://formspree.io/f/TU_ID" method="POST">
                     <input type="email" name="email" placeholder="Tu e-mail" required>
-                    <textarea name="mensaje" rows="2" placeholder="Tu mensaje..." required></textarea>
-                    <button type="submit" class="btn-enviar">ENVIAR MENSAJE</button>
+                    <textarea name="mensaje" rows="2" placeholder="Escribe aquí..." required></textarea>
+                    <button type="submit" class="btn-enviar">ENVIAR TABLILLA</button>
                 </form>
             </div>
 
             <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-comprar">
-                🛒 COMPRAR LIBRO AHORA
+                COMPRAR LIBRO
             </a>
         </div>
     </div>
 
-    <section class="librerias">
-        <p style="color: #666; margin-bottom: 20px;">Disponible en librerías de todo el mundo</p>
-        <img src="mapa.jpg" alt="Mapa" style="max-width: 100%; opacity: 0.6; border-radius: 10px;">
-    </section>
+    <div class="redes">
+        <a href="https://www.tiktok.com/@vorticeverde82">TIKTOK</a>
+        <a href="https://www.instagram.com/vorticeverde82/">INSTAGRAM</a>
+        <a href="https://www.youtube.com/@DRobles82">YOUTUBE</a>
+        <p style="margin-top:20px; font-size: 0.7rem; color: #444;">&copy; 2026 David Robles Asuncion</p>
+    </div>
 
 </body>
 </html>
