@@ -107,9 +107,10 @@
             text-align: center;
         }
 
+        /* Estilos de botones */
         .btn-escritura, .btn-juego, .btn-dioses, .btn-destino { background: rgba(92, 64, 34, 0.92); color: #fff; border: 1px solid #f4e4bc; }
         .btn-destino { background: rgba(139, 69, 19, 0.95); border-color: #d4bc8c; }
-        .btn-tiktok, .btn-correo, .btn-instagram, .btn-youtube { background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
+        .btn-tiktok, .btn-instagram, .btn-youtube { background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
         .btn-comprar { background: #d4bc8c !important; color: #1a140f !important; border: 2px solid #fff !important; animation: latido 2s infinite; }
 
         @keyframes latido {
@@ -118,17 +119,54 @@
             100% { transform: scale(1); }
         }
 
-        /* COORDENADAS */
+        /* Coordenadas */
         .btn-escritura { top: 52%; left: 8%; width: 24%; height: 6%; }
         .btn-juego     { top: 61%; left: 8%; width: 24%; height: 6%; }
         .btn-dioses    { top: 70%; left: 8%; width: 24%; height: 6%; }
         .btn-destino   { top: 79%; left: 8%; width: 24%; height: 6%; }
 
-        .btn-comprar   { top: 55%; left: 68%; width: 24%; height: 6%; }
-        .btn-tiktok    { top: 64%; left: 68%; width: 24%; height: 6%; }
-        .btn-correo    { top: 73%; left: 68%; width: 24%; height: 6%; }
-        .btn-instagram { top: 82%; left: 68%; width: 24%; height: 6%; }
-        .btn-youtube   { top: 91%; left: 68%; width: 24%; height: 6%; }
+        .btn-comprar   { top: 62%; left: 68%; width: 24%; height: 6%; } /* Bajado para hacer sitio */
+        .btn-tiktok    { top: 71%; left: 68%; width: 24%; height: 6%; }
+        .btn-instagram { top: 80%; left: 68%; width: 24%; height: 6%; }
+        .btn-youtube   { top: 89%; left: 68%; width: 24%; height: 6%; }
+
+        /* --- CUADRO DE EMAIL AÑADIDO --- */
+        .form-email-contenedor {
+            position: absolute;
+            top: 45%; left: 68%; /* Encima de comprar */
+            width: 24%; height: 16%; /* Espacio que ocupaba contacto y hueco */
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 15;
+            pointer-events: auto; /* Para que se pueda escribir */
+        }
+
+        .form-input-email, .form-textarea-email {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            color: #e8dcc4;
+            border: 1px solid #3d2b1f;
+            font-family: inherit;
+            font-size: 0.8rem;
+            padding: 5px;
+            resize: none;
+        }
+        .form-input-email { height: 30%; }
+        .form-textarea-email { height: 50%; }
+
+        .form-btn-enviar {
+            height: 20%;
+            background: rgba(92, 64, 34, 0.92);
+            color: #fff;
+            border: 1px solid #f4e4bc;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+        .form-btn-enviar:hover { background: #d4bc8c; color: #1a140f; }
 
         .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; }
 
@@ -192,9 +230,14 @@
             <a href="javascript:void(0)" class="btn-invisible btn-dioses" id="btnDioses">DIOSES</a>
             <a href="destino.html" class="btn-invisible btn-destino">DESTINO</a>
             
+            <form class="form-email-contenedor" id="formEmail" onsubmit="enviarCorreoForm(event)">
+                <input type="email" class="form-input-email" id="emailUsuario" placeholder="Tu e-mail" required>
+                <textarea class="form-textarea-email" id="textoUsuario" placeholder="Tu texto..." required></textarea>
+                <button type="submit" class="form-btn-enviar">Enviar</button>
+            </form>
+
             <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
             <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-tiktok" target="_blank">TIKTOK</a>
-            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-correo">CONTACTO</a>
             <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-instagram" target="_blank">INSTAGRAM</a>
             <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-youtube" target="_blank">YOUTUBE</a>
         </div>
@@ -232,6 +275,27 @@
         btnDioses.addEventListener('mouseleave', desactivar);
         btnDioses.addEventListener('touchstart', (e) => { e.preventDefault(); activar(); });
         btnDioses.addEventListener('touchend', desactivar);
+
+        /* --- LÓGICA DE ENVÍO DE EMAIL --- */
+        function enviarCorreoForm(e) {
+            e.preventDefault(); // Evitar que el formulario recargue la página
+
+            const destinatario = "vortice_verde@hotmail.com"; // Tu correo
+            const emailRemitente = document.getElementById('emailUsuario').value;
+            const textoMensaje = document.getElementById('textoUsuario').value;
+
+            const asunto = encodeURIComponent("Mensaje desde la web - La Semilla de Anu");
+            const cuerpo = encodeURIComponent("E-mail del remitente: " + emailRemitente + "\n\n" + "Mensaje:\n" + textoMensaje);
+
+            const urlMail = "mailto:" + destinatario + "?subject=" + asunto + "&body=" + cuerpo;
+
+            // Abrir el gestor de correo
+            window.location.href = urlMail;
+
+            // Opcional: Limpiar formulario
+            document.getElementById('emailUsuario').value = '';
+            document.getElementById('textoUsuario').value = '';
+        }
     </script>
 </body>
 </html>
