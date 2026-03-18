@@ -3,72 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Camino a Nippur - La Semilla de Anu</title>
+    <title>El Despertar de Anu - Aventura Interactiva</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,400;1,300&display=swap');
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body { 
-            background-color: #0d0a07; 
+            background: #050403; 
+            background-image: radial-gradient(circle at center, #1a140f 0%, #050403 100%);
             color: #e8dcc4; 
-            font-family: 'Cambria', serif; 
+            font-family: 'Spectral', serif; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            margin: 0;
-            padding: 20px;
+            overflow-x: hidden;
         }
-        .game-container {
-            width: 100%;
-            max-width: 700px;
-            background: rgba(0, 0, 0, 0.95);
-            border: 2px solid #d4bc8c;
-            padding: 35px;
-            text-align: center;
-            box-shadow: 0 0 50px rgba(0,0,0,1), inset 0 0 20px rgba(212, 188, 140, 0.1);
-        }
-        h1 { color: #d4bc8c; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 25px; font-size: 1.6rem; border-bottom: 1px solid #3d2b1f; padding-bottom: 10px; }
-        #story-text { font-size: 1.25rem; line-height: 1.7; margin-bottom: 35px; color: #f4e4bc; min-height: 120px; text-shadow: 1px 1px 2px #000; }
-        .options-container { display: grid; grid-template-columns: 1fr; gap: 12px; }
-        .btn-option {
-            background: #1a140f;
-            color: #d4bc8c;
+
+        /* Contenedor tipo Piedra Sagrada */
+        .game-master {
+            width: 95%;
+            max-width: 800px;
+            background: rgba(10, 8, 6, 0.95);
             border: 1px solid #d4bc8c;
-            padding: 18px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
+            position: relative;
+            padding: 40px;
+            box-shadow: 0 0 100px rgba(0,0,0,1), 0 0 20px rgba(212, 188, 140, 0.1);
+            border-radius: 2px;
         }
-        .btn-option:hover { background: #d4bc8c; color: #1a140f; box-shadow: 0 0 15px #d4bc8c; transform: translateY(-2px); }
-        .back-link { margin-top: 30px; display: block; color: #666; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
-        .back-link:hover { color: #d4bc8c; }
-        
-        /* Animación suave al cambiar de texto */
-        .fade { animation: fadeIn 0.6s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Adornos en las esquinas */
+        .game-master::before, .game-master::after {
+            content: "✦";
+            position: absolute;
+            color: #d4bc8c;
+            font-size: 20px;
+        }
+        .game-master::before { top: 10px; left: 10px; }
+        .game-master::after { bottom: 10px; right: 10px; }
+
+        h1 { 
+            font-family: 'Cinzel', serif;
+            color: #d4bc8c; 
+            text-align: center;
+            text-transform: uppercase; 
+            letter-spacing: 6px; 
+            margin-bottom: 30px;
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            text-shadow: 0 0 15px rgba(212, 188, 140, 0.5);
+        }
+
+        /* Cuadro de texto con efecto de aparición */
+        #story-box {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: #f4e4bc;
+            min-height: 180px;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .btn-divine {
+            background: linear-gradient(to right, #1a140f, #2a1f14);
+            color: #d4bc8c;
+            border: 1px solid #5c4022;
+            padding: 20px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-divine:hover {
+            border-color: #d4bc8c;
+            color: #fff;
+            background: #2a1f14;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(212, 188, 140, 0.2);
+        }
+
+        .btn-divine::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 188, 140, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-divine:hover::after {
+            left: 100%;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #3d2b1f;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .stat-val { color: #d4bc8c; margin-left: 5px; }
+
+        .back-temple {
+            margin-top: 40px;
+            display: block;
+            text-align: center;
+            color: #5c4022;
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .back-temple:hover { color: #d4bc8c; }
+
+        /* Animación de pulso para la Semilla */
+        .seed-glow {
+            width: 10px; height: 10px;
+            background: #d4bc8c;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 20px #d4bc8c;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 30px #d4bc8c; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .shake { animation: shake 0.5s; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
     </style>
 </head>
 <body>
-    <div class="game-container">
+
+    <div class="game-master" id="main-container">
+        <div class="seed-glow"></div>
         <h1>El Camino a Nippur</h1>
-        <div id="story-text" class="fade">Cargando crónica...</div>
-        <div class="options-container" id="options"></div>
-        <a href="index.html" class="back-link">← ABANDONAR MISIÓN Y VOLVER AL TEMPLO</a>
+        
+        <div id="story-box">
+            Iniciando conexión con los registros de Anu...
+        </div>
+
+        <div class="options-grid" id="options-container"></div>
+
+        <div class="stats-bar">
+            <span>SINCRO: <span class="stat-val" id="stat-sincro">0%</span></span>
+            <span>DESTINO: <span class="stat-val" id="stat-destino">Incierto</span></span>
+        </div>
+
+        <a href="index.html" class="back-temple">← VOLVER AL TEMPLO SAGRADO</a>
     </div>
 
     <script>
         const nodes = {
             start: {
-                text: "Despiertas en las dunas de Mesopotamia. El sol de Anu castiga tu piel. Frente a ti, el desierto oculta secretos de una civilización olvidada. Tienes sed, pero tu misión es llegar al Zigurat.",
+                text: "Despiertas bajo el cielo de Mesopotamia. El aire vibra con una frecuencia antigua. A lo lejos, el Zigurat de Nippur rasga el horizonte. No eres un simple viajero; llevas la Semilla en tu sangre.",
                 opts: [
-                    { t: "Seguir el rastro de unas estelas de piedra", n: "estelas" },
-                    { t: "Buscar refugio en un oasis que brilla a lo lejos", n: "oasis" },
-                    { t: "Caminar hacia las montañas negras", n: "montanas" }
-                ]
+                    { t: "Seguir las huellas de los Gigantes", n: "gigantes" },
+                    { t: "Investigar el murmullo del Éufrates", n: "rio" },
+                    { t: "Recitar el código de los siete cielos", n: "codigo" }
+                ],
+                sincro: 10,
+                dest: "Despertando"
             },
-            // RAMA ESTELAS
-            estelas: {
-                text: "Las estelas muestran símbolos Anunnaki que parecen moverse. Una de ellas tiene una ranura circular.",
+            gigantes: {
+                text: "Las huellas te llevan a una grieta en la tierra. Abajo, luces de neón dorado iluminan máquinas que han funcionado durante eones. Un centinela de metal y sombra bloquea el paso.",
                 opts: [
-                    {
+                    { t: "Ofrecer tu energía vital al Centinela", n: "sacrificio" },
+                    { t: "Usar la fuerza bruta para pasar", n: "muerte_fuerza" },
+                    { t: "Mostrar la marca de Anu en tu brazo", n: "marca" }
+                ],
+                sincro: 25,
+                dest: "Buscador"
+            },
+            rio: {
+                text: "El río corre hacia atrás. En la orilla, una barca de obsidiana te espera. El barquero no tiene rostro, pero su voz resuena en tu pecho: '¿A qué precio buscas la verdad?'",
+                opts: [
+                    { t: "Entregar tus recuerdos mundanos", n: "olvido" },
+                    { t: "Intentar engañar al barquero", n: "muerte_rio" },
+                    { t: "Prometer lealtad a los Anunnaki", n: "lealtad" }
+                ],
+                sincro: 20,
+                dest: "Navegante"
+            },
+            codigo: {
+                text: "Al recitar las palabras, el desierto se pliega. Aparece un portal de geometría sagrada. Escuchas el latido de la Semilla de Anu acelerarse.",
+                opts: [
+                    { t: "Cruzar el portal sin dudar", n: "portal" },
+                    { t: "Meditar ante el portal", n: "iluminacion" }
+                ],
+                sincro: 40,
+                dest: "Elegido"
+            },
+            marca: {
+                text: "El Centinela se arrodilla. La tierra tiembla mientras se abre un ascensor hacia las profundidades de la Tierra Hueca. Has encontrado el laboratorio original.",
+                opts: [
+                    { t: "Activar la secuencia de despertar", n: "victoria_bio" },
+                    { t: "Destruir la tecnología prohibida", n: "final_heroe" }
+                ],
+                sincro: 60,
+                dest: "Heredero"
+            },
+            olvido: {
+                text: "Tus recuerdos se desvanecen. Ya no eres David, ya no eres humano. Ahora eres un recipiente puro. El barquero te lleva directo al Trono de Enlil.",
+                opts: [
+                    { t: "Reclamar tu lugar entre los dioses", n: "victoria_divina" },
+                    { t: "Servir como eterno vigilante", n: "final_siervo" }
+                ],
+                sincro: 80,
+                dest: "Trascendido"
+            },
+            sacrificio: {
+                text: "Tu energía alimenta el núcleo. Sientes un dolor agónico pero abres el camino para la humanidad. Eres el mártir que la Semilla necesitaba.",
+                opts: [{ t: "REINCARNAR (REINICIAR)", n: "start" }],
+                sincro: 50,
+                dest: "Mártir"
+            },
+            portal: {
+                text: "El espacio-tiempo se rompe. Te encuentras en la órbita de Nibiru. Millones de naves esperan tu orden para el descenso final.",
+                opts: [
+                    { t: "Iniciar la Invasión", n: "final_conquistador" },
+                    { t: "Negociar la paz", n: "final_paz" }
+                ],
+                sincro: 90,
+                dest: "Comandante"
+            },
+            // Finales y muertes
+            muerte_fuerza: { text: "El Centinela te reduce a polvo atómico en un milisegundo. No se puede luchar contra la tecnología de los dioses con las manos desnudas.", opts: [{ t: "OTRA EXISTENCIA", n: "start" }], sincro: 0, dest: "Extinto" },
+            muerte_rio: { text: "El barquero te arrastra a las profundidades del río del tiempo. Estás atrapado en un bucle eterno de agonía.", opts: [{ t: "OTRA EXISTENCIA", n: "start" }], sincro: 0, dest: "Condenado" },
+            victoria_divina: { text: "Te sientas en el trono. Tu visión se expande a todas las galaxias. La Semilla de Anu ha florecido en ti. Eres el nuevo Arquitecto.", opts: [{ t: "REINICIAR CICLO", n: "start" }], sincro: 100, dest: "Dios" },
+            victoria_bio: { text: "Las cápsulas de éxtasis se abren. Tus hermanos Anunnaki despiertan. La Tierra vuelve a ser vuestra. ¡Gloria a Anu!", opts: [{ t: "REINICIAR CICLO", n: "start" }], sincro: 100, dest: "Dominador" },
+            final_heroe: { text: "Destruyes el núcleo. La tecnología se apaga. La humanidad es libre, pero tú quedas atrapado en el pasado para siempre.", opts: [{ t: "VOLVER AL INICIO", n: "start" }], sincro: 50, dest: "Héroe Olvidado" }
+        };
+
+        function typeWriter(text, element, callback) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, 15);
+                } else if (callback) {
