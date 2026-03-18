@@ -3,103 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LA SEMILLA DE ANU | Terminal de Acceso</title>
+    <title>LA SEMILLA DE ANU | David Robles Asuncion</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=VT323&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Spectral:wght@400;700&display=swap');
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
-            background: #020202; 
+            background-color: #050505;
+            background-image: radial-gradient(circle at center, #1a140f 0%, #050505 100%);
             color: #d4bc8c; 
-            font-family: 'VT323', monospace; 
+            font-family: 'Spectral', serif; 
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            padding: 20px;
+        }
+
+        /* Contenedor Reforzado */
+        .terminal {
+            width: 100%;
+            max-width: 800px;
+            border: 2px solid #d4bc8c;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 60px 40px;
             position: relative;
-        }
-
-        /* Capa de Ruido/Scanlines tipo CRT */
-        body::before {
-            content: " ";
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 4px, 3px 100%;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        /* Estrellas de fondo animadas */
-        #stars {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #1a140f 0%, #020202 100%);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            z-index: 2;
-            padding: 40px;
-            border: 1px solid rgba(212, 188, 140, 0.3);
-            background: rgba(10, 8, 6, 0.8);
-            backdrop-filter: blur(5px);
-        }
-
-        header {
             text-align: center;
-            margin-bottom: 40px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
 
-        .main-title {
+        /* Adornos esquinas */
+        .corner { position: absolute; width: 20px; height: 20px; border: 2px solid #d4bc8c; }
+        .tl { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
+        .tr { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
+        .bl { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
+        .br { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
+
+        h1 { 
             font-family: 'Cinzel', serif;
-            font-size: clamp(1.8rem, 6vw, 3.5rem);
-            letter-spacing: 15px;
-            color: #d4bc8c;
-            text-shadow: 0 0 20px rgba(212, 188, 140, 0.6);
+            font-size: clamp(1.5rem, 6vw, 2.8rem);
+            letter-spacing: 12px;
             margin-bottom: 10px;
+            color: #d4bc8c;
         }
 
-        .author-subtitle {
+        .author {
             font-family: 'Cinzel', serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             letter-spacing: 5px;
             color: #8a6d3b;
+            margin-bottom: 40px;
             text-transform: uppercase;
         }
 
-        /* Sección de "Datos del Libro" */
-        .lore-box {
-            border-top: 1px solid #3d2b1f;
-            border-bottom: 1px solid #3d2b1f;
-            padding: 20px 0;
-            margin: 30px 0;
-            font-size: 1.2rem;
-            line-height: 1.4;
-            color: #c4b494;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .typewriter-text {
-            border-right: 2px solid #d4bc8c;
-            white-space: nowrap;
-            overflow: hidden;
-            display: inline-block;
-            animation: typing 4s steps(40) 1s infinite alternate, blink .75s step-end infinite;
-        }
-
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink { from, to { border-color: transparent } 50% { border-color: #d4bc8c } }
-
-        /* Menú de Navegación */
-        .nav-grid {
+        /* Menú robusto sin scripts */
+        .menu {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(
+            grid-template-columns: 1fr;
+            gap: 15px;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .menu-link {
+            display: block;
+            text-decoration: none;
+            color: #d4bc8c;
+            border: 1px solid #5c4022;
+            padding: 18px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            transition: all 0.3s ease;
+            background: rgba(20, 15, 10, 0.5);
+        }
+
+        .menu-link:hover {
+            background: #d4bc8c;
+            color: #000;
+            border-color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .status-line {
+            margin-top: 40px;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: #444;
+            text-transform: uppercase;
+            border-top: 1px solid #222;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="terminal">
+        <div class="corner tl"></div><div class="corner tr"></div>
+        <div class="corner bl"></div><div class="corner br"></div>
+
+        <h1>LA SEMILLA DE ANU</h1>
+        <p class="author">David Robles Asuncion</p>
+
+        <div class="menu">
+            <a href="aventura.html" class="menu-link">INICIAR AVENTURA</a>
+            <a href="adivinanzas.html" class="menu-link">EL ORÁCULO</a>
+            <a href="destino.html" class="menu-link">TU DESTINO</a>
+        </div>
+
+        <div class="status-line">
+            Sincronización Anunnaki: Activa | 2026-Nippur
+        </div>
+    </div>
+
+</body>
+</html>
