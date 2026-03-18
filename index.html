@@ -5,55 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>La Semilla de Anu - David Robles Asunción</title>
     <style>
-        /* --- ARQUITECTURA ROBUSTA --- */
         :root {
             --gold: #d4bc8c;
             --dark-bg: #0d0a07;
-            --text-color: #e8dcc4;
-            --border-color: #3d2b1f;
+            --border: #3d2b1f;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--dark-bg); color: #e8dcc4; font-family: 'Cambria', serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; overflow-x: hidden; }
 
-        body { 
-            background-color: var(--dark-bg); 
-            color: var(--text-color); 
-            font-family: 'Cambria', serif; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            width: 100%; 
-            min-height: 100vh; 
-            overflow-x: hidden;
-        }
+        .seo-title { color: var(--gold); padding: 30px 15px; font-size: clamp(1.5rem, 5vw, 2.5rem); text-transform: uppercase; text-align: center; letter-spacing: 5px; }
 
-        .seo-title { 
-            color: var(--gold); 
-            padding: 30px 15px; 
-            font-size: clamp(1.5rem, 5vw, 2.5rem); 
-            text-transform: uppercase; 
-            text-align: center; 
-            letter-spacing: 5px; 
-        }
-
-        /* --- CONTENEDOR MAESTRO (EL TEMPLO) --- */
+        /* CONTENEDOR MAESTRO */
         .templo-master { 
             position: relative; 
-            width: 98%; 
-            max-width: 1250px; 
-            border: 2px solid var(--border-color); 
+            width: 96%; 
+            max-width: 1200px; 
+            border: 2px solid var(--border); 
             background: #000; 
             overflow: hidden; 
             margin-bottom: 40px; 
             line-height: 0;
         }
 
-        .background-design { width: 100%; height: auto; display: block; }
+        .background-design { width: 100%; height: auto; display: block; position: relative; z-index: 1; }
         .img-pc { display: none; }
         @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 849px) { .img-movil { display: block; } }
 
-        /* --- LA GOTA (VÍDEO OVERLAY) --- */
+        /* LA GOTA (VÍDEO) - CAPA INTERMEDIA */
         .video-overlay { 
             position: absolute; 
             top: 0; left: 0; 
@@ -61,12 +41,12 @@
             object-fit: cover; 
             opacity: 0; 
             pointer-events: none; 
-            z-index: 15; 
-            transition: opacity 0.6s ease; 
+            z-index: 5; /* Por encima de la foto, por debajo de botones */
+            transition: opacity 0.4s ease; 
         }
 
-        /* --- CAPA DE BOTONES (POSICIONES ORIGINALES) --- */
-        .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; }
+        /* BOTONES - CAPA SUPERIOR */
+        .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
         .btn-invisible { 
             position: absolute; 
             display: flex; 
@@ -74,34 +54,33 @@
             justify-content: center; 
             text-decoration: none; 
             font-weight: 800; 
-            font-size: clamp(0.5rem, 1.8vw, 1rem); 
+            font-size: clamp(0.5rem, 1.7vw, 0.95rem); 
             text-transform: uppercase; 
             border-radius: 3px; 
             text-align: center; 
-            width: 24%; 
-            height: 6.8%; 
-            transition: all 0.3s ease;
+            width: 24%; height: 6.8%; 
+            transition: 0.3s;
         }
 
-        .btn-col-izq { background: rgba(92, 64, 34, 0.95); color: #fff; border: 1.5px solid #f4e4bc; left: 8.5%; }
+        .btn-col-izq { background: rgba(92, 64, 34, 0.9); color: #fff; border: 1.5px solid #f4e4bc; left: 8.5%; }
         .btn-escritura { top: 32.5%; } .btn-aventura { top: 40.5%; } .btn-oraculo { top: 48.5%; } .btn-arcade { top: 56.5%; } .btn-dioses { top: 64.5%; } 
         .btn-destino { top: 72.5%; background: rgba(139, 69, 19, 0.98); }
 
-        .btn-contacto-azul { top: 32.5%; left: 67.5%; background: #0044ff !important; color: #fff !important; border: 2px solid #00ffff !important; box-shadow: 0 0 15px rgba(0, 68, 255, 0.8); }
-        .btn-comprar { top: 40.5%; left: 67.5%; background: var(--gold) !important; color: #000 !important; border: 2px solid #fff !important; animation: latidoWeb 1.4s infinite alternate; }
-        @keyframes latidoWeb { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
+        .btn-contacto-azul { top: 32.5%; left: 67.5%; background: #0044ff !important; color: #fff !important; border: 2px solid #00ffff !important; box-shadow: 0 0 15px #0044ff; }
+        .btn-comprar { top: 40.5%; left: 67.5%; background: var(--gold) !important; color: #000 !important; border: 2px solid #fff !important; animation: latido 1.4s infinite alternate; }
+        @keyframes latido { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
 
-        .btn-rrss { left: 67.5%; background: rgba(0, 0, 0, 0.9); color: var(--gold); border: 1px solid var(--border-color); }
+        .btn-rrss { left: 67.5%; background: rgba(0, 0, 0, 0.85); color: var(--gold); border: 1px solid var(--border); }
         .btn-tiktok { top: 48.5%; } .btn-instagram { top: 56.5%; } .btn-youtube { top: 64.5%; }
 
-        /* --- FOOTER SEO --- */
-        .seccion-global { width: 100%; max-width: 1000px; padding: 60px 20px; text-align: center; position: relative; z-index: 50; }
-        .mapa-img { width: 100%; height: auto; border: 2px solid var(--border-color); margin-bottom: 40px; }
-        .texto-original { line-height: 2; color: #bfa888; font-size: 1.2rem; padding-bottom: 120px; text-align: justify; }
-        .texto-original h2 { color: var(--gold); text-align: center; margin-bottom: 30px; letter-spacing: 3px; }
+        /* SECCIÓN TEXTO SEO */
+        .seccion-global { width: 100%; max-width: 900px; padding: 40px 20px; text-align: center; }
+        .mapa-img { width: 100%; height: auto; border: 1px solid var(--border); margin-bottom: 40px; }
+        .texto-original { line-height: 1.9; color: #bfa888; font-size: 1.15rem; text-align: justify; padding-bottom: 100px; }
+        .texto-original h2 { color: var(--gold); text-align: center; margin-bottom: 25px; }
     </style>
 </head>
-<body onclick="initAudio()" ontouchstart="initAudio()">
+<body onclick="desbloquearAudio()" ontouchstart="desbloquearAudio()">
 
     <h1 class="seo-title">La Semilla de Anu</h1>
 
@@ -109,12 +88,14 @@
         <img src="portada-movil.png" class="background-design img-movil">
         <img src="portada-pc.png" class="background-design img-pc">
         
-        <video id="vid" class="video-overlay" loop playsinline muted><source src="video.mp4" type="video/mp4"></video>
+        <video id="vid" class="video-overlay" loop playsinline muted>
+            <source src="video.mp4" type="video/mp4">
+        </video>
 
         <audio id="audT"><source src="sonido.mp3" type="audio/mpeg"></audio>
         <audio id="audL" loop><source src="latido.mp3" type="audio/mpeg"></audio>
         
-        <nav class="botones-capa">
+        <div class="botones-capa">
             <a href="cuneiforme.html" class="btn-invisible btn-col-izq btn-escritura">Escritura</a>
             <a href="aventura.html" class="btn-invisible btn-col-izq btn-aventura">Aventura</a>
             <a href="adivinanzas.html" class="btn-invisible btn-col-izq btn-oraculo">Oráculo</a>
@@ -127,38 +108,56 @@
             <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-rrss btn-tiktok" target="_blank">TikTok</a>
             <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-rrss btn-instagram" target="_blank">Instagram</a>
             <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-rrss btn-youtube" target="_blank">YouTube</a>
-        </nav>
+        </div>
     </div>
 
-    <section class="seccion-global">
-        <img src="mapa.jpg" class="mapa-img" alt="Mapa global David Robles">
+    <div class="seccion-global">
+        <img src="mapa.jpg" class="mapa-img" alt="Disponibilidad David Robles">
         <div class="texto-original">
             <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
             <p>Encuentra la obra de <b>David Robles Asunción</b>, "La semilla de Anu: Volumen 1 Anunaki", en las librerías más prestigiosas del mundo exclusivamente en formato físico.</p>
             <br>
             <p>Disponible físicamente en <b>España</b> y mediante impresión bajo demanda en <b>México, Argentina, Colombia, Ecuador, Chile, Perú, Uruguay, Paraguay, Estados Unidos y Reino Unido</b>.</p>
             <br>
-            <p>Hazte con tu ejemplar impreso en <b>Casa del Libro, Amazon, El Corte Inglés y FNAC</b>. ¡El legado de los antiguos te espera!</p>
+            <p>Consíguelo en <b>Casa del Libro, Amazon, El Corte Inglés y FNAC</b>. ¡El secreto ha sido revelado!</p>
         </div>
-    </section>
+    </div>
 
     <script>
         const v = document.getElementById('vid'), aT = document.getElementById('audT'), aL = document.getElementById('audL'), bD = document.getElementById('btnD');
-        let audioOk = false;
+        let audioIniciado = false;
 
-        function initAudio() {
-            if (!audioOk) {
-                aL.play().then(() => { audioOk = true; }).catch(() => {});
+        function desbloquearAudio() {
+            if (!audioIniciado) {
+                aL.play().then(() => { audioIniciado = true; }).catch(() => {});
                 aT.play().then(() => { aT.pause(); aT.currentTime = 0; });
             }
         }
 
-        function on() { v.style.opacity = "1"; v.play(); aT.play().catch(()=>{}); }
-        function off() { v.style.opacity = "0"; v.pause(); aT.pause(); aT.currentTime = 0; }
+        function activarDioses() {
+            v.style.opacity = "1";
+            v.play();
+            aT.play().catch(() => {});
+        }
 
-        bD.onmouseenter = on; bD.onmouseleave = off;
-        bD.ontouchstart = (e) => { e.preventDefault(); initAudio(); on(); };
-        bD.ontouchend = off;
+        function desactivarDioses() {
+            v.style.opacity = "0";
+            v.pause();
+            aT.pause();
+            aT.currentTime = 0;
+        }
+
+        // Eventos PC
+        bD.onmouseenter = activarDioses;
+        bD.onmouseleave = desactivarDioses;
+
+        // Eventos Móvil (Al tocar el botón Dioses)
+        bD.ontouchstart = (e) => {
+            e.preventDefault();
+            desbloquearAudio();
+            activarDioses();
+        };
+        bD.ontouchend = desactivarDioses;
     </script>
 </body>
 </html>
