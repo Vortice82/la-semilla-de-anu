@@ -3,102 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>La Semilla de Anu - David Robles</title>
+    <title>La Semilla de Anu - David Robles Asuncion</title>
     <style>
-        /* RESET ROBUSTO: Evita desbordamientos y asegura que todo encaje */
+        /* Base Robusta: Mantiene el diseño intacto pero adaptable */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        body { 
-            background-color: #0d0a07; 
-            color: #e8dcc4; 
-            font-family: 'Cambria', serif; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            width: 100%; 
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
+        body { background-color: #0d0a07; color: #e8dcc4; font-family: 'Cambria', serif; display: flex; flex-direction: column; align-items: center; width: 100%; min-height: 100vh; overflow-x: hidden; }
+        
         .seo-title { color: #d4bc8c; padding: 25px 10px; font-size: clamp(1.4rem, 4vw, 2rem); text-transform: uppercase; text-align: center; letter-spacing: 3px; }
 
-        /* CONTENEDOR MAESTRO: Mantiene la proporción del diseño original */
-        .templo-master { 
-            position: relative; 
-            width: 96%; 
-            max-width: 1200px; 
-            border: 1px solid #3d2b1f; 
-            background: #000; 
-            overflow: hidden; 
-            margin-bottom: 20px;
-            line-height: 0; /* Elimina espacios fantasma bajo la imagen */
-        }
-
+        /* Contenedor del Templo: Proporciones fijas del diseño original */
+        .templo-master { position: relative; width: 96%; max-width: 1200px; border: 1px solid #3d2b1f; background: #000; overflow: hidden; margin-bottom: 30px; line-height: 0; }
         .background-design { width: 100%; height: auto; display: block; }
         .img-pc { display: none; }
         @media (min-width: 800px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 799px) { .img-movil { display: block; } }
 
-        /* CAPA DE BOTONES: Exactamente en las mismas posiciones */
+        /* Capa de Botones: Posiciones exactas */
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
-        .btn-invisible { 
-            position: absolute; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            text-decoration: none; 
-            font-weight: bold; 
-            font-size: clamp(0.45rem, 1.7vw, 0.9rem); 
-            text-transform: uppercase; 
-            border-radius: 2px; 
-            text-align: center; 
-            width: 24%; 
-            height: 6.5%; 
-            transition: transform 0.2s;
-        }
-
+        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: bold; font-size: clamp(0.45rem, 1.7vw, 0.9rem); text-transform: uppercase; border-radius: 2px; text-align: center; width: 24%; height: 6.5%; transition: 0.2s; }
+        
         .btn-col-izq { background: rgba(92, 64, 34, 0.92); color: #fff; border: 1px solid #f4e4bc; left: 8%; }
-        .btn-escritura { top: 32%; } .btn-aventura { top: 40%; } .btn-oraculo { top: 48%; } .btn-arcade { top: 56%; } .btn-dioses { top: 64%; } 
-        .btn-destino { top: 72%; background: rgba(139, 69, 19, 0.95); }
+        .btn-escritura { top: 32%; } .btn-aventura { top: 40%; } .btn-oraculo { top: 48%; } .btn-arcade { top: 56%; } .btn-dioses { top: 64%; } .btn-destino { top: 72%; background: rgba(139, 69, 19, 0.95); }
 
         .btn-contacto-azul { top: 32%; left: 68%; background: #0044ff !important; color: #fff !important; border: 2px solid #00ffff !important; box-shadow: 0 0 15px #0044ff; }
-        
-        /* BOTÓN COMPRAR CON ANIMACIÓN DE LATIDO */
-        .btn-comprar { 
-            top: 40%; left: 68%; 
-            background: #d4bc8c !important; color: #000 !important; 
-            font-weight: 900; border: 2px solid #fff !important; 
-            animation: pulse-heart 1.3s infinite ease-in-out;
-            will-change: transform;
-        }
-
-        @keyframes pulse-heart {
-            0%, 100% { transform: scale(1); }
-            15% { transform: scale(1.1); }
-            30% { transform: scale(1.05); }
-            45% { transform: scale(1.15); }
-        }
+        .btn-comprar { top: 40%; left: 68%; background: #d4bc8c !important; color: #000 !important; font-weight: 900; border: 2px solid #fff !important; animation: latidoVisual 1.3s infinite ease-in-out; }
+        @keyframes latidoVisual { 0%, 100% { transform: scale(1); } 20% { transform: scale(1.1); } }
 
         .btn-rrss { left: 68%; background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
         .btn-tiktok { top: 48%; } .btn-instagram { top: 56%; } .btn-youtube { top: 64%; }
 
-        /* VIDEO Y MULTIMEDIA */
-        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; transition: opacity 0.4s; }
+        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; transition: opacity 0.5s; }
 
-        /* SECCIÓN INFERIOR: Corregida para que nunca desaparezca */
-        .seccion-global { 
-            width: 100%; 
-            max-width: 900px; 
-            padding: 40px 15px; 
-            text-align: center; 
-            background: #0d0a07;
-            position: relative;
-            z-index: 1;
-        }
-        .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 30px; }
-        .texto-footer { line-height: 1.8; color: #bfa888; font-size: 1.1rem; padding-bottom: 80px; }
+        /* SECCIÓN GLOBAL: MAPA Y TEXTO ORIGINAL COMPLETO */
+        .seccion-global { width: 100%; max-width: 900px; padding: 40px 15px; text-align: center; background: #0d0a07; position: relative; z-index: 1; }
+        .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 30px; display: block; }
+        .texto-original { line-height: 1.8; color: #bfa888; font-size: 1.1rem; padding-bottom: 100px; text-align: justify; }
+        .texto-original h2 { color: #d4bc8c; text-align: center; margin-bottom: 20px; letter-spacing: 2px; }
     </style>
 </head>
-<body onclick="desbloquearAudio()" ontouchstart="desbloquearAudio()">
+<body onclick="iniciarTodo()" ontouchstart="iniciarTodo()">
 
     <h1 class="seo-title">La Semilla de Anu</h1>
 
@@ -107,9 +50,8 @@
         <img src="portada-pc.png" class="background-design img-pc">
         
         <video id="vid" class="video-overlay" loop playsinline muted><source src="video.mp4" type="video/mp4"></video>
-        
-        <audio id="audT" preload="auto"><source src="sonido.mp3" type="audio/mpeg"></audio>
-        <audio id="audL" loop preload="auto"><source src="latido.mp3" type="audio/mpeg"></audio>
+        <audio id="audT"><source src="sonido.mp3" type="audio/mpeg"></audio>
+        <audio id="audL" loop><source src="latido.mp3" type="audio/mpeg"></audio>
         
         <div class="botones-capa">
             <a href="cuneiforme.html" class="btn-invisible btn-col-izq btn-escritura">ESCRITURA</a>
@@ -129,39 +71,41 @@
 
     <div class="seccion-global">
         <img src="mapa.jpg" class="mapa-img" alt="Mapa Anunnaki">
-        <div class="texto-footer">
-            <h2 style="color: #d4bc8c; margin-bottom: 15px;">🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
-            <p>Encuentra la obra de <b>David Robles</b> en las librerías más prestigiosas.</p>
+        <div class="texto-original">
+            <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
+            <p>Encuentra la obra de <b>David Robles Asuncion</b>, "La semilla de Anu: Volumen 1 Anunaki", en las librerías más prestigiosas del mundo. El legado de los antiguos ya está a tu alcance en formato físico y digital.</p>
+            <br>
+            <p>Disponible físicamente en <b>España</b> y mediante impresión bajo demanda en <b>México, Argentina, Colombia, Ecuador, Chile, Perú y Estados Unidos</b>.</p>
+            <br>
+            <p>Nuestra red de distribución incluye gigantes como <b>Casa del Libro, Amazon, El Corte Inglés, FNAC</b> y las mejores librerías de barrio. No te quedes sin tu ejemplar de esta aventura épica que está conquistando el planeta.</p>
         </div>
     </div>
 
     <script>
         const v = document.getElementById('vid'), aT = document.getElementById('audT'), aL = document.getElementById('audL');
         const bD = document.getElementById('btnD');
-        let audioReady = false;
+        let activo = false;
 
-        // ESTA FUNCIÓN ES LA CLAVE: Desbloquea el audio al primer toque en la web
-        function desbloquearAudio() {
-            if (!audioReady) {
-                // Reproducimos y pausamos para ganar el permiso
-                aL.play().then(() => {
-                    audioReady = true;
-                    console.log("Audio latido activo");
-                }).catch(e => console.log("Esperando toque..."));
+        // Desbloqueo maestro de audio al primer toque
+        function iniciarTodo() {
+            if (!activo) {
+                aL.play().then(() => { 
+                    activo = true; 
+                    console.log("Latido iniciado");
+                }).catch(e => console.log("Esperando interacción"));
                 
+                // Precarga el sonido tétrico
                 aT.play().then(() => { aT.pause(); aT.currentTime = 0; });
             }
         }
 
-        // Lógica Dioses (Vídeo + Sonido tétrico)
+        // Función Dioses (Vídeo y Sonido)
         function onD() { v.style.opacity="1"; v.play(); aT.play().catch(()=>{}); }
         function offD() { v.style.opacity="0"; v.pause(); aT.pause(); aT.currentTime=0; }
 
         bD.onmouseenter = onD; bD.onmouseleave = offD;
-        bD.ontouchstart = (e) => { e.preventDefault(); desbloquearAudio(); onD(); };
+        bD.ontouchstart = (e) => { e.preventDefault(); iniciarTodo(); onD(); };
         bD.ontouchend = offD;
-
-        // El latido (aL) ya tiene el atributo 'loop', así que sonará siempre tras el primer toque.
     </script>
 </body>
 </html>
