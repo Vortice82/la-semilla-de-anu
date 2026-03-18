@@ -3,194 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Oráculo de Enlil | Acertijos Sumerios</title>
+    <title>El Oráculo | La Semilla de Anu</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=VT323&display=swap');
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { 
-            background: #000; 
-            color: #d4bc8c; 
-            font-family: 'VT323', monospace; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .oracle-container {
-            width: 95%;
-            max-width: 800px;
-            border: 4px solid #d4bc8c;
-            background: #1a140f;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 40px rgba(212, 188, 140, 0.2);
-        }
-
-        /* Área de Visualización (Pixel Art) */
-        .visual-area {
-            height: 300px;
-            background: #000;
-            border-bottom: 4px solid #d4bc8c;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .oracle-sprite {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            image-rendering: pixelated;
-            opacity: 0.8;
-        }
-
-        .scanline {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            background: linear-gradient(to bottom, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-            background-size: 100% 4px;
-            pointer-events: none;
-        }
-
-        /* Área de Diálogo */
-        .dialogue-area {
-            padding: 30px;
-            min-height: 250px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .oracle-text {
-            font-size: 1.8rem;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            color: #fff;
-            text-shadow: 2px 2px #000;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .btn-pixel {
-            background: #2a1f14;
-            border: 2px solid #5c4022;
-            color: #d4bc8c;
-            padding: 15px;
-            font-family: 'VT323', monospace;
-            font-size: 1.5rem;
-            cursor: pointer;
-            text-align: left;
-            text-transform: uppercase;
-            transition: 0.1s;
-        }
-
-        .btn-pixel:hover {
-            background: #d4bc8c;
-            color: #000;
-            border-color: #fff;
-        }
-
-        .btn-full { grid-column: span 2; }
-
-        .stats {
-            margin-top: 15px;
-            font-size: 1.2rem;
-            color: #666;
-            text-align: right;
-            border-top: 1px solid #3d2b1f;
-            padding-top: 5px;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        body { background: #000; color: #d4bc8c; font-family: 'VT323', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .oracle-container { width: 95%; max-width: 500px; border: 3px solid #d4bc8c; background: #1a140f; text-align: center; }
+        .visual-area { height: 250px; border-bottom: 3px solid #d4bc8c; background: #000; }
+        .visual-area img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+        .dialogue-area { padding: 30px; min-height: 200px; }
+        .oracle-text { font-size: 1.6rem; color: #fff; margin-bottom: 25px; line-height: 1.2; }
+        .btn-pixel { background: #2a1f14; border: 1px solid #d4bc8c; color: #d4bc8c; padding: 12px; font-family: 'VT323', monospace; font-size: 1.3rem; cursor: pointer; width: 100%; margin-bottom: 10px; text-transform: uppercase; }
+        .btn-pixel:hover { background: #d4bc8c; color: #000; }
     </style>
 </head>
 <body>
-
     <div class="oracle-container">
-        <div class="visual-area">
-           <img src="oraculo.png" id="oracle-img" class="oracle-sprite">
-            <div class="scanline"></div>
-        </div>
-
+        <div class="visual-area"><img src="oraculo.png" alt="Oráculo"></div>
         <div class="dialogue-area">
-            <div id="text-box" class="oracle-text"></div>
-            <div id="options-box" class="options-grid"></div>
-            <div class="stats">Aciertos: <span id="score">0</span></div>
+            <div id="text-box" class="oracle-text">Los antiguos demandan una respuesta. ¿Aceptas el desafío?</div>
+            <div id="options-box">
+                <button class="btn-pixel" onclick="start()">SÍ, ACEPTO EL DESAFÍO</button>
+                <button class="btn-pixel" onclick="window.location.href='index.html'">HUIR</button>
+            </div>
         </div>
     </div>
-
     <script>
-        const acertijos = [
-            { q: "Vuelo sin alas, lloro sin ojos. La oscuridad es mi cuna y el viento mi camino. ¿Qué soy?", a: "V", desc: "VEGETAL (La Nube/Naturaleza)" },
-            { q: "Soy el hueso de la tierra, forjado en fuego y tiempo. Brillo en la corona de los dioses pero no respiro. ¿Qué soy?", a: "M", desc: "MINERAL (El Diamante/Oro)" },
-            { q: "Corro pero no tengo pies, rujo pero no tengo boca. Soy la fuerza que Anu dio a las bestias. ¿Qué soy?", a: "A", desc: "ANIMAL (El León/Fuerza)" },
-            { q: "Tengo venas pero no sangre, tengo hojas pero no hablo. Me alimento de luz y duermo en la tierra. ¿Qué soy?", a: "V", desc: "VEGETAL (El Árbol)" },
-            { q: "Nací de las estrellas, caí al desierto. Soy duro como el destino y frío como el vacío. ¿Qué soy?", a: "M", desc: "MINERAL (Meteorito)" }
-        ];
-
-        let score = 0;
-        let currentIdx = 0;
-
-        function updateText(msg) {
-            document.getElementById('text-box').innerText = msg;
-        }
-
-        function init() {
-            updateText("Hola viajero, tengo un acertijo para ti, ¿lo aceptas?");
-            const box = document.getElementById('options-box');
-            box.innerHTML = `
-                <button class="btn-pixel btn-full" onclick="startRiddles()">SÍ, ACEPTO EL DESAFÍO</button>
-                <button class="btn-pixel btn-full" onclick="window.location.href='index.html'">NO, TENGO MIEDO</button>
-            `;
-        }
-
-        function startRiddles() {
-            showRiddle();
-        }
-
-        function showRiddle() {
-            if(currentIdx >= acertijos.length) {
-                updateText(`Has superado la prueba, iniciado. Tu sabiduría es digna de los Anunnaki. Aciertos finales: ${score}`);
-                document.getElementById('options-box').innerHTML = `<button class="btn-pixel btn-full" onclick="location.reload()">VOLVER A JUGAR</button>`;
+        const riddles = [ {q: "Vuelo sin alas, lloro sin ojos. ¿Qué soy?", a: "V"}, {q: "Soy el hueso de la tierra, forjado en fuego. ¿Qué soy?", a: "M"} ];
+        let i = 0;
+        function start() { render(); }
+        function render() {
+            if(i >= riddles.length) {
+                document.getElementById('text-box').innerText = "Has demostrado sabiduría. Regresa al templo.";
+                document.getElementById('options-box').innerHTML = `<button class="btn-pixel" onclick="window.location.href='index.html'">VOLVER</button>`;
                 return;
             }
-
-            const r = acertijos[currentIdx];
-            updateText(r.q);
-            
-            const box = document.getElementById('options-box');
-            box.innerHTML = `
-                <button class="btn-pixel" onclick="check('A')">ANIMAL</button>
-                <button class="btn-pixel" onclick="check('V')">VEGETAL</button>
-                <button class="btn-pixel" onclick="check('M')">MINERAL</button>
-                <button class="btn-pixel" onclick="init()">RENDIRSE</button>
-            `;
+            document.getElementById('text-box').innerText = riddles[i].q;
+            document.getElementById('options-box').innerHTML = `<button class="btn-pixel" onclick="check('A')">ANIMAL</button><button class="btn-pixel" onclick="check('V')">VEGETAL</button><button class="btn-pixel" onclick="check('M')">MINERAL</button>`;
         }
-
-        function check(choice) {
-            const correct = acertijos[currentIdx].a;
-            if(choice === correct) {
-                score++;
-                document.getElementById('score').innerText = score;
-                updateText("¡Correcto! Tu sangre lleva la semilla de la verdad.");
-            } else {
-                updateText("Incorrecto. Los dioses se ríen de tu ignorancia.");
-            }
-
-            currentIdx++;
-            setTimeout(showRiddle, 2000);
-        }
-
-        window.onload = init;
+        function check(c) { if(c === riddles[i].a) { alert("¡Correcto!"); i++; render(); } else { alert("Incorrecto..."); } }
     </script>
 </body>
 </html>
