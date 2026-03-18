@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>La Semilla de Anu - David Robles Asuncion</title>
     <style>
-        /* ESTRUCTURA ROBUSTA Y RESPONSIVE SIN CAMBIAR DISEÑO */
+        /* RESET PROFESIONAL */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { background-color: #0d0a07; color: #e8dcc4; font-family: 'Cambria', serif; display: flex; flex-direction: column; align-items: center; width: 100%; min-height: 100vh; overflow-x: hidden; }
         
         .seo-title { color: #d4bc8c; padding: 25px 10px; font-size: clamp(1.4rem, 4vw, 2rem); text-transform: uppercase; text-align: center; letter-spacing: 3px; }
 
-        /* CONTENEDOR MAESTRO */
+        /* CONTENEDOR MAESTRO (RESPONSIVE SEGURO) */
         .templo-master { position: relative; width: 96%; max-width: 1200px; border: 1px solid #3d2b1f; background: #000; overflow: hidden; margin-bottom: 30px; line-height: 0; }
         .background-design { width: 100%; height: auto; display: block; }
         .img-pc { display: none; }
         @media (min-width: 800px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 799px) { .img-movil { display: block; } }
 
-        /* CAPA DE BOTONES (POSICIONES ORIGINALES) */
+        /* BOTONES (POSICIÓN ORIGINAL INTACTA) */
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
         .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: bold; font-size: clamp(0.45rem, 1.7vw, 0.9rem); text-transform: uppercase; border-radius: 2px; text-align: center; width: 24%; height: 6.5%; transition: 0.2s; }
         
@@ -26,22 +26,22 @@
         .btn-escritura { top: 32%; } .btn-aventura { top: 40%; } .btn-oraculo { top: 48%; } .btn-arcade { top: 56%; } .btn-dioses { top: 64%; } .btn-destino { top: 72%; background: rgba(139, 69, 19, 0.95); }
 
         .btn-contacto-azul { top: 32%; left: 68%; background: #0044ff !important; color: #fff !important; border: 2px solid #00ffff !important; box-shadow: 0 0 15px #0044ff; }
-        .btn-comprar { top: 40%; left: 68%; background: #d4bc8c !important; color: #000 !important; font-weight: 900; border: 2px solid #fff !important; animation: latidoAnim 1.3s infinite ease-in-out; }
-        @keyframes latidoAnim { 0%, 100% { transform: scale(1); } 20% { transform: scale(1.1); } }
+        .btn-comprar { top: 40%; left: 68%; background: #d4bc8c !important; color: #000 !important; font-weight: 900; border: 2px solid #fff !important; animation: pulse 1.3s infinite ease-in-out; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 20% { transform: scale(1.1); } }
 
         .btn-rrss { left: 68%; background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
         .btn-tiktok { top: 48%; } .btn-instagram { top: 56%; } .btn-youtube { top: 64%; }
 
         .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; transition: opacity 0.5s; }
 
-        /* SECCIÓN GLOBAL (MAPA Y TEXTO CORREGIDO) */
-        .seccion-global { width: 100%; max-width: 900px; padding: 40px 15px; text-align: center; background: #0d0a07; position: relative; z-index: 1; }
+        /* SECCIÓN INFERIOR (MAPA Y TEXTO CORREGIDO) */
+        .seccion-global { width: 100%; max-width: 900px; padding: 40px 15px; text-align: center; background: #0d0a07; position: relative; z-index: 20; }
         .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 30px; display: block; }
         .texto-original { line-height: 1.8; color: #bfa888; font-size: 1.1rem; padding-bottom: 100px; text-align: justify; }
         .texto-original h2 { color: #d4bc8c; text-align: center; margin-bottom: 20px; letter-spacing: 2px; }
     </style>
 </head>
-<body onclick="iniciarExperiencia()" ontouchstart="iniciarExperiencia()">
+<body onclick="liberarAudio()" ontouchstart="liberarAudio()">
 
     <h1 class="seo-title">La Semilla de Anu</h1>
 
@@ -50,8 +50,8 @@
         <img src="portada-pc.png" class="background-design img-pc">
         
         <video id="vid" class="video-overlay" loop playsinline muted><source src="video.mp4" type="video/mp4"></video>
-        <audio id="audT"><source src="sonido.mp3" type="audio/mpeg"></audio>
-        <audio id="audL" loop><source src="latido.mp3" type="audio/mpeg"></audio>
+        <audio id="audT" preload="auto"><source src="sonido.mp3" type="audio/mpeg"></audio>
+        <audio id="audL" loop preload="auto"><source src="latido.mp3" type="audio/mpeg"></audio>
         
         <div class="botones-capa">
             <a href="cuneiforme.html" class="btn-invisible btn-col-izq btn-escritura">ESCRITURA</a>
@@ -70,43 +70,44 @@
     </div>
 
     <div class="seccion-global">
-        <img src="mapa.jpg" class="mapa-img" alt="Mapa Anunnaki">
+        <img src="mapa.jpg" class="mapa-img" alt="Disponibilidad España e Hispanoamérica">
         <div class="texto-original">
             <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
-            <p>Encuentra la obra de <b>David Robles Asuncion</b>, "La semilla de Anu: Volumen 1 Anunaki", en las librerías más prestigiosas del mundo exclusivamente en formato físico.</p>
+            <p>Encuentra la obra de <b>David Robles Asuncion</b>, "La semilla de Anu: Volumen 1 Anunaki", en las librerías más prestigiosas del mundo únicamente en formato físico.</p>
             <br>
             <p>Disponible físicamente en <b>España</b> y mediante impresión bajo demanda en <b>México, Argentina, Colombia, Ecuador, Chile, Perú, Uruguay, Paraguay, Estados Unidos y Reino Unido</b>.</p>
             <br>
-            <p>Nuestra red de distribución incluye gigantes como <b>Casa del Libro, Amazon, El Corte Inglés y FNAC</b>, además de las mejores librerías de toda la región. ¡Hazte con tu ejemplar impreso y descubre el secreto de los antiguos!</p>
+            <p>Puedes conseguirlo en <b>Casa del Libro, Amazon, El Corte Inglés y FNAC</b>, además de las mejores librerías locales. ¡Hazte con tu ejemplar impreso ahora!</p>
         </div>
     </div>
 
     <script>
         const v = document.getElementById('vid'), aT = document.getElementById('audT'), aL = document.getElementById('audL');
         const bD = document.getElementById('btnD');
-        let activo = false;
+        let audioActivo = false;
 
-        // Función Maestra de Sonido (Se activa al primer clic en cualquier sitio)
-        function iniciarExperiencia() {
-            if (!activo) {
-                // El latido empieza y se mantiene en bucle infinito
-                aL.play().then(() => { 
-                    activo = true; 
-                    console.log("Motor de audio: Latido iniciado");
+        // ESTA FUNCIÓN ES EL CORAZÓN DE LA WEB
+        function liberarAudio() {
+            if (!audioActivo) {
+                // El latido empieza a sonar en cuanto tocas CUALQUIER sitio (el fondo, un botón, etc.)
+                aL.play().then(() => {
+                    audioActivo = true;
+                    console.log("Latido ambiental iniciado");
                 }).catch(e => console.log("Permiso de audio pendiente..."));
                 
-                // Desbloqueamos el tétrico para DIOSES
+                // Preparamos el sonido tétrico
                 aT.play().then(() => { aT.pause(); aT.currentTime = 0; });
             }
         }
 
-        function onD() { v.style.opacity="1"; v.play(); aT.play().catch(()=>{}); }
-        function offD() { v.style.opacity="0"; v.pause(); aT.pause(); aT.currentTime=0; }
+        // Lógica Dioses (Funciona en PC con ratón y en móvil al tocar)
+        function mostrarDioses() { v.style.opacity = "1"; v.play(); aT.play().catch(()=>{}); }
+        function ocultarDioses() { v.style.opacity = "0"; v.pause(); aT.pause(); aT.currentTime = 0; }
 
-        bD.onmouseenter = onD; 
-        bD.onmouseleave = offD;
-        bD.ontouchstart = (e) => { e.preventDefault(); iniciarExperiencia(); onD(); };
-        bD.ontouchend = offD;
+        bD.onmouseenter = mostrarDioses;
+        bD.onmouseleave = ocultarDioses;
+        bD.ontouchstart = (e) => { e.preventDefault(); liberarAudio(); mostrarDioses(); };
+        bD.ontouchend = ocultarDioses;
     </script>
 </body>
 </html>
