@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Camino a Nippur - La Semilla de Anu</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background-color: #0d0a07; 
+            color: #e8dcc4; 
+            font-family: 'Cambria', serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0;
+        }
+        .game-container {
+            width: 90%;
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #d4bc8c;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0,0,0,1);
+        }
+        h1 { color: #d4bc8c; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; }
+        #story-text { font-size: 1.2rem; line-height: 1.6; margin-bottom: 30px; color: #f4e4bc; min-height: 100px; }
+        .options-container { display: flex; flex-direction: column; gap: 10px; }
+        .btn-option {
+            background: #1a140f;
+            color: #d4bc8c;
+            border: 1px solid #d4bc8c;
+            padding: 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .btn-option:hover { background: #d4bc8c; color: #1a140f; }
+        .back-link { margin-top: 20px; display: block; color: #888; text-decoration: none; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>El Camino a Nippur</h1>
+        <div id="story-text">Cargando historia...</div>
+        <div class="options-container" id="options"></div>
+        <a href="index.html" class="back-link">VOLVER AL TEMPLO</a>
+    </div>
+
+    <script>
+        const nodes = {
+            start: {
+                text: "Despiertas en las dunas bajo un sol abrasador. En el horizonte, el Zigurat de Nippur te llama. Solo tienes una cantimplora casi vacía.",
+                opts: [{ t: "Seguir el cauce seco del río", n: "rio" }, { t: "Cruzar el desierto abierto", n: "desierto" }]
+            },
+            rio: {
+                text: "Encuentras una charca lodosa. Un extraño con túnica te observa desde las sombras.",
+                opts: [{ t: "Beber agua", n: "veneno" }, { t: "Ofrecer un tributo", n: "aliado" }]
+            },
+            desierto: {
+                text: "Una tormenta de arena se levanta. Escuchas susurros en una lengua antigua.",
+                opts: [{ t: "Buscar una cueva", n: "cueva" }, { t: "Seguir los susurros", n: "trance" }]
+            },
+            veneno: { text: "El agua estaba maldita. Tu viaje termina aquí.", opts: [{ t: "REINTENTAR", n: "start" }] },
+            aliado: { text: "El extraño te guía por un túnel secreto. ¡Has llegado al Zigurat!", opts: [{ t: "RECLAMAR DESTINO", n: "start" }] },
+            cueva: { text: "Entras en una tumba real. Al tocar el oro, la puerta se sella.", opts: [{ t: "REINICIAR", n: "start" }] },
+            trance: { text: "Los susurros te llevan ante una Semilla de Anu. Eres el elegido.", opts: [{ t: "REINICIAR", n: "start" }] }
+        };
+
+        function render(key) {
+            const node = nodes[key];
+            document.getElementById('story-text').innerText = node.text;
+            const container = document.getElementById('options');
+            container.innerHTML = '';
+            node.opts.forEach(o => {
+                const b = document.createElement('button');
+                b.innerText = o.t;
+                b.className = 'btn-option';
+                b.onclick = () => render(o.n);
+                container.appendChild(b);
+            });
+        }
+        render('start');
+    </script>
+</body>
+</html>
