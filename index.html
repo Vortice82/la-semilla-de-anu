@@ -2,84 +2,230 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>La Semilla de Anu - David Robles</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: #0d0a07; color: #e8dcc4; font-family: 'Cambria', serif; display: flex; flex-direction: column; align-items: center; width: 100%; min-height: 100vh; overflow-x: hidden; }
-        .seo-title { color: #d4bc8c; padding: 30px 10px; font-size: 1.8em; text-transform: uppercase; text-align: center; }
-        .templo-master { position: relative; width: 96%; max-width: 1300px; border: 1px solid #3d2b1f; background: #000; overflow: hidden; margin-bottom: 40px; }
+        /* Reset y Base Robusta */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { 
+            background-color: #0d0a07; 
+            color: #e8dcc4; 
+            font-family: 'Cambria', serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%; 
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .seo-title { 
+            color: #d4bc8c; 
+            padding: 20px 10px; 
+            font-size: clamp(1.5rem, 5vw, 2.2rem); 
+            text-transform: uppercase; 
+            text-align: center; 
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(212, 188, 140, 0.3);
+        }
+
+        /* Contenedor Maestro con Relación de Aspecto */
+        .templo-master { 
+            position: relative; 
+            width: 96%; 
+            max-width: 1200px; 
+            border: 2px solid #3d2b1f; 
+            background: #000; 
+            box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+            line-height: 0;
+        }
+
         .background-design { width: 100%; height: auto; display: block; }
-        .img-pc { display: none; } .img-movil { display: block; }
+        .img-pc { display: none; }
         @media (min-width: 800px) { .img-pc { display: block; } .img-movil { display: none; } }
+        @media (max-width: 799px) { .img-movil { display: block; } }
 
-        .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
-        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: bold; font-size: clamp(0.45rem, 1.7vw, 0.9rem); text-transform: uppercase; border-radius: 2px; text-align: center; width: 24%; height: 6%; }
+        /* Capa de Botones Inteligente */
+        .botones-capa { 
+            position: absolute; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: 10; 
+        }
+
+        .btn-invisible { 
+            position: absolute; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: clamp(0.5rem, 1.8vw, 0.95rem); 
+            text-transform: uppercase; 
+            border-radius: 2px; 
+            text-align: center; 
+            width: 24%; 
+            height: 6.5%; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(244, 228, 188, 0.3);
+        }
+
+        /* Columna Izquierda */
+        .btn-col-izq { background: rgba(92, 64, 34, 0.9); color: #fff; left: 8%; }
+        .btn-escritura { top: 32%; }
+        .btn-aventura  { top: 40%; }
+        .btn-oraculo   { top: 48%; }
+        .btn-arcade    { top: 56%; }
+        .btn-dioses    { top: 64%; }
+        .btn-destino   { top: 72%; background: rgba(139, 69, 19, 0.95); border-color: #f4e4bc; }
+
+        /* Columna Derecha */
+        .btn-col-der { left: 68%; background: rgba(0, 0, 0, 0.8); color: #d4bc8c; border: 1px solid #3d2b1f; }
         
-        .btn-col-izq { background: rgba(92, 64, 34, 0.92); color: #fff; border: 1px solid #f4e4bc; left: 8%; }
-        .btn-escritura { top: 32%; } .btn-aventura { top: 40%; } .btn-oraculo { top: 48%; } .btn-arcade { top: 56%; } .btn-dioses { top: 64%; } .btn-destino { top: 72%; background: rgba(139, 69, 19, 0.95); }
+        .btn-contacto-azul { 
+            top: 32%; 
+            background: #0033cc !important; 
+            color: #fff !important; 
+            border: 2px solid #00ffff !important; 
+            box-shadow: 0 0 15px rgba(0, 68, 255, 0.6);
+        }
 
-        .btn-contacto-azul { top: 32%; left: 68%; background: #0044ff !important; color: #fff !important; border: 2px solid #00ffff !important; box-shadow: 0 0 15px #0044ff; }
-        .btn-comprar { top: 40%; left: 68%; background: #d4bc8c !important; color: #000 !important; font-weight: 900; border: 2px solid #fff !important; animation: latidoAnim 1.2s infinite; }
-        @keyframes latidoAnim { 0%, 100% { transform: scale(1); } 20% { transform: scale(1.1); } }
+        .btn-comprar { 
+            top: 40%; 
+            background: #d4bc8c !important; 
+            color: #000 !important; 
+            font-weight: 900; 
+            border: 2px solid #fff !important; 
+            will-change: transform;
+            animation: heartBeat 1.4s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
 
-        .btn-rrss { left: 68%; background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
-        .btn-tiktok { top: 48%; } .btn-instagram { top: 56%; } .btn-youtube { top: 64%; }
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.15); }
+            70% { transform: scale(1); }
+        }
 
-        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; transition: opacity 0.5s; }
-        .seccion-mapa { width: 100%; max-width: 900px; padding: 40px 15px; text-align: center; }
-        .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 30px; }
+        .btn-tiktok    { top: 48%; }
+        .btn-instagram { top: 56%; }
+        .btn-youtube   { top: 64%; }
+
+        /* Video de Fondo */
+        .video-overlay { 
+            position: absolute; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            object-fit: cover; 
+            opacity: 0; 
+            pointer-events: none; 
+            z-index: 5; 
+            transition: opacity 0.6s ease;
+        }
+
+        /* Sección Inferior Robusta */
+        .seccion-global { 
+            width: 100%; 
+            max-width: 1000px; 
+            padding: 60px 20px; 
+            text-align: center; 
+        }
+        
+        .mapa-img { 
+            width: 100%; 
+            height: auto; 
+            border: 1px solid #3d2b1f; 
+            margin-bottom: 40px; 
+            filter: sepia(0.3) contrast(1.1);
+        }
+
+        .texto-original { 
+            line-height: 1.8; 
+            color: #bfa888; 
+            font-size: 1.15rem; 
+            padding-bottom: 100px;
+        }
     </style>
 </head>
-<body onclick="activarTodo()" ontouchstart="activarTodo()">
+<body onclick="unlockAudio()" ontouchstart="unlockAudio()">
 
     <h1 class="seo-title">La Semilla de Anu</h1>
 
     <div class="templo-master">
-        <img src="portada-movil.png" class="background-design img-movil">
-        <img src="portada-pc.png" class="background-design img-pc">
-        <video id="vid" class="video-overlay" loop playsinline muted><source src="video.mp4" type="video/mp4"></video>
+        <img src="portada-movil.png" class="background-design img-movil" alt="Fondo Móvil">
+        <img src="portada-pc.png" class="background-design img-pc" alt="Fondo PC">
         
-        <audio id="audT"><source src="sonido.mp3" type="audio/mpeg"></audio>
-        <audio id="audL" loop><source src="latido.mp3" type="audio/mpeg"></audio>
+        <video id="vDioses" class="video-overlay" loop playsinline muted>
+            <source src="video.mp4" type="video/mp4">
+        </video>
+        
+        <audio id="aTetrico" preload="auto"><source src="sonido.mp3" type="audio/mpeg"></audio>
+        <audio id="aLatido" loop preload="auto"><source src="latido.mp3" type="audio/mpeg"></audio>
         
         <div class="botones-capa">
             <a href="cuneiforme.html" class="btn-invisible btn-col-izq btn-escritura">ESCRITURA</a>
             <a href="aventura.html" class="btn-invisible btn-col-izq btn-aventura">AVENTURA</a>
             <a href="adivinanzas.html" class="btn-invisible btn-col-izq btn-oraculo">ORÁCULO</a>
             <a href="juego.html" class="btn-invisible btn-col-izq btn-arcade">ARCADE</a>
-            <a href="javascript:void(0)" class="btn-invisible btn-col-izq btn-dioses" id="btnD">DIOSES</a>
+            <a href="javascript:void(0)" class="btn-invisible btn-col-izq btn-dioses" id="triggerDioses">DIOSES</a>
             <a href="destino.html" class="btn-invisible btn-col-izq btn-destino">DESTINO</a>
             
-            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-contacto-azul">MENSAJE</a>
-            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">COMPRAR</a>
-            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-rrss btn-tiktok" target="_blank">TIKTOK</a>
-            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-rrss btn-instagram" target="_blank">INSTAGRAM</a>
-            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-rrss btn-youtube" target="_blank">YOUTUBE</a>
+            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-col-der btn-contacto-azul">MENSAJE</a>
+            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-col-der btn-comprar" target="_blank">COMPRAR</a>
+            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-col-der btn-tiktok" target="_blank">TIKTOK</a>
+            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-col-der btn-instagram" target="_blank">INSTAGRAM</a>
+            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-col-der btn-youtube" target="_blank">YOUTUBE</a>
         </div>
     </div>
 
-    <div class="seccion-mapa">
-        <img src="mapa.jpg" class="mapa-img">
-        <p style="color: #bfa888;">¡LA INVASIÓN YA ES GLOBAL!</p>
+    <div class="seccion-global">
+        <img src="mapa.jpg" class="mapa-img" alt="Mapa Anunnaki">
+        <div class="texto-original">
+            <h2 style="color: #d4bc8c; margin-bottom: 20px; letter-spacing: 2px;">🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
+            <p>Descubre el secreto de los antiguos en las principales librerías.</p>
+        </div>
     </div>
 
     <script>
-        const v = document.getElementById('vid'), aT = document.getElementById('audT'), aL = document.getElementById('audL');
-        const bD = document.getElementById('btnD');
-        let activo = false;
+        const vid = document.getElementById('vDioses');
+        const audT = document.getElementById('aTetrico');
+        const audL = document.getElementById('aLatido');
+        const btnD = document.getElementById('triggerDioses');
+        
+        let audioUnlocked = false;
 
-        function activarTodo() {
-            if (!activo) {
-                aL.play(); // El latido empieza y no para
-                activo = true;
+        // Sistema Maestro de Audio
+        function unlockAudio() {
+            if (!audioUnlocked) {
+                // Reproducimos y pausamos instantáneamente para ganar el permiso del navegador
+                audL.play().then(() => {
+                    audioUnlocked = true;
+                    console.log("Audio de ambiente activado");
+                }).catch(err => console.log("Esperando clic real..."));
+                
+                audT.play().then(() => { audT.pause(); audT.currentTime = 0; });
             }
         }
 
-        bD.onmouseenter = () => { v.style.opacity="1"; v.play(); aT.play(); };
-        bD.onmouseleave = () => { v.style.opacity="0"; v.pause(); aT.pause(); };
-        bD.ontouchstart = (e) => { e.preventDefault(); activarTodo(); v.style.opacity="1"; v.play(); aT.play(); };
-        bD.ontouchend = () => { v.style.opacity="0"; v.pause(); aT.pause(); };
+        // Lógica Dioses (Hover y Touch)
+        function diosesOn() {
+            vid.style.opacity = "1";
+            vid.play();
+            audT.play().catch(() => {});
+        }
+
+        function diosesOff() {
+            vid.style.opacity = "0";
+            vid.pause();
+            audT.pause();
+            audT.currentTime = 0;
+        }
+
+        btnD.addEventListener('mouseenter', diosesOn);
+        btnD.addEventListener('mouseleave', diosesOff);
+        btnD.addEventListener('touchstart', (e) => { e.preventDefault(); unlockAudio(); diosesOn(); });
+        btnD.addEventListener('touchend', diosesOff);
+
+        // El latido ahora es persistente una vez desbloqueado para crear atmósfera
     </script>
 </body>
 </html>
