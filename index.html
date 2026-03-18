@@ -28,7 +28,6 @@
             text-align: center;
         }
 
-        /* --- CONTENEDOR DEL TEMPLO --- */
         .templo-master {
             position: relative;
             width: 96%;
@@ -84,13 +83,11 @@
             100% { width: 350px; height: 70px; opacity: 0; }
         }
 
-        /* --- IMÁGENES --- */
         .background-design { width: 100%; height: auto; display: block; }
         .img-pc { display: none; }
         .img-movil { display: block; }
         @media (min-width: 800px) { .img-pc { display: block; } .img-movil { display: none; } }
 
-        /* --- BOTONES SOBRE LA IMAGEN --- */
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
         
         .btn-invisible {
@@ -107,7 +104,7 @@
             text-align: center;
         }
 
-        .btn-escritura, .btn-arcade, .btn-dioses, .btn-destino { background: rgba(0, 0, 0, 0.75); color: #fff; border: 1px solid #d4bc8c; }
+        .btn-escritura, .btn-arcade, .btn-aventura, .btn-dioses, .btn-destino { background: rgba(0, 0, 0, 0.75); color: #fff; border: 1px solid #d4bc8c; }
         .btn-destino { background: rgba(61, 43, 31, 0.85); border-color: #d4bc8c; }
         .btn-tiktok, .btn-instagram, .btn-youtube { background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
         .btn-comprar { background: #d4bc8c !important; color: #1a140f !important; border: 2px solid #fff !important; animation: latido 2s infinite; }
@@ -118,9 +115,10 @@
             100% { transform: scale(1); }
         }
 
-        /* Coordenadas */
+        /* Coordenadas ajustadas para incluir ambos juegos */
         .btn-escritura { top: 52%; left: 8%; width: 24%; height: 6%; }
-        .btn-arcade    { top: 61%; left: 8%; width: 24%; height: 6%; }
+        .btn-arcade    { top: 60%; left: 8%; width: 11%; height: 6%; } /* Botón Arcade original */
+        .btn-aventura  { top: 60%; left: 21%; width: 11%; height: 6%; } /* Botón Nueva Aventura */
         .btn-dioses    { top: 70%; left: 8%; width: 24%; height: 6%; }
         .btn-destino   { top: 79%; left: 8%; width: 24%; height: 6%; }
 
@@ -129,7 +127,7 @@
         .btn-instagram { top: 80%; left: 68%; width: 24%; height: 6%; }
         .btn-youtube   { top: 89%; left: 68%; width: 24%; height: 6%; }
 
-        /* --- CUADRO DE MENSAJE REFINADO (CRISTAL) --- */
+        /* Cuadro de mensaje cristal */
         .form-email-contenedor {
             position: absolute;
             top: 38%; left: 68%;
@@ -145,56 +143,31 @@
         }
 
         .form-textarea-email {
-            width: 100%;
-            height: 70%;
-            background: #000;
-            color: #fff;
+            width: 100%; height: 70%;
+            background: #000; color: #fff;
             border: 1px solid #3d2b1f;
-            font-family: inherit;
-            font-size: 0.85rem;
-            padding: 8px;
-            resize: none;
-            outline: none;
+            font-family: inherit; font-size: 0.85rem;
+            padding: 8px; resize: none; outline: none;
         }
 
         .form-btn-enviar {
-            height: 30%;
-            background: #d4bc8c;
-            color: #1a140f;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            transition: 0.2s;
+            height: 30%; background: #d4bc8c; color: #1a140f;
+            border: none; cursor: pointer; font-weight: bold;
+            text-transform: uppercase; font-size: 0.75rem;
+            letter-spacing: 1px; transition: 0.2s;
         }
         .form-btn-enviar:hover { background: #fff; }
 
         .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; }
 
-        /* --- SECCIÓN INFERIOR --- */
         .seccion-global { 
-            width: 100%; 
-            max-width: 1000px; 
-            padding: 40px 20px; 
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            width: 100%; max-width: 1000px; padding: 40px 20px; 
+            text-align: center; display: flex; flex-direction: column; align-items: center;
         }
 
-        .mapa-img { 
-            width: 100%; 
-            max-width: 900px; 
-            height: auto; 
-            border: 1px solid #3d2b1f; 
-            margin-bottom: 40px; 
-        }
-
+        .mapa-img { width: 100%; max-width: 900px; height: auto; border: 1px solid #3d2b1f; margin-bottom: 40px; }
         .texto-original { line-height: 1.8; color: #bfa888; margin-bottom: 60px; font-size: 1.1rem; }
         .texto-original h2 { color: #d4bc8c; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
-        .texto-original b { color: #fff; }
 
     </style>
 </head>
@@ -216,7 +189,10 @@
 
         <div class="botones-capa">
             <a href="cuneiforme.html" class="btn-invisible btn-escritura">ESCRITURA</a>
-            <a href="aventura.html" class="btn-invisible btn-arcade">ARCADE</a>
+            
+            <a href="juego.html" class="btn-invisible btn-arcade">ARCADE</a>
+            <a href="aventura.html" class="btn-invisible btn-aventura">AVENTURA</a>
+            
             <a href="javascript:void(0)" class="btn-invisible btn-dioses" id="btnDioses">DIOSES</a>
             <a href="destino.html" class="btn-invisible btn-destino">DESTINO</a>
             
@@ -236,7 +212,7 @@
         <img src="mapa.jpg" class="mapa-img" alt="Mapa">
         <div class="texto-original">
             <h2>🌍 ¡La invasión ya es global!</h2>
-            <p>Encuentra la obra de <b>David Robles</b> en las librerías más prestigiosas. Disponible en <b>España, Portugal, U.K., México, EE.UU., Colombia, Perú, Ecuador, Chile, Argentina y Uruguay</b>.</p>
+            <p>Encuentra la obra de <b>David Robles</b> en las librerías más prestigiosas.</p>
         </div>
     </div>
 
@@ -267,8 +243,8 @@
         function enviarCorreoRapido() {
             const destinatario = "vortice_verde@hotmail.com";
             const texto = document.getElementById('textoUsuario').value;
-            if(!texto) { alert("Por favor, escribe un mensaje."); return; }
-            const asunto = encodeURIComponent("Contacto desde la Web - La Semilla de Anu");
+            if(!texto) { alert("Escribe un mensaje."); return; }
+            const asunto = encodeURIComponent("Contacto desde la Web");
             const cuerpo = encodeURIComponent(texto);
             window.location.href = `mailto:${destinatario}?subject=${asunto}&body=${cuerpo}`;
         }
