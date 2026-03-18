@@ -21,20 +21,18 @@
             padding: 20px;
         }
 
-        /* Contenedor Reforzado */
         .terminal {
             width: 100%;
-            max-width: 800px;
-            border: 2px solid #d4bc8c;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 60px 40px;
+            max-width: 850px;
+            border: 1px solid #d4bc8c;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
             position: relative;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
         }
 
-        /* Adornos esquinas */
-        .corner { position: absolute; width: 20px; height: 20px; border: 2px solid #d4bc8c; }
+        /* Esquinas */
+        .c { position: absolute; width: 15px; height: 15px; border: 2px solid #d4bc8c; }
         .tl { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
         .tr { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
         .bl { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
@@ -42,78 +40,91 @@
 
         h1 { 
             font-family: 'Cinzel', serif;
-            font-size: clamp(1.5rem, 6vw, 2.8rem);
-            letter-spacing: 12px;
-            margin-bottom: 10px;
-            color: #d4bc8c;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            letter-spacing: 8px;
+            margin-bottom: 5px;
+            text-align: center;
         }
 
         .author {
             font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
-            letter-spacing: 5px;
+            font-size: 1rem;
+            letter-spacing: 4px;
             color: #8a6d3b;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+            text-align: center;
             text-transform: uppercase;
         }
 
-        /* Menú robusto sin scripts */
-        .menu {
+        /* TEXTO DE TU WEB (RECUPERADO) */
+        .content-text {
+            line-height: 1.8;
+            color: #e8dcc4;
+            margin-bottom: 30px;
+            text-align: justify;
+            border-top: 1px solid #3d2b1f;
+            padding-top: 25px;
+        }
+
+        /* MENÚ DE JUEGOS */
+        .nav-menu {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            max-width: 350px;
-            margin: 0 auto;
+            margin-top: 30px;
         }
 
-        .menu-link {
-            display: block;
+        .nav-item {
             text-decoration: none;
-            color: #d4bc8c;
-            border: 1px solid #5c4022;
-            padding: 18px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            transition: all 0.3s ease;
-            background: rgba(20, 15, 10, 0.5);
-        }
-
-        .menu-link:hover {
-            background: #d4bc8c;
             color: #000;
-            border-color: #fff;
-            transform: translateY(-3px);
+            background: #d4bc8c;
+            padding: 15px;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-align: center;
+            letter-spacing: 2px;
+            transition: 0.3s;
         }
 
-        .status-line {
+        .nav-item:hover {
+            background: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 188, 140, 0.4);
+        }
+
+        .footer {
             margin-top: 40px;
             font-size: 0.7rem;
-            letter-spacing: 3px;
-            color: #444;
-            text-transform: uppercase;
-            border-top: 1px solid #222;
-            padding-top: 20px;
+            color: #555;
+            text-align: center;
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
 
     <div class="terminal">
-        <div class="corner tl"></div><div class="corner tr"></div>
-        <div class="corner bl"></div><div class="corner br"></div>
+        <div class="c tl"></div><div class="c tr"></div>
+        <div class="c bl"></div><div class="c br"></div>
 
         <h1>LA SEMILLA DE ANU</h1>
         <p class="author">David Robles Asuncion</p>
 
-        <div class="menu">
-            <a href="aventura.html" class="menu-link">INICIAR AVENTURA</a>
-            <a href="adivinanzas.html" class="menu-link">EL ORÁCULO</a>
-            <a href="destino.html" class="menu-link">TU DESTINO</a>
+        <div class="content-text">
+            <p><strong>La semilla de Anu: Volumen 1 Anunaki</strong> es una obra que explora los misterios de nuestros orígenes. En esta plataforma interactiva podrás experimentar la conexión con el pasado sumerio y descubrir si tu ADN es digno de los antiguos dioses.</p>
+            <br>
+            <p>Utiliza los módulos de acceso a continuación para iniciar la sincronización con el protocolo Nippur.</p>
         </div>
 
-        <div class="status-line">
-            Sincronización Anunnaki: Activa | 2026-Nippur
+        <nav class="nav-menu">
+            <a href="aventura.html" class="nav-item">INICIAR AVENTURA</a>
+            <a href="adivinanzas.html" class="nav-item">EL ORÁCULO</a>
+            <a href="destino.html" class="nav-item">TU DESTINO</a>
+        </nav>
+
+        <div class="footer">
+            Sincronización Activa | David Robles Asuncion © 2026
         </div>
     </div>
 
