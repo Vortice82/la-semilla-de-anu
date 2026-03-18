@@ -5,17 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>La Semilla de Anu - David Robles Asunción</title>
     <style>
-        /* --- ARQUITECTURA ROBUSTA Y RESPONSIVE --- */
-        :root {
-            --gold: #d4bc8c;
-            --dark-bg: #0d0a07;
-            --border: #3d2b1f;
-        }
-
+        /* --- ARQUITECTURA ROBUSTA --- */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body { 
-            background-color: var(--dark-bg); 
+            background-color: #0d0a07; 
             color: #e8dcc4; 
             font-family: 'Cambria', serif; 
             display: flex; 
@@ -26,7 +20,7 @@
         }
 
         .seo-title { 
-            color: var(--gold); 
+            color: #d4bc8c; 
             padding: 30px 15px; 
             font-size: clamp(1.5rem, 5vw, 2.5rem); 
             text-transform: uppercase; 
@@ -35,12 +29,12 @@
             width: 100%;
         }
 
-        /* --- CONTENEDOR MAESTRO (EL TEMPLO) --- */
+        /* CONTENEDOR MAESTRO RESPONSIVE */
         .templo-master { 
             position: relative; 
             width: 98%; 
             max-width: 1250px; 
-            border: 2px solid var(--border); 
+            border: 2px solid #3d2b1f; 
             background: #000; 
             overflow: hidden; 
             margin-bottom: 40px; 
@@ -48,13 +42,13 @@
             z-index: 1;
         }
 
-        /* Imágenes de fondo adaptativas */
+        /* Imágenes adaptativas */
         .background-design { width: 100%; height: auto; display: block; position: relative; z-index: 2; }
         .img-pc { display: none; }
         @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 849px) { .img-movil { display: block; } }
 
-        /* --- LA GOTA (VÍDEO OVERLAY BLINDADO) --- */
+        /* --- LA GOTA (VÍDEO RECUPERADO) --- */
         #vid { 
             position: absolute; 
             top: 0; left: 0; 
@@ -62,11 +56,11 @@
             object-fit: cover; 
             opacity: 0; 
             pointer-events: none; 
-            z-index: 5; /* CAPA INTERMEDIA: Entre fondo y botones */
+            z-index: 5; /* Capa intermedia crítica */
             transition: opacity 0.4s ease-in-out; 
         }
 
-        /* --- CAPA DE BOTONES (SUPERIOR) --- */
+        /* CAPA DE BOTONES */
         .botones-capa { 
             position: absolute; 
             top: 0; left: 0; 
@@ -87,10 +81,10 @@
             text-align: center; 
             width: 24%; 
             height: 6.8%; 
-            transition: transform 0.2s, background 0.3s;
+            transition: transform 0.2s;
         }
 
-        /* Coordenadas exactas del diseño */
+        /* Coordenadas del diseño original */
         .btn-col-izq { background: rgba(92, 64, 34, 0.9); color: #fff; border: 1.5px solid #f4e4bc; left: 8.5%; }
         .btn-escritura { top: 32.5%; } 
         .btn-aventura { top: 40.5%; } 
@@ -100,22 +94,22 @@
         .btn-destino { top: 72.5%; background: rgba(139, 69, 19, 0.98); }
 
         .btn-contacto-azul { top: 32.5%; left: 67.5%; background: #0044ff !important; color: #fff !important; border: 2px solid #00ffff !important; box-shadow: 0 0 15px #0044ff; }
-        .btn-comprar { top: 40.5%; left: 67.5%; background: var(--gold) !important; color: #000 !important; border: 2px solid #fff !important; animation: pulse 1.5s infinite alternate; }
+        .btn-comprar { top: 40.5%; left: 67.5%; background: #d4bc8c !important; color: #000 !important; border: 2px solid #fff !important; animation: pulse 1.5s infinite alternate; }
         @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
 
-        .btn-rrss { left: 67.5%; background: rgba(0, 0, 0, 0.85); color: var(--gold); border: 1px solid var(--border); }
+        .btn-rrss { left: 67.5%; background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
         .btn-tiktok { top: 48.5%; } 
         .btn-instagram { top: 56.5%; } 
         .btn-youtube { top: 64.5%; }
 
-        /* --- SECCIÓN SEO Y MAPA --- */
+        /* SECCIÓN TEXTO SEO */
         .seccion-global { width: 100%; max-width: 900px; padding: 40px 20px; text-align: center; }
-        .mapa-img { width: 100%; height: auto; border: 1px solid var(--border); margin-bottom: 40px; }
+        .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 40px; }
         .texto-original { line-height: 2; color: #bfa888; font-size: 1.2rem; text-align: justify; padding-bottom: 120px; }
-        .texto-original h2 { color: var(--gold); text-align: center; margin-bottom: 30px; letter-spacing: 2px; }
+        .texto-original h2 { color: #d4bc8c; text-align: center; margin-bottom: 30px; letter-spacing: 2px; }
     </style>
 </head>
-<body onclick="desbloquearAudio()" ontouchstart="desbloquearAudio()">
+<body onclick="desbloquearMedios()" ontouchstart="desbloquearMedios()">
 
     <h1 class="seo-title">La Semilla de Anu</h1>
 
@@ -135,67 +129,4 @@
             <a href="aventura.html" class="btn-invisible btn-col-izq btn-aventura">Aventura</a>
             <a href="adivinanzas.html" class="btn-invisible btn-col-izq btn-oraculo">Oráculo</a>
             <a href="juego.html" class="btn-invisible btn-col-izq btn-arcade">Arcade</a>
-            <a href="javascript:void(0)" class="btn-invisible btn-col-izq btn-dioses" id="btnD">Dioses</a>
-            <a href="destino.html" class="btn-invisible btn-col-izq btn-destino">Destino</a>
-            
-            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-contacto-azul">Mensaje</a>
-            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">Comprar</a>
-            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-rrss btn-tiktok" target="_blank">TikTok</a>
-            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-rrss btn-instagram" target="_blank">Instagram</a>
-            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-rrss btn-youtube" target="_blank">YouTube</a>
-        </nav>
-    </div>
-
-    <section class="seccion-global">
-        <img src="mapa.jpg" class="mapa-img" alt="Disponibilidad Global">
-        <div class="texto-original">
-            <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
-            <p>Descubre la obra de <b>David Robles Asunción</b>, "La semilla de Anu: Volumen 1 Anunaki", en las librerías más prestigiosas del mundo exclusivamente en formato físico.</p>
-            <br>
-            <p>Disponible físicamente en <b>España</b> y mediante impresión bajo demanda en <b>México, Argentina, Colombia, Ecuador, Chile, Perú, Uruguay, Paraguay, Estados Unidos y Reino Unido</b>.</p>
-            <br>
-            <p>Consíguelo en <b>Casa del Libro, Amazon, El Corte Inglés y FNAC</b>. ¡El legado ha comenzado!</p>
-        </div>
-    </section>
-
-    <script>
-        const v = document.getElementById('vid'), aT = document.getElementById('audT'), aL = document.getElementById('audL'), bD = document.getElementById('btnD');
-        let audioIniciado = false;
-
-        // MOTOR DE AUDIO (Desbloqueo global)
-        function desbloquearAudio() {
-            if (!audioIniciado) {
-                aL.play().then(() => { audioIniciado = true; }).catch(e => {});
-                // Pre-activación del sonido de efecto
-                aT.play().then(() => { aT.pause(); aT.currentTime = 0; });
-            }
-        }
-
-        // CONTROL DE LA GOTA
-        function activarEfecto() {
-            v.style.opacity = "1";
-            v.play();
-            aT.play().catch(e => {});
-        }
-
-        function desactivarEfecto() {
-            v.style.opacity = "0";
-            v.pause();
-            aT.pause();
-            aT.currentTime = 0;
-        }
-
-        // Eventos PC
-        bD.onmouseenter = activarEfecto;
-        bD.onmouseleave = desactivarEfecto;
-
-        // Eventos Móvil (Fuerza la gota al tocar)
-        bD.ontouchstart = (e) => {
-            e.preventDefault();
-            desbloquearAudio();
-            activarEfecto();
-        };
-        bD.ontouchend = desactivarEfecto;
-    </script>
-</body>
-</html>
+            <a
