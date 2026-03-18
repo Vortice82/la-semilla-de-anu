@@ -3,268 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Despertar de Anu - Aventura Interactiva</title>
+    <title>El Despertar de Anu | Aventura Narrativa</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,400;1,300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,300;1,400&display=swap');
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
             background: #050403; 
-            background-image: radial-gradient(circle at center, #1a140f 0%, #050403 100%);
+            background-image: 
+                radial-gradient(circle at center, rgba(42, 31, 20, 0.4) 0%, #050403 100%),
+                url('https://www.transparenttextures.com/patterns/dark-matter.png');
             color: #e8dcc4; 
             font-family: 'Spectral', serif; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        /* Contenedor tipo Piedra Sagrada */
-        .game-master {
+        /* Contenedor Efecto Reliquia */
+        .game-frame {
             width: 95%;
-            max-width: 800px;
-            background: rgba(10, 8, 6, 0.95);
+            max-width: 850px;
+            background: rgba(10, 8, 6, 0.98);
             border: 1px solid #d4bc8c;
+            padding: 50px;
             position: relative;
-            padding: 40px;
-            box-shadow: 0 0 100px rgba(0,0,0,1), 0 0 20px rgba(212, 188, 140, 0.1);
-            border-radius: 2px;
+            box-shadow: 0 0 100px #000, inset 0 0 30px rgba(212, 188, 140, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
-        /* Adornos en las esquinas */
-        .game-master::before, .game-master::after {
-            content: "✦";
-            position: absolute;
-            color: #d4bc8c;
-            font-size: 20px;
-        }
-        .game-master::before { top: 10px; left: 10px; }
-        .game-master::after { bottom: 10px; right: 10px; }
+        /* Adornos de las esquinas Estilo Sumerio */
+        .corner { position: absolute; width: 30px; height: 30px; border: 2px solid #d4bc8c; }
+        .top-left { top: 15px; left: 15px; border-right: 0; border-bottom: 0; }
+        .top-right { top: 15px; right: 15px; border-left: 0; border-bottom: 0; }
+        .bot-left { bottom: 15px; left: 15px; border-right: 0; border-top: 0; }
+        .bot-right { bottom: 15px; right: 15px; border-left: 0; border-top: 0; }
 
         h1 { 
             font-family: 'Cinzel', serif;
             color: #d4bc8c; 
             text-align: center;
             text-transform: uppercase; 
-            letter-spacing: 6px; 
-            margin-bottom: 30px;
-            font-size: clamp(1.2rem, 4vw, 2rem);
-            text-shadow: 0 0 15px rgba(212, 188, 140, 0.5);
+            letter-spacing: 8px; 
+            font-size: clamp(1rem, 5vw, 1.8rem);
+            margin-bottom: 10px;
         }
 
-        /* Cuadro de texto con efecto de aparición */
-        #story-box {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            margin-bottom: 40px;
+        .divider {
+            width: 100px;
+            height: 1px;
+            background: #d4bc8c;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 10px #d4bc8c;
+        }
+
+        /* Texto Narrativo */
+        #story-text {
+            font-size: 1.35rem;
+            line-height: 1.9;
             color: #f4e4bc;
-            min-height: 180px;
-            font-style: italic;
+            min-height: 200px;
             text-align: center;
+            transition: opacity 0.5s ease;
         }
 
-        .options-grid {
+        /* Botones de Decisión */
+        .options-box {
             display: grid;
             grid-template-columns: 1fr;
             gap: 15px;
         }
 
-        .btn-divine {
-            background: linear-gradient(to right, #1a140f, #2a1f14);
+        .choice-btn {
+            background: transparent;
             color: #d4bc8c;
             border: 1px solid #5c4022;
-            padding: 20px;
+            padding: 18px 25px;
             cursor: pointer;
             font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s;
             position: relative;
-            overflow: hidden;
         }
 
-        .btn-divine:hover {
+        .choice-btn:hover {
+            background: rgba(212, 188, 140, 0.1);
             border-color: #d4bc8c;
             color: #fff;
-            background: #2a1f14;
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(212, 188, 140, 0.2);
+            box-shadow: 0 0 15px rgba(212, 188, 140, 0.2);
         }
 
-        .btn-divine::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 188, 140, 0.1), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-divine:hover::after {
-            left: 100%;
-        }
-
-        .stats-bar {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #3d2b1f;
-            font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
-            color: #888;
-        }
-
-        .stat-val { color: #d4bc8c; margin-left: 5px; }
-
-        .back-temple {
-            margin-top: 40px;
-            display: block;
+        /* Barra de Sincronización ADN */
+        .sync-container {
+            margin-top: 20px;
             text-align: center;
-            color: #5c4022;
+        }
+        .sync-label { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 2px; color: #888; }
+        .sync-bar-bg { width: 100%; height: 4px; background: #1a140f; margin-top: 8px; border-radius: 2px; overflow: hidden; }
+        #sync-fill { width: 0%; height: 100%; background: #d4bc8c; transition: width 1s ease; box-shadow: 0 0 10px #d4bc8c; }
+
+        .back-home {
+            margin-top: 30px;
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
             text-decoration: none;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+            color: #5c4022;
+            transition: 0.3s;
         }
-        .back-temple:hover { color: #d4bc8c; }
+        .back-home:hover { color: #d4bc8c; }
 
-        /* Animación de pulso para la Semilla */
-        .seed-glow {
-            width: 10px; height: 10px;
-            background: #d4bc8c;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            box-shadow: 0 0 20px #d4bc8c;
-            animation: pulse 3s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 30px #d4bc8c; }
-            100% { transform: scale(1); opacity: 0.5; }
-        }
-
-        .shake { animation: shake 0.5s; }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
+        /* Animación de entrada de letras */
+        .char { display: inline-block; opacity: 0; transform: translateY(5px); animation: charFade 0.05s forwards; }
+        @keyframes charFade { to { opacity: 1; transform: translateY(0); } }
 
     </style>
 </head>
 <body>
 
-    <div class="game-master" id="main-container">
-        <div class="seed-glow"></div>
-        <h1>El Camino a Nippur</h1>
+    <div class="game-frame">
+        <div class="corner top-left"></div>
+        <div class="corner top-right"></div>
+        <div class="corner bot-left"></div>
+        <div class="corner bot-right"></div>
+
+        <h1>Crónicas de Anu</h1>
+        <div class="divider"></div>
         
-        <div id="story-box">
-            Iniciando conexión con los registros de Anu...
+        <div id="story-text"></div>
+
+        <div class="options-box" id="choices"></div>
+
+        <div class="sync-container">
+            <div class="sync-label">Sincronización ADN Anunnaki: <span id="sync-val">0%</span></div>
+            <div class="sync-bar-bg"><div id="sync-fill"></div></div>
         </div>
 
-        <div class="options-grid" id="options-container"></div>
-
-        <div class="stats-bar">
-            <span>SINCRO: <span class="stat-val" id="stat-sincro">0%</span></span>
-            <span>DESTINO: <span class="stat-val" id="stat-destino">Incierto</span></span>
-        </div>
-
-        <a href="index.html" class="back-temple">← VOLVER AL TEMPLO SAGRADO</a>
+        <a href="index.html" class="back-home">ABANDONAR CONEXIÓN</a>
     </div>
 
     <script>
-        const nodes = {
+        const game = {
             start: {
-                text: "Despiertas bajo el cielo de Mesopotamia. El aire vibra con una frecuencia antigua. A lo lejos, el Zigurat de Nippur rasga el horizonte. No eres un simple viajero; llevas la Semilla en tu sangre.",
-                opts: [
-                    { t: "Seguir las huellas de los Gigantes", n: "gigantes" },
-                    { t: "Investigar el murmullo del Éufrates", n: "rio" },
-                    { t: "Recitar el código de los siete cielos", n: "codigo" }
+                t: "El aire en las ruinas de Nippur es denso, cargado de electricidad estática. Tus ojos arden mientras el polvo revela una entrada oculta bajo el zigurat. No es piedra, es metal oscuro... y te está reconociendo.",
+                o: [
+                    { t: "Colocar tu mano sobre el panel de luz", n: "panel" },
+                    { t: "Susurrar el nombre de los siete dioses", n: "nombre" },
+                    { t: "Girar sobre tus pasos y huir", n: "muerte_miedo" }
                 ],
-                sincro: 10,
-                dest: "Despertando"
+                s: 10
             },
-            gigantes: {
-                text: "Las huellas te llevan a una grieta en la tierra. Abajo, luces de neón dorado iluminan máquinas que han funcionado durante eones. Un centinela de metal y sombra bloquea el paso.",
-                opts: [
-                    { t: "Ofrecer tu energía vital al Centinela", n: "sacrificio" },
-                    { t: "Usar la fuerza bruta para pasar", n: "muerte_fuerza" },
-                    { t: "Mostrar la marca de Anu en tu brazo", n: "marca" }
+            panel: {
+                t: "El metal se vuelve líquido al tacto. Una aguja invisible extrae una gota de tu sangre. 'Sujeto 82: David Robles... Genoma verificado'. Un ascensor te arrastra a las profundidades de la historia.",
+                o: [
+                    { t: "Descender al núcleo de la Tierra Hueca", n: "nucleo" },
+                    { t: "Intentar forzar la salida", n: "muerte_trampa" }
                 ],
-                sincro: 25,
-                dest: "Buscador"
+                s: 30
             },
-            rio: {
-                text: "El río corre hacia atrás. En la orilla, una barca de obsidiana te espera. El barquero no tiene rostro, pero su voz resuena en tu pecho: '¿A qué precio buscas la verdad?'",
-                opts: [
-                    { t: "Entregar tus recuerdos mundanos", n: "olvido" },
-                    { t: "Intentar engañar al barquero", n: "muerte_rio" },
-                    { t: "Prometer lealtad a los Anunnaki", n: "lealtad" }
+            nombre: {
+                t: "Una vibración sónica recorre el desierto. Una voz que no es humana resuena: 'Los nombres tienen poder, pero la sangre tiene el mando'. El panel de control se ilumina con una advertencia roja.",
+                o: [
+                    { t: "Usar tu sangre voluntariamente", n: "panel" },
+                    { t: "Rezar por protección divina", n: "muerte_fe" }
                 ],
-                sincro: 20,
-                dest: "Navegante"
+                s: 15
             },
-            codigo: {
-                text: "Al recitar las palabras, el desierto se pliega. Aparece un portal de geometría sagrada. Escuchas el latido de la Semilla de Anu acelerarse.",
-                opts: [
-                    { t: "Cruzar el portal sin dudar", n: "portal" },
-                    { t: "Meditar ante el portal", n: "iluminacion" }
+            nucleo: {
+                t: "Llegas a una cámara donde flotan miles de esferas de luz: La Semilla de Anu. Aquí se gestó el destino de la humanidad. Un holograma de una figura gigante de ojos dorados se materializa ante ti.",
+                o: [
+                    { t: "Preguntar sobre el origen del hombre", n: "origen" },
+                    { t: "Reclamar el conocimiento prohibido", n: "conocimiento" },
+                    { t: "Pedir que detengan la invasión", n: "paz" }
                 ],
-                sincro: 40,
-                dest: "Elegido"
+                s: 60
             },
-            marca: {
-                text: "El Centinela se arrodilla. La tierra tiembla mientras se abre un ascensor hacia las profundidades de la Tierra Hueca. Has encontrado el laboratorio original.",
-                opts: [
-                    { t: "Activar la secuencia de despertar", n: "victoria_bio" },
-                    { t: "Destruir la tecnología prohibida", n: "final_heroe" }
+            origen: {
+                t: "El holograma muestra estrellas colapsando y laboratorios biológicos. 'No sois hijos de la evolución, sino de la necesidad', dice. La verdad te golpea: somos herramientas. ¿Aceptarás tu función?",
+                o: [
+                    { t: "Aceptar el mando sobre la especie", n: "final_dios" },
+                    { t: "Rebelarse contra los creadores", n: "final_guerra" }
                 ],
-                sincro: 60,
-                dest: "Heredero"
+                s: 85
             },
-            olvido: {
-                text: "Tus recuerdos se desvanecen. Ya no eres David, ya no eres humano. Ahora eres un recipiente puro. El barquero te lleva directo al Trono de Enlil.",
-                opts: [
-                    { t: "Reclamar tu lugar entre los dioses", n: "victoria_divina" },
-                    { t: "Servir como eterno vigilante", n: "final_siervo" }
+            conocimiento: {
+                t: "Tu cerebro es invadido por milenios de datos. Ves el futuro, el pasado y las múltiples dimensiones de la Semilla. Tu cuerpo humano no está diseñado para esto.",
+                o: [
+                    { t: "Forzar la integración total", n: "final_luz" },
+                    { t: "Intentar desconectarte", n: "muerte_datos" }
                 ],
-                sincro: 80,
-                dest: "Trascendido"
+                s: 90
             },
-            sacrificio: {
-                text: "Tu energía alimenta el núcleo. Sientes un dolor agónico pero abres el camino para la humanidad. Eres el mártir que la Semilla necesitaba.",
-                opts: [{ t: "REINCARNAR (REINICIAR)", n: "start" }],
-                sincro: 50,
-                dest: "Mártir"
-            },
-            portal: {
-                text: "El espacio-tiempo se rompe. Te encuentras en la órbita de Nibiru. Millones de naves esperan tu orden para el descenso final.",
-                opts: [
-                    { t: "Iniciar la Invasión", n: "final_conquistador" },
-                    { t: "Negociar la paz", n: "final_paz" }
-                ],
-                sincro: 90,
-                dest: "Comandante"
-            },
-            // Finales y muertes
-            muerte_fuerza: { text: "El Centinela te reduce a polvo atómico en un milisegundo. No se puede luchar contra la tecnología de los dioses con las manos desnudas.", opts: [{ t: "OTRA EXISTENCIA", n: "start" }], sincro: 0, dest: "Extinto" },
-            muerte_rio: { text: "El barquero te arrastra a las profundidades del río del tiempo. Estás atrapado en un bucle eterno de agonía.", opts: [{ t: "OTRA EXISTENCIA", n: "start" }], sincro: 0, dest: "Condenado" },
-            victoria_divina: { text: "Te sientas en el trono. Tu visión se expande a todas las galaxias. La Semilla de Anu ha florecido en ti. Eres el nuevo Arquitecto.", opts: [{ t: "REINICIAR CICLO", n: "start" }], sincro: 100, dest: "Dios" },
-            victoria_bio: { text: "Las cápsulas de éxtasis se abren. Tus hermanos Anunnaki despiertan. La Tierra vuelve a ser vuestra. ¡Gloria a Anu!", opts: [{ t: "REINICIAR CICLO", n: "start" }], sincro: 100, dest: "Dominador" },
-            final_heroe: { text: "Destruyes el núcleo. La tecnología se apaga. La humanidad es libre, pero tú quedas atrapado en el pasado para siempre.", opts: [{ t: "VOLVER AL INICIO", n: "start" }], sincro: 50, dest: "Héroe Olvidado" }
+            // Finales
+            final_dios: { t: "Te sientas en el trono de obsidiana. La señal se envía a Nibiru. La humanidad entrará en una nueva era de orden bajo tu mando. Eres el nuevo Anu.", o: [{ t: "REINICIAR DESTINO", n: "start" }], s: 100 },
+            final_guerra: { t: "Activas la secuencia de autodestrucción del complejo. Nippur se hunde. La humanidad es libre por ahora, pero vendrán a buscarte.", o: [{ t: "REINICIAR DESTINO", n: "start" }], s: 50 },
+            final_luz: { t: "Tu materia se desintegra. Te has convertido en pura información, un ser de luz que viaja entre las semillas de todos los mundos.", o: [{ t: "REINICIAR DESTINO", n: "start" }], s: 100 },
+            // Muertes
+            muerte_miedo: { t: "El desierto no perdona la duda. Te pierdes en las dunas y las tormentas de arena borran tu existencia para siempre.", o: [{ t: "PROBAR OTRA VIDA", n: "start" }], s: 0 },
+            muerte_trampa: { t: "Los sistemas de seguridad se activan. Rayos de frecuencia atómica reducen tus átomos a nada en un parpadeo.", o: [{ t: "PROBAR OTRA VIDA", n: "start" }], s: 0 },
+            muerte_fe: { t: "Los antiguos dioses no escuchan rezos, solo órdenes. Eres desechado como material biológico defectuoso.", o: [{ t: "PROBAR OTRA VIDA", n: "start" }], s: 0 },
+            muerte_datos: { t: "Tu sistema nervioso se quema. Mueres con una sonrisa, habiendo visto el final de los tiempos.", o: [{ t: "PROBAR OTRA VIDA", n: "start" }], s: 95 }
         };
 
-        function typeWriter(text, element, callback) {
+        function render(id) {
+            const node = game[id];
+            const textEl = document.getElementById('story-text');
+            const choicesEl = document.getElementById('choices');
+            
+            // Actualizar Sincro
+            document.getElementById('sync-val').innerText = node.s + "%";
+            document.getElementById('sync-fill').style.width = node.s + "%";
+
+            // Limpiar y animar texto
+            textEl.innerHTML = '';
+            choicesEl.innerHTML = '';
+            
             let i = 0;
-            element.innerHTML = '';
+            const text = node.t;
             function type() {
                 if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
+                    const span = document.createElement('span');
+                    span.className = 'char';
+                    span.innerText = text[i];
+                    span.style.animationDelay = (i * 0.01) + 's';
+                    textEl.appendChild(span);
                     i++;
-                    setTimeout(type, 15);
-                } else if (callback) {
+                    setTimeout(type, 10);
+                } else {
+                    node.o.forEach(opt => {
+                        const btn = document.createElement('button');
+                        btn.className = 'choice-btn';
+                        btn.innerText = opt.t;
+                        btn.onclick = () => render(opt.n);
+                        choicesEl.appendChild(btn);
+                    });
+                }
+            }
+            type();
+        }
+
+        window.onload = () => render('start');
+    </script>
+</body>
+</html>
