@@ -13,76 +13,62 @@
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            height: 100vh; 
+            min-height: 100vh; 
             margin: 0;
+            padding: 20px;
         }
         .game-container {
-            width: 90%;
-            max-width: 600px;
-            background: rgba(0, 0, 0, 0.9);
+            width: 100%;
+            max-width: 700px;
+            background: rgba(0, 0, 0, 0.95);
             border: 2px solid #d4bc8c;
-            padding: 30px;
+            padding: 35px;
             text-align: center;
-            box-shadow: 0 0 40px rgba(0,0,0,1);
+            box-shadow: 0 0 50px rgba(0,0,0,1), inset 0 0 20px rgba(212, 188, 140, 0.1);
         }
-        h1 { color: #d4bc8c; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; }
-        #story-text { font-size: 1.2rem; line-height: 1.6; margin-bottom: 30px; color: #f4e4bc; min-height: 100px; }
-        .options-container { display: flex; flex-direction: column; gap: 10px; }
+        h1 { color: #d4bc8c; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 25px; font-size: 1.6rem; border-bottom: 1px solid #3d2b1f; padding-bottom: 10px; }
+        #story-text { font-size: 1.25rem; line-height: 1.7; margin-bottom: 35px; color: #f4e4bc; min-height: 120px; text-shadow: 1px 1px 2px #000; }
+        .options-container { display: grid; grid-template-columns: 1fr; gap: 12px; }
         .btn-option {
             background: #1a140f;
             color: #d4bc8c;
             border: 1px solid #d4bc8c;
-            padding: 15px;
+            padding: 18px;
             cursor: pointer;
             text-transform: uppercase;
-            transition: 0.3s;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
         }
-        .btn-option:hover { background: #d4bc8c; color: #1a140f; }
-        .back-link { margin-top: 20px; display: block; color: #888; text-decoration: none; font-size: 0.8rem; }
+        .btn-option:hover { background: #d4bc8c; color: #1a140f; box-shadow: 0 0 15px #d4bc8c; transform: translateY(-2px); }
+        .back-link { margin-top: 30px; display: block; color: #666; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        .back-link:hover { color: #d4bc8c; }
+        
+        /* Animación suave al cambiar de texto */
+        .fade { animation: fadeIn 0.6s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
     <div class="game-container">
         <h1>El Camino a Nippur</h1>
-        <div id="story-text">Cargando historia...</div>
+        <div id="story-text" class="fade">Cargando crónica...</div>
         <div class="options-container" id="options"></div>
-        <a href="index.html" class="back-link">VOLVER AL TEMPLO</a>
+        <a href="index.html" class="back-link">← ABANDONAR MISIÓN Y VOLVER AL TEMPLO</a>
     </div>
 
     <script>
         const nodes = {
             start: {
-                text: "Despiertas en las dunas bajo un sol abrasador. En el horizonte, el Zigurat de Nippur te llama. Solo tienes una cantimplora casi vacía.",
-                opts: [{ t: "Seguir el cauce seco del río", n: "rio" }, { t: "Cruzar el desierto abierto", n: "desierto" }]
+                text: "Despiertas en las dunas de Mesopotamia. El sol de Anu castiga tu piel. Frente a ti, el desierto oculta secretos de una civilización olvidada. Tienes sed, pero tu misión es llegar al Zigurat.",
+                opts: [
+                    { t: "Seguir el rastro de unas estelas de piedra", n: "estelas" },
+                    { t: "Buscar refugio en un oasis que brilla a lo lejos", n: "oasis" },
+                    { t: "Caminar hacia las montañas negras", n: "montanas" }
+                ]
             },
-            rio: {
-                text: "Encuentras una charca lodosa. Un extraño con túnica te observa desde las sombras.",
-                opts: [{ t: "Beber agua", n: "veneno" }, { t: "Ofrecer un tributo", n: "aliado" }]
-            },
-            desierto: {
-                text: "Una tormenta de arena se levanta. Escuchas susurros en una lengua antigua.",
-                opts: [{ t: "Buscar una cueva", n: "cueva" }, { t: "Seguir los susurros", n: "trance" }]
-            },
-            veneno: { text: "El agua estaba maldita. Tu viaje termina aquí.", opts: [{ t: "REINTENTAR", n: "start" }] },
-            aliado: { text: "El extraño te guía por un túnel secreto. ¡Has llegado al Zigurat!", opts: [{ t: "RECLAMAR DESTINO", n: "start" }] },
-            cueva: { text: "Entras en una tumba real. Al tocar el oro, la puerta se sella.", opts: [{ t: "REINICIAR", n: "start" }] },
-            trance: { text: "Los susurros te llevan ante una Semilla de Anu. Eres el elegido.", opts: [{ t: "REINICIAR", n: "start" }] }
-        };
-
-        function render(key) {
-            const node = nodes[key];
-            document.getElementById('story-text').innerText = node.text;
-            const container = document.getElementById('options');
-            container.innerHTML = '';
-            node.opts.forEach(o => {
-                const b = document.createElement('button');
-                b.innerText = o.t;
-                b.className = 'btn-option';
-                b.onclick = () => render(o.n);
-                container.appendChild(b);
-            });
-        }
-        render('start');
-    </script>
-</body>
-</html>
+            // RAMA ESTELAS
+            estelas: {
+                text: "Las estelas muestran símbolos Anunnaki que parecen moverse. Una de ellas tiene una ranura circular.",
+                opts: [
+                    {
