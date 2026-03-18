@@ -5,25 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>La Semilla de Anu - David Robles Asunción</title>
     <style>
-        /* --- DISEÑO BLINDADO --- */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { background-color: #0d0a07; color: #e8dcc4; font-family: 'Cambria', serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; overflow-x: hidden; }
-        
         .seo-title { color: #d4bc8c; padding: 30px 15px; font-size: clamp(1.5rem, 5vw, 2.5rem); text-transform: uppercase; text-align: center; letter-spacing: 5px; }
 
-        /* CONTENEDOR DEL TEMPLO */
+        /* EL TEMPLO */
         .templo-master { position: relative; width: 96%; max-width: 1200px; border: 2px solid #3d2b1f; background: #000; overflow: hidden; margin-bottom: 40px; line-height: 0; }
-        
-        /* Imágenes de fondo (Capa 1) */
         .background-design { width: 100%; height: auto; display: block; position: relative; z-index: 1; }
         .img-pc { display: none; }
         @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 849px) { .img-movil { display: block; } }
 
-        /* LA GOTA (Vídeo - Capa 2) */
+        /* LA GOTA (VÍDEO) - CAPA 5 (ENCIMA DEL FONDO) */
         #vid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; transition: opacity 0.3s ease; }
 
-        /* BOTONES (Capa 3) */
+        /* BOTONES - CAPA 10 (ENCIMA DEL VÍDEO) */
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
         .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; transition: 0.2s; }
         
@@ -39,14 +35,14 @@
         .btn-rrss { left: 67.5%; background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
         .btn-tiktok { top: 48.5%; } .btn-instagram { top: 56.5%; } .btn-youtube { top: 64.5%; }
 
-        /* SECCIÓN TEXTO SEO */
+        /* SECCIÓN TEXTO */
         .seccion-global { width: 100%; max-width: 900px; padding: 40px 20px; text-align: center; }
         .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 40px; }
         .texto-original { line-height: 2; color: #bfa888; font-size: 1.2rem; text-align: justify; padding-bottom: 120px; }
-        .texto-original h2 { color: #d4bc8c; text-align: center; margin-bottom: 30px; letter-spacing: 2px; }
+        .texto-original h2 { color: #d4bc8c; text-align: center; margin-bottom: 30px; }
     </style>
 </head>
-<body onclick="iniciarAudio()" ontouchstart="iniciarAudio()">
+<body onclick="liberarAudio()" ontouchstart="liberarAudio()">
 
     <h1 class="seo-title">La Semilla de Anu</h1>
 
@@ -76,16 +72,39 @@
     </div>
 
     <div class="seccion-global">
-        <img src="mapa.jpg" class="mapa-img" alt="Disponibilidad Global">
+        <img src="mapa.jpg" class="mapa-img">
         <div class="texto-original">
             <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
-            <p>Encuentra la obra de <b>David Robles Asunción</b>, "La semilla de Anu: Volumen 1 Anunaki", en las librerías más prestigiosas del mundo exclusivamente en formato físico.</p>
+            <p>Descubre la obra de <b>David Robles Asunción</b>, "La semilla de Anu: Volumen 1 Anunaki", en las librerías más prestigiosas del mundo exclusivamente en formato físico.</p>
             <br>
             <p>Disponible físicamente en <b>España</b> y mediante impresión bajo demanda en <b>México, Argentina, Colombia, Ecuador, Chile, Perú, Uruguay, Paraguay, Estados Unidos y Reino Unido</b>.</p>
             <br>
-            <p>Consíguelo en <b>Casa del Libro, Amazon, El Corte Inglés y FNAC</b>. ¡El secreto ha sido revelado!</p>
+            <p>Consíguelo en <b>Casa del Libro, Amazon, El Corte Inglés y FNAC</b>. ¡El legado ha comenzado!</p>
         </div>
     </div>
 
     <script>
-        const v = document.getElementById('vid'), aT = document.getElementById('
+        const v = document.getElementById('vid'), aT = document.getElementById('audT'), aL = document.getElementById('audL'), bD = document.getElementById('btnD');
+        let audioIniciado = false;
+
+        function liberarAudio() {
+            if (!audioIniciado) {
+                aL.play().then(() => { audioIniciado = true; }).catch(e => {});
+                // Pre-carga el tétrico
+                aT.play().then(() => { aT.pause(); aT.currentTime = 0; });
+            }
+        }
+
+        function showGota(on) {
+            v.style.opacity = on ? "1" : "0";
+            if(on) { v.play(); aT.play().catch(()=>{}); } 
+            else { v.pause(); aT.pause(); aT.currentTime = 0; }
+        }
+
+        bD.onmouseenter = () => showGota(true);
+        bD.onmouseleave = () => showGota(false);
+        bD.ontouchstart = (e) => { e.preventDefault(); liberarAudio(); showGota(true); };
+        bD.ontouchend = () => showGota(false);
+    </script>
+</body>
+</html>
