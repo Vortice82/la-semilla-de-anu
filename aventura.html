@@ -20,10 +20,9 @@
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        /* Contenedor Efecto Reliquia */
         .game-frame {
             width: 95%;
             max-width: 850px;
@@ -31,13 +30,12 @@
             border: 1px solid #d4bc8c;
             padding: 50px;
             position: relative;
-            box-shadow: 0 0 100px #000, inset 0 0 30px rgba(212, 188, 140, 0.05);
+            box-shadow: 0 0 100px #000;
             display: flex;
             flex-direction: column;
             gap: 30px;
         }
 
-        /* Adornos de las esquinas Estilo Sumerio */
         .corner { position: absolute; width: 30px; height: 30px; border: 2px solid #d4bc8c; }
         .top-left { top: 15px; left: 15px; border-right: 0; border-bottom: 0; }
         .top-right { top: 15px; right: 15px; border-left: 0; border-bottom: 0; }
@@ -51,206 +49,20 @@
             text-transform: uppercase; 
             letter-spacing: 8px; 
             font-size: clamp(1rem, 5vw, 1.8rem);
-            margin-bottom: 10px;
         }
 
-        .divider {
-            width: 100px;
-            height: 1px;
-            background: #d4bc8c;
-            margin: 0 auto 20px;
-            box-shadow: 0 0 10px #d4bc8c;
-        }
+        .divider { width: 100px; height: 1px; background: #d4bc8c; margin: 0 auto; box-shadow: 0 0 10px #d4bc8c; }
 
-        /* Texto Narrativo */
         #story-text {
             font-size: 1.35rem;
             line-height: 1.9;
             color: #f4e4bc;
-            min-height: 200px;
+            min-height: 180px;
             text-align: center;
+            white-space: pre-wrap; /* Mantiene los espacios y saltos de línea */
             transition: opacity 0.5s ease;
         }
 
-        /* Botones de Decisión */
-        .options-box {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
+        .options-box { display: grid; grid-template-columns: 1fr; gap: 15px; }
 
         .choice-btn {
-            background: transparent;
-            color: #d4bc8c;
-            border: 1px solid #5c4022;
-            padding: 18px 25px;
-            cursor: pointer;
-            font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .choice-btn:hover {
-            background: rgba(212, 188, 140, 0.1);
-            border-color: #d4bc8c;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(212, 188, 140, 0.2);
-        }
-
-        /* Barra de Sincronización ADN */
-        .sync-container {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .sync-label { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 2px; color: #888; }
-        .sync-bar-bg { width: 100%; height: 4px; background: #1a140f; margin-top: 8px; border-radius: 2px; overflow: hidden; }
-        #sync-fill { width: 0%; height: 100%; background: #d4bc8c; transition: width 1s ease; box-shadow: 0 0 10px #d4bc8c; }
-
-        .back-home {
-            margin-top: 30px;
-            text-align: center;
-            font-family: 'Cinzel', serif;
-            font-size: 0.65rem;
-            letter-spacing: 4px;
-            text-decoration: none;
-            color: #5c4022;
-            transition: 0.3s;
-        }
-        .back-home:hover { color: #d4bc8c; }
-
-        /* Animación de entrada de letras */
-        .char { display: inline-block; opacity: 0; transform: translateY(5px); animation: charFade 0.05s forwards; }
-        @keyframes charFade { to { opacity: 1; transform: translateY(0); } }
-
-    </style>
-</head>
-<body>
-
-    <div class="game-frame">
-        <div class="corner top-left"></div>
-        <div class="corner top-right"></div>
-        <div class="corner bot-left"></div>
-        <div class="corner bot-right"></div>
-
-        <h1>Crónicas de Anu</h1>
-        <div class="divider"></div>
-        
-        <div id="story-text"></div>
-
-        <div class="options-box" id="choices"></div>
-
-        <div class="sync-container">
-            <div class="sync-label">Sincronización ADN Anunnaki: <span id="sync-val">0%</span></div>
-            <div class="sync-bar-bg"><div id="sync-fill"></div></div>
-        </div>
-
-        <a href="index.html" class="back-home">ABANDONAR CONEXIÓN</a>
-    </div>
-
-    <script>
-        const game = {
-            start: {
-                t: "El aire en las ruinas de Nippur es denso, cargado de electricidad estática. Tus ojos arden mientras el polvo revela una entrada oculta bajo el zigurat. No es piedra, es metal oscuro... y te está reconociendo.",
-                o: [
-                    { t: "Colocar tu mano sobre el panel de luz", n: "panel" },
-                    { t: "Susurrar el nombre de los siete dioses", n: "nombre" },
-                    { t: "Girar sobre tus pasos y huir", n: "muerte_miedo" }
-                ],
-                s: 10
-            },
-            panel: {
-                t: "El metal se vuelve líquido al tacto. Una aguja invisible extrae una gota de tu sangre. 'Sujeto 82: David Robles... Genoma verificado'. Un ascensor te arrastra a las profundidades de la historia.",
-                o: [
-                    { t: "Descender al núcleo de la Tierra Hueca", n: "nucleo" },
-                    { t: "Intentar forzar la salida", n: "muerte_trampa" }
-                ],
-                s: 30
-            },
-            nombre: {
-                t: "Una vibración sónica recorre el desierto. Una voz que no es humana resuena: 'Los nombres tienen poder, pero la sangre tiene el mando'. El panel de control se ilumina con una advertencia roja.",
-                o: [
-                    { t: "Usar tu sangre voluntariamente", n: "panel" },
-                    { t: "Rezar por protección divina", n: "muerte_fe" }
-                ],
-                s: 15
-            },
-            nucleo: {
-                t: "Llegas a una cámara donde flotan miles de esferas de luz: La Semilla de Anu. Aquí se gestó el destino de la humanidad. Un holograma de una figura gigante de ojos dorados se materializa ante ti.",
-                o: [
-                    { t: "Preguntar sobre el origen del hombre", n: "origen" },
-                    { t: "Reclamar el conocimiento prohibido", n: "conocimiento" },
-                    { t: "Pedir que detengan la invasión", n: "paz" }
-                ],
-                s: 60
-            },
-            origen: {
-                t: "El holograma muestra estrellas colapsando y laboratorios biológicos. 'No sois hijos de la evolución, sino de la necesidad', dice. La verdad te golpea: somos herramientas. ¿Aceptarás tu función?",
-                o: [
-                    { t: "Aceptar el mando sobre la especie", n: "final_dios" },
-                    { t: "Rebelarse contra los creadores", n: "final_guerra" }
-                ],
-                s: 85
-            },
-            conocimiento: {
-                t: "Tu cerebro es invadido por milenios de datos. Ves el futuro, el pasado y las múltiples dimensiones de la Semilla. Tu cuerpo humano no está diseñado para esto.",
-                o: [
-                    { t: "Forzar la integración total", n: "final_luz" },
-                    { t: "Intentar desconectarte", n: "muerte_datos" }
-                ],
-                s: 90
-            },
-            // Finales
-            final_dios: { t: "Te sientas en el trono de obsidiana. La señal se envía a Nibiru. La humanidad entrará en una nueva era de orden bajo tu mando. Eres el nuevo Anu.", o: [{ t: "REINICIAR DESTINO", n: "start" }], s: 100 },
-            final_guerra: { t: "Activas la secuencia de autodestrucción del complejo. Nippur se hunde. La humanidad es libre por ahora, pero vendrán a buscarte.", o: [{ t: "REINICIAR DESTINO", n: "start" }], s: 50 },
-            final_luz: { t: "Tu materia se desintegra. Te has convertido en pura información, un ser de luz que viaja entre las semillas de todos los mundos.", o: [{ t: "REINICIAR DESTINO", n: "start" }], s: 100 },
-            // Muertes
-            muerte_miedo: { t: "El desierto no perdona la duda. Te pierdes en las dunas y las tormentas de arena borran tu existencia para siempre.", o: [{ t: "PROBAR OTRA VIDA", n: "start" }], s: 0 },
-            muerte_trampa: { t: "Los sistemas de seguridad se activan. Rayos de frecuencia atómica reducen tus átomos a nada en un parpadeo.", o: [{ t: "PROBAR OTRA VIDA", n: "start" }], s: 0 },
-            muerte_fe: { t: "Los antiguos dioses no escuchan rezos, solo órdenes. Eres desechado como material biológico defectuoso.", o: [{ t: "PROBAR OTRA VIDA", n: "start" }], s: 0 },
-            muerte_datos: { t: "Tu sistema nervioso se quema. Mueres con una sonrisa, habiendo visto el final de los tiempos.", o: [{ t: "PROBAR OTRA VIDA", n: "start" }], s: 95 }
-        };
-
-        function render(id) {
-            const node = game[id];
-            const textEl = document.getElementById('story-text');
-            const choicesEl = document.getElementById('choices');
-            
-            // Actualizar Sincro
-            document.getElementById('sync-val').innerText = node.s + "%";
-            document.getElementById('sync-fill').style.width = node.s + "%";
-
-            // Limpiar y animar texto
-            textEl.innerHTML = '';
-            choicesEl.innerHTML = '';
-            
-            let i = 0;
-            const text = node.t;
-            function type() {
-                if (i < text.length) {
-                    const span = document.createElement('span');
-                    span.className = 'char';
-                    span.innerText = text[i];
-                    span.style.animationDelay = (i * 0.01) + 's';
-                    textEl.appendChild(span);
-                    i++;
-                    setTimeout(type, 10);
-                } else {
-                    node.o.forEach(opt => {
-                        const btn = document.createElement('button');
-                        btn.className = 'choice-btn';
-                        btn.innerText = opt.t;
-                        btn.onclick = () => render(opt.n);
-                        choicesEl.appendChild(btn);
-                    });
-                }
-            }
-            type();
-        }
-
-        window.onload = () => render('start');
-    </script>
-</body>
-</html>
