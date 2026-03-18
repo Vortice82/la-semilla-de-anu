@@ -31,22 +31,35 @@
         /* Columna Derecha */
         .btn-col-der { background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; left: 68%; }
         
-        /* NUEVO BOTÓN CONTACTO AZUL ELÉCTRICO (Encima de comprar) */
         .btn-contacto-azul { top: 32%; left: 68%; background: #0044ff !important; color: #fff !important; border: 2px solid #00ffff !important; box-shadow: 0 0 15px #0044ff; z-index: 20; }
-        .btn-contacto-azul:hover { background: #00ffff !important; color: #000 !important; box-shadow: 0 0 25px #00ffff; }
 
-        .btn-comprar   { top: 40%; background: #d4bc8c !important; color: #000 !important; font-weight: 900; border: 2px solid #fff !important; }
+        /* BOTÓN COMPRAR CON LATIDO */
+        .btn-comprar { 
+            top: 40%; 
+            background: #d4bc8c !important; 
+            color: #000 !important; 
+            font-weight: 900; 
+            border: 2px solid #fff !important; 
+            animation: latidoCorazon 1.2s infinite ease-in-out;
+        }
+
+        @keyframes latidoCorazon {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1.05); }
+            45% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
         .btn-tiktok    { top: 48%; }
         .btn-instagram { top: 56%; }
         .btn-youtube   { top: 64%; }
 
         .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; }
 
-        /* SECCIÓN INFERIOR */
         .seccion-global { width: 100%; max-width: 1000px; padding: 40px 20px; text-align: center; }
         .mapa-img { width: 100%; max-width: 900px; height: auto; border: 1px solid #3d2b1f; margin-bottom: 40px; display: block; margin-inline: auto; }
         .texto-original { line-height: 1.8; color: #bfa888; font-size: 1.1rem; margin-bottom: 80px; }
-        .texto-original h2 { color: #d4bc8c; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -55,7 +68,9 @@
         <img src="portada-movil.png" class="background-design img-movil">
         <img src="portada-pc.png" class="background-design img-pc">
         <video id="videoDioses" class="video-overlay" loop playsinline muted><source src="video.mp4" type="video/mp4"></video>
+        
         <audio id="audioTetrico"><source src="sonido.mp3" type="audio/mpeg"></audio>
+        <audio id="audioLatido"><source src="latido.mp3" type="audio/mpeg"></audio>
         
         <div class="botones-capa">
             <a href="cuneiforme.html" class="btn-invisible btn-col-izq btn-escritura">ESCRITURA</a>
@@ -66,7 +81,7 @@
             <a href="destino.html" class="btn-invisible btn-col-izq btn-destino">DESTINO</a>
             
             <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-contacto-azul">MENSAJE</a>
-            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-col-der btn-comprar" target="_blank">COMPRAR</a>
+            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-col-der btn-comprar" id="btnComprar" target="_blank">COMPRAR</a>
             <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-col-der btn-tiktok" target="_blank">TIKTOK</a>
             <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-col-der btn-instagram" target="_blank">INSTAGRAM</a>
             <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-col-der btn-youtube" target="_blank">YOUTUBE</a>
@@ -77,16 +92,26 @@
         <img src="mapa.jpg" class="mapa-img">
         <div class="texto-original">
             <h2>🌍 ¡La invasión ya es global!</h2>
-            <p>Encuentra la obra de <b>David Robles</b> en las librerías más prestigiosas de España y Latinoamérica.</p>
+            <p>Encuentra la obra de <b>David Robles</b> en las librerías más prestigiosas.</p>
         </div>
     </div>
 
     <script>
-        const btn = document.getElementById('btnDioses'); const vid = document.getElementById('videoDioses'); const aud = document.getElementById('audioTetrico');
-        async function on() { vid.style.opacity="1"; vid.muted=true; await vid.play(); vid.muted=false; aud.play().catch(()=>{}); }
-        function off() { vid.style.opacity="0"; vid.pause(); aud.pause(); }
-        btn.onmouseenter = on; btn.onmouseleave = off;
-        btn.ontouchstart = (e) => { e.preventDefault(); on(); }; btn.ontouchend = off;
+        // Lógica para el botón Dioses
+        const btnD = document.getElementById('btnDioses');
+        const vid = document.getElementById('videoDioses');
+        const audT = document.getElementById('audioTetrico');
+        async function onD() { vid.style.opacity="1"; vid.muted=true; await vid.play(); vid.muted=false; audT.play().catch(()=>{}); }
+        function offD() { vid.style.opacity="0"; vid.pause(); audT.pause(); }
+        btnD.onmouseenter = onD; btnD.onmouseleave = offD;
+        btnD.ontouchstart = (e) => { e.preventDefault(); onD(); }; btnD.ontouchend = offD;
+
+        // Lógica para el sonido de Latido en botón Comprar
+        const btnC = document.getElementById('btnComprar');
+        const audL = document.getElementById('audioLatido');
+        btnC.onmouseenter = () => { audL.currentTime = 0; audL.play().catch(()=>{}); };
+        btnC.onmouseleave = () => { audL.pause(); };
+        btnC.ontouchstart = () => { audL.play().catch(()=>{}); };
     </script>
 </body>
 </html>
