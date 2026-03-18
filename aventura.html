@@ -10,11 +10,11 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
-            background: #050403; 
+            background: #000000; /* Negro puro para eliminar el marrón */
             background-image: 
-                radial-gradient(circle at center, rgba(42, 31, 20, 0.4) 0%, #050403 100%),
-                url('https://www.transparenttextures.com/patterns/dark-matter.png');
-            color: #e8dcc4; 
+                radial-gradient(circle at center, #1a140f 0%, #000000 100%),
+                url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            color: #d4bc8c; 
             font-family: 'Spectral', serif; 
             display: flex; 
             justify-content: center; 
@@ -25,44 +25,63 @@
 
         .game-frame {
             width: 95%;
-            max-width: 850px;
-            background: rgba(10, 8, 6, 0.98);
+            max-width: 800px;
+            background: rgba(5, 5, 5, 0.95); /* Fondo casi negro */
             border: 1px solid #d4bc8c;
-            padding: 50px;
+            padding: 40px;
             position: relative;
-            box-shadow: 0 0 100px #000;
+            box-shadow: 0 0 50px rgba(212, 188, 140, 0.1);
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 25px;
         }
 
-        .corner { position: absolute; width: 30px; height: 30px; border: 2px solid #d4bc8c; }
-        .top-left { top: 15px; left: 15px; border-right: 0; border-bottom: 0; }
-        .top-right { top: 15px; right: 15px; border-left: 0; border-bottom: 0; }
-        .bot-left { bottom: 15px; left: 15px; border-right: 0; border-top: 0; }
-        .bot-right { bottom: 15px; right: 15px; border-left: 0; border-top: 0; }
+        /* Adornos Dorados */
+        .corner { position: absolute; width: 20px; height: 20px; border: 2px solid #d4bc8c; }
+        .top-left { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
+        .top-right { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
+        .bot-left { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
+        .bot-right { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
 
         h1 { 
             font-family: 'Cinzel', serif;
             color: #d4bc8c; 
             text-align: center;
             text-transform: uppercase; 
-            letter-spacing: 8px; 
-            font-size: clamp(1rem, 5vw, 1.8rem);
+            letter-spacing: 6px; 
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(212, 188, 140, 0.5);
         }
 
-        .divider { width: 100px; height: 1px; background: #d4bc8c; margin: 0 auto; box-shadow: 0 0 10px #d4bc8c; }
+        .divider { width: 60px; height: 1px; background: #d4bc8c; margin: 0 auto; }
 
         #story-text {
-            font-size: 1.35rem;
-            line-height: 1.9;
-            color: #f4e4bc;
-            min-height: 180px;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #ffffff; /* Texto en blanco para máximo contraste */
+            min-height: 150px;
             text-align: center;
-            white-space: pre-wrap; /* Mantiene los espacios y saltos de línea */
-            transition: opacity 0.5s ease;
+            white-space: pre-wrap;
+            transition: opacity 0.4s ease;
         }
 
-        .options-box { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .options-box { display: grid; grid-template-columns: 1fr; gap: 12px; }
 
         .choice-btn {
+            background: #0a0a0a;
+            color: #d4bc8c;
+            border: 1px solid #d4bc8c;
+            padding: 15px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .choice-btn:hover {
+            background: #d4bc8c;
+            color: #000;
+            box-shadow: 0 0 20px rgba(212, 188, 140, 0.4);
+        }
