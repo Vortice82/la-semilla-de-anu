@@ -13,7 +13,7 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <style>
-        /* RESET TOTAL PARA ROBUSTEZ */
+        /* RESET TOTAL */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body { 
@@ -27,7 +27,6 @@
             overflow-x: hidden; 
         }
 
-        /* TÍTULO SEO */
         .seo-title { 
             color: #d4bc8c; 
             padding: 30px 15px; 
@@ -38,7 +37,7 @@
             width: 100%;
         }
 
-        /* CONTENEDOR MAESTRO (WEB RESPONSIVE) */
+        /* CONTENEDOR PORTADA */
         .templo-master { 
             position: relative; 
             width: 98%; 
@@ -46,94 +45,66 @@
             border: 2px solid #3d2b1f; 
             background: #000; 
             overflow: hidden; 
-            margin-bottom: 40px; 
             line-height: 0;
             z-index: 1;
         }
 
-        /* Imágenes de fondo adaptativas */
         .background-design { width: 100%; height: auto; display: block; position: relative; z-index: 2; }
         .img-pc { display: none; }
         @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 849px) { .img-movil { display: block; } }
 
-        /* --- EFECTO DE LA GOTA Y ONDA --- */
-        .gota-efecto {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            width: 5px;
-            height: 18px;
-            background: rgba(212, 188, 140, 0.8);
-            border-radius: 50%;
-            z-index: 6;
-            pointer-events: none;
-            filter: blur(1px);
-            animation: caerSuelo 3.5s infinite ease-in;
-        }
+        /* EFECTOS GOTA */
+        .gota-efecto { position: absolute; top: -20px; left: 50%; width: 5px; height: 18px; background: rgba(212, 188, 140, 0.8); border-radius: 50%; z-index: 6; pointer-events: none; filter: blur(1px); animation: caerSuelo 3.5s infinite ease-in; }
+        .onda-efecto { position: absolute; top: 96%; left: 50%; width: 10px; height: 5px; border: 2px solid rgba(212, 188, 140, 0.6); border-radius: 50%; z-index: 6; transform: translate(-50%, -50%); pointer-events: none; opacity: 0; filter: blur(1px); animation: ondaSuelo 3.5s infinite; }
 
-        .onda-efecto {
-            position: absolute;
-            top: 96%; 
-            left: 50%;
-            width: 10px;
-            height: 5px;
-            border: 2px solid rgba(212, 188, 140, 0.6);
-            border-radius: 50%;
-            z-index: 6;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            opacity: 0;
-            filter: blur(1px);
-            animation: ondaSuelo 3.5s infinite;
-        }
+        @keyframes caerSuelo { 0% { top: -20px; opacity: 0; } 30% { opacity: 1; } 90% { top: 96%; opacity: 1; } 91% { opacity: 0; } 100% { opacity: 0; } }
+        @keyframes ondaSuelo { 0%, 90% { width: 0; height: 0; opacity: 0; } 91% { opacity: 1; } 100% { width: 300px; height: 80px; opacity: 0; } }
 
-        @keyframes caerSuelo {
-            0% { top: -20px; opacity: 0; }
-            30% { opacity: 1; }
-            90% { top: 96%; opacity: 1; } 
-            91% { opacity: 0; }
-            100% { opacity: 0; }
-        }
+        #vid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; transition: opacity 0.3s ease-in-out; }
 
-        @keyframes ondaSuelo {
-            0%, 90% { width: 0; height: 0; opacity: 0; }
-            91% { opacity: 1; }
-            100% { width: 300px; height: 80px; opacity: 0; }
-        }
-
-        /* EL VÍDEO (CONTENIDO DIOSES) */
-        #vid { 
-            position: absolute; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            object-fit: cover; 
-            opacity: 0; 
-            pointer-events: none; 
-            z-index: 5; 
-            transition: opacity 0.3s ease-in-out; 
-        }
-
-        /* CAPA DE BOTONES */
+        /* CAPA DE BOTONES SUPERPUESTOS */
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
         .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; transition: transform 0.2s; }
-
         .btn-col-izq { background: rgba(92, 64, 34, 0.9); color: #fff; border: 1.5px solid #f4e4bc; left: 8.5%; }
-        .btn-escritura { top: 32.5%; } 
-        .btn-aventura { top: 40.5%; } 
-        .btn-oraculo { top: 48.5%; } 
-        .btn-arcade { top: 56.5%; } 
-        .btn-dioses { top: 64.5%; cursor: pointer; } 
-        .btn-destino { top: 72.5%; background: rgba(139, 69, 19, 0.98); }
-
+        .btn-escritura { top: 32.5%; } .btn-aventura { top: 40.5%; } .btn-oraculo { top: 48.5%; } .btn-arcade { top: 56.5%; } .btn-dioses { top: 64.5%; cursor: pointer; } .btn-destino { top: 72.5%; background: rgba(139, 69, 19, 0.98); }
         .btn-contacto-azul { top: 32.5%; left: 67.5%; background: #0044ff !important; color: #fff !important; border: 2px solid #00ffff !important; box-shadow: 0 0 15px #0044ff; }
         .btn-comprar { top: 40.5%; left: 67.5%; background: #d4bc8c !important; color: #000 !important; border: 2px solid #fff !important; animation: pulse 1.5s infinite alternate; }
         @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
-
         .btn-rrss { left: 67.5%; background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
         .btn-tiktok { top: 48.5%; } .btn-instagram { top: 56.5%; } .btn-youtube { top: 64.5%; }
 
-        .seccion-global { width: 100%; max-width: 950px; padding: 40px 20px; text-align: center; }
+        /* SECCIÓN DEL BOTÓN OFRENDA (ENTRE PORTADA Y MAPA) */
+        .contenedor-ofrenda {
+            padding: 40px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .btn-paypal-ofrenda {
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            max-width: 280px; /* Tamaño del triángulo */
+            width: 60%;
+        }
+
+        .btn-paypal-ofrenda img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(212, 188, 140, 0.3));
+        }
+
+        .btn-paypal-ofrenda:hover {
+            transform: scale(1.05) rotate(1deg);
+            filter: drop-shadow(0 0 20px rgba(212, 188, 140, 0.6));
+        }
+
+        /* SECCIÓN GLOBAL MAPA */
+        .seccion-global { width: 100%; max-width: 950px; padding: 0 20px 40px 20px; text-align: center; }
         .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 40px; }
         .texto-original { line-height: 2; color: #bfa888; font-size: 1.25rem; text-align: justify; padding-bottom: 120px; }
         .texto-original h2 { color: #d4bc8c; text-align: center; margin-bottom: 30px; letter-spacing: 2px; }
@@ -171,6 +142,15 @@
             <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-rrss btn-instagram" target="_blank">Instagram</a>
             <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-rrss btn-youtube" target="_blank">YouTube</a>
         </nav>
+    </div>
+
+    <div class="contenedor-ofrenda">
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="hosted_button_id" value="7M9F87AUJ6T2J" />
+            <button type="submit" class="btn-paypal-ofrenda">
+                <img src="Gemini_Generated_Image_g6d4ytg6d4ytg6d4.jpg" alt="Hacer Ofrenda">
+            </button>
+        </form>
     </div>
 
     <section class="seccion-global">
