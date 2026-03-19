@@ -117,8 +117,8 @@
                 ]
             },
             vincular: {
-                // CAMBIO REALIZADO AQUÍ: RECONOCER ADN SEMILLA
-                t: "El sistema reconoce el ADN semilla. Los muros se desplazan revelando la Ciudad de los Dioses oculta. El conocimiento prohibido de los Anunnaki está a tu alcance.",
+                // CAMBIO AQUÍ: "genoma de David Robles" por "genoma semilla"
+                t: "El sistema reconoce el genoma semilla. Los muros se desplazan revelando la Ciudad de los Dioses oculta. El conocimiento prohibido de los Anunnaki está a tu alcance.",
                 o: [
                     { t: "Entrar al Santuario", n: "santuario" },
                     { t: "Investigar los laboratorios", n: "laboratorio" }
@@ -155,4 +155,29 @@
                 o: [{ t: "REINTENTAR", n: "start" }]
             },
             muerte_centinela: {
-                t: "Intentar golpear a un dios de metal fue tu último error. No queda
+                t: "Intentar golpear a un dios de metal fue tu último error. No queda nada de ti.",
+                o: [{ t: "REINTENTAR", n: "start" }]
+            }
+        };
+
+        function play(id) {
+            const node = nodes[id];
+            const display = document.getElementById('story-display');
+            const zone = document.getElementById('btn-zone');
+            display.innerText = node.t;
+            zone.innerHTML = '';
+            node.o.forEach(opt => {
+                const b = document.createElement('button');
+                b.className = 'btn-action';
+                b.innerText = opt.t;
+                b.onclick = () => play(opt.n);
+                zone.appendChild(b);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            play('start');
+        });
+    </script>
+</body>
+</html>
