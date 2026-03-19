@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>La Semilla de Anu - David Robles Asunción</title>
+
+    <meta property="og:title" content="La Semilla de Anu - David Robles Asunción">
+    <meta property="og:description" content="Descubre el misterio Anunnaki. Una aventura interactiva y una obra épica de ciencia ficción sumeria.">
+    <meta property="og:image" content="https://vortice82.github.io/la-semilla-de-anu/portada-pc.png">
+    <meta property="og:url" content="https://vortice82.github.io/la-semilla-de-anu/index.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
     <style>
         /* RESET TOTAL PARA ROBUSTEZ */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -49,7 +57,7 @@
         @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 849px) { .img-movil { display: block; } }
 
-        /* --- EFECTO DE LA GOTA Y ONDA (AJUSTADO AL SUELO REAL) --- */
+        /* --- EFECTO DE LA GOTA Y ONDA --- */
         .gota-efecto {
             position: absolute;
             top: -20px;
@@ -66,7 +74,7 @@
 
         .onda-efecto {
             position: absolute;
-            top: 96%; /* ALTURA DEL SUELO CORREGIDA */
+            top: 96%; 
             left: 50%;
             width: 10px;
             height: 5px;
@@ -83,17 +91,14 @@
         @keyframes caerSuelo {
             0% { top: -20px; opacity: 0; }
             30% { opacity: 1; }
-            /* Trayectoria larga hasta el suelo real */
             90% { top: 96%; opacity: 1; } 
             91% { opacity: 0; }
             100% { opacity: 0; }
         }
 
         @keyframes ondaSuelo {
-            /* Espera a que la gota caiga del todo */
             0%, 90% { width: 0; height: 0; opacity: 0; }
             91% { opacity: 1; }
-            /* Onda expansiva en el suelo */
             100% { width: 300px; height: 80px; opacity: 0; }
         }
 
