@@ -108,7 +108,6 @@
     </div>
 
     <script>
-        // La historia expandida y conectada
         const nodes = {
             start: {
                 t: "Las ruinas de Nippur vibran bajo tus pies. Ante ti, una consola de tecnología imposible solicita una muestra biológica. La Semilla de Anu reclama su portador.",
@@ -118,7 +117,8 @@
                 ]
             },
             vincular: {
-                t: "El sistema reconoce el genoma de David Robles. Los muros se desplazan revelando la Ciudad de los Dioses oculta. El conocimiento prohibido de los Anunnaki está a tu alcance.",
+                // CAMBIO REALIZADO AQUÍ: RECONOCER ADN SEMILLA
+                t: "El sistema reconoce el ADN semilla. Los muros se desplazan revelando la Ciudad de los Dioses oculta. El conocimiento prohibido de los Anunnaki está a tu alcance.",
                 o: [
                     { t: "Entrar al Santuario", n: "santuario" },
                     { t: "Investigar los laboratorios", n: "laboratorio" }
@@ -155,34 +155,4 @@
                 o: [{ t: "REINTENTAR", n: "start" }]
             },
             muerte_centinela: {
-                t: "Intentar golpear a un dios de metal fue tu último error. No queda nada de ti.",
-                o: [{ t: "REINTENTAR", n: "start" }]
-            }
-        };
-
-        function play(id) {
-            const node = nodes[id];
-            const display = document.getElementById('story-display');
-            const zone = document.getElementById('btn-zone');
-
-            // Actualizar texto directamente para evitar fallos de renderizado
-            display.innerText = node.t;
-            
-            // Limpiar y crear nuevos botones
-            zone.innerHTML = '';
-            node.o.forEach(opt => {
-                const b = document.createElement('button');
-                b.className = 'btn-action';
-                b.innerText = opt.t;
-                b.onclick = () => play(opt.n);
-                zone.appendChild(b);
-            });
-        }
-
-        // Ejecutar cuando el DOM esté totalmente cargado
-        document.addEventListener('DOMContentLoaded', () => {
-            play('start');
-        });
-    </script>
-</body>
-</html>
+                t: "Intentar golpear a un dios de metal fue tu último error. No queda
