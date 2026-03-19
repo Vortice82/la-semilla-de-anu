@@ -49,7 +49,50 @@
         @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 849px) { .img-movil { display: block; } }
 
-        /* LA GOTA (VÍDEO) - CAPA 5 */
+        /* --- EFECTO DE LA GOTA Y ONDA (AÑADIDO) --- */
+        .gota-efecto {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            width: 4px;
+            height: 15px;
+            background: rgba(212, 188, 140, 0.7);
+            border-radius: 50%;
+            z-index: 6;
+            pointer-events: none;
+            animation: caer 3s infinite ease-in;
+        }
+
+        .onda-efecto {
+            position: absolute;
+            top: 80%; /* Altura donde golpea el suelo del templo */
+            left: 50%;
+            width: 10px;
+            height: 5px;
+            border: 2px solid rgba(212, 188, 140, 0.5);
+            border-radius: 50%;
+            z-index: 6;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            opacity: 0;
+            animation: onda 3s infinite;
+        }
+
+        @keyframes caer {
+            0% { top: -20px; opacity: 0; }
+            30% { opacity: 1; }
+            70% { top: 80%; opacity: 1; }
+            71% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes onda {
+            0%, 70% { width: 0; height: 0; opacity: 0; }
+            75% { opacity: 1; }
+            100% { width: 150px; height: 40px; opacity: 0; }
+        }
+
+        /* EL VÍDEO (CONTENIDO DIOSES) */
         #vid { 
             position: absolute; 
             top: 0; left: 0; 
@@ -61,31 +104,10 @@
             transition: opacity 0.3s ease-in-out; 
         }
 
-        /* CAPA DE BOTONES - CAPA 10 (SIEMPRE ENCIMA) */
-        .botones-capa { 
-            position: absolute; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            z-index: 10; 
-        }
+        /* CAPA DE BOTONES */
+        .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
+        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; transition: transform 0.2s; }
 
-        .btn-invisible { 
-            position: absolute; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            text-decoration: none; 
-            font-weight: 800; 
-            font-size: clamp(0.45rem, 1.7vw, 0.95rem); 
-            text-transform: uppercase; 
-            border-radius: 3px; 
-            text-align: center; 
-            width: 24%; 
-            height: 6.8%; 
-            transition: transform 0.2s;
-        }
-
-        /* TUS COORDENADAS ORIGINALES */
         .btn-col-izq { background: rgba(92, 64, 34, 0.9); color: #fff; border: 1.5px solid #f4e4bc; left: 8.5%; }
         .btn-escritura { top: 32.5%; } 
         .btn-aventura { top: 40.5%; } 
@@ -101,7 +123,6 @@
         .btn-rrss { left: 67.5%; background: rgba(0, 0, 0, 0.85); color: #d4bc8c; border: 1px solid #3d2b1f; }
         .btn-tiktok { top: 48.5%; } .btn-instagram { top: 56.5%; } .btn-youtube { top: 64.5%; }
 
-        /* SECCIÓN INFERIOR (MAPA Y TEXTO) */
         .seccion-global { width: 100%; max-width: 950px; padding: 40px 20px; text-align: center; }
         .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 40px; }
         .texto-original { line-height: 2; color: #bfa888; font-size: 1.25rem; text-align: justify; padding-bottom: 120px; }
@@ -115,6 +136,9 @@
     <div class="templo-master">
         <img src="portada-movil.png" class="background-design img-movil">
         <img src="portada-pc.png" class="background-design img-pc">
+        
+        <div class="gota-efecto"></div>
+        <div class="onda-efecto"></div>
         
         <video id="vid" loop playsinline muted>
             <source src="video.mp4" type="video/mp4">
@@ -167,11 +191,8 @@
             else { v.pause(); sG.pause(); sG.currentTime = 0; }
         }
 
-        // PC
         bD.onmouseenter = () => toggleGota(true);
         bD.onmouseleave = () => toggleGota(false);
-        
-        // MÓVIL (ROBUSTO)
         bD.ontouchstart = (e) => { 
             e.preventDefault(); 
             activarFondo(); 
