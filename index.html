@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-W4CB34V596"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W4CB34V596"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -148,82 +147,4 @@
         .btn-tiktok { top: 48.5%; } .btn-instagram { top: 56.5%; } .btn-youtube { top: 64.5%; }
 
         .seccion-global { width: 100%; max-width: 950px; padding: 40px 20px; text-align: center; }
-        .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 40px; }
-        .texto-original { line-height: 2; color: #bfa888; font-size: 1.25rem; text-align: justify; padding-bottom: 120px; }
-        .texto-original h2 { color: #d4bc8c; text-align: center; margin-bottom: 30px; letter-spacing: 2px; }
-    </style>
-</head>
-<body onclick="activarFondo()" ontouchstart="activarFondo()">
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFD6N68J"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <h1 class="seo-title">La Semilla de Anu</h1>
-
-    <div class="templo-master">
-        <img src="portada-movil.png" class="background-design img-movil">
-        <img src="portada-pc.png" class="background-design img-pc">
-        
-        <div class="gota-efecto"></div>
-        <div class="onda-efecto"></div>
-        
-        <video id="vid" loop playsinline muted>
-            <source src="video.mp4" type="video/mp4">
-        </video>
-
-        <audio id="audGota"><source src="sonido.mp3" type="audio/mpeg"></audio>
-        <audio id="audLatido" loop><source src="latido.mp3" type="audio/mpeg"></audio>
-        
-        <nav class="botones-capa">
-            <a href="cuneiforme.html" class="btn-invisible btn-col-izq btn-escritura">Escritura</a>
-            <a href="aventura.html" class="btn-invisible btn-col-izq btn-aventura">Aventura</a>
-            <a href="adivinanzas.html" class="btn-invisible btn-col-izq btn-oraculo">Oráculo</a>
-            <a href="juego.html" class="btn-invisible btn-col-izq btn-arcade">Arcade</a>
-            <a href="javascript:void(0)" class="btn-invisible btn-col-izq btn-dioses" id="btnD">Dioses</a>
-            <a href="destino.html" class="btn-invisible btn-col-izq btn-destino">Destino</a>
-            
-            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-contacto-azul">Mensaje</a>
-            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">Comprar</a>
-            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-rrss btn-tiktok" target="_blank">TikTok</a>
-            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-rrss btn-instagram" target="_blank">Instagram</a>
-            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-rrss btn-youtube" target="_blank">YouTube</a>
-        </nav>
-    </div>
-
-    <section class="seccion-global">
-        <img src="mapa.jpg" class="mapa-img">
-        <div class="texto-original">
-            <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
-            <p>Descubre la obra de <b>David Robles Asunción</b>, "La semilla de Anu: Volumen 1 Anunaki", disponible exclusivamente en formato físico.</p>
-            <br>
-            <p>Distribución en España e impresión bajo demanda en México, Argentina, Colombia, Ecuador, Chile, Perú, Uruguay, Paraguay, Estados Unidos y Reino Unido.</p>
-        </div>
-    </section>
-
-    <script>
-        const v = document.getElementById('vid'), sG = document.getElementById('audGota'), aL = document.getElementById('audLatido'), bD = document.getElementById('btnD');
-        let audioIniciado = false;
-
-        function activarFondo() {
-            if (!audioIniciado) {
-                aL.play().catch(() => {});
-                sG.play().then(() => { sG.pause(); sG.currentTime = 0; });
-                audioIniciado = true;
-            }
-        }
-
-        function toggleGota(ver) {
-            v.style.opacity = ver ? "1" : "0";
-            if(ver) { v.play(); sG.play().catch(() => {}); } 
-            else { v.pause(); sG.pause(); sG.currentTime = 0; }
-        }
-
-        bD.onmouseenter = () => toggleGota(true);
-        bD.onmouseleave = () => toggleGota(false);
-        bD.ontouchstart = (e) => { 
-            e.preventDefault(); 
-            activarFondo(); 
-            toggleGota(true); 
-        };
-        bD.ontouchend = () => toggleGota(false);
-    </script>
-</body>
-</html>
+        .mapa-img { width:
