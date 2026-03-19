@@ -41,11 +41,12 @@
             100% { transform: rotate(-2deg) translate(-1px, -1px); }
         }
         #texto-resultado {
-            font-size: clamp(1.1rem, 4.5vw, 1.7rem); min-height: 120px;
+            font-size: clamp(1.1rem, 4.5vw, 1.7rem); min-height: 150px;
             margin-bottom: 30px; font-style: italic; color: #e8dcc4;
             max-width: 750px; line-height: 1.6;
             display: flex; align-items: center; justify-content: center;
             text-align: center;
+            padding: 0 10px;
         }
         .btn-lanzar {
             background: #d4bc8c; color: #1a140f; border: none;
@@ -77,18 +78,18 @@
 
     <script>
         const frases = [
-            "Debemos ir en la direccion de nuestro maximo temor, porque alli yace nuestra unica esperanza."
-            "El amor es la poesia de los sentidos."
-            "Si no existiera los imbeciles,¿que nos quedaria?."
-            "El recuerdo es el unico paraiso del cual no podemos ser expulsados."
-            "Las palabras ofenden mas que las acciones, el tono mas que las palabras y el aire mas que el tono."
-            "Con el conocimiento se acreditan las dudas."
             "El amor nace del recuerdo, vive de la inteligencia y muere por el olvido.",
             "Se aprende poco con la victoria, en cambio mucho con la derrota.",
             "Los libros son como las abejas que llevan el polen de una inteligencia a otra.",
             "No hay nada nuevo bajo el sol, pero cuantas cosas viejas hay que no conocemos.",
             "El niño es realista, el muchacho idealista, el hombre escéptico y el viejo místico.",
-            "Para la mayoría de nosotros, la vida verdadera es la vida que no llevamos."
+            "Para la mayoría de nosotros, la vida verdadera es la vida que no llevamos.",
+            "Debemos ir en la dirección de nuestro máximo temor, porque allí yace nuestra única esperanza.",
+            "El amor es la poesía de los sentidos.",
+            "Si no existieran los imbéciles, ¿qué nos quedaría?",
+            "El recuerdo es el único paraíso del cual no podemos ser expulsados.",
+            "Las palabras ofenden más que las acciones, el tono más que las palabras y el aire más que el tono.",
+            "Con el conocimiento se acreditan las dudas."
         ];
 
         let ultimaFrase = -1;
