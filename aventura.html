@@ -23,11 +23,11 @@
 
         /* Marco de la Reliquia */
         .interface {
-            width: 90%;
+            width: 95%;
             max-width: 750px;
             background: #050505;
             border: 2px solid #d4bc8c;
-            padding: 40px 20px;
+            padding: 30px 20px;
             position: relative;
             box-shadow: 0 0 50px rgba(212, 188, 140, 0.2);
             text-align: center;
@@ -43,24 +43,35 @@
         h1 { 
             font-family: 'Cinzel', serif;
             letter-spacing: 6px;
-            font-size: 1.4rem;
-            margin-bottom: 25px;
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            margin-bottom: 20px;
             text-transform: uppercase;
         }
 
+        /* ESTILO DE LA IMAGEN AÑADIDA */
+        .img-aventura {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin: 0 auto 20px auto;
+            display: block;
+            border: 1px solid #3d2b1f;
+            box-shadow: 0 0 15px rgba(212, 188, 140, 0.2);
+        }
+
         #story-display {
-            font-size: 1.25rem;
-            line-height: 1.8;
+            font-size: clamp(1rem, 3.5vw, 1.25rem);
+            line-height: 1.6;
             color: #ffffff; 
-            min-height: 140px;
-            margin-bottom: 30px;
+            min-height: 120px;
+            margin-bottom: 25px;
             padding: 0 10px;
         }
 
         .btn-zone { 
             display: flex;
             flex-direction: column;
-            gap: 15px; 
+            gap: 12px; 
             max-width: 400px;
             margin: 0 auto;
         }
@@ -69,13 +80,13 @@
             background: transparent;
             color: #d4bc8c;
             border: 1px solid #d4bc8c;
-            padding: 15px;
+            padding: 12px;
             font-family: 'Cinzel', serif;
             text-transform: uppercase;
             letter-spacing: 2px;
             cursor: pointer;
             transition: 0.3s;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .btn-action:hover {
@@ -84,8 +95,8 @@
         }
 
         .footer {
-            margin-top: 40px;
-            font-size: 0.65rem;
+            margin-top: 30px;
+            font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: #555;
@@ -99,6 +110,8 @@
         <div class="c bl"></div><div class="c br"></div>
 
         <h1>Crónicas de Anu</h1>
+        
+        <img src="aventura.jpg" class="img-aventura" alt="Reliquia Anunnaki">
         
         <div id="story-display">Iniciando protocolo de ADN...</div>
 
@@ -117,8 +130,7 @@
                 ]
             },
             vincular: {
-                // CAMBIO AQUÍ: "genoma de David Robles" por "genoma semilla"
-                t: "El sistema reconoce el genoma semilla. Los muros se desplazan revelando la Ciudad de los Dioses oculta. El conocimiento prohibido de los Anunnaki está a tu alcance.",
+                t: "El sistema reconoce el ADN semilla. Los muros se desplazan revelando la Ciudad de los Dioses oculta. El conocimiento prohibido de los Anunnaki está a tu alcance.",
                 o: [
                     { t: "Entrar al Santuario", n: "santuario" },
                     { t: "Investigar los laboratorios", n: "laboratorio" }
