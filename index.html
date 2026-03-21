@@ -65,16 +65,16 @@
 
         /* CAPA DE BOTONES SUPERPUESTOS */
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
-        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; transition: transform 0.2s, filter 0.2s; border: 1.5px solid rgba(255,255,255,0.2); }
+        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; transition: transform 0.2s; border: 1.5px solid rgba(255,255,255,0.2); }
         
         .btn-col-izq { left: 8.5%; color: #fff; }
         
-        /* COLORES PERSONALIZADOS IZQUIERDA */
-        .btn-escritura { top: 32.5%; background: rgba(60, 40, 30, 0.95); border-color: #d4bc8c; } 
-        .btn-aventura { top: 40.5%; background: rgba(30, 50, 40, 0.95); border-color: #88ccaa; } 
-        .btn-oraculo { top: 48.5%; background: rgba(50, 30, 60, 0.95); border-color: #cc99ff; } 
-        .btn-arcade { top: 56.5%; background: rgba(80, 20, 20, 0.95); border-color: #ff6666; } 
-        .btn-dioses { top: 64.5%; background: rgba(20, 40, 80, 0.95); border-color: #66aaff; cursor: pointer; } 
+        /* COLORES BOTONES IZQUIERDA */
+        .btn-escritura { top: 32.5%; background: rgba(85, 60, 42, 0.9); border-color: #d4bc8c; } 
+        .btn-aventura { top: 40.5%; background: rgba(45, 75, 45, 0.9); border-color: #aaddaa; } 
+        .btn-oraculo { top: 48.5%; background: rgba(70, 45, 95, 0.9); border-color: #ccaaff; } 
+        .btn-arcade { top: 56.5%; background: rgba(110, 30, 30, 0.9); border-color: #ffaaaa; } 
+        .btn-dioses { top: 64.5%; background: rgba(30, 55, 100, 0.9); border-color: #aaccee; cursor: pointer; } 
         .btn-destino { top: 72.5%; background: rgba(139, 69, 19, 0.98); border-color: #ffd700; }
 
         /* BOTONES DERECHA */
@@ -87,84 +87,15 @@
             background: linear-gradient(145deg, #ffd700, #b8860b) !important; 
             color: #000 !important; 
             border: 2px solid #fff !important; 
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
             font-weight: 900;
             animation: pulse 1.5s infinite alternate; 
         }
-        
-        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 215, 0, 0.4); } 100% { transform: scale(1.08); box-shadow: 0 0 25px rgba(255, 215, 0, 0.8); } }
+        @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
 
-        /* REDES SOCIALES */
-        .btn-rrss { left: 67.5%; color: #fff; font-weight: 700; }
-        .btn-tiktok { top: 48.5%; background: #000 !important; border: 1.5px solid #ff0050 !important; } 
-        .btn-instagram { top: 56.5%; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important; border: 1.5px solid #fff !important; } 
-        .btn-youtube { top: 64.5%; background: #ff0000 !important; border: 1.5px solid #fff !important; }
-        
-        /* OTROS MUNDOS */
-        .btn-otros { top: 72.5%; left: 67.5%; background: #2a2a2a !important; color: #d4bc8c !important; border: 1.5px solid #d4bc8c !important; font-style: italic; cursor: pointer; }
-
-        /* VENTANA MODAL (LA PARED GRABADA) */
-        .modal-pared {
-            display: none;
-            position: fixed;
-            z-index: 100;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .contenido-pared {
-            background: #1a1612;
-            background-image: radial-gradient(circle, #2a2218 0%, #0d0a07 100%);
-            border: 4px solid #3d2b1f;
-            box-shadow: inset 0 0 50px #000, 0 0 30px rgba(212, 188, 140, 0.2);
-            width: 100%;
-            max-width: 600px;
-            max-height: 80vh;
-            padding: 30px;
-            overflow-y: auto;
-            position: relative;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .contenido-pared h3 {
-            color: #d4bc8c;
-            margin-bottom: 20px;
-            letter-spacing: 3px;
-            text-shadow: 2px 2px 2px #000;
-            border-bottom: 1px solid #3d2b1f;
-            padding-bottom: 10px;
-        }
-
-        .lista-autores {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            text-align: center;
-        }
-
-        .autor-item {
-            font-size: 1.1rem;
-            color: #8c7a5b;
-            text-shadow: -1px -1px 1px #000, 1px 1px 1px #444;
-            padding: 5px;
-            border-bottom: 1px solid rgba(61, 43, 31, 0.3);
-        }
-
-        .cerrar-pared {
-            margin-top: 25px;
-            background: #3d2b1f;
-            color: #d4bc8c;
-            border: 1px solid #d4bc8c;
-            padding: 10px 25px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
+        .btn-rrss { left: 67.5%; color: #fff; }
+        .btn-tiktok { top: 48.5%; background: rgba(0, 0, 0, 0.9); border: 1.5px solid #ff0050; } 
+        .btn-instagram { top: 56.5%; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border: 1.5px solid #fff; } 
+        .btn-youtube { top: 64.5%; background: #ff0000; border: 1.5px solid #fff; }
 
         /* SECCIÓN DEL BOTÓN OFRENDA */
         .contenedor-ofrenda {
@@ -176,15 +107,111 @@
         }
 
         .btn-paypal-ofrenda {
-            background: none; border: none; cursor: pointer;
+            background: none;
+            border: none;
+            cursor: pointer;
             transition: transform 0.3s ease, filter 0.3s ease;
-            max-width: 180px; width: 45%;
+            max-width: 180px; 
+            width: 45%; 
         }
 
-        .btn-paypal-ofrenda img { width: 100%; height: auto; filter: drop-shadow(0 0 10px rgba(212, 188, 140, 0.3)); }
-        .btn-paypal-ofrenda:hover { transform: scale(1.05) rotate(1deg); filter: drop-shadow(0 0 20px rgba(212, 188, 140, 0.6)); }
+        .btn-paypal-ofrenda img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(212, 188, 140, 0.3));
+        }
+
+        .btn-paypal-ofrenda:hover {
+            transform: scale(1.05) rotate(1deg);
+            filter: drop-shadow(0 0 20px rgba(212, 188, 140, 0.6));
+        }
 
         /* SECCIÓN GLOBAL MAPA */
         .seccion-global { width: 100%; max-width: 950px; padding: 0 20px 40px 20px; text-align: center; }
         .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 40px; }
-        .texto-original { line-height
+        .texto-original { line-height: 2; color: #bfa888; font-size: 1.25rem; text-align: justify; padding-bottom: 120px; }
+        .texto-original h2 { color: #d4bc8c; text-align: center; margin-bottom: 30px; letter-spacing: 2px; }
+    </style>
+</head>
+<body onclick="activarFondo()" ontouchstart="activarFondo()">
+
+    <h1 class="seo-title">La Semilla de Anu</h1>
+
+    <div class="templo-master">
+        <img src="portada-movil.png" class="background-design img-movil">
+        <img src="portada-pc.png" class="background-design img-pc">
+        
+        <div class="gota-efecto"></div>
+        <div class="onda-efecto"></div>
+        
+        <video id="vid" loop playsinline muted>
+            <source src="video.mp4" type="video/mp4">
+        </video>
+
+        <audio id="audGota"><source src="sonido.mp3" type="audio/mpeg"></audio>
+        <audio id="audLatido" loop><source src="latido.mp3" type="audio/mpeg"></audio>
+        
+        <nav class="botones-capa">
+            <a href="cuneiforme.html" class="btn-invisible btn-col-izq btn-escritura">Escritura</a>
+            <a href="aventura.html" class="btn-invisible btn-col-izq btn-aventura">Aventura</a>
+            <a href="adivinanzas.html" class="btn-invisible btn-col-izq btn-oraculo">Oráculo</a>
+            <a href="juego.html" class="btn-invisible btn-col-izq btn-arcade">Arcade</a>
+            <a href="javascript:void(0)" class="btn-invisible btn-col-izq btn-dioses" id="btnD">Dioses</a>
+            <a href="destino.html" class="btn-invisible btn-col-izq btn-destino">Destino</a>
+            
+            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-contacto-azul">Mensaje</a>
+            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">Comprar</a>
+            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-rrss btn-tiktok" target="_blank">TikTok</a>
+            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-rrss btn-instagram" target="_blank">Instagram</a>
+            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-rrss btn-youtube" target="_blank">YouTube</a>
+        </nav>
+    </div>
+
+    <div class="contenedor-ofrenda">
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="hosted_button_id" value="7M9F87AUJ6T2J" />
+            <button type="submit" class="btn-paypal-ofrenda">
+                <img src="Gemini_Generated_Image_g6d4ytg6d4ytg6d4.jpg" alt="Hacer Ofrenda">
+            </button>
+        </form>
+    </div>
+
+    <section class="seccion-global">
+        <img src="mapa.jpg" class="mapa-img">
+        <div class="texto-original">
+            <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
+            <p>Descubre la obra de <b>David Robles Asunción</b>, "La semilla de Anu: Volumen 1 Anunaki", disponible exclusivamente en formato físico.</p>
+            <br>
+            <p>Distribución en España e impresión bajo demanda en México, Argentina, Colombia, Ecuador, Chile, Perú, Uruguay, Paraguay, Estados Unidos y Reino Unido.</p>
+        </div>
+    </section>
+
+    <script>
+        const v = document.getElementById('vid'), sG = document.getElementById('audGota'), aL = document.getElementById('audLatido'), bD = document.getElementById('btnD');
+        let audioIniciado = false;
+
+        function activarFondo() {
+            if (!audioIniciado) {
+                aL.play().catch(() => {});
+                sG.play().then(() => { sG.pause(); sG.currentTime = 0; });
+                audioIniciado = true;
+            }
+        }
+
+        function toggleGota(ver) {
+            v.style.opacity = ver ? "1" : "0";
+            if(ver) { v.play(); sG.play().catch(() => {}); } 
+            else { v.pause(); sG.pause(); sG.currentTime = 0; }
+        }
+
+        bD.onmouseenter = () => toggleGota(true);
+        bD.onmouseleave = () => toggleGota(false);
+        bD.ontouchstart = (e) => { 
+            e.preventDefault(); 
+            activarFondo(); 
+            toggleGota(true); 
+        };
+        bD.ontouchend = () => toggleGota(false);
+    </script>
+</body>
+</html>
