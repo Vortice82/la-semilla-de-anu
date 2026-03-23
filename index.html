@@ -5,71 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>La Semilla de Anu - David Robles Asunción</title>
 
-    <meta property="og:title" content="La Semilla de Anu - David Robles Asunción">
-    <meta property="og:description" content="Descubre el misterio Anunnaki. Una aventura interactiva y una obra épica de ciencia ficción sumeria.">
-    <meta property="og:image" content="https://vortice82.github.io/la-semilla-de-anu/portada-pc.jpg">
-    <meta property="og:url" content="https://vortice82.github.io/la-semilla-de-anu/index.html">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preload" as="image" href="portada-movil.png">
+    <link rel="preload" as="image" href="portada-pc.png">
 
     <style>
-        /* RESET TOTAL */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #0d0a07; color: #e8dcc4; font-family: 'Cambria', serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; overflow-x: hidden; }
         
-        body { 
-            background-color: #0d0a07; 
-            color: #e8dcc4; 
-            font-family: 'Cambria', serif; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            min-height: 100vh; 
-            overflow-x: hidden; 
-        }
-
-        .seo-title { 
-            color: #d4bc8c; 
-            padding: 30px 15px; 
-            font-size: clamp(1.5rem, 5vw, 2.5rem); 
-            text-transform: uppercase; 
-            text-align: center; 
-            letter-spacing: 5px; 
-            width: 100%;
-        }
-
-        /* CONTENEDOR PORTADA */
+        .seo-title { color: #d4bc8c; padding: 30px 15px; font-size: clamp(1.5rem, 5vw, 2.5rem); text-transform: uppercase; text-align: center; letter-spacing: 5px; width: 100%; }
+        
+        /* Contenedor principal con altura mínima para que no colapse */
         .templo-master { 
             position: relative; 
             width: 98%; 
             max-width: 1250px; 
+            min-height: 300px; 
             border: 2px solid #3d2b1f; 
             background: #000; 
             overflow: hidden; 
-            line-height: 0;
-            z-index: 1;
+            line-height: 0; 
+            z-index: 1; 
         }
 
         .background-design { width: 100%; height: auto; display: block; position: relative; z-index: 2; }
+        
+        /* Control de visibilidad de portadas */
         .img-pc { display: none; }
-        @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
-        @media (max-width: 849px) { .img-movil { display: block; } }
+        @media (min-width: 850px) { 
+            .img-pc { display: block; } 
+            .img-movil { display: none; } 
+        }
+        @media (max-width: 849px) { 
+            .img-movil { display: block; } 
+        }
 
-        /* EFECTOS GOTA */
+        /* Efectos visuales */
         .gota-efecto { position: absolute; top: -20px; left: 50%; width: 5px; height: 18px; background: rgba(212, 188, 140, 0.8); border-radius: 50%; z-index: 6; pointer-events: none; filter: blur(1px); animation: caerSuelo 3.5s infinite ease-in; }
         .onda-efecto { position: absolute; top: 96%; left: 50%; width: 10px; height: 5px; border: 2px solid rgba(212, 188, 140, 0.6); border-radius: 50%; z-index: 6; transform: translate(-50%, -50%); pointer-events: none; opacity: 0; filter: blur(1px); animation: ondaSuelo 3.5s infinite; }
-
+        
         @keyframes caerSuelo { 0% { top: -20px; opacity: 0; } 30% { opacity: 1; } 90% { top: 96%; opacity: 1; } 91% { opacity: 0; } 100% { opacity: 0; } }
         @keyframes ondaSuelo { 0%, 90% { width: 0; height: 0; opacity: 0; } 91% { opacity: 1; } 100% { width: 300px; height: 80px; opacity: 0; } }
 
         #vid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; transition: opacity 0.3s ease-in-out; }
-
-        /* CAPA DE BOTONES SUPERPUESTOS */
+        
+        /* Capa de botones */
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
-        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; transition: transform 0.2s; border: 1.5px solid rgba(255,255,255,0.2); }
+        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; transition: transform 0.2s; border: 1.5px solid rgba(255,255,255,0.2); color: #fff; }
         
-        .btn-col-izq { left: 8.5%; color: #fff; }
-        
-        /* COLORES IZQUIERDA */
+        /* Posiciones */
+        .btn-col-izq { left: 8.5%; }
         .btn-escritura { top: 32.5%; background: rgba(60, 40, 30, 0.95); border-color: #d4bc8c; } 
         .btn-aventura { top: 40.5%; background: rgba(30, 50, 40, 0.95); border-color: #88ccaa; } 
         .btn-oraculo { top: 48.5%; background: rgba(50, 30, 60, 0.95); border-color: #cc99ff; } 
@@ -77,43 +61,26 @@
         .btn-dioses { top: 64.5%; background: rgba(20, 40, 80, 0.95); border-color: #66aaff; cursor: pointer; } 
         .btn-destino { top: 72.5%; background: rgba(139, 69, 19, 0.98); border-color: #ffd700; }
 
-        /* BOTONES DERECHA */
-        .btn-contacto-azul { top: 32.5%; left: 67.5%; background: #0044ff !important; color: #fff !important; border: 2px solid #00ffff !important; box-shadow: 0 0 15px #0044ff; }
-        
-        /* BOTÓN COMPRAR - DORADO DESTACADO */
-        .btn-comprar { 
-            top: 40.5%; 
-            left: 67.5%; 
-            background: linear-gradient(145deg, #ffd700, #b8860b) !important; 
-            color: #000 !important; 
-            border: 2px solid #fff !important; 
-            font-weight: 900;
-            animation: pulse 1.5s infinite alternate; 
-        }
-        @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
-
-        .btn-rrss { left: 67.5%; color: #fff; }
+        .btn-col-der { left: 67.5%; }
+        .btn-contacto-azul { top: 32.5%; background: #0044ff !important; border: 2px solid #00ffff !important; box-shadow: 0 0 15px #0044ff; }
+        .btn-comprar { top: 40.5%; background: linear-gradient(145deg, #ffd700, #b8860b) !important; color: #000 !important; border: 2px solid #fff !important; font-weight: 900; animation: pulse 1.5s infinite alternate; }
         .btn-tiktok { top: 48.5%; background: rgba(0, 0, 0, 0.9); border: 1.5px solid #ff0050; } 
         .btn-instagram { top: 56.5%; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border: 1.5px solid #fff; } 
         .btn-youtube { top: 64.5%; background: #ff0000; border: 1.5px solid #fff; }
-        
-        /* OTROS MUNDOS */
-        .btn-otros { top: 72.5%; left: 67.5%; background: #2a2a2a !important; color: #d4bc8c !important; border: 1.5px solid #d4bc8c !important; font-style: italic; cursor: pointer; }
+        .btn-otros { top: 72.5%; background: #2a2a2a !important; color: #d4bc8c !important; border: 1.5px solid #d4bc8c !important; font-style: italic; cursor: pointer; }
 
-        /* VENTANA MODAL PARED */
+        @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
+
+        /* Modal */
         .modal-pared { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; padding: 20px; }
-        .contenido-pared { background: #1a1612; background-image: radial-gradient(circle, #2a2218 0%, #0d0a07 100%); border: 4px solid #3d2b1f; box-shadow: inset 0 0 50px #000, 0 0 30px rgba(212, 188, 140, 0.2); width: 100%; max-width: 600px; max-height: 80vh; padding: 30px; overflow-y: auto; position: relative; border-radius: 5px; text-align: center; }
-        .contenido-pared h3 { color: #d4bc8c; margin-bottom: 20px; letter-spacing: 3px; border-bottom: 1px solid #3d2b1f; padding-bottom: 10px; }
-        .autor-item { font-size: 1.1rem; color: #8c7a5b; text-shadow: -1px -1px 1px #000, 1px 1px 1px #444; padding: 5px; border-bottom: 1px solid rgba(61, 43, 31, 0.3); }
-        .cerrar-pared { margin-top: 25px; background: #3d2b1f; color: #d4bc8c; border: 1px solid #d4bc8c; padding: 10px 25px; cursor: pointer; text-transform: uppercase; font-weight: bold; }
+        .contenido-pared { background: #1a1612; background-image: radial-gradient(circle, #2a2218 0%, #0d0a07 100%); border: 4px solid #3d2b1f; padding: 30px; overflow-y: auto; max-height: 80vh; width: 100%; max-width: 600px; text-align: center; border-radius: 5px; }
+        .autor-item { color: #8c7a5b; padding: 5px; border-bottom: 1px solid rgba(61, 43, 31, 0.3); }
 
-        .contenedor-ofrenda { padding: 40px 0; display: flex; justify-content: center; align-items: center; width: 100%; }
-        .btn-paypal-ofrenda { background: none; border: none; cursor: pointer; transition: transform 0.3s ease; max-width: 180px; width: 45%; }
-        .btn-paypal-ofrenda img { width: 100%; height: auto; filter: drop-shadow(0 0 10px rgba(212, 188, 140, 0.3)); }
-
-        .seccion-global { width: 100%; max-width: 950px; padding: 0 20px 40px 20px; text-align: center; }
-        .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 40px; }
-        .texto-original { line-height: 2; color: #bfa888; font-size: 1.25rem; text-align: justify; padding-bottom: 120px; }
+        /* Secciones inferiores */
+        .contenedor-ofrenda { padding: 40px 0; text-align: center; width: 100%; }
+        .btn-paypal-ofrenda img { max-width: 180px; width: 45%; height: auto; cursor: pointer; }
+        .seccion-global { width: 100%; max-width: 950px; padding: 40px 20px; text-align: center; }
+        .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 20px; }
     </style>
 </head>
 <body onclick="activarFondo()" ontouchstart="activarFondo()">
@@ -121,13 +88,15 @@
     <h1 class="seo-title">La Semilla de Anu</h1>
 
     <div class="templo-master">
-        <img src="portada-movil.jpg" class="background-design img-movil">
-        <img src="portada-pc.jpg" class="background-design img-pc">
+        <img src="portada-movil.png" class="background-design img-movil" fetchpriority="high">
+        <img src="portada-pc.png" class="background-design img-pc" fetchpriority="high">
+        
         <div class="gota-efecto"></div>
         <div class="onda-efecto"></div>
-        <video id="vid" loop playsinline muted><source src="video.mp4" type="video/mp4"></video>
-        <audio id="audGota"><source src="sonido.mp3" type="audio/mpeg"></audio>
-        <audio id="audLatido" loop><source src="latido.mp3" type="audio/mpeg"></audio>
+        
+        <video id="vid" loop playsinline muted preload="none"><source src="video.mp4" type="video/mp4"></video>
+        <audio id="audGota" preload="auto"><source src="sonido.mp3" type="audio/mpeg"></audio>
+        <audio id="audLatido" loop preload="auto"><source src="latido.mp3" type="audio/mpeg"></audio>
         
         <nav class="botones-capa">
             <a href="cuneiforme.html" class="btn-invisible btn-col-izq btn-escritura">Escritura</a>
@@ -137,12 +106,12 @@
             <a href="javascript:void(0)" class="btn-invisible btn-col-izq btn-dioses" id="btnD">Dioses</a>
             <a href="destino.html" class="btn-invisible btn-col-izq btn-destino">Destino</a>
             
-            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-contacto-azul">Mensaje</a>
-            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">Comprar</a>
-            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-rrss btn-tiktok" target="_blank">TikTok</a>
-            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-rrss btn-instagram" target="_blank">Instagram</a>
-            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-rrss btn-youtube" target="_blank">YouTube</a>
-            <div class="btn-invisible btn-otros" onclick="abrirPared()">Otros Mundos</div>
+            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-col-der btn-contacto-azul">Mensaje</a>
+            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-col-der btn-comprar" target="_blank">Comprar</a>
+            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-col-der btn-tiktok" target="_blank">TikTok</a>
+            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-col-der btn-instagram" target="_blank">Instagram</a>
+            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-col-der btn-youtube" target="_blank">YouTube</a>
+            <div class="btn-invisible btn-col-der btn-otros" onclick="abrirPared()">Otros Mundos</div>
         </nav>
     </div>
 
@@ -150,34 +119,46 @@
         <div class="contenido-pared">
             <h3>OTROS MUNDOS</h3>
             <div style="display: grid; grid-template-columns: 1fr; gap: 5px;">
-                <div class="autor-item">Alan y Sally Landsburg</div><div class="autor-item">Alfred Stelter</div><div class="autor-item">Andrew Tomas</div><div class="autor-item">Belline</div><div class="autor-item">Carlo Liberio del Zotti</div><div class="autor-item">Christine Dequerlor</div><div class="autor-item">Cristian Puig</div><div class="autor-item">David Hammond</div><div class="autor-item">Dr. Frederik Koning</div><div class="autor-item">Erich von Daniken</div><div class="autor-item">Francisco Javier Torrent Rodrigo</div><div class="autor-item">Francois Ethuin</div><div class="autor-item">Francois Ribadeau Dumas</div><div class="autor-item">Fulcanelli</div><div class="autor-item">Günter Paul</div><div class="autor-item">Gustavo Domenech</div><div class="autor-item">H.P. Blavatsky</div><div class="autor-item">Hades</div><div class="autor-item">Hans Herlin</div><div class="autor-item">J. Bergier</div><div class="autor-item">J. Garcia Font</div><div class="autor-item">J.J. Benitez</div><div class="autor-item">Jacques Bergier</div><div class="autor-item">Jacques Sadoul</div><div class="autor-item">Jacques A. Mauduit</div><div class="autor-item">Javier Sierra</div><div class="autor-item">Jean Sendy</div><div class="autor-item">Jean-Charles Pichon</div><div class="autor-item">John G. Fuller</div><div class="autor-item">L. Pauwels</div><div class="autor-item">Leo Talamonti</div><div class="autor-item">Marcel Moreau</div><div class="autor-item">Maurice Chatelain</div><div class="autor-item">Michael Cranger</div><div class="autor-item">Michael-Claude Touchard</div><div class="autor-item">Michel Gauquelin</div><div class="autor-item">Patrice Gaston</div><div class="autor-item">Pedro Guirao</div><div class="autor-item">Peter Kolosimo</div><div class="autor-item">Pierre Carnac</div><div class="autor-item">Pierre Ceria</div><div class="autor-item">Pierre Duval</div><div class="autor-item">Rainer Erler</div><div class="autor-item">Richard Hennig</div><div class="autor-item">Robert Charroux</div><div class="autor-item">Robert Tocquet</div><div class="autor-item">Stuart R. Kaplan</div><div class="autor-item">Victor Colmenarejo</div>
-            </div>
-            <button class="cerrar-pared" onclick="cerrarPared()">Cerrar</button>
+                <div class="autor-item">Alan y Sally Landsburg</div><div class="autor-item">Erich von Daniken</div><div class="autor-item">J.J. Benitez</div><div class="autor-item">Robert Charroux</div><div class="autor-item">Peter Kolosimo</div>
+                </div>
+            <button onclick="document.getElementById('modalAutores').style.display='none'" style="margin-top:20px; padding:10px; cursor:pointer;">Cerrar</button>
         </div>
     </div>
 
     <div class="contenedor-ofrenda">
         <form action="https://www.paypal.com/donate" method="post" target="_top">
             <input type="hidden" name="hosted_button_id" value="7M9F87AUJ6T2J" />
-            <button type="submit" class="btn-paypal-ofrenda"><img src="Gemini_Generated_Image_g6d4ytg6d4ytg6d4.jpg" alt="Hacer Ofrenda"></button>
+            <button type="submit" class="btn-paypal-ofrenda">
+                <img src="Gemini_Generated_Image_g6d4ytg6d4ytg6d4.jpg" alt="Ofrenda" loading="lazy">
+            </button>
         </form>
     </div>
 
     <section class="seccion-global">
-        <img src="mapa.jpg" class="mapa-img">
-        <div class="texto-original">
-            <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
-            <p>Descubre la obra de <b>David Robles Asunción</b>, "La semilla de Anu: Volumen 1 Anunaki", disponible exclusivamente en formato físico.</p>
-        </div>
+        <img src="mapa.jpg" class="mapa-img" loading="lazy">
+        <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
+        <p>Descubre la obra de <b>David Robles Asunción</b>.</p>
     </section>
 
     <script>
-        const v = document.getElementById('vid'), sG = document.getElementById('audGota'), aL = document.getElementById('audLatido'), bD = document.getElementById('btnD'), modal = document.getElementById('modalAutores');
+        const v = document.getElementById('vid'), sG = document.getElementById('audGota'), aL = document.getElementById('audLatido'), bD = document.getElementById('btnD');
         let audioIniciado = false;
-        function activarFondo() { if (!audioIniciado) { aL.play().catch(() => {}); sG.play().then(() => { sG.pause(); sG.currentTime = 0; }); audioIniciado = true; } }
-        function toggleGota(ver) { v.style.opacity = ver ? "1" : "0"; if(ver) { v.play(); sG.play().catch(() => {}); } else { v.pause(); sG.pause(); sG.currentTime = 0; } }
-        function abrirPared() { modal.style.display = 'flex'; }
-        function cerrarPared() { modal.style.display = 'none'; }
+
+        function activarFondo() { 
+            if (!audioIniciado) { 
+                aL.play().catch(() => {}); 
+                audioIniciado = true; 
+            } 
+        }
+
+        function toggleGota(ver) { 
+            v.style.opacity = ver ? "1" : "0"; 
+            if(ver) { v.setAttribute('preload', 'auto'); v.play(); sG.play().catch(() => {}); } 
+            else { v.pause(); sG.pause(); sG.currentTime = 0; } 
+        }
+
+        function abrirPared() { document.getElementById('modalAutores').style.display = 'flex'; }
+
         bD.onmouseenter = () => toggleGota(true);
         bD.onmouseleave = () => toggleGota(false);
         bD.ontouchstart = (e) => { e.preventDefault(); activarFondo(); toggleGota(true); };
