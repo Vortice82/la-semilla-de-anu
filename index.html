@@ -6,7 +6,7 @@
     <title>La Semilla de Anu - David Robles Asunción</title>
 
     <style>
-        /* RESET */
+        /* RESET TOTAL */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body { 
@@ -40,7 +40,6 @@
             overflow: hidden; 
             line-height: 0;
             z-index: 1;
-            min-height: 250px; /* Evita que se colapse si no carga la imagen */
         }
 
         .background-design { 
@@ -51,12 +50,12 @@
             z-index: 2; 
         }
 
-        /* Visibilidad */
+        /* Control de visibilidad según pantalla */
         .img-pc { display: none; }
         @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 849px) { .img-movil { display: block; } }
 
-        /* GOTA */
+        /* EFECTOS GOTA */
         .gota-efecto { position: absolute; top: -20px; left: 50%; width: 5px; height: 18px; background: rgba(212, 188, 140, 0.8); border-radius: 50%; z-index: 6; pointer-events: none; animation: caerSuelo 3.5s infinite ease-in; }
         .onda-efecto { position: absolute; top: 96%; left: 50%; width: 10px; height: 5px; border: 2px solid rgba(212, 188, 140, 0.6); border-radius: 50%; z-index: 6; transform: translate(-50%, -50%); pointer-events: none; opacity: 0; animation: ondaSuelo 3.5s infinite; }
 
@@ -67,7 +66,7 @@
 
         /* BOTONES */
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
-        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; border: 1.2px solid rgba(255,255,255,0.2); }
+        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; border: 1.5px solid rgba(255,255,255,0.2); }
         
         .btn-col-izq { left: 8.5%; color: #fff; }
         .btn-escritura { top: 32.5%; background: rgba(60, 40, 30, 0.9); border-color: #d4bc8c; } 
@@ -85,7 +84,6 @@
         .btn-youtube { top: 64.5%; background: #ff0000; border: 1.5px solid #fff; }
         .btn-otros { top: 72.5%; left: 67.5%; background: #2a2a2a !important; color: #d4bc8c !important; border: 1.5px solid #d4bc8c !important; cursor: pointer; }
 
-        /* SECCIONES EXTRA */
         .contenedor-ofrenda { padding: 40px 0; display: flex; justify-content: center; width: 100%; }
         .btn-paypal-ofrenda { background: none; border: none; cursor: pointer; max-width: 180px; }
         .btn-paypal-ofrenda img { width: 100%; height: auto; }
@@ -99,8 +97,8 @@
     <h1 class="seo-title">La Semilla de Anu</h1>
 
     <div class="templo-master">
-        <img src="portada-movil.jpg" class="background-design img-movil" alt="Cargando portada móvil...">
-        <img src="portada-pc.jpg" class="background-design img-pc" alt="Cargando portada PC...">
+        <img src="portada-movil.jpeg" class="background-design img-movil" alt="Portada">
+        <img src="portada-pc.jpeg" class="background-design img-pc" alt="Portada">
         
         <div class="gota-efecto"></div>
         <div class="onda-efecto"></div>
