@@ -103,4 +103,63 @@
         </nav>
     </div>
 
-    <div id="modalAut
+    <div id="modalAutores" class="modal-pared">
+        <div class="contenido-pared">
+            <h3>OTROS MUNDOS</h3>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 5px;">
+                <div class="autor-item">Alan y Sally Landsburg</div><div class="autor-item">Alfred Stelter</div><div class="autor-item">Andrew Tomas</div><div class="autor-item">Belline</div><div class="autor-item">Carlo Liberio del Zotti</div><div class="autor-item">Christine Dequerlor</div><div class="autor-item">Cristian Puig</div><div class="autor-item">David Hammond</div><div class="autor-item">Dr. Frederik Koning</div><div class="autor-item">Erich von Daniken</div><div class="autor-item">Francisco Javier Torrent Rodrigo</div><div class="autor-item">Francois Ethuin</div><div class="autor-item">Francois Ribadeau Dumas</div><div class="autor-item">Fulcanelli</div><div class="autor-item">Günter Paul</div><div class="autor-item">Gustavo Domenech</div><div class="autor-item">H.P. Blavatsky</div><div class="autor-item">Hades</div><div class="autor-item">Hans Herlin</div><div class="autor-item">J. Bergier</div><div class="autor-item">J. Garcia Font</div><div class="autor-item">J.J. Benitez</div><div class="autor-item">Jacques Bergier</div><div class="autor-item">Jacques Sadoul</div><div class="autor-item">Jacques A. Mauduit</div><div class="autor-item">Javier Sierra</div><div class="autor-item">Jean Sendy</div><div class="autor-item">Jean-Charles Pichon</div><div class="autor-item">John G. Fuller</div><div class="autor-item">L. Pauwels</div><div class="autor-item">Leo Talamonti</div><div class="autor-item">Marcel Moreau</div><div class="autor-item">Maurice Chatelain</div><div class="autor-item">Michael Cranger</div><div class="autor-item">Michael-Claude Touchard</div><div class="autor-item">Michel Gauquelin</div><div class="autor-item">Patrice Gaston</div><div class="autor-item">Pedro Guirao</div><div class="autor-item">Peter Kolosimo</div><div class="autor-item">Pierre Carnac</div><div class="autor-item">Pierre Ceria</div><div class="autor-item">Pierre Duval</div><div class="autor-item">Rainer Erler</div><div class="autor-item">Richard Hennig</div><div class="autor-item">Robert Charroux</div><div class="autor-item">Robert Tocquet</div><div class="autor-item">Stuart R. Kaplan</div><div class="autor-item">Victor Colmenarejo</div>
+            </div>
+            <button class="cerrar-pared" onclick="cerrarPared()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="contenedor-ofrenda">
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="hosted_button_id" value="7M9F87AUJ6T2J" />
+            <button type="submit" class="btn-paypal-ofrenda"><img src="Gemini_Generated_Image_g6d4ytg6d4ytg6d4.jpg" alt="Hacer Ofrenda" loading="lazy"></button>
+        </form>
+    </div>
+
+    <section class="seccion-global">
+        <img src="mapa.jpg" class="mapa-img" loading="lazy">
+        <div class="texto-original">
+            <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
+            <p>Descubre la obra de <b>David Robles Asunción</b>, "La semilla de Anu: Volumen 1 Anunaki", disponible exclusivamente en formato físico.</p>
+        </div>
+    </section>
+
+    <script>
+        const v = document.getElementById('vid'), sG = document.getElementById('audGota'), aL = document.getElementById('audLatido'), bD = document.getElementById('btnD'), modal = document.getElementById('modalAutores');
+        let audioIniciado = false;
+
+        function activarFondo() { 
+            if (!audioIniciado) { 
+                aL.play().catch(() => {}); 
+                sG.play().then(() => { sG.pause(); sG.currentTime = 0; }); 
+                audioIniciado = true; 
+            } 
+        }
+
+        function toggleGota(ver) { 
+            v.style.opacity = ver ? "1" : "0"; 
+            if(ver) { 
+                v.setAttribute('preload', 'auto');
+                v.play(); 
+                sG.play().catch(() => {}); 
+            } else { 
+                v.pause(); 
+                sG.pause(); 
+                sG.currentTime = 0; 
+            } 
+        }
+
+        function abrirPared() { modal.style.display = 'flex'; }
+        function cerrarPared() { modal.style.display = 'none'; }
+
+        bD.onmouseenter = () => toggleGota(true);
+        bD.onmouseleave = () => toggleGota(false);
+        bD.ontouchstart = (e) => { e.preventDefault(); activarFondo(); toggleGota(true); };
+        bD.ontouchend = () => toggleGota(false);
+    </script>
+</body>
+</html>
