@@ -6,7 +6,7 @@
     <title>La Semilla de Anu - David Robles Asunción</title>
 
     <style>
-        /* RESET TOTAL */
+        /* RESET */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body { 
@@ -40,7 +40,7 @@
             overflow: hidden; 
             line-height: 0;
             z-index: 1;
-            min-height: 300px; /* Para que no se vea vacío mientras carga */
+            min-height: 250px; /* Evita que se colapse si no carga la imagen */
         }
 
         .background-design { 
@@ -51,23 +51,23 @@
             z-index: 2; 
         }
 
-        /* Control de visibilidad según pantalla */
+        /* Visibilidad */
         .img-pc { display: none; }
         @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 849px) { .img-movil { display: block; } }
 
-        /* EFECTOS GOTA */
-        .gota-efecto { position: absolute; top: -20px; left: 50%; width: 5px; height: 18px; background: rgba(212, 188, 140, 0.8); border-radius: 50%; z-index: 6; pointer-events: none; filter: blur(1px); animation: caerSuelo 3.5s infinite ease-in; }
-        .onda-efecto { position: absolute; top: 96%; left: 50%; width: 10px; height: 5px; border: 2px solid rgba(212, 188, 140, 0.6); border-radius: 50%; z-index: 6; transform: translate(-50%, -50%); pointer-events: none; opacity: 0; filter: blur(1px); animation: ondaSuelo 3.5s infinite; }
+        /* GOTA */
+        .gota-efecto { position: absolute; top: -20px; left: 50%; width: 5px; height: 18px; background: rgba(212, 188, 140, 0.8); border-radius: 50%; z-index: 6; pointer-events: none; animation: caerSuelo 3.5s infinite ease-in; }
+        .onda-efecto { position: absolute; top: 96%; left: 50%; width: 10px; height: 5px; border: 2px solid rgba(212, 188, 140, 0.6); border-radius: 50%; z-index: 6; transform: translate(-50%, -50%); pointer-events: none; opacity: 0; animation: ondaSuelo 3.5s infinite; }
 
         @keyframes caerSuelo { 0% { top: -20px; opacity: 0; } 30% { opacity: 1; } 90% { top: 96%; opacity: 1; } 91% { opacity: 0; } 100% { opacity: 0; } }
         @keyframes ondaSuelo { 0%, 90% { width: 0; height: 0; opacity: 0; } 91% { opacity: 1; } 100% { width: 300px; height: 80px; opacity: 0; } }
 
-        #vid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; transition: opacity 0.3s ease-in-out; }
+        #vid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; transition: opacity 0.3s; }
 
         /* BOTONES */
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
-        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; border: 1.5px solid rgba(255,255,255,0.2); }
+        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; border: 1.2px solid rgba(255,255,255,0.2); }
         
         .btn-col-izq { left: 8.5%; color: #fff; }
         .btn-escritura { top: 32.5%; background: rgba(60, 40, 30, 0.9); border-color: #d4bc8c; } 
@@ -85,7 +85,7 @@
         .btn-youtube { top: 64.5%; background: #ff0000; border: 1.5px solid #fff; }
         .btn-otros { top: 72.5%; left: 67.5%; background: #2a2a2a !important; color: #d4bc8c !important; border: 1.5px solid #d4bc8c !important; cursor: pointer; }
 
-        /* SECCIÓN INFERIOR */
+        /* SECCIONES EXTRA */
         .contenedor-ofrenda { padding: 40px 0; display: flex; justify-content: center; width: 100%; }
         .btn-paypal-ofrenda { background: none; border: none; cursor: pointer; max-width: 180px; }
         .btn-paypal-ofrenda img { width: 100%; height: auto; }
@@ -99,8 +99,8 @@
     <h1 class="seo-title">La Semilla de Anu</h1>
 
     <div class="templo-master">
-        <img src="portada-movil.jpg" class="background-design img-movil" alt="Portada">
-        <img src="portada-pc.jpg" class="background-design img-pc" alt="Portada">
+        <img src="portada-movil.jpg" class="background-design img-movil" alt="Cargando portada móvil...">
+        <img src="portada-pc.jpg" class="background-design img-pc" alt="Cargando portada PC...">
         
         <div class="gota-efecto"></div>
         <div class="onda-efecto"></div>
@@ -130,7 +130,7 @@
         <form action="https://www.paypal.com/donate" method="post" target="_top">
             <input type="hidden" name="hosted_button_id" value="7M9F87AUJ6T2J" />
             <button type="submit" class="btn-paypal-ofrenda">
-                <img src="Gemini_Generated_Image_g6d4ytg6d4ytg6d4.jpg" alt="Hacer Ofrenda">
+                <img src="Gemini_Generated_Image_g6d4ytg6d4ytg6d4.jpg" alt="Ofrenda">
             </button>
         </form>
     </div>
@@ -139,7 +139,7 @@
         <img src="mapa.jpg" class="mapa-img">
         <div style="color: #bfa888;">
             <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
-            <p>Descubre la obra de David Robles Asunción.</p>
+            <p>David Robles Asunción</p>
         </div>
     </section>
 
