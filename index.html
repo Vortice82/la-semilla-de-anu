@@ -6,7 +6,7 @@
     <title>La Semilla de Anu - David Robles Asunción</title>
 
     <style>
-        /* RESET TOTAL */
+        /* RESET Y BASE */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body { 
@@ -30,7 +30,7 @@
             width: 100%;
         }
 
-        /* CONTENEDOR PORTADA (ESTRUCTURA ORIGINAL) */
+        /* CONTENEDOR PORTADA ORIGINAL */
         .templo-master { 
             position: relative; 
             width: 98%; 
@@ -54,36 +54,58 @@
         @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 849px) { .img-movil { display: block; } }
 
-        /* EFECTOS GOTA Y ONDA */
+        /* VÍDEO Y EFECTOS ORIGINALES */
+        #vid { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            opacity: 0; 
+            pointer-events: none; 
+            z-index: 5; 
+            transition: opacity 1s; 
+        }
+
         .gota-efecto { position: absolute; top: -20px; left: 50%; width: 5px; height: 18px; background: rgba(212, 188, 140, 0.8); border-radius: 50%; z-index: 6; pointer-events: none; animation: caerSuelo 3.5s infinite ease-in; }
         .onda-efecto { position: absolute; top: 96%; left: 50%; width: 10px; height: 5px; border: 2px solid rgba(212, 188, 140, 0.6); border-radius: 50%; z-index: 6; transform: translate(-50%, -50%); pointer-events: none; opacity: 0; animation: ondaSuelo 3.5s infinite; }
 
         @keyframes caerSuelo { 0% { top: -20px; opacity: 0; } 30% { opacity: 1; } 90% { top: 96%; opacity: 1; } 91% { opacity: 0; } 100% { opacity: 0; } }
         @keyframes ondaSuelo { 0%, 90% { width: 0; height: 0; opacity: 0; } 91% { opacity: 1; } 100% { width: 300px; height: 80px; opacity: 0; } }
 
-        #vid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; transition: opacity 0.3s; }
-
-        /* BOTONES ORIGINALES */
+        /* BOTONES ORIGINALES (Restaurados) */
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
-        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; border: 1.5px solid rgba(255,255,255,0.2); transition: 0.3s; }
         
-        .btn-col-izq { left: 8.5%; color: #fff; }
-        .btn-escritura { top: 32.5%; background: rgba(60, 40, 30, 0.6); } 
-        .btn-aventura { top: 40.5%; background: rgba(30, 50, 40, 0.6); } 
-        .btn-oraculo { top: 48.5%; background: rgba(50, 30, 60, 0.6); }
-
-        /* NUEVA SECCIÓN DE TEXTO (AÑADIDA ABAJO) */
-        .seccion-info-global {
-            padding: 50px 20px;
-            text-align: center;
-            max-width: 1000px;
-            z-index: 10;
+        .btn-invisible { 
+            position: absolute; 
+            width: 25.5%; 
+            height: 8.5%; 
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent; 
+            transition: background 0.3s;
         }
-        .mundo-icon { font-size: 2.5rem; display: block; margin-bottom: 15px; }
-        .titulo-invasion { color: #d4bc8c; font-size: clamp(1.4rem, 5vw, 2.2rem); font-weight: bold; margin-bottom: 20px; }
-        .texto-paises { font-size: clamp(1.1rem, 3.5vw, 1.3rem); line-height: 1.7; color: #e8dcc4; }
+
+        .btn-1 { top: 31%; left: 8.5%; }
+        .btn-2 { top: 40%; left: 8.5%; }
+        .btn-3 { top: 49%; left: 8.5%; }
+
+        /* SECCIÓN DE TEXTO DE LOS PAÍSES */
+        .seccion-paises {
+            padding: 60px 20px;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .mundo-icon { font-size: 2.5rem; display: block; margin-bottom: 20px; }
+        .titulo-invasion { color: #d4bc8c; font-size: 2rem; font-weight: bold; margin-bottom: 25px; text-transform: uppercase; }
+        .texto-principal { font-size: 1.2rem; line-height: 1.8; color: #e8dcc4; }
         .resaltado { color: #fff; font-weight: bold; }
-        .paises-lista { color: #d4bc8c; font-style: italic; font-weight: bold; }
+        .lista-paises { color: #d4bc8c; font-style: italic; font-weight: bold; }
 
     </style>
 </head>
@@ -96,36 +118,37 @@
         <div class="onda-efecto"></div>
         
         <video id="vid" autoplay muted loop playsinline>
-            <source src="tu-video-fondo.mp4" type="video/mp4">
+            <source src="Anu.mp4" type="video/mp4">
         </video>
 
-        <img src="tu-imagen-pc.jpg" alt="La Semilla de Anu" class="background-design img-pc">
-        <img src="tu-imagen-movil.jpg" alt="La Semilla de Anu" class="background-design img-movil">
+        <img src="Anu.jpg" alt="La Semilla de Anu PC" class="background-design img-pc">
+        <img src="Anu_Movil.jpg" alt="La Semilla de Anu Móvil" class="background-design img-movil">
 
         <div class="botones-capa">
-            <a href="#" class="btn-invisible btn-col-izq btn-escritura">Escritura Sagrada</a>
-            <a href="#" class="btn-invisible btn-col-izq btn-aventura">Iniciar Aventura</a>
-            <a href="#" class="btn-invisible btn-col-izq btn-oraculo">Consultar Oráculo</a>
+            <a href="#libro" class="btn-invisible btn-1"></a>
+            <a href="#comprar" class="btn-invisible btn-2"></a>
+            <a href="#mapa" class="btn-invisible btn-3"></a>
         </div>
     </div>
 
-    <div class="seccion-info-global">
+    <div class="seccion-paises">
         <span class="mundo-icon">🌍</span>
         <h2 class="titulo-invasion">¡LA INVASIÓN YA ES GLOBAL!</h2>
-        <p class="texto-paises">
+        <p class="texto-principal">
             Descubre la obra de <span class="resaltado">David Robles Asunción</span>, 
             "La semilla de Anu: Volumen 1 Anunaki", disponible exclusivamente en formato físico.
             <br><br>
             Parece que los Anunakis ya han aterrizado en: <br>
-            <span class="paises-lista">España, Portugal, U.K., México, Argentina, Colombia, Chile, Perú, Ecuador, EE.UU., Uruguay y Brasil.</span> 
+            <span class="lista-paises">España, Portugal, U.K., México, Argentina, Colombia, Chile, Perú, Ecuador, EE.UU., Uruguay y Brasil.</span> 
             <br>¡Nadie está a salvo de la verdad!
         </p>
     </div>
 
     <script>
-        // Mantenemos tu lógica de vídeo original
         const v = document.getElementById('vid');
-        v.addEventListener('canplaythrough', () => { v.style.opacity = "0.4"; });
+        v.addEventListener('canplaythrough', () => { 
+            v.style.opacity = "0.5"; 
+        });
     </script>
 
 </body>
