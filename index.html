@@ -94,6 +94,7 @@
         .btn-col-izq { left: 8%; color: #fff; }
         .btn-arcade { top: 32%; background: rgba(80, 20, 20, 0.95); border: 1.5px solid #ff6666; } 
         .btn-otros { top: 40%; background: #2a2a2a !important; color: #d4bc8c !important; border: 1.5px solid #d4bc8c !important; cursor: pointer; }
+        .btn-anunakis { top: 48%; background: rgba(20, 40, 80, 0.95); border: 2px solid #66aaff; color: #fff; cursor: pointer; }
 
         /* COLUMNA DERECHA */
         .btn-col-der { left: 67%; color: #fff; }
@@ -102,7 +103,6 @@
         .btn-tiktok { top: 48%; background: #000; border: 2px solid #ff0050; } 
         .btn-instagram { top: 56%; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border: 2px solid #fff; } 
         .btn-youtube { top: 64%; background: #ff0000; border: 2px solid #fff; }
-        .btn-anunakis { top: 72%; background: rgba(20, 40, 80, 0.95); border: 2px solid #66aaff; cursor: pointer; }
 
         /* MODAL */
         .modal-otros {
@@ -160,13 +160,13 @@
         <nav class="botones-capa">
             <a href="juego.html" class="btn-invisible btn-col-izq btn-arcade">Arcade</a>
             <div class="btn-invisible btn-col-izq btn-otros" id="btnOtrosMundos">Otros Mundos</div>
+            <div class="btn-invisible btn-col-izq btn-anunakis" id="btnD">Anunakis</div>
 
             <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-col-der btn-contacto-azul">Mensaje</a>
             <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-col-der btn-comprar" target="_blank">Comprar</a>
             <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-col-der btn-tiktok" target="_blank">TikTok</a>
             <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-col-der btn-instagram" target="_blank">Instagram</a>
             <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-col-der btn-youtube" target="_blank">YouTube</a>
-            <div class="btn-invisible btn-col-der btn-anunakis" id="btnD">Anunakis</div>
         </nav>
     </div>
 
@@ -226,7 +226,6 @@
         function activarFondo() { if (!audioIniciado) { aL.play().catch(() => {}); audioIniciado = true; } }
         function toggleGota(ver) { v.style.opacity = ver ? "1" : "0"; if(ver) { v.play(); sG.play().catch(() => {}); } else { v.pause(); } }
         
-        // El botón Anunakis ahora activa el efecto que antes tenía el de Dioses
         bD.onmouseenter = () => toggleGota(true);
         bD.onmouseleave = () => toggleGota(false);
         bD.ontouchstart = (e) => { e.preventDefault(); toggleGota(true); };
