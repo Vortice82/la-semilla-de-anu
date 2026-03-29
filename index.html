@@ -61,14 +61,32 @@
         }
         .btn-col-izq { left: 8%; color: #fff; }
         .btn-col-der { left: 67%; color: #fff; }
+
+        /* IZQUIERDA */
         .btn-arcade { top: 32%; background: rgba(80, 20, 20, 0.95); border: 1.5px solid #ff6666; } 
         .btn-otros { top: 40%; background: #2a2a2a; border: 1.5px solid #d4bc8c; color: #d4bc8c !important; }
         .btn-anunakis { top: 48%; background: rgba(20, 40, 80, 0.95); border: 2px solid #66aaff; }
-        .btn-contacto { top: 32%; background: #0044ff; border: 2px solid #00ffff; }
-        .btn-comprar { top: 40%; background: linear-gradient(145deg, #ffd700, #b8860b); color: #000 !important; border: 2px solid #fff; font-weight: 900; }
+        .btn-contacto { top: 56%; background: #0044ff; border: 2px solid #00ffff; }
+
+        /* DERECHA */
+        .btn-comprar { 
+            top: 40%; background: linear-gradient(145deg, #ffd700, #b8860b); 
+            color: #000 !important; border: 2px solid #fff; font-weight: 900;
+            animation: latido-boton 2s infinite ease-in-out; 
+        }
         .btn-tiktok { top: 48%; background: #000; border: 2px solid #ff0050; } 
         .btn-instagram { top: 56%; background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); border: 2px solid #fff; } 
         .btn-youtube { top: 64%; background: #ff0000; border: 2px solid #fff; }
+
+        /* ANIMACIÓN LATIDO */
+        @keyframes latido-boton {
+            0% { transform: scale(1); }
+            10% { transform: scale(1.08); }
+            20% { transform: scale(1); }
+            30% { transform: scale(1.08); }
+            40% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
 
         /* MODALES */
         .modal-base { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center; }
@@ -78,7 +96,6 @@
         .grid-autores { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; list-style: none; }
         .grid-autores li { padding: 8px; color: #e8dcc4; border-bottom: 1px solid #2a2a2a; font-size: 0.85rem; }
 
-        /* MENÚ INTERNO ANUNAKIS */
         .menu-anunaki-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
         .menu-anunaki-grid a { 
             display: block; padding: 15px; border: 1.5px solid #d4bc8c; color: #e8dcc4; 
@@ -87,20 +104,18 @@
         }
         .menu-anunaki-grid a:hover { background: #d4bc8c; color: #000; }
 
-        /* SECCIÓN VENTA */
+        /* VENTA Y PAÍSES */
         .seccion-venta { width: 90%; max-width: 1000px; padding: 60px 20px; text-align: center; }
         .mapa-img { width: 100%; max-width: 850px; border: 2px solid #3d2b1f; margin-bottom: 30px; border-radius: 4px; }
-        .lista-paises { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; list-style: none; margin: 20px 0; color: #d4bc8c; font-weight: bold; }
-        .lista-paises li { background: rgba(212, 188, 140, 0.1); padding: 5px 15px; border-radius: 20px; border: 1px solid #3d2b1f; }
+        .lista-paises { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; list-style: none; margin: 20px 0; color: #d4bc8c; }
+        .lista-paises li { background: rgba(212, 188, 140, 0.1); padding: 5px 12px; border-radius: 15px; border: 1px solid #3d2b1f; font-size: 0.9rem; }
 
-        /* PAYPAL */
         .contenedor-ofrenda { padding: 40px 0; display: flex; justify-content: center; width: 100%; }
         .btn-paypal-ofrenda { background: none; border: none; cursor: pointer; max-width: 220px; }
         .btn-paypal-ofrenda img { width: 100%; border-radius: 15px; }
 
-        /* FOOTER SEO */
         .footer-final { padding: 40px 20px 80px 20px; text-align: center; border-top: 1px solid #3d2b1f; width: 100%; }
-        .seo-hidden { font-size: 0.8rem; color: #444; margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.4; text-align: justify; }
+        .seo-hidden { font-size: 0.75rem; color: #444; margin-top: 30px; max-width: 800px; margin: 30px auto 0 auto; line-height: 1.4; text-align: justify; }
     </style>
 </head>
 <body onclick="iniciarLatido()" ontouchstart="iniciarLatido()">
@@ -120,8 +135,8 @@
             <a href="juego.html" class="btn-invisible btn-col-izq btn-arcade">Arcade</a>
             <div class="btn-invisible btn-col-izq btn-otros" onclick="abrirModal('modalOtros')">Otros Mundos</div>
             <div class="btn-invisible btn-col-izq btn-anunakis" onclick="abrirAnunakis()">Anunakis</div>
+            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-col-izq btn-contacto">Mensaje</a>
 
-            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-col-der btn-contacto">Mensaje</a>
             <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-col-der btn-comprar" target="_blank">Comprar</a>
             <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-col-der btn-tiktok" target="_blank">TikTok</a>
             <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-col-der btn-instagram" target="_blank">Instagram</a>
@@ -166,12 +181,11 @@
     <section class="seccion-venta">
         <h2 style="color:#d4bc8c; margin-bottom:20px;">A LA VENTA EN 12 PAÍSES</h2>
         <h3 style="margin-bottom:30px; color:#e8dcc4;">"La semilla de Anu: Volumen 1 y 2"</h3>
-        <img src="mapa.jpg" class="mapa-img" alt="Mapa de puntos de venta">
+        <img src="mapa.jpg" class="mapa-img">
         <ul class="lista-paises">
             <li>España</li><li>Portugal</li><li>U.K.</li><li>EE.UU.</li><li>México</li><li>Colombia</li>
             <li>Ecuador</li><li>Perú</li><li>Brasil</li><li>Chile</li><li>Uruguay</li><li>Argentina</li>
         </ul>
-        <p style="color:#bfa888; font-style:italic; margin-top:20px;">Disponible en más de 7.000 puntos de venta y las principales librerías internacionales.</p>
     </section>
 
     <footer class="footer-final">
