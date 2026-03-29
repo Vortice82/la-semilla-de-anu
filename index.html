@@ -51,7 +51,7 @@
         @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 849px) { .img-movil { display: block; } }
 
-        /* EFECTOS VISUALES CSS (SIN VÍDEO) */
+        /* EFECTOS VISUALES GOTA Y ONDA */
         .gota-efecto { 
             position: absolute; top: -25px; left: 50%; width: 4px; height: 20px; 
             background: linear-gradient(to bottom, transparent, #d4bc8c); 
@@ -107,7 +107,7 @@
         .close-x { position: absolute; top: 10px; right: 20px; color: #d4bc8c; font-size: 35px; cursor: pointer; font-weight: bold; }
         .modal-box h2 { color: #d4bc8c; text-align: center; margin-bottom: 20px; border-bottom: 2px solid #3d2b1f; padding-bottom: 15px; text-transform: uppercase; letter-spacing: 3px; }
         
-        /* LISTA ANUNAKIS (AGRUPACIÓN) */
+        /* DISEÑO MENÚ AGRUPADO */
         .menu-anunaki { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; list-style: none; }
         .menu-anunaki a { 
             display: block; padding: 15px; background: rgba(212, 188, 140, 0.1); 
@@ -210,6 +210,7 @@
         const btnAnu = document.getElementById('btnAnunakis'), btnOtr = document.getElementById('btnOtros');
         let audioIniciado = false;
 
+        // Inicia el latido con la primera interacción del usuario
         function activarFondo() { 
             if (!audioIniciado) { 
                 aL.play().catch(() => {}); 
@@ -217,8 +218,9 @@
             } 
         }
 
-        // ACCIONES BOTONES
+        // Abrir Anunakis y sonar la gota
         btnAnu.onclick = () => {
+            sG.currentTime = 0;
             sG.play().catch(() => {});
             mAnu.style.display = 'flex';
         };
@@ -232,6 +234,7 @@
             mOtros.style.display = 'none'; 
         }
 
+        // Cerrar al pulsar fuera del cuadro
         window.onclick = (e) => { 
             if (e.target.className === 'modal-base') cerrarModales(); 
         }
