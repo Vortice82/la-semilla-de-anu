@@ -51,7 +51,7 @@
         @keyframes caerSuelo { 0% { top: -25px; opacity: 0; } 10% { opacity: 1; } 85% { top: 96%; opacity: 1; } 90%, 100% { opacity: 0; } }
         @keyframes ondaSuelo { 0%, 85% { width: 0; height: 0; opacity: 0; } 86% { opacity: 1; } 100% { width: 400px; height: 100px; opacity: 0; } }
 
-        /* BOTONES */
+        /* BOTONES PRINCIPALES */
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
         .btn-invisible { 
             position: absolute; display: flex; align-items: center; justify-content: center; 
@@ -78,13 +78,27 @@
         .grid-autores { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; list-style: none; }
         .grid-autores li { padding: 8px; color: #e8dcc4; border-bottom: 1px solid #2a2a2a; font-size: 0.85rem; }
 
-        /* SECCIÓN VENTA Y PAÍSES */
+        /* MENÚ INTERNO ANUNAKIS */
+        .menu-anunaki-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .menu-anunaki-grid a { 
+            display: block; padding: 15px; border: 1.5px solid #d4bc8c; color: #e8dcc4; 
+            text-decoration: none; text-align: center; border-radius: 4px; font-weight: bold; font-size: 0.9rem;
+            background: rgba(212, 188, 140, 0.05); transition: 0.3s;
+        }
+        .menu-anunaki-grid a:hover { background: #d4bc8c; color: #000; }
+
+        /* SECCIÓN VENTA */
         .seccion-venta { width: 90%; max-width: 1000px; padding: 60px 20px; text-align: center; }
         .mapa-img { width: 100%; max-width: 850px; border: 2px solid #3d2b1f; margin-bottom: 30px; border-radius: 4px; }
         .lista-paises { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; list-style: none; margin: 20px 0; color: #d4bc8c; font-weight: bold; }
         .lista-paises li { background: rgba(212, 188, 140, 0.1); padding: 5px 15px; border-radius: 20px; border: 1px solid #3d2b1f; }
 
-        /* PIE DE PÁGINA Y SEO */
+        /* PAYPAL */
+        .contenedor-ofrenda { padding: 40px 0; display: flex; justify-content: center; width: 100%; }
+        .btn-paypal-ofrenda { background: none; border: none; cursor: pointer; max-width: 220px; }
+        .btn-paypal-ofrenda img { width: 100%; border-radius: 15px; }
+
+        /* FOOTER SEO */
         .footer-final { padding: 40px 20px 80px 20px; text-align: center; border-top: 1px solid #3d2b1f; width: 100%; }
         .seo-hidden { font-size: 0.8rem; color: #444; margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.4; text-align: justify; }
     </style>
@@ -115,29 +129,18 @@
         </nav>
     </div>
 
-    <section class="seccion-venta">
-        <h2 style="color:#d4bc8c; margin-bottom:20px;">A LA VENTA EN 12 PAÍSES</h2>
-        <h3 style="margin-bottom:30px; color:#e8dcc4;">"La semilla de Anu: Volumen 1 y 2"</h3>
-        
-        <img src="mapa.jpg" class="mapa-img" alt="Mapa de puntos de venta">
-        
-        <ul class="lista-paises">
-            <li>España</li><li>Portugal</li><li>U.K.</li><li>EE.UU.</li><li>México</li><li>Colombia</li>
-            <li>Ecuador</li><li>Perú</li><li>Brasil</li><li>Chile</li><li>Uruguay</li><li>Argentina</li>
-        </ul>
-        <p style="color:#bfa888; font-style:italic; margin-top:20px;">Disponible en más de 7.000 puntos de venta y las principales librerías internacionales.</p>
-    </section>
-
-    <footer class="footer-final">
-        <div style="margin-bottom: 40px;">
-            <h2 style="letter-spacing: 4px; color:#d4bc8c;">LA SEMILLA DE ANU: VOLUMEN 1 Y 2</h2>
-            <p style="letter-spacing: 6px; font-weight: bold;">DAVID ROBLES ASUNCIÓN</p>
+    <div id="modalAnunakis" class="modal-base">
+        <div class="modal-box">
+            <span class="close-x" onclick="cerrarModales()">&times;</span>
+            <h2 style="text-align:center; color:#d4bc8c">Anunakis</h2>
+            <div class="menu-anunaki-grid">
+                <a href="cuneiforme.html">Escritura</a>
+                <a href="aventura.html">Aventura</a>
+                <a href="adivinanzas.html">Oráculo</a>
+                <a href="destino.html">Destino</a>
+            </div>
         </div>
-
-        <div class="seo-hidden">
-            <strong>Palabras clave:</strong> Anunnaki, Enki, Sumeria, civilizaciones antiguas, misterio, David Robles Asunción, libros de ciencia ficción, mitología sumeria, historia oculta, Planeta Nibiru, extraterrestres, origen de la humanidad, saga, best seller, arqueología prohibida, tablillas cuneiformes, Mesopotamia, enigma, cosmos, espiritualidad. Descubre el secreto de los dioses en esta épica aventura disponible en Amazon, Barnes & Noble y Casa del Libro.
-        </div>
-    </footer>
+    </div>
 
     <div id="modalOtros" class="modal-base">
         <div class="modal-box">
@@ -151,18 +154,35 @@
         </div>
     </div>
 
-    <div id="modalAnunakis" class="modal-base">
-        <div class="modal-box">
-            <span class="close-x" onclick="cerrarModales()">&times;</span>
-            <h2 style="text-align:center; color:#d4bc8c">Anunakis</h2>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; list-style:none; margin-top:20px;">
-                <a href="cuneiforme.html" style="display:block; padding:15px; border:1px solid #d4bc8c; color:#e8dcc4; text-decoration:none; text-align:center;">Escritura</a>
-                <a href="aventura.html" style="display:block; padding:15px; border:1px solid #d4bc8c; color:#e8dcc4; text-decoration:none; text-align:center;">Aventura</a>
-                <a href="adivinanzas.html" style="display:block; padding:15px; border:1px solid #d4bc8c; color:#e8dcc4; text-decoration:none; text-align:center;">Oráculo</a>
-                <a href="juego.html" style="display:block; padding:15px; border:1px solid #d4bc8c; color:#e8dcc4; text-decoration:none; text-align:center;">Arcade</a>
-            </div>
-        </div>
+    <div class="contenedor-ofrenda">
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="hosted_button_id" value="7M9F87AUJ6T2J" />
+            <button type="submit" class="btn-paypal-ofrenda">
+                <img src="Gemini_Generated_Image_g6d4ytg6d4ytg6d4.jpg" alt="Ofrenda">
+            </button>
+        </form>
     </div>
+
+    <section class="seccion-venta">
+        <h2 style="color:#d4bc8c; margin-bottom:20px;">A LA VENTA EN 12 PAÍSES</h2>
+        <h3 style="margin-bottom:30px; color:#e8dcc4;">"La semilla de Anu: Volumen 1 y 2"</h3>
+        <img src="mapa.jpg" class="mapa-img" alt="Mapa de puntos de venta">
+        <ul class="lista-paises">
+            <li>España</li><li>Portugal</li><li>U.K.</li><li>EE.UU.</li><li>México</li><li>Colombia</li>
+            <li>Ecuador</li><li>Perú</li><li>Brasil</li><li>Chile</li><li>Uruguay</li><li>Argentina</li>
+        </ul>
+        <p style="color:#bfa888; font-style:italic; margin-top:20px;">Disponible en más de 7.000 puntos de venta y las principales librerías internacionales.</p>
+    </section>
+
+    <footer class="footer-final">
+        <div style="margin-bottom: 40px;">
+            <h2 style="letter-spacing: 4px; color:#d4bc8c;">LA SEMILLA DE ANU: VOLUMEN 1 Y 2</h2>
+            <p style="letter-spacing: 6px; font-weight: bold;">DAVID ROBLES ASUNCIÓN</p>
+        </div>
+        <div class="seo-hidden">
+            <strong>Búsquedas relacionadas:</strong> Anunnaki, Enki, Sumeria, civilizaciones antiguas, misterio, David Robles Asunción, libros de ciencia ficción, mitología sumeria, historia oculta, Planeta Nibiru, extraterrestres, origen de la humanidad, saga, best seller, arqueología prohibida, tablillas cuneiformes, Mesopotamia, enigma, cosmos, espiritualidad. Disponible en Amazon, Barnes & Noble y Casa del Libro.
+        </div>
+    </footer>
 
     <script>
         const latido = document.getElementById('audLatido');
