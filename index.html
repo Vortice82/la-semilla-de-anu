@@ -12,25 +12,27 @@
         body { 
             background-color: #0d0a07; 
             color: #e8dcc4; 
-            font-family: 'Segoe UI', serif; 
+            font-family: 'Segoe UI', 'Cambria', serif; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             min-height: 100vh; 
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         .seo-title { 
             color: #d4bc8c; 
             padding: 40px 15px; 
-            font-size: clamp(1.8rem, 6vw, 3rem); 
+            font-size: clamp(1.5rem, 5vw, 2.5rem); 
             text-transform: uppercase; 
             text-align: center; 
-            letter-spacing: 8px; 
+            letter-spacing: 6px; 
+            width: 100%;
             text-shadow: 0 0 15px rgba(212, 188, 140, 0.3);
         }
 
-        /* CONTENEDOR PRINCIPAL */
+        /* CONTENEDOR PORTADA */
         .templo-master { 
             position: relative; 
             width: 95%; 
@@ -39,8 +41,9 @@
             background: #000; 
             overflow: hidden; 
             line-height: 0;
-            border-radius: 8px;
+            z-index: 1;
             box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            border-radius: 8px;
         }
 
         .background-design { width: 100%; height: auto; display: block; position: relative; z-index: 2; }
@@ -48,7 +51,7 @@
         @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 849px) { .img-movil { display: block; } }
 
-        /* EFECTOS VISUALES CSS */
+        /* EFECTOS VISUALES GOTA Y ONDA */
         .gota-efecto { 
             position: absolute; top: -25px; left: 50%; width: 4px; height: 20px; 
             background: linear-gradient(to bottom, transparent, #d4bc8c); 
@@ -69,28 +72,28 @@
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
         .btn-invisible { 
             position: absolute; display: flex; align-items: center; justify-content: center; 
-            text-decoration: none; font-weight: 800; font-size: clamp(0.5rem, 1.8vw, 1rem); 
+            text-decoration: none; font-weight: 800; font-size: clamp(0.5rem, 1.8vw, 0.9rem); 
             text-transform: uppercase; border-radius: 4px; text-align: center; width: 25%; height: 7.2%; 
             transition: all 0.2s ease;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
             letter-spacing: 1px;
+            cursor: pointer;
         }
         .btn-invisible:hover { transform: scale(1.03); filter: brightness(1.2); }
 
-        /* IZQUIERDA */
+        /* COLUMNA IZQUIERDA */
         .btn-col-izq { left: 8%; color: #fff; }
         .btn-arcade { top: 32%; background: rgba(80, 20, 20, 0.95); border: 1.5px solid #ff6666; } 
-        .btn-otros { top: 40%; background: #2a2a2a; color: #d4bc8c !important; border: 1.5px solid #d4bc8c; cursor: pointer; }
-        .btn-anunakis { top: 48%; background: rgba(20, 40, 80, 0.95); border: 2px solid #66aaff; cursor: pointer; }
+        .btn-otros { top: 40%; background: #2a2a2a; border: 1.5px solid #d4bc8c; color: #d4bc8c !important; }
+        .btn-anunakis { top: 48%; background: rgba(20, 40, 80, 0.95); border: 2px solid #66aaff; }
 
-        /* DERECHA */
+        /* COLUMNA DERECHA */
         .btn-col-der { left: 67%; color: #fff; }
         .btn-contacto { top: 32%; background: #0044ff; border: 2px solid #00ffff; }
         .btn-comprar { top: 40%; background: linear-gradient(145deg, #ffd700, #b8860b); color: #000 !important; border: 2px solid #fff; font-weight: 900; }
-        .btn-social { background: #000; border: 2px solid #fff; }
-        .btn-tiktok { top: 48%; border-color: #ff0050; }
-        .btn-instagram { top: 56%; background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
-        .btn-youtube { top: 64%; background: #ff0000; }
+        .btn-tiktok { top: 48%; background: #000; border: 2px solid #ff0050; } 
+        .btn-instagram { top: 56%; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border: 2px solid #fff; } 
+        .btn-youtube { top: 64%; background: #ff0000; border: 2px solid #fff; }
 
         /* MODALES */
         .modal-base {
@@ -98,71 +101,93 @@
             background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center;
         }
         .modal-box {
-            background: #1a1612; border: 2px solid #d4bc8c; width: 90%; max-width: 500px; 
-            padding: 30px; border-radius: 12px; position: relative;
+            background: #1a1612; border: 2px solid #d4bc8c; width: 90%;
+            max-width: 550px; padding: 25px; border-radius: 12px;
+            position: relative; box-shadow: 0 0 50px rgba(212, 188, 140, 0.2);
         }
-        .close-x { position: absolute; top: 10px; right: 20px; color: #d4bc8c; font-size: 30px; cursor: pointer; }
+        .close-x { position: absolute; top: 10px; right: 20px; color: #d4bc8c; font-size: 35px; cursor: pointer; font-weight: bold; }
+        .modal-box h2 { color: #d4bc8c; text-align: center; margin-bottom: 20px; border-bottom: 2px solid #3d2b1f; padding-bottom: 10px; text-transform: uppercase; letter-spacing: 3px; }
         
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; list-style: none; margin-top: 20px; }
-        .menu-grid a { 
-            display: block; padding: 12px; border: 1px solid #d4bc8c; color: #e8dcc4; 
-            text-decoration: none; text-align: center; border-radius: 4px; font-weight: bold;
-        }
-        .menu-grid a:hover { background: #d4bc8c; color: #000; }
+        /* LISTA OTROS MUNDOS */
+        .scroll-lista { max-height: 50vh; overflow-y: auto; padding-right: 10px; margin-top: 15px; }
+        .scroll-lista::-webkit-scrollbar { width: 5px; }
+        .scroll-lista::-webkit-scrollbar-thumb { background: #d4bc8c; border-radius: 5px; }
 
-        /* FOOTER */
-        .contenedor-ofrenda { padding: 40px 0; }
-        .btn-paypal img { width: 200px; border-radius: 10px; }
+        .grid-autores { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; list-style: none; }
+        @media (max-width: 450px) { .grid-autores { grid-template-columns: 1fr; } }
+        .grid-autores li { padding: 8px; color: #e8dcc4; border-bottom: 1px solid #2a2a2a; font-size: 0.85rem; }
+
+        /* MENÚ ANUNAKIS */
+        .menu-anunaki { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; list-style: none; }
+        .menu-anunaki a { 
+            display: block; padding: 15px; background: rgba(212, 188, 140, 0.1); 
+            border: 1.5px solid #d4bc8c; color: #e8dcc4; text-decoration: none; 
+            text-align: center; border-radius: 6px; font-weight: bold; font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .menu-anunaki a:hover { background: #d4bc8c; color: #000; }
+
+        /* SECCIÓN INFERIOR: PAYPAL, MAPA Y TEXTO */
+        .contenedor-ofrenda { padding: 60px 0; display: flex; justify-content: center; width: 100%; }
+        .btn-paypal-ofrenda { background: none; border: none; cursor: pointer; max-width: 220px; }
+        .btn-paypal-ofrenda img { width: 100%; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+
+        .seccion-global { width: 90%; max-width: 1000px; padding: 40px 20px 80px 20px; text-align: center; }
+        .mapa-img { width: 100%; max-width: 800px; border: 2px solid #3d2b1f; margin: 0 auto 30px auto; border-radius: 4px; display: block; }
+        .texto-global { color: #bfa888; font-weight: bold; }
+        .texto-global h2 { letter-spacing: 4px; margin-bottom: 15px; text-transform: uppercase; }
     </style>
 </head>
-<body onclick="iniciarAudio()" ontouchstart="iniciarAudio()">
+<body onclick="iniciarLatido()" ontouchstart="iniciarLatido()">
 
     <h1 class="seo-title">La Semilla de Anu</h1>
 
     <div class="templo-master">
-        <img src="portada-movil.jpeg" class="background-design img-movil" alt="Móvil">
-        <img src="portada-pc.jpeg" class="background-design img-pc" alt="PC">
+        <img src="portada-movil.jpeg" class="background-design img-movil" alt="Portada Móvil">
+        <img src="portada-pc.jpeg" class="background-design img-pc" alt="Portada PC">
         
         <div class="gota-efecto"></div>
         <div class="onda-efecto"></div>
         
-        <audio id="audioLatido" loop src="latido.mp3"></audio>
-        <audio id="audioGota" src="sonido.mp3"></audio>
+        <audio id="audLatido" loop src="latido.mp3"></audio>
+        <audio id="audGota" src="sonido.mp3"></audio>
         
         <nav class="botones-capa">
             <a href="juego.html" class="btn-invisible btn-col-izq btn-arcade">Arcade</a>
             <div class="btn-invisible btn-col-izq btn-otros" onclick="abrirModal('modalOtros')">Otros Mundos</div>
-            <div class="btn-invisible btn-col-izq btn-anunakis" onclick="menuAnunaki()">Anunakis</div>
+            <div class="btn-invisible btn-col-izq btn-anunakis" onclick="abrirAnunakis()">Anunakis</div>
 
             <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-col-der btn-contacto">Mensaje</a>
             <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-col-der btn-comprar" target="_blank">Comprar</a>
-            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-col-der btn-social btn-tiktok" target="_blank">TikTok</a>
-            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-col-der btn-social btn-instagram" target="_blank">Instagram</a>
-            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-col-der btn-social btn-youtube" target="_blank">YouTube</a>
+            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-col-der btn-tiktok" target="_blank">TikTok</a>
+            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-col-der btn-instagram" target="_blank">Instagram</a>
+            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-col-der btn-youtube" target="_blank">YouTube</a>
         </nav>
-    </div>
-
-    <div id="modalAnunakis" class="modal-base">
-        <div class="modal-box">
-            <span class="close-x" onclick="cerrarModales()">&times;</span>
-            <h2 style="text-align:center; color:#d4bc8c">ANUNAKIS</h2>
-            <div class="menu-grid">
-                <a href="cuneiforme.html">Escritura</a>
-                <a href="aventura.html">Aventura</a>
-                <a href="adivinanzas.html">Oráculo</a>
-                <a href="juego.html">Arcade</a>
-                <a href="destino.html">Destino</a>
-                <a href="#" onclick="cerrarModales()">Cerrar</a>
-            </div>
-        </div>
     </div>
 
     <div id="modalOtros" class="modal-base">
         <div class="modal-box">
             <span class="close-x" onclick="cerrarModales()">&times;</span>
-            <h2 style="text-align:center; color:#d4bc8c">OTROS MUNDOS</h2>
-            <div style="max-height:300px; overflow-y:auto; margin-top:20px; font-size:0.9rem;">
-                <p>Alan y Sally Landsburg, J.J. Benitez, Erich von Daniken, Javier Sierra, Peter Kolosimo...</p>
+            <h2>Otros Mundos</h2>
+            <div class="scroll-lista">
+                <ul class="grid-autores">
+                    <li>Alan y Sally Landsburg</li><li>Alfred Stelter</li><li>Andrew Tomas</li><li>Belline</li><li>Carlo Liberio del Zotti</li><li>Charles berlitz</li><li>Christine Dequerlor</li><li>Cristian Puig</li><li>David Hammond</li><li>Dr. Frederik Koning</li><li>Erich von Daniken</li><li>Francisco Javier Torrent Rodrigo</li><li>Francois Ethuin</li><li>Francois Ribadeau Dumas</li><li>Fulcanelli</li><li>Günter Paul</li><li>Gustavo Domenech</li><li>H.P. Blavatsky</li><li>Hades</li><li>Hans Herlin</li><li>J. Bergier</li><li>J.Garcia Font</li><li>J.J.Benitez</li><li>Jacques Bergier</li><li>Jacques Sadoul</li><li>Jacques. A. Mauduit</li><li>Javier Sierra</li><li>Jean Sendy</li><li>Jean-Charles Pichon</li><li>John G. Fuller</li><li>L. Pauwels</li><li>Leo Talamonti</li><li>Marcel Moreau</li><li>Maurice Chatelain</li><li>Michael Cranger</li><li>Michael-Claude Touchard</li><li>Michel Gauquelin</li><li>Patrice Gaston</li><li>Pedro Guirao</li><li>Peter Kolosimo</li><li>Pierre carnac</li><li>Pierre ceria</li><li>Pierre Duval</li><li>rainer Erler</li><li>Richard Hennig</li><li>Robert Charroux</li><li>Robert Tocquet</li><li>Stuart R.Kaplan</li><li>Victor Colmenarejo</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalAnunakis" class="modal-base">
+        <div class="modal-box">
+            <span class="close-x" onclick="cerrarModales()">&times;</span>
+            <h2>Anunakis</h2>
+            <div class="menu-anunaki">
+                <a href="cuneiforme.html">Escritura</a>
+                <a href="aventura.html">Aventura</a>
+                <a href="adivinanzas.html">Oráculo</a>
+                <a href="juego.html">Arcade</a>
+                <a href="destino.html">Destino</a>
+                <a href="javascript:void(0)" onclick="cerrarModales()">Volver</a>
             </div>
         </div>
     </div>
@@ -170,28 +195,36 @@
     <div class="contenedor-ofrenda">
         <form action="https://www.paypal.com/donate" method="post" target="_top">
             <input type="hidden" name="hosted_button_id" value="7M9F87AUJ6T2J" />
-            <button type="submit" style="background:none; border:none; cursor:pointer" class="btn-paypal">
-                <img src="Gemini_Generated_Image_g6d4ytg6d4ytg6d4.jpg" alt="Donar">
+            <button type="submit" class="btn-paypal-ofrenda">
+                <img src="Gemini_Generated_Image_g6d4ytg6d4ytg6d4.jpg" alt="Ofrenda para Anu">
             </button>
         </form>
     </div>
 
+    <section class="seccion-global">
+        <img src="mapa.jpg" class="mapa-img" alt="Mapa de Invasión">
+        <div class="texto-global">
+            <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
+            <p>David Robles Asunción - "La semilla de Anu"</p>
+        </div>
+    </section>
+
     <script>
-        const latido = document.getElementById('audioLatido');
-        const gota = document.getElementById('audioGota');
+        const latido = document.getElementById('audLatido');
+        const gota = document.getElementById('audGota');
         let iniciado = false;
 
-        function iniciarAudio() {
+        function iniciarLatido() {
             if (!iniciado) {
-                latido.play().catch(e => console.log("Esperando interacción"));
+                latido.play().catch(() => {});
                 iniciado = true;
             }
         }
 
-        function menuAnunaki() {
+        function abrirAnunakis() {
             gota.currentTime = 0;
-            gota.play();
-            document.getElementById('modalAnunakis').style.display = 'flex';
+            gota.play().catch(() => {});
+            abrirModal('modalAnunakis');
         }
 
         function abrirModal(id) {
@@ -202,7 +235,9 @@
             document.querySelectorAll('.modal-base').forEach(m => m.style.display = 'none');
         }
 
-        window.onclick = (e) => { if (e.target.className === 'modal-base') cerrarModales(); }
+        window.onclick = (e) => { 
+            if (e.target.className === 'modal-base') cerrarModales(); 
+        }
     </script>
 </body>
 </html>
