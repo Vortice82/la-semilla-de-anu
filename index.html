@@ -6,150 +6,40 @@
     <title>La Semilla de Anu - David Robles Asunción</title>
 
     <style>
-        /* RESET TOTAL */
+        /* RESET Y BASE */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body { 
             background-color: #0d0a07; 
             color: #e8dcc4; 
-            font-family: 'Cambria', serif; 
+            font-family: 'Segoe UI', 'Cambria', serif; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             min-height: 100vh; 
-            overflow-x: hidden; 
+            overflow-x: hidden;
         }
 
         .seo-title { 
-            color: #d4bc8c; 
-            padding: 30px 15px; 
-            font-size: clamp(1.5rem, 5vw, 2.5rem); 
-            text-transform: uppercase; 
-            text-align: center; 
-            letter-spacing: 5px; 
-            width: 100%;
+            color: #d4bc8c; padding: 40px 15px; font-size: clamp(1.5rem, 5vw, 2.5rem); 
+            text-transform: uppercase; text-align: center; letter-spacing: 6px; width: 100%;
+            text-shadow: 0 0 15px rgba(212, 188, 140, 0.3);
         }
 
-        /* CONTENEDOR PORTADA */
+        /* PORTADA */
         .templo-master { 
-            position: relative; 
-            width: 98%; 
-            max-width: 1250px; 
-            border: 2px solid #3d2b1f; 
-            background: #000; 
-            overflow: hidden; 
-            line-height: 0;
-            z-index: 1;
+            position: relative; width: 95%; max-width: 1200px; border: 3px solid #3d2b1f; 
+            background: #000; overflow: hidden; line-height: 0; border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
         }
-
-        .background-design { 
-            width: 100%; 
-            height: auto; 
-            display: block; 
-            position: relative; 
-            z-index: 2; 
-        }
-
-        /* Control de visibilidad según pantalla */
+        .background-design { width: 100%; height: auto; display: block; position: relative; z-index: 2; }
         .img-pc { display: none; }
         @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
         @media (max-width: 849px) { .img-movil { display: block; } }
 
-        /* EFECTOS GOTA */
-        .gota-efecto { position: absolute; top: -20px; left: 50%; width: 5px; height: 18px; background: rgba(212, 188, 140, 0.8); border-radius: 50%; z-index: 6; pointer-events: none; animation: caerSuelo 3.5s infinite ease-in; }
-        .onda-efecto { position: absolute; top: 96%; left: 50%; width: 10px; height: 5px; border: 2px solid rgba(212, 188, 140, 0.6); border-radius: 50%; z-index: 6; transform: translate(-50%, -50%); pointer-events: none; opacity: 0; animation: ondaSuelo 3.5s infinite; }
-
-        @keyframes caerSuelo { 0% { top: -20px; opacity: 0; } 30% { opacity: 1; } 90% { top: 96%; opacity: 1; } 91% { opacity: 0; } 100% { opacity: 0; } }
-        @keyframes ondaSuelo { 0%, 90% { width: 0; height: 0; opacity: 0; } 91% { opacity: 1; } 100% { width: 300px; height: 80px; opacity: 0; } }
-
-        #vid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; transition: opacity 0.3s; }
-
-        /* BOTONES */
-        .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
-        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; border: 1.5px solid rgba(255,255,255,0.2); }
-        
-        .btn-col-izq { left: 8.5%; color: #fff; }
-        .btn-escritura { top: 32.5%; background: rgba(60, 40, 30, 0.9); border-color: #d4bc8c; } 
-        .btn-aventura { top: 40.5%; background: rgba(30, 50, 40, 0.9); border-color: #88ccaa; } 
-        .btn-oraculo { top: 48.5%; background: rgba(50, 30, 60, 0.9); border-color: #cc99ff; } 
-        .btn-arcade { top: 56.5%; background: rgba(80, 20, 20, 0.9); border-color: #ff6666; } 
-        .btn-dioses { top: 64.5%; background: rgba(20, 40, 80, 0.9); border-color: #66aaff; cursor: pointer; } 
-        .btn-destino { top: 72.5%; background: rgba(139, 69, 19, 0.95); border-color: #ffd700; }
-
-        .btn-contacto-azul { top: 32.5%; left: 67.5%; background: #0044ff !important; color: #fff !important; border: 2px solid #00ffff !important; }
-        .btn-comprar { top: 40.5%; left: 67.5%; background: linear-gradient(145deg, #ffd700, #b8860b) !important; color: #000 !important; border: 2px solid #fff !important; font-weight: 900; }
-        .btn-rrss { left: 67.5%; color: #fff; }
-        .btn-tiktok { top: 48.5%; background: #000; border: 1.5px solid #ff0050; } 
-        .btn-instagram { top: 56.5%; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border: 1.5px solid #fff; } 
-        .btn-youtube { top: 64.5%; background: #ff0000; border: 1.5px solid #fff; }
-        .btn-otros { top: 72.5%; left: 67.5%; background: #2a2a2a !important; color: #d4bc8c !important; border: 1.5px solid #d4bc8c !important; cursor: pointer; }
-
-        .contenedor-ofrenda { padding: 40px 0; display: flex; justify-content: center; width: 100%; }
-        .btn-paypal-ofrenda { background: none; border: none; cursor: pointer; max-width: 180px; }
-        .btn-paypal-ofrenda img { width: 100%; height: auto; }
-
-        .seccion-global { width: 100%; max-width: 950px; padding: 40px 20px; text-align: center; }
-        .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 20px; }
-    </style>
-</head>
-<body onclick="activarFondo()" ontouchstart="activarFondo()">
-
-    <h1 class="seo-title">La Semilla de Anu</h1>
-
-    <div class="templo-master">
-        <img src="portada-movil.jpeg" class="background-design img-movil" alt="Portada">
-        <img src="portada-pc.jpeg" class="background-design img-pc" alt="Portada">
-        
-        <div class="gota-efecto"></div>
-        <div class="onda-efecto"></div>
-        
-        <video id="vid" loop playsinline muted><source src="video.mp4" type="video/mp4"></video>
-        <audio id="audGota"><source src="sonido.mp3" type="audio/mpeg"></audio>
-        <audio id="audLatido" loop><source src="latido.mp3" type="audio/mpeg"></audio>
-        
-        <nav class="botones-capa">
-            <a href="cuneiforme.html" class="btn-invisible btn-col-izq btn-escritura">Escritura</a>
-            <a href="aventura.html" class="btn-invisible btn-col-izq btn-aventura">Aventura</a>
-            <a href="adivinanzas.html" class="btn-invisible btn-col-izq btn-oraculo">Oráculo</a>
-            <a href="juego.html" class="btn-invisible btn-col-izq btn-arcade">Arcade</a>
-            <a href="javascript:void(0)" class="btn-invisible btn-col-izq btn-dioses" id="btnD">Dioses</a>
-            <a href="destino.html" class="btn-invisible btn-col-izq btn-destino">Destino</a>
-            
-            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-contacto-azul">Mensaje</a>
-            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">Comprar</a>
-            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-rrss btn-tiktok" target="_blank">TikTok</a>
-            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-rrss btn-instagram" target="_blank">Instagram</a>
-            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-rrss btn-youtube" target="_blank">YouTube</a>
-            <div class="btn-invisible btn-otros">Otros Mundos</div>
-        </nav>
-    </div>
-
-    <div class="contenedor-ofrenda">
-        <form action="https://www.paypal.com/donate" method="post" target="_top">
-            <input type="hidden" name="hosted_button_id" value="7M9F87AUJ6T2J" />
-            <button type="submit" class="btn-paypal-ofrenda">
-                <img src="Gemini_Generated_Image_g6d4ytg6d4ytg6d4.jpg" alt="Ofrenda">
-            </button>
-        </form>
-    </div>
-
-    <section class="seccion-global">
-        <img src="mapa.jpg" class="mapa-img">
-        <div style="color: #bfa888;">
-            <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
-            <p>David Robles Asunción</p>
-        </div>
-    </section>
-
-    <script>
-        const v = document.getElementById('vid'), sG = document.getElementById('audGota'), aL = document.getElementById('audLatido'), bD = document.getElementById('btnD');
-        let audioIniciado = false;
-        function activarFondo() { if (!audioIniciado) { aL.play().catch(() => {}); audioIniciado = true; } }
-        function toggleGota(ver) { v.style.opacity = ver ? "1" : "0"; if(ver) { v.play(); sG.play().catch(() => {}); } else { v.pause(); } }
-        bD.onmouseenter = () => toggleGota(true);
-        bD.onmouseleave = () => toggleGota(false);
-        bD.ontouchstart = (e) => { e.preventDefault(); toggleGota(true); };
-        bD.ontouchend = () => toggleGota(false);
-    </script>
-</body>
-</html>
+        /* GOTA Y ONDA */
+        .gota-efecto { 
+            position: absolute; top: -25px; left: 50%; width: 4px; height: 20px; 
+            background: linear-gradient(to bottom, transparent, #d4bc8c); border-radius: 50%; 
+            z-index: 6; animation: caerSuelo 4s infinite cubic-bezier(0.4, 0, 1, 1); 
+        }
