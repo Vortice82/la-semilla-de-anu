@@ -2,162 +2,154 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Games - La Semilla de Anu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>La Semilla de Anu - David Robles Asunción</title>
+
     <style>
-        :root {
-            --bg: #0d0a07;
-            --accent: #d4bc8c;
-            --text: #e8dcc4;
-            --panel: #1a1612;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Cambria', serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        /* MENÚ DE SELECCIÓN */
-        #menu-selector {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 50px;
-            width: 90%;
-            max-width: 400px;
-        }
-
-        .btn-game-choice {
-            padding: 20px;
-            background: var(--panel);
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            text-align: center;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .btn-game-choice:hover {
-            background: var(--accent);
-            color: var(--bg);
-        }
-
-        /* CONTENEDORES DE JUEGO */
-        .game-layer { display: none; width: 100%; max-width: 600px; padding: 10px; }
+        /* RESET TOTAL */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
-        /* ESTILOS ROL (HEROQUEST LITE) */
-        #stats-rol { display: flex; justify-content: space-around; background: #333; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-weight: bold; border: 1px solid var(--accent); }
-        #board-rol { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; background: #000; border: 4px solid #555; aspect-ratio: 1 / 1; width: 100%; }
-        .cell { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; background-color: #2c2c2c; position: relative; }
-        .wall { background-color: #444; }
-        .hidden { background-color: #000 !important; color: transparent; }
-        #controls-rol { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; justify-items: center; }
-        .btn-rol { width: 60px; height: 60px; background: #444; border: 2px solid var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; }
-        #log-rol { margin-top: 15px; background: #000; padding: 10px; height: 80px; overflow-y: auto; font-size: 0.9rem; border-left: 3px solid var(--accent); }
+        body { 
+            background-color: #0d0a07; 
+            color: #e8dcc4; 
+            font-family: 'Cambria', serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh; 
+            overflow-x: hidden; 
+        }
 
-        /* ESTILOS ARCADE (SIMPLIFICADO) */
-        #arcade-container { text-align: center; }
-        #arcade-screen { background: #000; border: 3px solid #ff6666; width: 100%; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        .seo-title { 
+            color: #d4bc8c; 
+            padding: 30px 15px; 
+            font-size: clamp(1.5rem, 5vw, 2.5rem); 
+            text-transform: uppercase; 
+            text-align: center; 
+            letter-spacing: 5px; 
+            width: 100%;
+        }
 
-        .btn-back { margin-top: 20px; background: none; border: 1px solid var(--accent); color: var(--accent); padding: 5px 10px; cursor: pointer; }
+        /* CONTENEDOR PORTADA */
+        .templo-master { 
+            position: relative; 
+            width: 98%; 
+            max-width: 1250px; 
+            border: 2px solid #3d2b1f; 
+            background: #000; 
+            overflow: hidden; 
+            line-height: 0;
+            z-index: 1;
+        }
+
+        .background-design { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            position: relative; 
+            z-index: 2; 
+        }
+
+        /* Control de visibilidad según pantalla */
+        .img-pc { display: none; }
+        @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
+        @media (max-width: 849px) { .img-movil { display: block; } }
+
+        /* EFECTOS GOTA */
+        .gota-efecto { position: absolute; top: -20px; left: 50%; width: 5px; height: 18px; background: rgba(212, 188, 140, 0.8); border-radius: 50%; z-index: 6; pointer-events: none; animation: caerSuelo 3.5s infinite ease-in; }
+        .onda-efecto { position: absolute; top: 96%; left: 50%; width: 10px; height: 5px; border: 2px solid rgba(212, 188, 140, 0.6); border-radius: 50%; z-index: 6; transform: translate(-50%, -50%); pointer-events: none; opacity: 0; animation: ondaSuelo 3.5s infinite; }
+
+        @keyframes caerSuelo { 0% { top: -20px; opacity: 0; } 30% { opacity: 1; } 90% { top: 96%; opacity: 1; } 91% { opacity: 0; } 100% { opacity: 0; } }
+        @keyframes ondaSuelo { 0%, 90% { width: 0; height: 0; opacity: 0; } 91% { opacity: 1; } 100% { width: 300px; height: 80px; opacity: 0; } }
+
+        #vid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; z-index: 5; transition: opacity 0.3s; }
+
+        /* BOTONES */
+        .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
+        .btn-invisible { position: absolute; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 800; font-size: clamp(0.45rem, 1.7vw, 0.95rem); text-transform: uppercase; border-radius: 3px; text-align: center; width: 24%; height: 6.8%; border: 1.5px solid rgba(255,255,255,0.2); }
+        
+        .btn-col-izq { left: 8.5%; color: #fff; }
+        .btn-escritura { top: 32.5%; background: rgba(60, 40, 30, 0.9); border-color: #d4bc8c; } 
+        .btn-aventura { top: 40.5%; background: rgba(30, 50, 40, 0.9); border-color: #88ccaa; } 
+        .btn-oraculo { top: 48.5%; background: rgba(50, 30, 60, 0.9); border-color: #cc99ff; } 
+        .btn-arcade { top: 56.5%; background: rgba(80, 20, 20, 0.9); border-color: #ff6666; } 
+        .btn-dioses { top: 64.5%; background: rgba(20, 40, 80, 0.9); border-color: #66aaff; cursor: pointer; } 
+        .btn-destino { top: 72.5%; background: rgba(139, 69, 19, 0.95); border-color: #ffd700; }
+
+        .btn-contacto-azul { top: 32.5%; left: 67.5%; background: #0044ff !important; color: #fff !important; border: 2px solid #00ffff !important; }
+        .btn-comprar { top: 40.5%; left: 67.5%; background: linear-gradient(145deg, #ffd700, #b8860b) !important; color: #000 !important; border: 2px solid #fff !important; font-weight: 900; }
+        .btn-rrss { left: 67.5%; color: #fff; }
+        .btn-tiktok { top: 48.5%; background: #000; border: 1.5px solid #ff0050; } 
+        .btn-instagram { top: 56.5%; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border: 1.5px solid #fff; } 
+        .btn-youtube { top: 64.5%; background: #ff0000; border: 1.5px solid #fff; }
+        .btn-otros { top: 72.5%; left: 67.5%; background: #2a2a2a !important; color: #d4bc8c !important; border: 1.5px solid #d4bc8c !important; cursor: pointer; }
+
+        .contenedor-ofrenda { padding: 40px 0; display: flex; justify-content: center; width: 100%; }
+        .btn-paypal-ofrenda { background: none; border: none; cursor: pointer; max-width: 180px; }
+        .btn-paypal-ofrenda img { width: 100%; height: auto; }
+
+        .seccion-global { width: 100%; max-width: 950px; padding: 40px 20px; text-align: center; }
+        .mapa-img { width: 100%; height: auto; border: 1px solid #3d2b1f; margin-bottom: 20px; }
     </style>
 </head>
-<body>
+<body onclick="activarFondo()" ontouchstart="activarFondo()">
 
-    <h1 style="color: var(--accent); margin-top: 20px;">GAMES</h1>
+    <h1 class="seo-title">La Semilla de Anu</h1>
 
-    <div id="menu-selector">
-        <div class="btn-game-choice" onclick="showGame('rol')">⚔️ ROL</div>
-        <div class="btn-game-choice" onclick="showGame('arcade')">🕹️ ARCADE</div>
-        <a href="index.html" style="color: var(--accent); text-align: center; text-decoration: none; margin-top: 20px;">← Volver al Templo</a>
+    <div class="templo-master">
+        <img src="portada-movil.jpeg" class="background-design img-movil" alt="Portada">
+        <img src="portada-pc.jpeg" class="background-design img-pc" alt="Portada">
+        
+        <div class="gota-efecto"></div>
+        <div class="onda-efecto"></div>
+        
+        <video id="vid" loop playsinline muted><source src="video.mp4" type="video/mp4"></video>
+        <audio id="audGota"><source src="sonido.mp3" type="audio/mpeg"></audio>
+        <audio id="audLatido" loop><source src="latido.mp3" type="audio/mpeg"></audio>
+        
+        <nav class="botones-capa">
+            <a href="cuneiforme.html" class="btn-invisible btn-col-izq btn-escritura">Escritura</a>
+            <a href="aventura.html" class="btn-invisible btn-col-izq btn-aventura">Aventura</a>
+            <a href="adivinanzas.html" class="btn-invisible btn-col-izq btn-oraculo">Oráculo</a>
+            <a href="juego.html" class="btn-invisible btn-col-izq btn-arcade">Arcade</a>
+            <a href="javascript:void(0)" class="btn-invisible btn-col-izq btn-dioses" id="btnD">Dioses</a>
+            <a href="destino.html" class="btn-invisible btn-col-izq btn-destino">Destino</a>
+            
+            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-contacto-azul">Mensaje</a>
+            <a href="https://www.exlibric.com/libro/la-semilla-de-anu-volumen-i-anunaki/" class="btn-invisible btn-comprar" target="_blank">Comprar</a>
+            <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-rrss btn-tiktok" target="_blank">TikTok</a>
+            <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-rrss btn-instagram" target="_blank">Instagram</a>
+            <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-rrss btn-youtube" target="_blank">YouTube</a>
+            <div class="btn-invisible btn-otros">Otros Mundos</div>
+        </nav>
     </div>
 
-    <div id="game-rol" class="game-layer">
-        <div id="stats-rol">
-            <span>❤️ Vida: <span id="hp">10</span></span>
-            <span>💰 Oro: <span id="gold">0</span></span>
-        </div>
-        <div id="board-rol"></div>
-        <div id="log-rol">Explora la mazmorra...</div>
-        <div id="controls-rol">
-            <div class="btn-rol" style="grid-column: 2" onclick="moveRol(0, -1)">▲</div>
-            <div class="btn-rol" style="grid-column: 1" onclick="moveRol(-1, 0)">◀</div>
-            <div class="btn-rol" style="grid-column: 2" onclick="moveRol(0, 1)">▼</div>
-            <div class="btn-rol" style="grid-column: 3" onclick="moveRol(1, 0)">▶</div>
-        </div>
-        <button class="btn-back" onclick="location.reload()">Volver al menú</button>
+    <div class="contenedor-ofrenda">
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="hosted_button_id" value="7M9F87AUJ6T2J" />
+            <button type="submit" class="btn-paypal-ofrenda">
+                <img src="Gemini_Generated_Image_g6d4ytg6d4ytg6d4.jpg" alt="Ofrenda">
+            </button>
+        </form>
     </div>
 
-    <div id="game-arcade" class="game-layer">
-        <div id="arcade-container">
-            <div id="arcade-screen">CARGANDO ARCADE...</div>
-            <p style="margin-top:20px;">(Aquí va tu juego arcade de siempre)</p>
-            <button class="btn-back" onclick="location.reload()">Volver al menú</button>
+    <section class="seccion-global">
+        <img src="mapa.jpg" class="mapa-img">
+        <div style="color: #bfa888;">
+            <h2>🌍 ¡LA INVASIÓN YA ES GLOBAL!</h2>
+            <p>David Robles Asunción</p>
         </div>
-    </div>
+    </section>
 
     <script>
-        function showGame(type) {
-            document.getElementById('menu-selector').style.display = 'none';
-            document.getElementById('game-' + type).style.display = 'block';
-            if(type === 'rol') initRol();
-        }
-
-        /* LÓGICA ROL */
-        const SIZE = 10;
-        let player = { x: 1, y: 1, hp: 10, gold: 0 };
-        let grid = [
-            [1,1,1,1,1,1,1,1,1,1],[1,0,0,1,5,0,0,2,0,1],[1,0,1,1,0,1,1,1,0,1],[1,2,0,0,0,0,3,1,0,1],
-            [1,1,1,1,1,0,1,1,5,1],[1,5,0,2,1,0,0,0,0,1],[1,0,1,0,1,1,1,4,1,1],[1,3,1,0,0,0,1,0,0,1],
-            [1,0,0,0,5,0,1,0,6,1],[1,1,1,1,1,1,1,1,1,1]
-        ];
-        const ENTITIES = { 2:{n:"Goblin",h:2,a:1,i:'👹'}, 3:{n:"Esqueleto",h:3,a:2,i:'💀'}, 4:{n:"Orco",h:5,a:3,i:'👺'}, 5:{n:"Cofre",g:50,i:'💰'}, 6:{n:"Lord Brujo",h:12,a:4,i:'🧙‍♂️'} };
-
-        function initRol() { renderRol(); }
-
-        function renderRol() {
-            const board = document.getElementById('board-rol');
-            board.innerHTML = '';
-            for (let y = 0; y < SIZE; y++) {
-                for (let x = 0; x < SIZE; x++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell';
-                    const dist = Math.hypot(x - player.x, y - player.y);
-                    if (dist > 2.2) cell.classList.add('hidden');
-                    if (grid[y][x] === 1) cell.classList.add('wall');
-                    if (x === player.x && y === player.y) cell.innerText = '🛡️';
-                    else if (ENTITIES[grid[y][x]]) cell.innerText = ENTITIES[grid[y][x]].i;
-                    board.appendChild(cell);
-                }
-            }
-            document.getElementById('hp').innerText = player.hp;
-            document.getElementById('gold').innerText = player.gold;
-        }
-
-        function moveRol(dx, dy) {
-            let nX = player.x + dx, nY = player.y + dy;
-            if (grid[nY][nX] === 1) return;
-            const t = grid[nY][nX];
-            if (ENTITIES[t]) {
-                const e = ENTITIES[t];
-                if (t === 5) { player.gold += e.g; grid[nY][nX] = 0; player.x = nX; player.y = nY; }
-                else {
-                    e.h -= 2;
-                    if (e.h <= 0) { grid[nY][nX] = 0; player.x = nX; player.y = nY; if(t===6) alert("¡VICTORIA!"); }
-                    else { player.hp -= e.a; if(player.hp <= 0) { alert("Caíste..."); location.reload(); } }
-                }
-            } else { player.x = nX; player.y = nY; }
-            renderRol();
-        }
+        const v = document.getElementById('vid'), sG = document.getElementById('audGota'), aL = document.getElementById('audLatido'), bD = document.getElementById('btnD');
+        let audioIniciado = false;
+        function activarFondo() { if (!audioIniciado) { aL.play().catch(() => {}); audioIniciado = true; } }
+        function toggleGota(ver) { v.style.opacity = ver ? "1" : "0"; if(ver) { v.play(); sG.play().catch(() => {}); } else { v.pause(); } }
+        bD.onmouseenter = () => toggleGota(true);
+        bD.onmouseleave = () => toggleGota(false);
+        bD.ontouchstart = (e) => { e.preventDefault(); toggleGota(true); };
+        bD.ontouchend = () => toggleGota(false);
     </script>
 </body>
 </html>
