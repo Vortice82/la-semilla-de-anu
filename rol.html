@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HeroQuest - La Semilla de Anu</title>
+    <style>
+        :root {
+            --bg: #0d0a07;
+            --accent: #d4bc8c;
+            --wall: #3d2b1f;
+            --floor: #1a1612;
+            --text: #e8dcc4;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            touch-action: manipulation;
+        }
+
+        #game-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: 15px;
+        }
+
+        #stats {
+            display: flex;
+            justify-content: space-around;
+            background: #1a1612;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid var(--accent);
+            font-weight: bold;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 2px;
+            background: #000;
+            border: 3px solid var(--wall);
+            aspect-ratio: 1 / 1;
+            width: 100%;
+        }
+
+        .cell {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            background-color: var(--floor);
+        }
+
+        .wall { background-color: var(--wall); }
+        .hidden { background-color: #000 !important; color: transparent; }
+
+        #controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+            justify-items: center;
+        }
+
+        .btn {
+            width: 65px;
+            height: 65px;
+            background: #2a2a2a;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .btn:active { background: var(--accent); color: #000; }
+
+        #log {
+            margin-top: 15px;
+            background: #000;
+            padding: 10px;
+            height: 70px;
+            overflow-y: auto;
+            font-size: 0.85rem;
+            border-left: 3px solid var(--accent);
+            color: #aaa;
+        }
+
+        .btn-volver {
+            margin-top: 20px;
+            background: none;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <header><h3>LABERINTO DE ANU</h3></header>
+
+    <div id="stats">
+        <span>❤️ <span id="hp">10</span></span>
+        <span>💰 <span id="gold">0</span></span>
+    </div>
+
+    <div id="board"></div>
+    <div id="log">Explora las sombras...</div>
+
+    <div id="controls">
+        <div style="grid-column: 2" class="btn" onclick="move(0, -1)">▲</div>
+        <div style="grid-column: 1" class="btn" onclick="move(-1, 0)">◀</div>
+        <div style="grid-column: 2" class="btn" onclick="move(0, 1)">▼</div>
+        <div style="grid-column: 3" class="btn" onclick="move(1, 0)">▶</div>
+    </div>
+
+    <center><a href="index.html" class="btn-volver">VOLVER AL TEMPLO</a></center>
+</div>
+
+<script>
+    const SIZE = 10;
+    const boardEl = document.getElementById('board');
+    let player = { x: 1, y: 1, hp: 10, gold: 0 };
+    
+    // El mapa de la mazmorra
+    let grid = [
+        [1,1,1,1,1,1,1,1,1,1],[1,0,0,1,5,0,0,2,0,1],[1,0,1,1,0,1,1,1,0,1],[1,2,0,0,0,0,3,1,0,1],
+        [1,1,1,1,1,0,1,1,5,1],[1,5,0,2,1,0,0,0,0,1],[1,0,1,0,1,1,1,4,1,1],[1,3,1,0,0,0,1,0,0,1],
+        [1,0,0,0,5,0,1,0,6,1],[1,1,1,1,1,1,1,1,1,1]
+    ];
+
+    const ENTITIES = {
+        2: { name: "Goblin", hp: 2, atk: 1, icon: '👹' },
+        3: { name: "Esqueleto", hp: 3, atk: 2, icon: '💀' },
+        4: { name: "Orco", hp: 5, atk: 3, icon: '👺' },
+        5: { name: "Cofre", gold: 50, icon: '💰' },
+        6: { name: "Lord Brujo", hp: 12, atk: 4, icon: '🧙‍♂️' }
+    };
+
+    function render() {
+        boardEl.innerHTML = '';
+        for (let y = 0; y < SIZE; y++) {
+            for (let x = 0; x < SIZE; x++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                const dist = Math.hypot(x - player.x, y - player.y);
+                if (dist > 2.2) cell.classList.add('hidden');
+                if (grid[y][x] === 1) cell.classList.add('wall');
+                if (x === player.x && y === player.y) cell.innerText = '🛡️';
+                else if (ENTITIES[grid[y][x]]) cell.innerText = ENTITIES[grid[y][x]].icon;
+                boardEl.appendChild(cell);
+            }
+        }
+        document.getElementById('hp').innerText = player.hp;
+        document.getElementById('gold').innerText = player.gold;
+    }
+
+    function move(dx, dy) {
+        let nX = player.x + dx, nY = player.y + dy;
+        if (grid[nY][nX] === 1) return;
+        
+        const target = grid[nY][nX];
+        if (ENTITIES[target]) {
+            let e = ENTITIES[target];
+            if (target === 5) {
+                player.gold += e.gold;
+                document.getElementById('log').innerText = "¡Oro encontrado!";
+                grid[nY][nX] = 0; player.x = nX; player.y = nY;
+            } else {
+                e.hp -= 2;
+                if (e.hp <= 0) {
+                    document.getElementById('log').innerText = "Enemigo derrotado";
+                    grid[nY][nX] = 0; player.x = nX; player.y = nY;
+                } else {
+                    player.hp -= e.atk;
+                    document.getElementById('log').innerText = "Combate: -" + e.atk + " vida";
+                    if (player.hp <= 0) { alert("Caíste en combate"); location.reload(); }
+                }
+            }
+        } else { player.x = nX; player.y = nY; }
+        render();
+    }
+
+    render();
+</script>
+</body>
+</html>
