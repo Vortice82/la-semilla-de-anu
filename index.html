@@ -78,14 +78,14 @@
         .grid-autores { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; list-style: none; }
         .grid-autores li { padding: 8px; color: #e8dcc4; border-bottom: 1px solid #2a2a2a; font-size: 0.85rem; }
 
-        /* MENÚ INTERNO ANUNAKIS */
-        .menu-anunaki-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .menu-anunaki-grid a { 
+        /* MENÚ INTERNO ANUNAKIS Y GAMES */
+        .menu-anunaki-grid, .menu-games-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .menu-anunaki-grid a, .menu-games-grid a { 
             display: block; padding: 15px; border: 1.5px solid #d4bc8c; color: #e8dcc4; 
             text-decoration: none; text-align: center; border-radius: 4px; font-weight: bold; font-size: 0.9rem;
             background: rgba(212, 188, 140, 0.05); transition: 0.3s;
         }
-        .menu-anunaki-grid a:hover { background: #d4bc8c; color: #000; }
+        .menu-anunaki-grid a:hover, .menu-games-grid a:hover { background: #d4bc8c; color: #000; }
 
         /* SECCIÓN VENTA */
         .seccion-venta { width: 90%; max-width: 1000px; padding: 60px 20px; text-align: center; }
@@ -117,7 +117,7 @@
         <audio id="audGota" src="sonido.mp3"></audio>
         
         <nav class="botones-capa">
-            <a href="juego.html" class="btn-invisible btn-col-izq btn-arcade">Arcade</a>
+            <div class="btn-invisible btn-col-izq btn-arcade" onclick="abrirModal('modalGames')">Games</div>
             <div class="btn-invisible btn-col-izq btn-otros" onclick="abrirModal('modalOtros')">Otros Mundos</div>
             <div class="btn-invisible btn-col-izq btn-anunakis" onclick="abrirAnunakis()">Anunakis</div>
 
@@ -127,6 +127,17 @@
             <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-col-der btn-instagram" target="_blank">Instagram</a>
             <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-col-der btn-youtube" target="_blank">YouTube</a>
         </nav>
+    </div>
+
+    <div id="modalGames" class="modal-base">
+        <div class="modal-box">
+            <span class="close-x" onclick="cerrarModales()">&times;</span>
+            <h2 style="text-align:center; color:#d4bc8c">Games</h2>
+            <div class="menu-games-grid">
+                <a href="juego.html">Arcade</a>
+                <a href="rol.html">Rol</a>
+            </div>
+        </div>
     </div>
 
     <div id="modalAnunakis" class="modal-base">
@@ -191,7 +202,10 @@
 
         function iniciarLatido() { if (!iniciado) { latido.play().catch(() => {}); iniciado = true; } }
         function abrirAnunakis() { gota.currentTime = 0; gota.play().catch(() => {}); abrirModal('modalAnunakis'); }
-        function abrirModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function abrirModal(id) { 
+            gota.currentTime = 0; gota.play().catch(() => {});
+            document.getElementById(id).style.display = 'flex'; 
+        }
         function cerrarModales() { document.querySelectorAll('.modal-base').forEach(m => m.style.display = 'none'); }
         window.onclick = (e) => { if (e.target.className === 'modal-base') cerrarModales(); }
     </script>
