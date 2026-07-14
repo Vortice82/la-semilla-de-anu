@@ -57,24 +57,19 @@
             position: absolute; display: flex; align-items: center; justify-content: center; 
             text-decoration: none; font-weight: 800; font-size: clamp(0.5rem, 1.8vw, 0.9rem); 
             text-transform: uppercase; border-radius: 4px; text-align: center; width: 25%; height: 7.2%; 
-            transition: all 0.2s ease; box-shadow: inset 0 0 10px rgba(0,0,0,0.5) { }; cursor: pointer;
+            transition: all 0.2s ease; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); cursor: pointer;
         }
         .btn-col-izq { left: 8%; color: #fff; }
         .btn-col-der { left: 67%; color: #fff; }
         
-        /* Columna Izquierda */
         .btn-arcade { top: 32%; background: rgba(80, 20, 20, 0.95); border: 1.5px solid #ff6666; } 
         .btn-otros { top: 40%; background: #2a2a2a; border: 1.5px solid #d4bc8c; color: #d4bc8c !important; }
         .btn-anunakis { top: 48%; background: rgba(20, 40, 80, 0.95); border: 2px solid #66aaff; }
         .btn-contacto-izq { top: 56%; background: #0044ff; border: 2px solid #00ffff; }
 
-        /* Columna Derecha */
         .btn-comprar { 
-            top: 32%; 
-            background: linear-gradient(145deg, #ffd700, #b8860b); 
-            color: #000 !important; 
-            border: 2px solid #fff; 
-            font-weight: 900; 
+            top: 32%; background: linear-gradient(145deg, #ffd700, #b8860b); 
+            color: #000 !important; border: 2px solid #fff; font-weight: 900; 
             animation: latidoGlow 2s infinite;
         }
         @keyframes latidoGlow {
@@ -100,7 +95,6 @@
         }
         .menu-anunaki-grid a:hover, .menu-games-grid a:hover { background: #d4bc8c; color: #000; }
 
-        /* SECCIÓN VENTA Y OTROS */
         .scroll-lista { max-height: 50vh; overflow-y: auto; margin-top: 15px; }
         .grid-autores { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; list-style: none; }
         .grid-autores li { padding: 8px; color: #e8dcc4; border-bottom: 1px solid #2a2a2a; font-size: 0.85rem; }
@@ -123,8 +117,8 @@
     <h1 class="seo-title">La Semilla de Anu</h1>
 
     <div class="templo-master">
-        <img src="portada-movil.jpeg" class="background-design img-movil">
-        <img src="portada-pc.jpeg" class="background-design img-pc">
+        <img src="portada-movil.jpeg" class="background-design img-movil" alt="Portada Móvil">
+        <img src="portada-pc.jpeg" class="background-design img-pc" alt="Portada PC">
         <div class="gota-efecto"></div>
         <div class="onda-efecto"></div>
         
@@ -133,29 +127,18 @@
         
         <nav class="botones-capa">
             <div class="btn-invisible btn-col-izq btn-arcade" onclick="abrirModal('modalGames')">Games</div>
-            <div id="modalGames" class="modal-base">
-        <div class="modal-box">
-            <span class="close-x" onclick="cerrarModales()">&times;</span>
-            <h2 style="text-align:center; color:#d4bc8c">Games</h2>
-            <div class="menu-games-grid">
-                <a href="juego.html">Arcade</a>
-                <a href="rol.html">Rol</a>
-                <a href="tablillas.html">Tablillas</a>
-            </div>
-        </div>
-    </div>
             <div class="btn-invisible btn-col-izq btn-otros" onclick="abrirModal('modalOtros')">Otros Mundos</div>
             <div class="btn-invisible btn-col-izq btn-anunakis" onclick="abrirAnunakis()">Anunakis</div>
             <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-col-izq btn-contacto-izq">Mensaje</a>
 
             <a href="https://www.exlibric.com/author/david-robles-asuncion/" class="btn-invisible btn-col-der btn-comprar" target="_blank">Comprar</a>
-            
             <a href="https://www.tiktok.com/@vorticeverde82" class="btn-invisible btn-col-der btn-tiktok" target="_blank">TikTok</a>
             <a href="https://www.instagram.com/vorticeverde82/" class="btn-invisible btn-col-der btn-instagram" target="_blank">Instagram</a>
             <a href="https://www.youtube.com/@DRobles82" class="btn-invisible btn-col-der btn-youtube" target="_blank">YouTube</a>
         </nav>
     </div>
 
+    <!-- MODALES -->
     <div id="modalGames" class="modal-base">
         <div class="modal-box">
             <span class="close-x" onclick="cerrarModales()">&times;</span>
@@ -163,6 +146,7 @@
             <div class="menu-games-grid">
                 <a href="juego.html">Arcade</a>
                 <a href="rol.html">Rol</a>
+                <a href="tablillas.html">Tablillas</a>
             </div>
         </div>
     </div>
