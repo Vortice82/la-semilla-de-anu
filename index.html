@@ -29,20 +29,12 @@
         /* PORTADA */
         .templo-master { 
             position: relative; width: 95%; max-width: 1200px; border: 3px solid #3d2b1f; 
-            background: #000; overflow: hidden; line-height: 0; border-radius: 8px;
+            background: #1a1612; overflow: hidden; border-radius: 8px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.9);
-            -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-            will-change: transform;
         }
         
         .background-design { 
             width: 100%; height: auto; display: block; position: relative; z-index: 2; 
-            min-height: 1px;
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
         }
 
         .img-pc { display: none; }
@@ -122,7 +114,7 @@
         }
         .menu-anunaki-grid a:hover, .menu-games-grid a:hover, .menu-redes-grid a:hover { background: #d4bc8c; color: #000; }
 
-        /* ESTILOS DEL MURO GLOBAL CONECTADO */
+        /* ESTILOS DEL MURO GLOBAL */
         .modal-extraterrestre .modal-box {
             background: linear-gradient(135deg, #08120e, #141a16);
             border: 2px solid #00ffcc;
@@ -221,8 +213,10 @@
     <h1 class="seo-title">La Semilla de Anu</h1>
 
     <div class="templo-master">
-        <img src="portada-movil.jpeg" class="background-design img-movil" alt="Portada Móvil">
-        <img src="portada-pc.jpeg" class="background-design img-pc" alt="Portada PC">
+        <!-- Imágenes con sistemas de respaldo automático (onerror) por si la extensión o mayúsculas varían en el servidor -->
+        <img src="portada-movil.jpeg" class="background-design img-movil" alt="Portada Móvil" onerror="this.src='portada-movil.jpg'">
+        <img src="portada-pc.jpeg" class="background-design img-pc" alt="Portada PC" onerror="this.src='portada-pc.jpg'">
+        
         <div class="gota-efecto"></div>
         <div class="onda-efecto"></div>
         
@@ -292,7 +286,7 @@
             </form>
 
             <div id="listaMuro" class="muro-comentarios-lista">
-                <p style="text-align:center; color:#00ffcc; font-size:0.8rem; margin-top:10px;">Sintonizando con el cosmos...</p>
+                <p style="text-align:center; color:#00ffcc; font-size:0.8rem; margin-top:10px;">Sintonizando tablillas estelares...</p>
             </div>
         </div>
     </div>
@@ -356,55 +350,27 @@
         function cerrarModales() { document.querySelectorAll('.modal-base').forEach(m => m.style.display = 'none'); }
         window.onclick = (e) => { if (e.target.className === 'modal-base') cerrarModales(); }
 
-        // SISTEMA DE MURO GLOBAL USANDO API PÚBLICA (JSONBin Cloud)
-        const BIN_ID = "6704bfaead19ca34f8a84628"; // Contenedor público compartido para la web
-        const API_KEY = "$2a$10$Z3L68x4vX5W9sV0f9rQe7.9xY7k2uLhZ5Q5vJ6h3X5f8K9J5m4S3q"; // Llave de lectura pública
-
-        async function cargarComentariosGlobales() {
+        function cargarComentariosGlobales() {
             const lista = document.getElementById('listaMuro');
-            lista.innerHTML = '<p style="text-align:center; color:#00ffcc; font-size:0.8rem; margin-top:10px;">Sintonizando tablillas estelares...</p>';
+            let comentariosLocales = JSON.parse(localStorage.getItem('muro_global_real') || '[]');
+            let html = '';
             
-            try {
-                let respuesta = await fetch(`https://api.jsonbin.io/v3/b/674d85faacd3cb34a8b12345/latest`, {
-                    headers: { 'X-Master-Key': '$2a$10$ExemploKeyPublicaParaLecturaCompartidaDePruebaTemporalParaEvitarBloqueosDeCORSYPermitirMuroPublicol' }
+            if(comentariosLocales.length > 0) {
+                comentariosLocales.forEach(c => {
+                    html += `
+                        <div class="comentario-item">
+                            <div class="comentario-autor">${escapeHtml(c.autor)} <span style="font-weight:normal; font-size:0.75rem; color:#888; float:right;">${c.fecha}</span></div>
+                            <div class="comentario-texto">${escapeHtml(c.texto)}</div>
+                        </div>
+                    `;
                 });
-                
-                // Si la red directa falla por restricciones del navegador, usamos un respaldo automático respaldado en caché compartida global o JSONStorage alternativo:
-                recuperarRespaldoGlobal(lista);
-            } catch (err) {
-                recuperarRespaldoGlobal(lista);
             }
-        }
 
-        function recuperarRespaldoGlobal(lista) {
-            // Sistema de sincronización mediante base de datos pública compartida gratuita de respaldo
-            fetch('https://dummyjson.com/comments?limit=5')
-                .then(res => res.json())
-                .then(data => {
-                    let comentariosLocales = JSON.parse(localStorage.getItem('muro_global_real') || '[]');
-                    let html = '';
-                    
-                    // Mostrar primero los que el usuario y otros hayan escrito en este navegador
-                    if(comentariosLocales.length > 0) {
-                        comentariosLocales.forEach(c => {
-                            html += `
-                                <div class="comentario-item">
-                                    <div class="comentario-autor">${escapeHtml(c.autor)} <span style="font-weight:normal; font-size:0.75rem; color:#888; float:right;">${c.fecha}</span></div>
-                                    <div class="comentario-texto">${escapeHtml(c.texto)}</div>
-                                </div>
-                            `;
-                        });
-                    }
-
-                    if(html === '') {
-                        lista.innerHTML = '<p style="text-align:center; color:#888; font-size:0.8rem; margin-top:10px;">El muro está abierto. ¡Escribe la primera tablilla oficial!</p>';
-                    } else {
-                        lista.innerHTML = html;
-                    }
-                })
-                .catch(() => {
-                    lista.innerHTML = '<p style="text-align:center; color:#ff6666; font-size:0.8rem;">Error de conexión estelar. Inténtalo de nuevo.</p>';
-                });
+            if(html === '') {
+                lista.innerHTML = '<p style="text-align:center; color:#888; font-size:0.8rem; margin-top:10px;">El muro está abierto. ¡Escribe la primera tablilla oficial!</p>';
+            } else {
+                lista.innerHTML = html;
+            }
         }
 
         function publicarComentarioGlobal(e) {
@@ -429,7 +395,7 @@
                 btn.disabled = false;
                 
                 cargarComentariosGlobales();
-            }, 600);
+            }, 400);
         }
 
         function escapeHtml(text) {
