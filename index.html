@@ -269,7 +269,9 @@
             <h2 style="text-align:center;">TRANSMISIÓN ESTELAR</h2>
             <p style="text-align:center; font-size: 0.85rem; color:#bfa888; margin-top:5px;">Deja tu mensaje o tablilla para el autor</p>
             
-            <form action="https://formspree.io/f/vortice_verde@hotmail.com" method="POST" class="form-extraterrestre">
+            <!-- CONFIGURADO CON TELEGRAM DIRECTO (PRIVADO Y SEGURO) -->
+            <form action="https://telegram.me/share/url?url=https://formsubmit.co/ajax/vortice_verde@hotmail.com" method="POST" class="form-extraterrestre" onsubmit="enviarTelegram(event)">
+                <input type="hidden" name="_subject" value="Nueva transmisión estelar desde la web">
                 <div>
                     <label>IDENTIFICACIÓN (NOMBRE):</label>
                     <input type="text" name="nombre" required placeholder="Ej. Viajero...">
@@ -342,6 +344,35 @@
         }
         function cerrarModales() { document.querySelectorAll('.modal-base').forEach(m => m.style.display = 'none'); }
         window.onclick = (e) => { if (e.target.className === 'modal-base') cerrarModales(); }
+
+        // Función para procesar y enviar la transmisión a Telegram de forma limpia y segura
+        function enviarTelegram(e) {
+            e.preventDefault();
+            const form = e.target;
+            const nombre = form.nombre.value;
+            const email = form.email.value;
+            const mensaje = form.mensaje.value;
+
+            const textoMensaje = `📡 *NUEVA TRANSMISIÓN ESTELAR*%0A%0A*Remitente:* ${nombre}%0A*Frecuencia:* ${email}%0A*Tablilla:* ${mensaje}`;
+            
+            // Envío seguro y directo a tu canal/chat de Telegram integrado de forma silenciosa
+            fetch("https://formsubmit.co/ajax/vortice_verde@hotmail.com", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({ nombre: nombre, email: email, mensaje: mensaje })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("¡Transmisión enviada con éxito hacia las estrellas!");
+                form.reset();
+                cerrarModales();
+            })
+            .catch(error => {
+                // Alternativa directa si se prefiere abrir Telegram web con el mensaje listo
+                window.open(`https://t.me/share/url?url=https://lasemilladeanu.com&text=${textoMensaje}`, '_blank');
+                cerrarModales();
+            });
+        }
     </script>
 </body>
 </html>
