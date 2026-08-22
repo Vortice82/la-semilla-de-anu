@@ -126,50 +126,45 @@
         }
         .menu-anunaki-grid a:hover, .menu-games-grid a:hover, .menu-redes-grid a:hover { background: #d4bc8c; color: #000; }
 
-        /* ESTILOS DEL PANEL EXTRATERRESTRE / COMENTARIOS */
+        /* ESTILOS DEL MURO DE COMENTARIOS */
         .modal-extraterrestre .modal-box {
             background: linear-gradient(135deg, #08120e, #141a16);
             border: 2px solid #00ffcc;
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
         }
         .modal-extraterrestre h2 {
             color: #00ffcc !important;
             text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
             letter-spacing: 2px;
         }
-        .form-extraterrestre {
+        .form-muro {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 10px;
+            margin-top: 15px;
         }
-        .form-extraterrestre label {
-            font-size: 0.85rem;
-            color: #00ffcc;
-            letter-spacing: 1px;
-            font-weight: bold;
-        }
-        .form-extraterrestre input, 
-        .form-extraterrestre textarea {
+        .form-muro input, .form-muro textarea {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background: rgba(0, 0, 0, 0.6);
             border: 1px solid #00ffcc;
             border-radius: 4px;
             color: #e8dcc4;
             font-family: inherit;
-            resize: vertical;
+            font-size: 0.9rem;
         }
-        .form-extraterrestre input:focus, 
-        .form-extraterrestre textarea:focus {
+        .form-muro input:focus, .form-muro textarea:focus {
             outline: none;
             box-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
         }
-        .btn-enviar-transmision {
+        .btn-publicar {
             background: #00ffcc;
             color: #050a08;
             border: none;
-            padding: 12px;
+            padding: 10px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -177,9 +172,35 @@
             cursor: pointer;
             transition: 0.3s;
         }
-        .btn-enviar-transmision:hover {
+        .btn-publicar:hover {
             background: #fff;
             box-shadow: 0 0 15px #fff;
+        }
+        .muro-comentarios-lista {
+            margin-top: 15px;
+            max-height: 40vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-right: 5px;
+        }
+        .comentario-item {
+            background: rgba(0, 255, 204, 0.05);
+            border-left: 3px solid #00ffcc;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .comentario-autor {
+            font-weight: bold;
+            color: #00ffcc;
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+        }
+        .comentario-texto {
+            font-size: 0.85rem;
+            color: #e8dcc4;
+            word-break: break-word;
         }
 
         .scroll-lista { max-height: 50vh; overflow-y: auto; margin-top: 15px; }
@@ -262,30 +283,22 @@
         </div>
     </div>
 
-    <!-- MODAL CONTACTO / PANEL EXTRATERRESTRE -->
+    <!-- MODAL CONTACTO / MURO PÚBLICO DE COMENTARIOS -->
     <div id="modalContacto" class="modal-base modal-extraterrestre">
         <div class="modal-box">
             <span class="close-x" onclick="cerrarModales()">&times;</span>
-            <h2 style="text-align:center;">TRANSMISIÓN ESTELAR</h2>
-            <p style="text-align:center; font-size: 0.85rem; color:#bfa888; margin-top:5px;">Deja tu mensaje o tablilla para el autor</p>
+            <h2 style="text-align:center;">MURO DE TRANSMISIONES</h2>
+            <p style="text-align:center; font-size: 0.80rem; color:#bfa888; margin-top:3px;">Deja tu tablilla pública para otros viajeros</p>
             
-            <!-- CONFIGURADO CON TELEGRAM DIRECTO (PRIVADO Y SEGURO) -->
-            <form action="https://telegram.me/share/url?url=https://formsubmit.co/ajax/vortice_verde@hotmail.com" method="POST" class="form-extraterrestre" onsubmit="enviarTelegram(event)">
-                <input type="hidden" name="_subject" value="Nueva transmisión estelar desde la web">
-                <div>
-                    <label>IDENTIFICACIÓN (NOMBRE):</label>
-                    <input type="text" name="nombre" required placeholder="Ej. Viajero...">
-                </div>
-                <div>
-                    <label>FRECUENCIA (CORREO):</label>
-                    <input type="email" name="email" required placeholder="tu@correo.com">
-                </div>
-                <div>
-                    <label>MENSAJE / TABLILLA:</label>
-                    <textarea name="mensaje" rows="4" required placeholder="Escribe tus impresiones..."></textarea>
-                </div>
-                <button type="submit" class="btn-enviar-transmision">Transmitir Mensaje</button>
+            <form onsubmit="publicarComentario(event)" class="form-muro">
+                <input type="text" id="autorComentario" required placeholder="Tu nombre o alias..." maxlength="30">
+                <textarea id="textoComentario" rows="2" required placeholder="Escribe tu mensaje en el muro..." maxlength="200"></textarea>
+                <button type="submit" class="btn-publicar">Dejar Tablilla</button>
             </form>
+
+            <div id="listaMuro" class="muro-comentarios-lista">
+                <!-- Aquí aparecerán los comentarios publicados -->
+            </div>
         </div>
     </div>
 
@@ -341,37 +354,52 @@
         function abrirModal(id) { 
             gota.currentTime = 0; gota.play().catch(() => {});
             document.getElementById(id).style.display = 'flex'; 
+            cargarComentarios();
         }
         function cerrarModales() { document.querySelectorAll('.modal-base').forEach(m => m.style.display = 'none'); }
         window.onclick = (e) => { if (e.target.className === 'modal-base') cerrarModales(); }
 
-        // Función para procesar y enviar la transmisión a Telegram de forma limpia y segura
-        function enviarTelegram(e) {
+        // SISTEMA DE MURO PÚBLICO LOCAL
+        function publicarComentario(e) {
             e.preventDefault();
-            const form = e.target;
-            const nombre = form.nombre.value;
-            const email = form.email.value;
-            const mensaje = form.mensaje.value;
-
-            const textoMensaje = `📡 *NUEVA TRANSMISIÓN ESTELAR*%0A%0A*Remitente:* ${nombre}%0A*Frecuencia:* ${email}%0A*Tablilla:* ${mensaje}`;
+            const autor = document.getElementById('autorComentario').value.trim();
+            const texto = document.getElementById('textoComentario').value.trim();
             
-            // Envío seguro y directo a tu canal/chat de Telegram integrado de forma silenciosa
-            fetch("https://formsubmit.co/ajax/vortice_verde@hotmail.com", {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({ nombre: nombre, email: email, mensaje: mensaje })
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert("¡Transmisión enviada con éxito hacia las estrellas!");
-                form.reset();
-                cerrarModales();
-            })
-            .catch(error => {
-                // Alternativa directa si se prefiere abrir Telegram web con el mensaje listo
-                window.open(`https://t.me/share/url?url=https://lasemilladeanu.com&text=${textoMensaje}`, '_blank');
-                cerrarModales();
+            if(!autor || !texto) return;
+
+            let comentarios = JSON.parse(localStorage.getItem('muro_anunaki') || '[]');
+            comentarios.unshift({ autor, texto, fecha: new Date().toLocaleDateString() });
+            
+            localStorage.setItem('muro_anunaki', JSON.stringify(comentarios));
+            
+            document.getElementById('autorComentario').value = '';
+            document.getElementById('textoComentario').value = '';
+            cargarComentarios();
+        }
+
+        function cargarComentarios() {
+            const lista = document.getElementById('listaMuro');
+            let comentarios = JSON.parse(localStorage.getItem('muro_anunaki') || '[]');
+            
+            if(comentarios.length === 0) {
+                lista.innerHTML = '<p style="text-align:center; color:#777; font-size:0.8rem; margin-top:10px;">Aún no hay tablillas grabadas. ¡Sé el primer viajero en escribir!</p>';
+                return;
+            }
+
+            let html = '';
+            comentarios.forEach(c => {
+                html += `
+                    <div class="comentario-item">
+                        <div class="comentario-autor">${escapeHtml(c.autor)} <span style="font-weight:normal; font-size:0.75rem; color:#888; float:right;">${c.fecha}</span></div>
+                        <div class="comentario-texto">${escapeHtml(c.texto)}</div>
+                    </div>
+                `;
             });
+            lista.innerHTML = html;
+        }
+
+        function escaparHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
     </script>
 </body>
