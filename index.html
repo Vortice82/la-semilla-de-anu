@@ -213,9 +213,9 @@
     <h1 class="seo-title">La Semilla de Anu</h1>
 
     <div class="templo-master">
-        <!-- Imágenes con sistemas de respaldo automático (onerror) por si la extensión o mayúsculas varían en el servidor -->
-        <img src="portada-movil.jpeg" class="background-design img-movil" alt="Portada Móvil" onerror="this.src='portada-movil.jpg'">
-        <img src="portada-pc.jpeg" class="background-design img-pc" alt="Portada PC" onerror="this.src='portada-pc.jpg'">
+        <!-- Solución aplicada: Usamos la misma imagen funcional del PC también para móvil para evitar errores de ruta -->
+        <img src="portada-pc.jpeg?v=2" class="background-design img-movil" alt="Portada Móvil">
+        <img src="portada-pc.jpeg?v=2" class="background-design img-pc" alt="Portada PC">
         
         <div class="gota-efecto"></div>
         <div class="onda-efecto"></div>
