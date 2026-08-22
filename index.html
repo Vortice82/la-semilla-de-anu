@@ -79,7 +79,21 @@
         .btn-arcade { top: 32%; background: rgba(80, 20, 20, 0.95); border: 1.5px solid #ff6666; } 
         .btn-otros { top: 40%; background: #2a2a2a; border: 1.5px solid #d4bc8c; color: #d4bc8c !important; }
         .btn-anunakis { top: 48%; background: rgba(20, 40, 80, 0.95); border: 2px solid #66aaff; }
-        .btn-contacto-izq { top: 56%; background: #0044ff; border: 2px solid #00ffff; }
+        
+        /* NUEVO BOTÓN CONTACTA */
+        .btn-contacta { 
+            top: 56%; 
+            background: linear-gradient(145deg, #0a5c36, #04321c); 
+            border: 2px solid #00ffcc; 
+            color: #00ffcc !important; 
+            font-weight: 900;
+            animation: latidoVerde 2.5s infinite;
+        }
+        @keyframes latidoVerde {
+            0% { transform: scale(1); box-shadow: 0 0 5px rgba(0,255,204,0.3); }
+            50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(0,255,204,0.7); }
+            100% { transform: scale(1); box-shadow: 0 0 5px rgba(0,255,204,0.3); }
+        }
 
         .btn-comprar { 
             top: 32%; background: linear-gradient(145deg, #ffd700, #b8860b); 
@@ -111,6 +125,62 @@
             background: rgba(212, 188, 140, 0.05); transition: 0.3s;
         }
         .menu-anunaki-grid a:hover, .menu-games-grid a:hover, .menu-redes-grid a:hover { background: #d4bc8c; color: #000; }
+
+        /* ESTILOS DEL PANEL EXTRATERRESTRE / COMENTARIOS */
+        .modal-extraterrestre .modal-box {
+            background: linear-gradient(135deg, #08120e, #141a16);
+            border: 2px solid #00ffcc;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+        }
+        .modal-extraterrestre h2 {
+            color: #00ffcc !important;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+            letter-spacing: 2px;
+        }
+        .form-extraterrestre {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .form-extraterrestre label {
+            font-size: 0.85rem;
+            color: #00ffcc;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        .form-extraterrestre input, 
+        .form-extraterrestre textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #00ffcc;
+            border-radius: 4px;
+            color: #e8dcc4;
+            font-family: inherit;
+            resize: vertical;
+        }
+        .form-extraterrestre input:focus, 
+        .form-extraterrestre textarea:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
+        }
+        .btn-enviar-transmision {
+            background: #00ffcc;
+            color: #050a08;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-enviar-transmision:hover {
+            background: #fff;
+            box-shadow: 0 0 15px #fff;
+        }
 
         .scroll-lista { max-height: 50vh; overflow-y: auto; margin-top: 15px; }
         .grid-autores { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; list-style: none; }
@@ -146,7 +216,7 @@
             <div class="btn-invisible btn-col-izq btn-arcade" onclick="abrirModal('modalGames')">Games</div>
             <div class="btn-invisible btn-col-izq btn-otros" onclick="abrirModal('modalOtros')">Otros Mundos</div>
             <div class="btn-invisible btn-col-izq btn-anunakis" onclick="abrirAnunakis()">Anunakis</div>
-            <a href="mailto:vortice_verde@hotmail.com" class="btn-invisible btn-col-izq btn-contacto-izq">Mensaje</a>
+            <div class="btn-invisible btn-col-izq btn-contacta" onclick="abrirModal('modalContacto')">Contacta</div>
 
             <a href="https://www.exlibric.com/author/david-robles-asuncion/" class="btn-invisible btn-col-der btn-comprar" target="_blank">Comprar</a>
             <div class="btn-invisible btn-col-der btn-redes" onclick="abrirModal('modalRedes')">Like & Comparte</div>
@@ -189,6 +259,31 @@
                 <a href="https://www.instagram.com/vorticeverde82/" target="_blank">Instagram</a>
                 <a href="https://www.youtube.com/@DRobles82" target="_blank">YouTube</a>
             </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONTACTO / PANEL EXTRATERRESTRE -->
+    <div id="modalContacto" class="modal-base modal-extraterrestre">
+        <div class="modal-box">
+            <span class="close-x" onclick="cerrarModales()">&times;</span>
+            <h2 style="text-align:center;">TRANSMISIÓN ESTELAR</h2>
+            <p style="text-align:center; font-size: 0.85rem; color:#bfa888; margin-top:5px;">Deja tu mensaje o tablilla para el autor</p>
+            
+            <form action="https://formspree.io/f/vortice_verde@hotmail.com" method="POST" class="form-extraterrestre">
+                <div>
+                    <label>IDENTIFICACIÓN (NOMBRE):</label>
+                    <input type="text" name="nombre" required placeholder="Ej. Viajero...">
+                </div>
+                <div>
+                    <label>FRECUENCIA (CORREO):</label>
+                    <input type="email" name="email" required placeholder="tu@correo.com">
+                </div>
+                <div>
+                    <label>MENSAJE / TABLILLA:</label>
+                    <textarea name="mensaje" rows="4" required placeholder="Escribe tus impresiones..."></textarea>
+                </div>
+                <button type="submit" class="btn-enviar-transmision">Transmitir Mensaje</button>
+            </form>
         </div>
     </div>
 
