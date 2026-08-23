@@ -243,15 +243,14 @@
         </div>
     </div>
 
-    <!-- MODAL CONTACTO / ENVÍO DIRECTO A EMAIL -->
+    <!-- MODAL CONTACTO / CONECTADO A FORMSPREE -->
     <div id="modalContacto" class="modal-base modal-extraterrestre">
         <div class="modal-box">
             <span class="close-x" onclick="cerrarModales()">&times;</span>
             <h2 style="text-align:center;">CONTACTA CON EL AUTOR</h2>
             <p style="text-align:center; font-size: 0.80rem; color:#00ffcc; margin-top:3px;">Tu mensaje llegará directamente al correo</p>
             
-            <!-- Formulario conectado a Formspree (Sustituye TU_ID_DE_FORMSPREE por tu código real gratuito cuando te registres en formspree.io) -->
-            <form action="https://formspree.io/f/TU_ID_DE_FORMSPREE" method="POST" class="form-muro" id="formContactoDirecto">
+            <form action="https://formspree.io/f/xgawbpyd" method="POST" class="form-muro" id="formContactoDirecto">
                 <input type="text" name="nombre" required placeholder="Tu nombre o alias..." maxlength="30">
                 <input type="email" name="email" required placeholder="Tu correo electrónico...">
                 <textarea name="mensaje" rows="3" required placeholder="Escribe tu mensaje..." maxlength="300"></textarea>
@@ -295,7 +294,7 @@
 
     <footer class="footer-final">
         <div style="margin-bottom: 40px;">
-            <h2 style="letter-spacing: 4px; color:#d4bc8c;">LA SEMILLA DE ANU: VOLUMEN 1 y 2</h2>
+            <h2 style="letter-spacing: 4px; color:#d4bc8c;">LA SEMILLA DE ANU: VOLUMEN 1 Y 2</h2>
             <p style="letter-spacing: 6px; font-weight: bold;">DAVID ROBLES ASUNCIÓN</p>
         </div>
         <div class="seo-hidden">
@@ -317,7 +316,6 @@
         function cerrarModales() { document.querySelectorAll('.modal-base').forEach(m => m.style.display = 'none'); }
         window.onclick = (e) => { if (e.target.className === 'modal-base') cerrarModales(); }
 
-        // Envío asíncrono para que no abra ninguna aplicación de correo externa
         const form = document.getElementById('formContactoDirecto');
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
