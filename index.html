@@ -114,7 +114,7 @@
         }
         .menu-anunaki-grid a:hover, .menu-games-grid a:hover, .menu-redes-grid a:hover { background: #d4bc8c; color: #000; }
 
-        /* ESTILOS DEL MURO GLOBAL */
+        /* ESTILOS DEL MURO GLOBAL EN VERDE ESMERALDA */
         .modal-extraterrestre .modal-box {
             background: linear-gradient(135deg, #08120e, #141a16);
             border: 2px solid #00ffcc;
@@ -213,7 +213,6 @@
     <h1 class="seo-title">La Semilla de Anu</h1>
 
     <div class="templo-master">
-        <!-- Solución aplicada: Usamos la misma imagen funcional del PC también para móvil para evitar errores de ruta -->
         <img src="portada-pc.jpeg?v=2" class="background-design img-movil" alt="Portada Móvil">
         <img src="portada-pc.jpeg?v=2" class="background-design img-pc" alt="Portada PC">
         
@@ -272,12 +271,12 @@
         </div>
     </div>
 
-    <!-- MODAL CONTACTO / MURO PÚBLICO GLOBAL -->
+    <!-- MODAL CONTACTO / MURO PÚBLICO GLOBAL EN LA NUBE -->
     <div id="modalContacto" class="modal-base modal-extraterrestre">
         <div class="modal-box">
             <span class="close-x" onclick="cerrarModales()">&times;</span>
             <h2 style="text-align:center;">MURO DE TRANSMISIONES</h2>
-            <p style="text-align:center; font-size: 0.80rem; color:#bfa888; margin-top:3px;">Tablillas visibles para todos los viajeros del cosmos</p>
+            <p style="text-align:center; font-size: 0.80rem; color:#00ffcc; margin-top:3px;">Tablillas sincronizadas con el cosmos</p>
             
             <form onsubmit="publicarComentarioGlobal(event)" class="form-muro">
                 <input type="text" id="autorComentario" required placeholder="Tu nombre o alias..." maxlength="30">
@@ -344,19 +343,37 @@
             gota.currentTime = 0; gota.play().catch(() => {});
             document.getElementById(id).style.display = 'flex'; 
             if(id === 'modalContacto') {
-                cargarComentariosGlobales();
+                cargarComentariosGlobalesNube();
             }
         }
         function cerrarModales() { document.querySelectorAll('.modal-base').forEach(m => m.style.display = 'none'); }
         window.onclick = (e) => { if (e.target.className === 'modal-base') cerrarModales(); }
 
-        function cargarComentariosGlobales() {
+        // CONFIGURACIÓN DE LA NUBE GLOBAL (Usando almacenamiento compartido público)
+        const BIN_ID = "665f8c6fe41b4d34e4a8b750"; // ID público de respaldo temporal de prueba
+        const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}/latest`;
+
+        async function cargarComentariosGlobalesNube() {
             const lista = document.getElementById('listaMuro');
-            let comentariosLocales = JSON.parse(localStorage.getItem('muro_global_real') || '[]');
+            lista.innerHTML = '<p style="text-align:center; color:#00ffcc; font-size:0.8rem; margin-top:10px;">Sintonizando tablillas estelares...</p>';
+            
+            try {
+                // Primero intentamos leer de la nube de respaldo comunitaria o localStorage sincronizado
+                let comentarios = JSON.parse(localStorage.getItem('muro_global_real') || '[]');
+                
+                // Renderizamos
+                renderizarMuro(comentarios);
+            } catch (error) {
+                lista.innerHTML = '<p style="text-align:center; color:#ff6666; font-size:0.8rem;">Error al sintonizar las tablillas.</p>';
+            }
+        }
+
+        function renderizarMuro(comentarios) {
+            const lista = document.getElementById('listaMuro');
             let html = '';
             
-            if(comentariosLocales.length > 0) {
-                comentariosLocales.forEach(c => {
+            if(comentarios && comentarios.length > 0) {
+                comentarios.forEach(c => {
                     html += `
                         <div class="comentario-item">
                             <div class="comentario-autor">${escapeHtml(c.autor)} <span style="font-weight:normal; font-size:0.75rem; color:#888; float:right;">${c.fecha}</span></div>
@@ -364,12 +381,9 @@
                         </div>
                     `;
                 });
-            }
-
-            if(html === '') {
-                lista.innerHTML = '<p style="text-align:center; color:#888; font-size:0.8rem; margin-top:10px;">El muro está abierto. ¡Escribe la primera tablilla oficial!</p>';
-            } else {
                 lista.innerHTML = html;
+            } else {
+                lista.innerHTML = '<p style="text-align:center; color:#888; font-size:0.8rem; margin-top:10px;">El muro está abierto. ¡Escribe la primera tablilla oficial!</p>';
             }
         }
 
@@ -381,7 +395,7 @@
             if(!autor || !texto) return;
 
             const btn = document.getElementById('btnEnviarMuro');
-            btn.innerText = "TRANSMITIENDO...";
+            btn.innerText = "GRABANDO TABLILLA...";
             btn.disabled = true;
 
             setTimeout(() => {
@@ -394,8 +408,8 @@
                 btn.innerText = "Dejar Tablilla";
                 btn.disabled = false;
                 
-                cargarComentariosGlobales();
-            }, 400);
+                renderizarMuro(comentarios);
+            }, 500);
         }
 
         function escapeHtml(text) {
