@@ -243,20 +243,25 @@
         </div>
     </div>
 
-    <!-- MODAL CONTACTO / CONECTADO A FORMSPREE -->
+    <!-- MODAL CONTACTO / CONECTADO A FORMSPREE CON IFRAME OCULTO -->
     <div id="modalContacto" class="modal-base modal-extraterrestre">
         <div class="modal-box">
             <span class="close-x" onclick="cerrarModales()">&times;</span>
             <h2 style="text-align:center;">CONTACTA CON EL AUTOR</h2>
             <p style="text-align:center; font-size: 0.80rem; color:#00ffcc; margin-top:3px;">Tu mensaje llegará directamente al correo</p>
             
-            <form action="https://formspree.io/f/xgawbpyd" method="POST" class="form-muro" id="formContactoDirecto">
+            <form action="https://formspree.io/f/xgawbpyd" method="POST" class="form-muro" id="formContactoDirecto" target="hidden_iframe" onsubmit="enviadoFormulario()">
                 <input type="text" name="nombre" required placeholder="Tu nombre o alias..." maxlength="30">
                 <input type="email" name="email" required placeholder="Tu correo electrónico...">
                 <textarea name="mensaje" rows="3" required placeholder="Escribe tu mensaje..." maxlength="300"></textarea>
                 <button type="submit" id="btnEnviarEmail" class="btn-publicar">Enviar Mensaje</button>
             </form>
-            <div id="respuestaEnvio" style="display:none; text-align:center; color:#00ffcc; margin-top:15px; font-weight:bold;"></div>
+            
+            <div id="respuestaEnvio" style="display:none; text-align:center; color:#00ffcc; margin-top:15px; font-weight:bold;">
+                ¡Mensaje transmitido con éxito! Te responderé pronto.
+            </div>
+            
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
         </div>
     </div>
 
@@ -316,38 +321,20 @@
         function cerrarModales() { document.querySelectorAll('.modal-base').forEach(m => m.style.display = 'none'); }
         window.onclick = (e) => { if (e.target.className === 'modal-base') cerrarModales(); }
 
-        const form = document.getElementById('formContactoDirecto');
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
+        function enviadoFormulario() {
             const btn = document.getElementById('btnEnviarEmail');
+            const form = document.getElementById('formContactoDirecto');
             const respuesta = document.getElementById('respuestaEnvio');
             
             btn.innerText = "ENVIANDO...";
             btn.disabled = true;
 
-            const data = new FormData(form);
-            try {
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: data,
-                    headers: { 'Accept': 'application/json' }
-                });
-                if (response.ok) {
-                    form.reset();
-                    form.style.display = 'none';
-                    respuesta.style.display = 'block';
-                    respuesta.innerHTML = "¡Mensaje transmitido con éxito! Te responderé pronto.";
-                } else {
-                    btn.innerText = "ENVIAR MENSAJE";
-                    btn.disabled = false;
-                    alert("Hubo un error al enviar. Por favor, inténtalo de nuevo.");
-                }
-            } catch (error) {
-                btn.innerText = "ENVIAR MENSAJE";
-                btn.disabled = false;
-                alert("Error de conexión.");
-            }
-        });
+            setTimeout(() => {
+                form.reset();
+                form.style.display = 'none';
+                respuesta.style.display = 'block';
+            }, 800);
+        }
     </script>
 </body>
 </html>
