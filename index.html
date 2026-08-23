@@ -114,14 +114,12 @@
         }
         .menu-anunaki-grid a:hover, .menu-games-grid a:hover, .menu-redes-grid a:hover { background: #d4bc8c; color: #000; }
 
-        /* ESTILOS DEL MURO GLOBAL EN VERDE ESMERALDA */
+        /* ESTILOS DEL MODAL DE CONTACTO EN VERDE ESMERALDA */
         .modal-extraterrestre .modal-box {
             background: linear-gradient(135deg, #08120e, #141a16);
             border: 2px solid #00ffcc;
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
+            max-width: 480px;
         }
         .modal-extraterrestre h2 {
             color: #00ffcc !important;
@@ -131,18 +129,18 @@
         .form-muro {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 12px;
+            margin-top: 20px;
         }
         .form-muro input, .form-muro textarea {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background: rgba(0, 0, 0, 0.6);
             border: 1px solid #00ffcc;
             border-radius: 4px;
             color: #e8dcc4;
             font-family: inherit;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
         .form-muro input:focus, .form-muro textarea:focus {
             outline: none;
@@ -152,7 +150,7 @@
             background: #00ffcc;
             color: #050a08;
             border: none;
-            padding: 10px;
+            padding: 12px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -163,32 +161,6 @@
         .btn-publicar:hover {
             background: #fff;
             box-shadow: 0 0 15px #fff;
-        }
-        .muro-comentarios-lista {
-            margin-top: 15px;
-            max-height: 35vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            padding-right: 5px;
-        }
-        .comentario-item {
-            background: rgba(0, 255, 204, 0.05);
-            border-left: 3px solid #00ffcc;
-            padding: 10px;
-            border-radius: 4px;
-        }
-        .comentario-autor {
-            font-weight: bold;
-            color: #00ffcc;
-            font-size: 0.85rem;
-            margin-bottom: 3px;
-        }
-        .comentario-texto {
-            font-size: 0.85rem;
-            color: #e8dcc4;
-            word-break: break-word;
         }
 
         .scroll-lista { max-height: 50vh; overflow-y: auto; margin-top: 15px; }
@@ -271,22 +243,21 @@
         </div>
     </div>
 
-    <!-- MODAL CONTACTO / MURO PÚBLICO GLOBAL EN LA NUBE -->
+    <!-- MODAL CONTACTO / ENVÍO DIRECTO A EMAIL -->
     <div id="modalContacto" class="modal-base modal-extraterrestre">
         <div class="modal-box">
             <span class="close-x" onclick="cerrarModales()">&times;</span>
-            <h2 style="text-align:center;">MURO DE TRANSMISIONES</h2>
-            <p style="text-align:center; font-size: 0.80rem; color:#00ffcc; margin-top:3px;">Tablillas sincronizadas con el cosmos</p>
+            <h2 style="text-align:center;">CONTACTA CON EL AUTOR</h2>
+            <p style="text-align:center; font-size: 0.80rem; color:#00ffcc; margin-top:3px;">Tu mensaje llegará directamente al correo</p>
             
-            <form onsubmit="publicarComentarioGlobal(event)" class="form-muro">
-                <input type="text" id="autorComentario" required placeholder="Tu nombre o alias..." maxlength="30">
-                <textarea id="textoComentario" rows="2" required placeholder="Escribe tu mensaje en el muro..." maxlength="200"></textarea>
-                <button type="submit" id="btnEnviarMuro" class="btn-publicar">Dejar Tablilla</button>
+            <!-- Formulario conectado a Formspree (Sustituye TU_ID_DE_FORMSPREE por tu código real gratuito cuando te registres en formspree.io) -->
+            <form action="https://formspree.io/f/TU_ID_DE_FORMSPREE" method="POST" class="form-muro" id="formContactoDirecto">
+                <input type="text" name="nombre" required placeholder="Tu nombre o alias..." maxlength="30">
+                <input type="email" name="email" required placeholder="Tu correo electrónico...">
+                <textarea name="mensaje" rows="3" required placeholder="Escribe tu mensaje..." maxlength="300"></textarea>
+                <button type="submit" id="btnEnviarEmail" class="btn-publicar">Enviar Mensaje</button>
             </form>
-
-            <div id="listaMuro" class="muro-comentarios-lista">
-                <p style="text-align:center; color:#00ffcc; font-size:0.8rem; margin-top:10px;">Sintonizando tablillas estelares...</p>
-            </div>
+            <div id="respuestaEnvio" style="display:none; text-align:center; color:#00ffcc; margin-top:15px; font-weight:bold;"></div>
         </div>
     </div>
 
@@ -324,7 +295,7 @@
 
     <footer class="footer-final">
         <div style="margin-bottom: 40px;">
-            <h2 style="letter-spacing: 4px; color:#d4bc8c;">LA SEMILLA DE ANU: VOLUMEN 1 Y 2</h2>
+            <h2 style="letter-spacing: 4px; color:#d4bc8c;">LA SEMILLA DE ANU: VOLUMEN 1 y 2</h2>
             <p style="letter-spacing: 6px; font-weight: bold;">DAVID ROBLES ASUNCIÓN</p>
         </div>
         <div class="seo-hidden">
@@ -342,79 +313,43 @@
         function abrirModal(id) { 
             gota.currentTime = 0; gota.play().catch(() => {});
             document.getElementById(id).style.display = 'flex'; 
-            if(id === 'modalContacto') {
-                cargarComentariosGlobalesNube();
-            }
         }
         function cerrarModales() { document.querySelectorAll('.modal-base').forEach(m => m.style.display = 'none'); }
         window.onclick = (e) => { if (e.target.className === 'modal-base') cerrarModales(); }
 
-        // CONFIGURACIÓN DE LA NUBE GLOBAL (Usando almacenamiento compartido público)
-        const BIN_ID = "665f8c6fe41b4d34e4a8b750"; // ID público de respaldo temporal de prueba
-        const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}/latest`;
-
-        async function cargarComentariosGlobalesNube() {
-            const lista = document.getElementById('listaMuro');
-            lista.innerHTML = '<p style="text-align:center; color:#00ffcc; font-size:0.8rem; margin-top:10px;">Sintonizando tablillas estelares...</p>';
-            
-            try {
-                // Primero intentamos leer de la nube de respaldo comunitaria o localStorage sincronizado
-                let comentarios = JSON.parse(localStorage.getItem('muro_global_real') || '[]');
-                
-                // Renderizamos
-                renderizarMuro(comentarios);
-            } catch (error) {
-                lista.innerHTML = '<p style="text-align:center; color:#ff6666; font-size:0.8rem;">Error al sintonizar las tablillas.</p>';
-            }
-        }
-
-        function renderizarMuro(comentarios) {
-            const lista = document.getElementById('listaMuro');
-            let html = '';
-            
-            if(comentarios && comentarios.length > 0) {
-                comentarios.forEach(c => {
-                    html += `
-                        <div class="comentario-item">
-                            <div class="comentario-autor">${escapeHtml(c.autor)} <span style="font-weight:normal; font-size:0.75rem; color:#888; float:right;">${c.fecha}</span></div>
-                            <div class="comentario-texto">${escapeHtml(c.texto)}</div>
-                        </div>
-                    `;
-                });
-                lista.innerHTML = html;
-            } else {
-                lista.innerHTML = '<p style="text-align:center; color:#888; font-size:0.8rem; margin-top:10px;">El muro está abierto. ¡Escribe la primera tablilla oficial!</p>';
-            }
-        }
-
-        function publicarComentarioGlobal(e) {
+        // Envío asíncrono para que no abra ninguna aplicación de correo externa
+        const form = document.getElementById('formContactoDirecto');
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
-            const autor = document.getElementById('autorComentario').value.trim();
-            const texto = document.getElementById('textoComentario').value.trim();
+            const btn = document.getElementById('btnEnviarEmail');
+            const respuesta = document.getElementById('respuestaEnvio');
             
-            if(!autor || !texto) return;
-
-            const btn = document.getElementById('btnEnviarMuro');
-            btn.innerText = "GRABANDO TABLILLA...";
+            btn.innerText = "ENVIANDO...";
             btn.disabled = true;
 
-            setTimeout(() => {
-                let comentarios = JSON.parse(localStorage.getItem('muro_global_real') || '[]');
-                comentarios.unshift({ autor, texto, fecha: new Date().toLocaleDateString() });
-                localStorage.setItem('muro_global_real', JSON.stringify(comentarios));
-
-                document.getElementById('autorComentario').value = '';
-                document.getElementById('textoComentario').value = '';
-                btn.innerText = "Dejar Tablilla";
+            const data = new FormData(form);
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (response.ok) {
+                    form.reset();
+                    form.style.display = 'none';
+                    respuesta.style.display = 'block';
+                    respuesta.innerHTML = "¡Mensaje transmitido con éxito! Te responderé pronto.";
+                } else {
+                    btn.innerText = "ENVIAR MENSAJE";
+                    btn.disabled = false;
+                    alert("Hubo un error al enviar. Por favor, inténtalo de nuevo.");
+                }
+            } catch (error) {
+                btn.innerText = "ENVIAR MENSAJE";
                 btn.disabled = false;
-                
-                renderizarMuro(comentarios);
-            }, 500);
-        }
-
-        function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        }
+                alert("Error de conexión.");
+            }
+        });
     </script>
 </body>
 </html>
