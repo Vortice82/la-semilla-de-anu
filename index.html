@@ -163,6 +163,71 @@
             box-shadow: 0 0 15px #fff;
         }
 
+        /* ANIMACIÓN PIXEL ART OVNI CON SOBRE */
+        .contenedor-animacion-ovni {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 10px;
+            text-align: center;
+            position: relative;
+            height: 200px;
+        }
+        .ovni-pixel-arte {
+            width: 80px;
+            height: 45px;
+            position: relative;
+            animation: flotarOvni 1.5s infinite ease-in-out alternate;
+        }
+        /* Dibujo pixel art del OVNI y el rayo mediante CSS Box-Shadow */
+        .ovni-pixel-arte::before {
+            content: '';
+            position: absolute;
+            top: 15px; left: 15px;
+            width: 6px; height: 6px;
+            background: #00ffcc;
+            box-shadow: 
+                6px 0 0 #00ffcc, 12px 0 0 #00ffcc, 18px 0 0 #00ffcc, 24px 0 0 #00ffcc, 30px 0 0 #00ffcc, 36px 0 0 #00ffcc,
+                -6px 6px 0 #888, 0 6px 0 #888, 6px 6px 0 #fff, 12px 6px 0 #fff, 18px 6px 0 #fff, 24px 6px 0 #fff, 30px 6px 0 #fff, 36px 6px 0 #fff, 42px 6px 0 #888,
+                -18px 12px 0 #333, -12px 12px 0 #00ffcc, -6px 12px 0 #333, 0 12px 0 #333, 6px 12px 0 #00ffcc, 12px 12px 0 #333, 18px 12px 0 #333, 24px 12px 0 #00ffcc, 30px 12px 0 #333, 36px 12px 0 #333, 42px 12px 0 #00ffcc, 48px 12px 0 #333, 54px 12px 0 #333,
+                -12px 18px 0 #333, -6px 18px 0 #333, 0 18px 0 #333, 6px 18px 0 #333, 12px 18px 0 #333, 18px 18px 0 #333, 24px 18px 0 #333, 30px 18px 0 #333, 36px 18px 0 #333, 42px 18px 0 #333, 48px 18px 0 #333;
+        }
+        /* Rayo tractor y sobre flotando dentro */
+        .rayo-tractor {
+            position: absolute;
+            top: 40px;
+            left: 25px;
+            width: 30px;
+            height: 70px;
+            background: linear-gradient(to bottom, rgba(0,255,204,0.6), rgba(0,255,204,0.05));
+            clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+            animation: parpadeoRayo 0.8s infinite alternate;
+        }
+        .sobre-volando {
+            position: absolute;
+            bottom: 10px;
+            left: 33px;
+            width: 14px;
+            height: 10px;
+            background: #e8dcc4;
+            border: 1px solid #00ffcc;
+            animation: subirSobre 2s infinite linear;
+        }
+        @keyframes flotarOvni {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-10px); }
+        }
+        @keyframes subirSobre {
+            0% { transform: translateY(30px) scale(0.6); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-30px) scale(1.1); opacity: 0; }
+        }
+        @keyframes parpadeoRayo {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.9; }
+        }
+
         .scroll-lista { max-height: 50vh; overflow-y: auto; margin-top: 15px; }
         .grid-autores { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; list-style: none; }
         .grid-autores li { padding: 8px; color: #e8dcc4; border-bottom: 1px solid #2a2a2a; font-size: 0.85rem; }
@@ -243,7 +308,7 @@
         </div>
     </div>
 
-    <!-- MODAL CONTACTO / CONECTADO A FORMSPREE CON IFRAME OCULTO -->
+    <!-- MODAL CONTACTO CON ANIMACIÓN DE OVNI Y SOBRE -->
     <div id="modalContacto" class="modal-base modal-extraterrestre">
         <div class="modal-box">
             <span class="close-x" onclick="cerrarModales()">&times;</span>
@@ -257,8 +322,19 @@
                 <button type="submit" id="btnEnviarEmail" class="btn-publicar">Enviar Mensaje</button>
             </form>
             
-            <div id="respuestaEnvio" style="display:none; text-align:center; color:#00ffcc; margin-top:15px; font-weight:bold;">
-                ¡Mensaje transmitido con éxito! Te responderé pronto.
+            <!-- Animación del OVNI llevándose el sobre (aparece al enviar) -->
+            <div id="bloqueAnimacionOvni" class="contenedor-animacion-ovni">
+                <div class="ovni-pixel-arte">
+                    <div class="rayo-tractor"></div>
+                    <div class="sobre-volando"></div>
+                </div>
+                <div style="color:#00ffcc; font-weight:bold; font-size:0.9rem; margin-top:15px; letter-spacing: 1px;">
+                    ¡TRANSMITIENDO A LA NAVE MADRE...
+                </div>
+            </div>
+
+            <div id="respuestaEnvio" style="display:none; text-align:center; color:#00ffcc; margin-top:10px; font-weight:bold; font-size: 0.95rem;">
+                ¡Mensaje abducido con éxito! Te responderé pronto.
             </div>
             
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
@@ -299,7 +375,7 @@
 
     <footer class="footer-final">
         <div style="margin-bottom: 40px;">
-            <h2 style="letter-spacing: 4px; color:#d4bc8c;">LA SEMILLA DE ANU: VOLUMEN 1 Y 2</h2>
+            <h2 style="letter-spacing: 4px; color:#d4bc8c;">LA SEMILLA DE ANU: VOLUMEN 1 y 2</h2>
             <p style="letter-spacing: 6px; font-weight: bold;">DAVID ROBLES ASUNCIÓN</p>
         </div>
         <div class="seo-hidden">
@@ -318,22 +394,31 @@
             gota.currentTime = 0; gota.play().catch(() => {});
             document.getElementById(id).style.display = 'flex'; 
         }
-        function cerrarModales() { document.querySelectorAll('.modal-base').forEach(m => m.style.display = 'none'); }
+        function cerrarModales() { 
+            document.querySelectorAll('.modal-base').forEach(m => m.style.display = 'none'); 
+            // Reiniciar el formulario de contacto al cerrar por si acaso
+            document.getElementById('formContactoDirecto').style.display = 'flex';
+            document.getElementById('bloqueAnimacionOvni').style.display = 'none';
+            document.getElementById('respuestaEnvio').style.display = 'none';
+            document.getElementById('btnEnviarEmail').innerText = "Enviar Mensaje";
+            document.getElementById('btnEnviarEmail').disabled = false;
+        }
         window.onclick = (e) => { if (e.target.className === 'modal-base') cerrarModales(); }
 
         function enviadoFormulario() {
-            const btn = document.getElementById('btnEnviarEmail');
             const form = document.getElementById('formContactoDirecto');
+            const animacionOvni = document.getElementById('bloqueAnimacionOvni');
             const respuesta = document.getElementById('respuestaEnvio');
             
-            btn.innerText = "ENVIANDO...";
-            btn.disabled = true;
+            // Ocultamos el formulario y mostramos la animación del platillo con el sobre
+            form.style.display = 'none';
+            animacionOvni.style.display = 'flex';
 
+            // Tras unos segundos, cambiamos la animación por el mensaje final de éxito
             setTimeout(() => {
-                form.reset();
-                form.style.display = 'none';
+                animacionOvni.style.display = 'none';
                 respuesta.style.display = 'block';
-            }, 800);
+            }, 2500);
         }
     </script>
 </body>
