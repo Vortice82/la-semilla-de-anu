@@ -31,6 +31,7 @@
             position: relative; width: 95%; max-width: 1200px; border: 3px solid #3d2b1f; 
             background: #1a1612; overflow: hidden; border-radius: 8px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            min-height: 300px;
         }
         
         .background-design { 
@@ -133,3 +134,53 @@
         }
         .form-muro {
             display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .form-muro input, .form-muro textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #00ffcc;
+            border-radius: 4px;
+            color: #e8dcc4;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+        .form-muro input:focus, .form-muro textarea:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
+        }
+        .btn-publicar {
+            background: #00ffcc;
+            color: #050a08;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-publicar:hover {
+            background: #fff;
+            box-shadow: 0 0 15px #fff;
+        }
+
+        .scroll-lista { max-height: 50vh; overflow-y: auto; margin-top: 15px; }
+        .grid-autores { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; list-style: none; }
+        .grid-autores li { padding: 8px; color: #e8dcc4; border-bottom: 1px solid #2a2a2a; font-size: 0.85rem; }
+
+        .seccion-venta { width: 90%; max-width: 1000px; padding: 60px 20px; text-align: center; }
+        .mapa-img { width: 100%; max-width: 850px; border: 2px solid #3d2b1f; margin-bottom: 30px; border-radius: 4px; }
+        .lista-paises { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; list-style: none; margin: 20px 0; color: #d4bc8c; font-weight: bold; }
+        .lista-paises li { background: rgba(212, 188, 140, 0.1); padding: 5px 15px; border-radius: 20px; border: 1px solid #3d2b1f; }
+
+        .contenedor-ofrenda { padding: 40px 0; display: flex; justify-content: center; width: 100%; }
+        .btn-paypal-ofrenda { background: none; border: none; cursor: pointer; max-width: 220px; }
+        .btn-paypal-ofrenda img { width: 100%; border-radius: 15px; }
+
+        .footer-final { padding: 40px 20px 80px 20px; text-align: center; border-top: 1px solid #3d2b1f; width: 100%; }
+        .
