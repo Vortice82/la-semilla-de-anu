@@ -1,340 +1,679 @@
 <!DOCTYPE html>
+
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
     <title>La Semilla de Anu - David Robles Asunción</title>
 
+
+
     <style>
+
         /* RESET Y BASE */
+
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
         
+
         body { 
+
             background-color: #0d0a07; 
+
             color: #e8dcc4; 
+
             font-family: 'Segoe UI', 'Cambria', serif; 
+
             display: flex; 
+
             flex-direction: column; 
+
             align-items: center; 
+
             min-height: 100vh; 
+
             overflow-x: hidden;
+
         }
+
+
 
         .seo-title { 
+
             color: #d4bc8c; padding: 40px 15px; font-size: clamp(1.5rem, 5vw, 2.5rem); 
+
             text-transform: uppercase; text-align: center; letter-spacing: 6px; width: 100%;
+
             text-shadow: 0 0 15px rgba(212, 188, 140, 0.3);
+
         }
+
+
 
         /* PORTADA */
+
         .templo-master { 
+
             position: relative; width: 95%; max-width: 1200px; border: 3px solid #3d2b1f; 
+
             background: #1a1612; overflow: hidden; border-radius: 8px;
+
             box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+
         }
+
         
+
         .background-design { 
+
             width: 100%; height: auto; display: block; position: relative; z-index: 2; 
+
         }
+
+
 
         .img-pc { display: none; }
+
         @media (min-width: 850px) { .img-pc { display: block; } .img-movil { display: none; } }
+
         @media (max-width: 849px) { .img-movil { display: block; } }
 
+
+
         /* GOTA Y ONDA */
+
         .gota-efecto { 
+
             position: absolute; top: -25px; left: 50%; width: 4px; height: 20px; 
+
             background: linear-gradient(to bottom, transparent, #d4bc8c); border-radius: 50%; 
+
             z-index: 6; animation: caerSuelo 4s infinite cubic-bezier(0.4, 0, 1, 1); 
+
         }
+
         .onda-efecto { 
+
             position: absolute; top: 96%; left: 50%; width: 10px; height: 5px; 
+
             border: 1.5px solid rgba(212, 188, 140, 0.5); border-radius: 50%; 
+
             z-index: 6; transform: translate(-50%, -50%); opacity: 0; animation: ondaSuelo 4s infinite; 
+
         }
+
         @keyframes caerSuelo { 0% { top: -25px; opacity: 0; } 10% { opacity: 1; } 85% { top: 96%; opacity: 1; } 90%, 100% { opacity: 0; } }
+
         @keyframes ondaSuelo { 0%, 85% { width: 0; height: 0; opacity: 0; } 86% { opacity: 1; } 100% { width: 400px; height: 100px; opacity: 0; } }
 
+
+
         /* BOTONES PRINCIPALES */
+
         .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
+
         .btn-invisible { 
+
             position: absolute; display: flex; align-items: center; justify-content: center; 
+
             text-decoration: none; font-weight: 800; font-size: clamp(0.5rem, 1.8vw, 0.9rem); 
+
             text-transform: uppercase; border-radius: 4px; text-align: center; width: 25%; height: 7.2%; 
+
             transition: all 0.2s ease; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); cursor: pointer;
+
         }
+
         .btn-col-izq { left: 8%; color: #fff; }
+
         .btn-col-der { left: 67%; color: #fff; }
+
         
+
         .btn-arcade { top: 32%; background: rgba(80, 20, 20, 0.95); border: 1.5px solid #ff6666; } 
+
         .btn-otros { top: 40%; background: #2a2a2a; border: 1.5px solid #d4bc8c; color: #d4bc8c !important; }
+
         .btn-anunakis { top: 48%; background: rgba(20, 40, 80, 0.95); border: 2px solid #66aaff; }
+
         
+
         .btn-contacta { 
+
             top: 56%; 
+
             background: linear-gradient(145deg, #0a5c36, #04321c); 
+
             border: 2px solid #00ffcc; 
+
             color: #00ffcc !important; 
+
             font-weight: 900;
+
             animation: latidoVerde 2.5s infinite;
+
         }
+
         @keyframes latidoVerde {
+
             0% { transform: scale(1); box-shadow: 0 0 5px rgba(0,255,204,0.3); }
+
             50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(0,255,204,0.7); }
+
             100% { transform: scale(1); box-shadow: 0 0 5px rgba(0,255,204,0.3); }
+
         }
+
+
 
         .btn-comprar { 
+
             top: 32%; background: linear-gradient(145deg, #ffd700, #b8860b); 
+
             color: #000 !important; border: 2px solid #fff; font-weight: 900; 
+
             animation: latidoGlow 2s infinite;
+
         }
+
         @keyframes latidoGlow {
+
             0% { transform: scale(1); box-shadow: 0 0 5px #fff; }
+
             50% { transform: scale(1.05); box-shadow: 0 0 20px #ffd700; }
+
             100% { transform: scale(1); box-shadow: 0 0 5px #fff; }
+
         }
+
+
 
         .btn-redes { 
+
             top: 40%; background: rgba(60, 20, 60, 0.95); border: 1.5px solid #d4bc8c; color: #d4bc8c !important; 
+
         }
+
+
 
         /* MODALES */
+
         .modal-base { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center; }
+
         .modal-box { background: #1a1612; border: 2px solid #d4bc8c; width: 90%; max-width: 550px; padding: 25px; border-radius: 12px; position: relative; }
+
         .close-x { position: absolute; top: 10px; right: 20px; color: #d4bc8c; font-size: 30px; cursor: pointer; }
+
         
+
         .menu-anunaki-grid, .menu-games-grid, .menu-redes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+
         .menu-redes-grid { grid-template-columns: 1fr; }
+
         
+
         .menu-anunaki-grid a, .menu-games-grid a, .menu-redes-grid a { 
+
             display: block; padding: 15px; border: 1.5px solid #d4bc8c; color: #e8dcc4; 
+
             text-decoration: none; text-align: center; border-radius: 4px; font-weight: bold; font-size: 0.9rem;
+
             background: rgba(212, 188, 140, 0.05); transition: 0.3s;
+
         }
+
         .menu-anunaki-grid a:hover, .menu-games-grid a:hover, .menu-redes-grid a:hover { background: #d4bc8c; color: #000; }
 
+
+
         /* ESTILOS DEL MODAL DE CONTACTO EN VERDE ESMERALDA */
+
         .modal-extraterrestre .modal-box {
+
             background: linear-gradient(135deg, #08120e, #141a16);
+
             border: 2px solid #00ffcc;
+
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+
             max-width: 480px;
+
         }
+
         .modal-extraterrestre h2 {
+
             color: #00ffcc !important;
+
             text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+
             letter-spacing: 2px;
+
         }
+
         .form-muro {
+
             display: flex;
+
             flex-direction: column;
+
             gap: 12px;
+
             margin-top: 20px;
+
         }
+
         .form-muro input, .form-muro textarea {
+
             width: 100%;
+
             padding: 12px;
+
             background: rgba(0, 0, 0, 0.6);
+
             border: 1px solid #00ffcc;
+
             border-radius: 4px;
+
             color: #e8dcc4;
+
             font-family: inherit;
+
             font-size: 0.95rem;
+
         }
+
         .form-muro input:focus, .form-muro textarea:focus {
+
             outline: none;
+
             box-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
+
         }
+
         .btn-publicar {
+
             background: #00ffcc;
+
             color: #050a08;
+
             border: none;
+
             padding: 12px;
+
             font-weight: bold;
+
             text-transform: uppercase;
+
             letter-spacing: 2px;
+
             border-radius: 4px;
+
             cursor: pointer;
+
             transition: 0.3s;
+
         }
+
         .btn-publicar:hover {
+
             background: #fff;
+
             box-shadow: 0 0 15px #fff;
+
         }
+
+
 
         .scroll-lista { max-height: 50vh; overflow-y: auto; margin-top: 15px; }
+
         .grid-autores { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; list-style: none; }
+
         .grid-autores li { padding: 8px; color: #e8dcc4; border-bottom: 1px solid #2a2a2a; font-size: 0.85rem; }
 
+
+
         .seccion-venta { width: 90%; max-width: 1000px; padding: 60px 20px; text-align: center; }
+
         .mapa-img { width: 100%; max-width: 850px; border: 2px solid #3d2b1f; margin-bottom: 30px; border-radius: 4px; }
+
         .lista-paises { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; list-style: none; margin: 20px 0; color: #d4bc8c; font-weight: bold; }
+
         .lista-paises li { background: rgba(212, 188, 140, 0.1); padding: 5px 15px; border-radius: 20px; border: 1px solid #3d2b1f; }
 
+
+
         .contenedor-ofrenda { padding: 40px 0; display: flex; justify-content: center; width: 100%; }
+
         .btn-paypal-ofrenda { background: none; border: none; cursor: pointer; max-width: 220px; }
+
         .btn-paypal-ofrenda img { width: 100%; border-radius: 15px; }
 
+
+
         .footer-final { padding: 40px 20px 80px 20px; text-align: center; border-top: 1px solid #3d2b1f; width: 100%; }
+
         .seo-hidden { font-size: 0.8rem; color: #444; margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.4; text-align: justify; }
+
     </style>
+
 </head>
+
 <body onclick="iniciarLatido()" ontouchstart="iniciarLatido()">
+
+
 
     <h1 class="seo-title">La Semilla de Anu</h1>
 
+
+
     <div class="templo-master">
+
         <img src="portada-pc.jpeg?v=2" class="background-design img-movil" alt="Portada Móvil">
+
         <img src="portada-pc.jpeg?v=2" class="background-design img-pc" alt="Portada PC">
+
         
+
         <div class="gota-efecto"></div>
+
         <div class="onda-efecto"></div>
+
         
+
         <audio id="audLatido" loop src="latido.mp3"></audio>
+
         <audio id="audGota" src="sonido.mp3"></audio>
+
         
+
         <nav class="botones-capa">
+
             <div class="btn-invisible btn-col-izq btn-arcade" onclick="abrirModal('modalGames')">Games</div>
+
             <div class="btn-invisible btn-col-izq btn-otros" onclick="abrirModal('modalOtros')">Otros Mundos</div>
+
             <div class="btn-invisible btn-col-izq btn-anunakis" onclick="abrirAnunakis()">Anunakis</div>
+
             <div class="btn-invisible btn-col-izq btn-contacta" onclick="abrirModal('modalContacto')">Contacta</div>
 
+
+
             <a href="https://www.exlibric.com/author/david-robles-asuncion/" class="btn-invisible btn-col-der btn-comprar" target="_blank">Comprar</a>
+
             <div class="btn-invisible btn-col-der btn-redes" onclick="abrirModal('modalRedes')">Like & Comparte</div>
+
         </nav>
+
     </div>
+
+
 
     <!-- MODALES -->
+
     <div id="modalGames" class="modal-base">
+
         <div class="modal-box">
+
             <span class="close-x" onclick="cerrarModales()">&times;</span>
+
             <h2 style="text-align:center; color:#d4bc8c">Games</h2>
+
             <div class="menu-games-grid">
+
                 <a href="juego.html">Arcade</a>
+
                 <a href="rol.html">Rol</a>
+
                 <a href="tablillas.html">Tablillas</a>
+
             </div>
+
         </div>
+
     </div>
+
+
 
     <div id="modalAnunakis" class="modal-base">
+
         <div class="modal-box">
+
             <span class="close-x" onclick="cerrarModales()">&times;</span>
+
             <h2 style="text-align:center; color:#d4bc8c">Anunakis</h2>
+
             <div class="menu-anunaki-grid">
+
                 <a href="cuneiforme.html">Escritura</a>
+
                 <a href="aventura.html">Aventura</a>
+
                 <a href="adivinanzas.html">Oráculo</a>
+
                 <a href="destino.html">Destino</a>
+
             </div>
+
         </div>
+
     </div>
+
+
 
     <div id="modalRedes" class="modal-base">
+
         <div class="modal-box">
+
             <span class="close-x" onclick="cerrarModales()">&times;</span>
+
             <h2 style="text-align:center; color:#d4bc8c">Like & Comparte</h2>
+
             <div class="menu-redes-grid">
+
                 <a href="https://www.tiktok.com/@vorticeverde82" target="_blank">TikTok</a>
+
                 <a href="https://www.instagram.com/vorticeverde82/" target="_blank">Instagram</a>
+
                 <a href="https://www.youtube.com/@DRobles82" target="_blank">YouTube</a>
+
             </div>
+
         </div>
+
     </div>
+
+
 
     <!-- MODAL CONTACTO / CONECTADO A FORMSPREE CON IFRAME OCULTO -->
+
     <div id="modalContacto" class="modal-base modal-extraterrestre">
+
         <div class="modal-box">
+
             <span class="close-x" onclick="cerrarModales()">&times;</span>
+
             <h2 style="text-align:center;">CONTACTA CON EL AUTOR</h2>
+
             <p style="text-align:center; font-size: 0.80rem; color:#00ffcc; margin-top:3px;">Tu mensaje llegará directamente al correo</p>
+
             
+
             <form action="https://formspree.io/f/xgawbpyd" method="POST" class="form-muro" id="formContactoDirecto" target="hidden_iframe" onsubmit="enviadoFormulario()">
+
                 <input type="text" name="nombre" required placeholder="Tu nombre o alias..." maxlength="30">
+
                 <input type="email" name="email" required placeholder="Tu correo electrónico...">
+
                 <textarea name="mensaje" rows="3" required placeholder="Escribe tu mensaje..." maxlength="300"></textarea>
+
                 <button type="submit" id="btnEnviarEmail" class="btn-publicar">Enviar Mensaje</button>
+
             </form>
+
             
+
             <div id="respuestaEnvio" style="display:none; text-align:center; color:#00ffcc; margin-top:15px; font-weight:bold;">
+
                 ¡Mensaje transmitido con éxito! Te responderé pronto.
+
             </div>
+
             
+
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
         </div>
+
     </div>
+
+
 
     <div id="modalOtros" class="modal-base">
+
         <div class="modal-box">
+
             <span class="close-x" onclick="cerrarModales()">&times;</span>
+
             <h2 style="text-align:center; color:#d4bc8c">Otros Mundos</h2>
+
             <div class="scroll-lista">
+
                 <ul class="grid-autores">
+
                     <li>Alan y Sally Landsburg</li><li>Alfred Stelter</li><li>Andrew Tomas</li><li>Belline</li><li>Carlo Liberio del Zotti</li><li>Charles berlitz</li><li>Christine Dequerlor</li><li>Cristian Puig</li><li>David Hammond</li><li>Dr. Frederik Koning</li><li>Erich von Daniken</li><li>Francisco Javier Torrent Rodrigo</li><li>Francois Ethuin</li><li>Francois Ribadeau Dumas</li><li>Fulcanelli</li><li>Günter Paul</li><li>Gustavo Domenech</li><li>H.P. Blavatsky</li><li>Hades</li><li>Hans Herlin</li><li>J. Bergier</li><li>J.Garcia Font</li><li>J.J.Benitez</li><li>Jacques Bergier</li><li>Jacques Sadoul</li><li>Jacques. A. Mauduit</li><li>Javier Sierra</li><li>Jean Sendy</li><li>Jean-Charles Pichon</li><li>John G. Fuller</li><li>L. Pauwels</li><li>Leo Talamonti</li><li>Marcel Moreau</li><li>Maurice Chatelain</li><li>Michael Cranger</li><li>Michael-Claude Touchard</li><li>Michel Gauquelin</li><li>Patrice Gaston</li><li>Pedro Guirao</li><li>Peter Kolosimo</li><li>Pierre carnac</li><li>Pierre ceria</li><li>Pierre Duval</li><li>rainer Erler</li><li>Richard Hennig</li><li>Robert Charroux</li><li>Robert Tocquet</li><li>Stuart R.Kaplan</li><li>Victor Colmenarejo</li>
+
                 </ul>
+
             </div>
+
         </div>
+
     </div>
+
+
 
     <div class="contenedor-ofrenda">
+
         <form action="https://www.paypal.com/donate" method="post" target="_top">
+
             <input type="hidden" name="hosted_button_id" value="7M9F87AUJ6T2J" />
+
             <button type="submit" class="btn-paypal-ofrenda">
+
                 <img src="Gemini_Generated_Image_g6d4ytg6d4ytg6d4.jpg" alt="Ofrenda">
+
             </button>
+
         </form>
+
     </div>
 
+
+
     <section class="seccion-venta">
+
         <h2 style="color:#d4bc8c; margin-bottom:20px;">A LA VENTA EN 11 PAÍSES</h2>
+
         <h3 style="margin-bottom:30px; color:#e8dcc4;">"La semilla de Anu: Volumen 1 y 2"</h3>
+
         <img src="mapa.jpg" class="mapa-img" alt="Mapa de puntos de venta">
+
         <ul class="lista-paises">
+
             <li>España</li><li>Portugal</li><li>U.K.</li><li>EE.UU.</li><li>México</li><li>Colombia</li>
+
             <li>Ecuador</li><li>Perú</li><li>Brasil</li><li>Chile</li><li>Uruguay</li><li>Argentina</li>
+
         </ul>
+
         <p style="color:#bfa888; font-style:italic; margin-top:20px;">Disponible en más de 7.000 puntos de venta y las principales librerías internacionales.</p>
+
     </section>
 
+
+
     <footer class="footer-final">
+
         <div style="margin-bottom: 40px;">
+
             <h2 style="letter-spacing: 4px; color:#d4bc8c;">LA SEMILLA DE ANU: VOLUMEN 1 Y 2</h2>
+
             <p style="letter-spacing: 6px; font-weight: bold;">DAVID ROBLES ASUNCIÓN</p>
+
         </div>
+
         <div class="seo-hidden">
+
             <strong>Búsquedas relacionadas:</strong> Anunnaki, Enki, Sumeria, civilizaciones antiguas, misterio, David Robles Asunción, libros de ciencia ficción, mitología sumeria, historia oculta, Planeta Nibiru, extraterrestres, origen de la humanidad, saga, best seller, arqueología prohibida, tablillas cuneiformes, Mesopotamia, enigma, cosmos, espiritualidad. Disponible en Amazon, Barnes & Noble y Casa del Libro.
+
         </div>
+
     </footer>
 
+
+
     <script>
+
         const latido = document.getElementById('audLatido');
+
         const gota = document.getElementById('audGota');
+
         let iniciado = false;
 
+
+
         function iniciarLatido() { if (!iniciado) { latido.play().catch(() => {}); iniciado = true; } }
+
         function abrirAnunakis() { gota.currentTime = 0; gota.play().catch(() => {}); abrirModal('modalAnunakis'); }
+
         function abrirModal(id) { 
+
             gota.currentTime = 0; gota.play().catch(() => {});
+
             document.getElementById(id).style.display = 'flex'; 
+
         }
+
         function cerrarModales() { document.querySelectorAll('.modal-base').forEach(m => m.style.display = 'none'); }
+
         window.onclick = (e) => { if (e.target.className === 'modal-base') cerrarModales(); }
 
+
+
         function enviadoFormulario() {
+
             const btn = document.getElementById('btnEnviarEmail');
+
             const form = document.getElementById('formContactoDirecto');
+
             const respuesta = document.getElementById('respuestaEnvio');
+
             
+
             btn.innerText = "ENVIANDO...";
+
             btn.disabled = true;
 
+
+
             setTimeout(() => {
+
                 form.reset();
+
                 form.style.display = 'none';
+
                 respuesta.style.display = 'block';
+
             }, 800);
+
         }
+
     </script>
+
 </body>
-</html>
+
+</html> 
