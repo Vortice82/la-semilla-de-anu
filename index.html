@@ -2,137 +2,134 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>La Semilla de Anu - David Robles Asunción</title>
+
     <style>
-        /* Estilos base robustos para móvil y PC */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0b0b0e;
-            color: #f0f0f5;
-            text-align: center;
+        /* RESET Y BASE */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            background-color: #0d0a07; 
+            color: #e8dcc4; 
+            font-family: 'Segoe UI', 'Cambria', serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh; 
             overflow-x: hidden;
         }
-        h1 {
-            margin: 20px 0;
-            font-size: 2rem;
+
+        .seo-title { 
+            color: #d4bc8c; padding: 40px 15px; font-size: clamp(1.5rem, 5vw, 2.5rem); 
+            text-transform: uppercase; text-align: center; letter-spacing: 6px; width: 100%;
+            text-shadow: 0 0 15px rgba(212, 188, 140, 0.3);
+        }
+
+        /* PORTADA */
+        .templo-master { 
+            position: relative; width: 95%; max-width: 1200px; border: 3px solid #3d2b1f; 
+            background: #1a1612; overflow: hidden; border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+        }
+        
+        .background-design { 
+            width: 100%; height: auto; position: relative; z-index: 2; 
+        }
+
+        @media (min-width: 850px) { 
+            .img-pc { display: block !important; } 
+            .img-movil { display: none !important; } 
+        }
+        @media (max-width: 849px) { 
+            .img-movil { display: block !important; } 
+            .img-pc { display: none !important; } 
+        }
+
+        /* GOTA Y ONDA */
+        .gota-efecto { 
+            position: absolute; top: -25px; left: 50%; width: 4px; height: 20px; 
+            background: linear-gradient(to bottom, transparent, #d4bc8c); border-radius: 50%; 
+            z-index: 6; animation: caerSuelo 4s infinite cubic-bezier(0.4, 0, 1, 1); 
+        }
+        .onda-efecto { 
+            position: absolute; top: 96%; left: 50%; width: 10px; height: 5px; 
+            border: 1.5px solid rgba(212, 188, 140, 0.5); border-radius: 50%; 
+            z-index: 6; transform: translate(-50%, -50%); opacity: 0; animation: ondaSuelo 4s infinite; 
+        }
+        @keyframes caerSuelo { 0% { top: -25px; opacity: 0; } 10% { opacity: 1; } 85% { top: 96%; opacity: 1; } 90%, 100% { opacity: 0; } }
+        @keyframes ondaSuelo { 0%, 85% { width: 0; height: 0; opacity: 0; } 86% { opacity: 1; } 100% { width: 400px; height: 100px; opacity: 0; } }
+
+        /* BOTONES PRINCIPALES */
+        .botones-capa { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
+        .btn-invisible { 
+            position: absolute; display: flex; align-items: center; justify-content: center; 
+            text-decoration: none; font-weight: 800; font-size: clamp(0.5rem, 1.8vw, 0.9rem); 
+            text-transform: uppercase; border-radius: 4px; text-align: center; width: 25%; height: 7.2%; 
+            transition: all 0.2s ease; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); cursor: pointer;
+        }
+        .btn-col-izq { left: 8%; color: #fff; }
+        .btn-col-der { left: 67%; color: #fff; }
+        
+        .btn-arcade { top: 32%; background: rgba(80, 20, 20, 0.95); border: 1.5px solid #ff6666; } 
+        .btn-otros { top: 40%; background: #2a2a2a; border: 1.5px solid #d4bc8c; color: #d4bc8c !important; }
+        .btn-anunakis { top: 48%; background: rgba(20, 40, 80, 0.95); border: 2px solid #66aaff; }
+        
+        .btn-contacta { 
+            top: 56%; 
+            background: linear-gradient(145deg, #0a5c36, #04321c); 
+            border: 2px solid #00ffcc; 
+            color: #00ffcc !important; 
+            font-weight: 900;
+            animation: latidoVerde 2.5s infinite;
+        }
+        @keyframes latidoVerde {
+            0% { transform: scale(1); box-shadow: 0 0 5px rgba(0,255,204,0.3); }
+            50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(0,255,204,0.7); }
+            100% { transform: scale(1); box-shadow: 0 0 5px rgba(0,255,204,0.3); }
+        }
+
+        .btn-comprar { 
+            top: 32%; background: linear-gradient(145deg, #ffd700, #b8860b); 
+            color: #000 !important; border: 2px solid #fff; font-weight: 900; 
+            animation: latidoGlow 2s infinite;
+        }
+        @keyframes latidoGlow {
+            0% { transform: scale(1); box-shadow: 0 0 5px #fff; }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px #ffd700; }
+            100% { transform: scale(1); box-shadow: 0 0 5px #fff; }
+        }
+
+        .btn-redes { 
+            top: 40%; background: rgba(60, 20, 60, 0.95); border: 1.5px solid #d4bc8c; color: #d4bc8c !important; 
+        }
+
+        /* MODALES */
+        .modal-base { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center; }
+        .modal-box { background: #1a1612; border: 2px solid #d4bc8c; width: 90%; max-width: 550px; padding: 25px; border-radius: 12px; position: relative; }
+        .close-x { position: absolute; top: 10px; right: 20px; color: #d4bc8c; font-size: 30px; cursor: pointer; }
+        
+        .menu-anunaki-grid, .menu-games-grid, .menu-redes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .menu-redes-grid { grid-template-columns: 1fr; }
+        
+        .menu-anunaki-grid a, .menu-games-grid a, .menu-redes-grid a { 
+            display: block; padding: 15px; border: 1.5px solid #d4bc8c; color: #e8dcc4; 
+            text-decoration: none; text-align: center; border-radius: 4px; font-weight: bold; font-size: 0.9rem;
+            background: rgba(212, 188, 140, 0.05); transition: 0.3s;
+        }
+        .menu-anunaki-grid a:hover, .menu-games-grid a:hover, .menu-redes-grid a:hover { background: #d4bc8c; color: #000; }
+
+        /* ESTILOS DEL MODAL DE CONTACTO EN VERDE ESMERALDA */
+        .modal-extraterrestre .modal-box {
+            background: linear-gradient(135deg, #08120e, #141a16);
+            border: 2px solid #00ffcc;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+            max-width: 480px;
+        }
+        .modal-extraterrestre h2 {
+            color: #00ffcc !important;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
             letter-spacing: 2px;
-            color: #d4af37;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px;
-        }
-        /* Imágenes de portada responsivas */
-        .portada-container {
-            position: relative;
-            max-width: 500px;
-            margin: 0 auto 20px auto;
-        }
-        .portada-container img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
-        }
-        /* Ocultar portada móvil en PC y viceversa según pantalla si se desea */
-        .img-movil { display: block; }
-        .img-pc { display: none; }
-        
-        @media (min-width: 768px) {
-            .img-movil { display: none; }
-            .img-pc { display: block; }
-        }
-
-        nav {
+        .form-muro {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 25px 0;
-        }
-        nav div, nav a {
-            background: #1a1a24;
-            color: #d4af37;
-            padding: 12px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-            border: 1px solid #d4af37;
-            transition: all 0.3s ease;
-        }
-        nav div:hover, nav a:hover {
-            background: #d4af37;
-            color: #0b0b0e;
-        }
-        section {
-            margin: 40px 0;
-            padding: 20px;
-            background: #14141d;
-            border-radius: 10px;
-        }
-        section img {
-            max-width: 100%;
-            height: auto;
-            margin-top: 15px;
-            border-radius: 6px;
-        }
-        footer {
-            margin-top: 50px;
-            padding: 20px;
-            background: #060609;
-            font-size: 0.9rem;
-            color: #888;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1>La Semilla de Anu</h1>
-
-        <div class="portada-container">
-            <!-- Imagen optimizada para Móvil -->
-            <img class="img-movil" alt="Portada Móvil - La Semilla de Anu" src="portada-movil.jpeg">
-            <!-- Imagen optimizada para PC -->
-            <img class="img-pc" alt="Portada PC - La Semilla de Anu" src="portada-pc.jpeg">
-        </div>
-        
-        <!-- Audios de ambientación -->
-        <audio loop src="latido.mp3"></audio>
-        <audio src="sonido.mp3"></audio>
-        
-        <nav>
-            <div>Games</div>
-            <div>Otros Mundos</div>
-            <div>Anunakis</div>
-            <div>Contacta</div>
-            <a href="https://www.exlibric.com/author/david-robles-asuncion/" target="_blank">Comprar</a>
-            <div>Like &amp; Comparte</div>
-        </nav>
-    </div>
-
-    <section>
-        <h2>A LA VENTA EN 11 PAÍSES</h2>
-        <h3>"La semilla de Anu: Volumen 1 y 2"</h3>
-        <img alt="Mapa de puntos de venta" src="mapa.jpg">
-        <p style="margin-top: 15px;">Disponible en más de 7.000 puntos de venta y las principales librerías internacionales.</p>
-    </section>
-
-    <footer>
-        <h2>LA SEMILLA DE ANU: VOLUMEN 1 y 2</h2>
-        <p>DAVID ROBLES ASUNCIÓN</p>
-        <p style="margin-top: 10px; font-size: 0.8rem;">
-            <strong>Búsquedas relacionadas:</strong> Anunnaki, Enki, Sumeria, civilizaciones antiguas, misterio, David Robles Asunción, libros de ciencia ficción, mitología sumeria, historia oculta, Planeta Nibiru, extraterrestres, origen de la humanidad, saga, best seller, arqueología prohibida, tablillas cuneiformes, Mesopotamia.
-        </p>
-    </footer>
-
-</body>
-</html>
